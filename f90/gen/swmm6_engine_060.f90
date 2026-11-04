@@ -1318,23 +1318,23 @@ contains
   end select
   end procedure h_as_registrationinfo
 
-  module procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch_0
+  module procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch_false
   zres => null()
   if (.not. associated(x)) return
   select type (x)
-  class is (t_richards__anon_hydrology_richardscolumn_cpp_batch_0)
+  class is (t_richards__anon_hydrology_richardscolumn_cpp_batch_false)
     zres => x
   end select
-  end procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch_0
+  end procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch_false
 
-  module procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch__1
+  module procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch_true
   zres => null()
   if (.not. associated(x)) return
   select type (x)
-  class is (t_richards__anon_hydrology_richardscolumn_cpp_batch__1)
+  class is (t_richards__anon_hydrology_richardscolumn_cpp_batch_true)
     zres => x
   end select
-  end procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch__1
+  end procedure h_as_richards__anon_hydrology_richardscolumn_cpp_batch_true
 
   module procedure h_as_richards__anon_hydrology_richardscolumn_cpp_boundaryrates
   zres => null()
@@ -5522,15 +5522,6 @@ contains
   end select
   end procedure h_uas_fn227
 
-  module procedure h_uas_fn228
-  zres => null()
-  if (.not. associated(x)) return
-  select type (x)
-  class is (t_fn228)
-    zres => x
-  end select
-  end procedure h_uas_fn228
-
   module procedure h_uas_fn231
   zres => null()
   if (.not. associated(x)) return
@@ -6700,6 +6691,15 @@ contains
     zres => x
   end select
   end procedure h_uas_router
+
+  module procedure h_uas_router_refreshctx_src_engine_hydraulics_routing_cpp_1705
+  zres => null()
+  if (.not. associated(x)) return
+  select type (x)
+  class is (t_router_refreshctx_src_engine_hydraulics_routing_cpp_1705)
+    zres => x
+  end select
+  end procedure h_uas_router_refreshctx_src_engine_hydraulics_routing_cpp_1705
 
   module procedure h_uas_runoff_completedsubareawater
   zres => null()

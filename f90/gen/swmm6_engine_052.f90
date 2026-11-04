@@ -132,30 +132,31 @@ contains
     type(cpp_ptr_d) :: zz13
     real(8), pointer :: zz14
     class(t_transport_rxstepreport), pointer :: report_
-    class(t_transport_rxstepreport), pointer :: zz15
+    type(cpp_ptr_d) :: zz15
+    class(t_transport_rxstepreport), pointer :: zz16
     logical :: physical_
     integer(4) :: m_3_
-    logical :: zz16
     logical :: zz17
-    type(cpp_cptr) :: zz18
-    class(cpp_str), pointer :: zz19
+    logical :: zz18
+    type(cpp_cptr) :: zz19
     class(cpp_str), pointer :: zz20
-    type(cpp_cptr) :: zz21
-    class(cpp_str), pointer :: zz22
-    type(cpp_cptr) :: zz23
-    class(cpp_str), pointer :: zz24
+    class(cpp_str), pointer :: zz21
+    type(cpp_cptr) :: zz22
+    class(cpp_str), pointer :: zz23
+    type(cpp_cptr) :: zz24
     class(cpp_str), pointer :: zz25
     class(cpp_str), pointer :: zz26
     class(cpp_str), pointer :: zz27
-    class(*), pointer :: zz28
-    class(cpp_vec_o), pointer :: zz29
+    class(cpp_str), pointer :: zz28
+    class(*), pointer :: zz29
+    class(cpp_vec_o), pointer :: zz30
     integer(4) :: m_4_
     real(8) :: raw_
     real(8) :: clamped_
     real(8) :: factor_
-    real(8) :: zz30
     real(8) :: zz31
-    type(cpp_cptr) :: zz32
+    real(8) :: zz32
+    type(cpp_cptr) :: zz33
   rx_ => ctx_%reactions
   surface_ => rx_%surface
   ns_ = p_reactiondata__n_species(rx_)
@@ -261,45 +262,46 @@ contains
       zz14 => cpp_ptr_d_item_i(zz13, 9)
       zz14 = ctx_%heat_state%subcatch_runoff_temp%a%a(i_)
     end if
-    zz15 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(rx_, forms_, expressions_, dt_, cpp_vec_d_data(species_), cpp_ptr_d_new_ta_l(variables_, 0_8), workspace_, cpp_ptr_d(), cpp_ptr_d(), cpp_ptr_d(), cpp_cspan_o())
+    zz15 = cpp_vec_d_data(species_)
+    zz16 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(rx_, forms_, expressions_, dt_, zz15, cpp_ptr_d_new_ta_l(variables_, 0_8), workspace_, cpp_ptr_d(), cpp_ptr_d(), cpp_ptr_d(), cpp_cspan_o())
     if (associated(cpp_exc)) return
-    report_ => zz15
+    report_ => zz16
     physical_ = report_%ok
     m_3_ = 0
     do
       if (.not. (((m_3_ < ns_) .and. physical_))) exit
-      zz17 = cpp_double_isfinite(species_%a%a(int(m_3_, 8)))
-      if (zz17) then
-        zz16 = (species_%a%a(int(m_3_, 8)) >= 0.0_8)
-        if (.not. zz16) then
-          zz16 = (forms_%a%a(int(m_3_, 8)) == 1)
+      zz18 = cpp_double_isfinite(species_%a%a(int(m_3_, 8)))
+      if (zz18) then
+        zz17 = (species_%a%a(int(m_3_, 8)) >= 0.0_8)
+        if (.not. zz17) then
+          zz17 = (forms_%a%a(int(m_3_, 8)) == 1)
         end if
-        zz17 = zz16
+        zz18 = zz17
       end if
-      physical_ = zz17
+      physical_ = zz18
       m_3_ = (m_3_ + 1)
     end do
     if ((.not. physical_)) then
       if ((.not. rx_%warned_react_failure)) then
         rx_%warned_react_failure = .true.
-        zz29 => ctx_%warnings
-        zz18 = cpp_r_lit("Subcatchment reaction step failed at '")
-        zz19 => p_nameindex__name_of(ctx_%subcatch_names, sc_)
+        zz30 => ctx_%warnings
+        zz19 = cpp_r_lit("Subcatchment reaction step failed at '")
+        zz20 => p_nameindex__name_of(ctx_%subcatch_names, sc_)
         if (associated(cpp_exc)) return
-        zz20 => cpp_str_cat_cptr_str(zz18, zz19)
-        zz21 = cpp_r_lit("' (unreacted mixed pool retained): ")
-        zz22 => cpp_str_cat_str_cptr(zz20, zz21)
+        zz21 => cpp_str_cat_cptr_str(zz19, zz20)
+        zz22 = cpp_r_lit("' (unreacted mixed pool retained): ")
+        zz23 => cpp_str_cat_str_cptr(zz21, zz22)
         if (report_%ok) then
-          zz23 = cpp_r_lit("negative algebraic concentration")
-          zz24 => cpp_str_new_cptr(zz23)
-          zz26 => zz24
+          zz24 = cpp_r_lit("negative algebraic concentration")
+          zz25 => cpp_str_new_cptr(zz24)
+          zz27 => zz25
         else
-          zz25 => cpp_str_clone(report_%error)
-          zz26 => zz25
+          zz26 => cpp_str_clone(report_%error)
+          zz27 => zz26
         end if
-        zz27 => cpp_str_cat_str_str(zz22, zz26)
-        zz28 => zz27
-        call cpp_vec_o_push_back(zz29, zz28)
+        zz28 => cpp_str_cat_str_str(zz23, zz27)
+        zz29 => zz28
+        call cpp_vec_o_push_back(zz30, zz29)
       end if
       goto 102
     end if
@@ -309,13 +311,13 @@ contains
       raw_ = species_%a%a(int(m_4_, 8))
       clamped_ = cpp_m_max_d_d(0.0_8, raw_)
       factor_ = (litres_ * surface_%mcf%a%a(int(m_4_, 8)))
-      zz30 = (surface_%led_reacted%a%a(int(m_4_, 8)) + ((before_%a%a(int(m_4_, 8)) - raw_) * factor_))
-      surface_%led_reacted%a%a(int(m_4_, 8)) = zz30
-      zz31 = (surface_%led_reaction_clamped%a%a(int(m_4_, 8)) + ((clamped_ - raw_) * factor_))
-      surface_%led_reaction_clamped%a%a(int(m_4_, 8)) = zz31
+      zz31 = (surface_%led_reacted%a%a(int(m_4_, 8)) + ((before_%a%a(int(m_4_, 8)) - raw_) * factor_))
+      surface_%led_reacted%a%a(int(m_4_, 8)) = zz31
+      zz32 = (surface_%led_reaction_clamped%a%a(int(m_4_, 8)) + ((clamped_ - raw_) * factor_))
+      surface_%led_reaction_clamped%a%a(int(m_4_, 8)) = zz32
       if ((clamped_ /= raw_)) then
-        zz32 = cpp_r_lit("a wet subcatchment pool")
-        call p_transport__f__notenegativeclamp(ctx_, zz32)
+        zz33 = cpp_r_lit("a wet subcatchment pool")
+        call p_transport__f__notenegativeclamp(ctx_, zz33)
       end if
       mixed_%a%a(p_msxsurfacedata__sidx(surface_, sc_, m_4_)) = (clamped_ * litres_)
       m_4_ = (m_4_ + 1)
@@ -371,25 +373,26 @@ contains
     type(cpp_ptr_d) :: zz16
     real(8), pointer :: zz17
     class(t_transport_rxstepreport), pointer :: report_
-    class(t_transport_rxstepreport), pointer :: zz18
+    type(cpp_ptr_d) :: zz18
     class(t_transport_rxstepreport), pointer :: zz19
-    class(cpp_str), pointer :: zz20
-    class(t_transport_rxstepreport), pointer :: zz21
+    class(t_transport_rxstepreport), pointer :: zz20
+    class(cpp_str), pointer :: zz21
+    class(t_transport_rxstepreport), pointer :: zz22
     logical :: physical_
-    logical :: zz22
-    integer(4) :: m_2_
     logical :: zz23
+    integer(4) :: m_2_
     logical :: zz24
-    type(cpp_cptr) :: zz25
-    class(cpp_str), pointer :: zz26
-    class(*), pointer :: zz27
-    class(cpp_vec_o), pointer :: zz28
+    logical :: zz25
+    type(cpp_cptr) :: zz26
+    class(cpp_str), pointer :: zz27
+    class(*), pointer :: zz28
+    class(cpp_vec_o), pointer :: zz29
     integer(4) :: m_3_
     real(8) :: bounded_
     real(8) :: factor_
-    real(8) :: zz29
     real(8) :: zz30
-    type(cpp_cptr) :: zz31
+    real(8) :: zz31
+    type(cpp_cptr) :: zz32
   rx_ => ctx_%reactions
   s_ => rx_%surface
   if (cpp_vec_o_empty(rx_%buildup_laws)) then
@@ -505,44 +508,45 @@ contains
       zz17 => cpp_ptr_d_item_i(zz16, 9)
       zz17 = rx_%default_temp_c
       if (supported_) then
-        zz18 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(rx_, forms_, expr_, dt_, cpp_vec_d_data(y_), cpp_ptr_d_new_ta_l(vars_, 0_8), ws_, cpp_ptr_d(), cpp_ptr_d(), cpp_ptr_d(), cpp_cspan_o())
+        zz18 = cpp_vec_d_data(y_)
+        zz19 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(rx_, forms_, expr_, dt_, zz18, cpp_ptr_d_new_ta_l(vars_, 0_8), ws_, cpp_ptr_d(), cpp_ptr_d(), cpp_ptr_d(), cpp_cspan_o())
         if (associated(cpp_exc)) return
-        zz21 => zz18
+        zz22 => zz19
       else
-        allocate(zz19)
-        call p_transport_rxstepreport__ctor_x(zz19)
-        zz20 => cpp_str_new_0()
-        zz19%error => zz20
-        zz21 => zz19
+        allocate(zz20)
+        call p_transport_rxstepreport__ctor_x(zz20)
+        zz21 => cpp_str_new_0()
+        zz20%error => zz21
+        zz22 => zz20
       end if
-      report_ => zz21
-      zz22 = supported_
-      if (zz22) then
-        zz22 = report_%ok
+      report_ => zz22
+      zz23 = supported_
+      if (zz23) then
+        zz23 = report_%ok
       end if
-      physical_ = zz22
+      physical_ = zz23
       m_2_ = 0
       do
         if (.not. (((m_2_ < ns_) .and. physical_))) exit
-        zz24 = cpp_double_isfinite(y_%a%a(int(m_2_, 8)))
-        if (zz24) then
-          zz23 = (y_%a%a(int(m_2_, 8)) >= 0.0_8)
-          if (.not. zz23) then
-            zz23 = (forms_%a%a(int(m_2_, 8)) == 1)
+        zz25 = cpp_double_isfinite(y_%a%a(int(m_2_, 8)))
+        if (zz25) then
+          zz24 = (y_%a%a(int(m_2_, 8)) >= 0.0_8)
+          if (.not. zz24) then
+            zz24 = (forms_%a%a(int(m_2_, 8)) == 1)
           end if
-          zz24 = zz23
+          zz25 = zz24
         end if
-        physical_ = zz24
+        physical_ = zz25
         m_2_ = (m_2_ + 1)
       end do
       if ((.not. physical_)) then
         if ((.not. rx_%warned_react_failure)) then
           rx_%warned_react_failure = .true.
-          zz28 => ctx_%warnings
-          zz25 = cpp_r_lit("Dry buildup reaction failed or has a zero normalizer; original inventory retained.")
-          zz26 => cpp_str_new_cptr(zz25)
-          zz27 => zz26
-          call cpp_vec_o_push_back(zz28, zz27)
+          zz29 => ctx_%warnings
+          zz26 = cpp_r_lit("Dry buildup reaction failed or has a zero normalizer; original inventory retained.")
+          zz27 => cpp_str_new_cptr(zz26)
+          zz28 => zz27
+          call cpp_vec_o_push_back(zz29, zz28)
         end if
         goto 104
       end if
@@ -551,13 +555,13 @@ contains
         if (.not. ((m_3_ < ns_))) exit
         bounded_ = cpp_m_max_d_d(0.0_8, y_%a%a(int(m_3_, 8)))
         factor_ = (area_ * s_%mcf%a%a(int(m_3_, 8)))
-        zz29 = (s_%led_reacted%a%a(int(m_3_, 8)) + ((before_%a%a(int(m_3_, 8)) - y_%a%a(int(m_3_, 8))) * factor_))
-        s_%led_reacted%a%a(int(m_3_, 8)) = zz29
-        zz30 = (s_%led_reaction_clamped%a%a(int(m_3_, 8)) + ((bounded_ - y_%a%a(int(m_3_, 8))) * factor_))
-        s_%led_reaction_clamped%a%a(int(m_3_, 8)) = zz30
+        zz30 = (s_%led_reacted%a%a(int(m_3_, 8)) + ((before_%a%a(int(m_3_, 8)) - y_%a%a(int(m_3_, 8))) * factor_))
+        s_%led_reacted%a%a(int(m_3_, 8)) = zz30
+        zz31 = (s_%led_reaction_clamped%a%a(int(m_3_, 8)) + ((bounded_ - y_%a%a(int(m_3_, 8))) * factor_))
+        s_%led_reaction_clamped%a%a(int(m_3_, 8)) = zz31
         if ((y_%a%a(int(m_3_, 8)) /= bounded_)) then
-          zz31 = cpp_r_lit("a dry buildup store")
-          call p_transport__f__notenegativeclamp(ctx_, zz31)
+          zz32 = cpp_r_lit("a dry buildup store")
+          call p_transport__f__notenegativeclamp(ctx_, zz32)
         end if
         if ((normalizer_%a%a(int(m_3_, 8)) > 0.0_8)) then
           s_%buildup%a%a(p_msxsurfacedata__bu_idx(s_, sc_, lu_, m_3_)) = ((bounded_ * factor_) / normalizer_%a%a(int(m_3_, 8)))
@@ -898,7 +902,7 @@ contains
   end do
   end procedure p_quality__f__updateuntreatedstoragehrt
 
-  module procedure p_lam889
+  module procedure p_lam894
     integer(8) :: up_
     logical :: zz1
     integer(8) :: idx_
@@ -928,9 +932,19 @@ contains
     integer(8) :: x__i4_n_
     real(8), pointer :: x_
     real(8) :: result_
-    real(8) :: zz14
+    type(cpp_ptr_d) :: zz14
     real(8) :: zz15
-    real(8), pointer :: zz16
+    real(8) :: zz16
+    real(8) :: zz17
+    real(8) :: zz18
+    real(8) :: zz19
+    type(cpp_ptr_d) :: zz20
+    type(cpp_ptr_d) :: zz21
+    integer(4) :: zz22
+    real(8) :: zz23
+    real(8) :: zz24
+    real(8) :: zz25
+    real(8), pointer :: zz26
   up_ = int(a1, 8)
   if (((self%c_treat%removal%a%a(up_) > 1.0_8) .or. self%c_cyclic_err)) then
     self%c_cyclic_err = .true.
@@ -1014,24 +1028,34 @@ contains
     end if
     x__i4_ = (x__i4_ + 1_8)
   end do
-  zz14 = p_treatment__f__evaluate(expr_, c_in_, self%c_dt, self%c_hrt_hours, self%c_q, self%c_v, self%c_d, cpp_vec_d_data(self%c_treat%cin), cpp_vec_d_data(r_view_), self%c_np, self%c_area, cpp_vec_d_data(self%c_cpollut))
-  result_ = zz14
+  zz15 = self%c_dt
+  zz16 = self%c_hrt_hours
+  zz17 = self%c_q
+  zz18 = self%c_v
+  zz19 = self%c_d
+  zz14 = cpp_vec_d_data(self%c_treat%cin)
+  zz20 = cpp_vec_d_data(r_view_)
+  zz22 = self%c_np
+  zz23 = self%c_area
+  zz21 = cpp_vec_d_data(self%c_cpollut)
+  zz24 = p_treatment__f__evaluate(expr_, c_in_, zz15, zz16, zz17, zz18, zz19, zz14, zz20, zz22, zz23, zz21)
+  result_ = zz24
   result_ = cpp_m_max_d_d(result_, 0.0_8)
   if (expr_%is_removal) then
     self%c_treat%removal%a%a(up_) = cpp_m_min_d_d(result_, 1.0_8)
   else
     result_ = cpp_m_min_d_d(result_, c_node_)
-    zz16 => self%c_treat%removal%a%a(up_)
+    zz26 => self%c_treat%removal%a%a(up_)
     if ((c_node_ > 0.0_8)) then
-      zz15 = (1.0_8 - (result_ / c_node_))
+      zz25 = (1.0_8 - (result_ / c_node_))
     else
-      zz15 = 0.0_8
+      zz25 = 0.0_8
     end if
-    zz16 = zz15
+    zz26 = zz25
   end if
   zres = self%c_treat%removal%a%a(up_)
   return
-  end procedure p_lam889
+  end procedure p_lam894
 
   module procedure p_quality__f__applynodetreatment
     integer(4) :: np_
@@ -1039,70 +1063,71 @@ contains
     class(t_nodedata), pointer :: nodes_
     integer(8) :: uj_
     logical :: zz1
-    logical :: zz2
+    type(cpp_ptr_d) :: zz2
+    logical :: zz3
     integer(4) :: p_
-    real(8), pointer :: zz3
-    real(8) :: zz4
-    real(8), pointer :: zz5
+    real(8), pointer :: zz4
+    real(8) :: zz5
+    real(8), pointer :: zz6
     integer(4) :: unit_sys_
     real(8) :: ucf_flow_
-    real(8) :: zz6
-    real(8) :: ucf_length_
     real(8) :: zz7
+    real(8) :: ucf_length_
+    real(8) :: zz8
     real(8), pointer :: hrt_hours_
     real(8) :: q_
     real(8) :: v_
     real(8) :: d_ft_
     real(8) :: d_
     real(8) :: a1_
-    real(8) :: zz8
-    real(8) :: a2_
     real(8) :: zz9
+    real(8) :: a2_
+    real(8) :: zz10
     real(8) :: area_
     real(8) :: v_old_
     real(8) :: qdt_
     integer(4) :: p_2_
     class(cpp_vec_d), pointer :: cpollut_
-    class(cpp_vec_d), pointer :: zz10
+    class(cpp_vec_d), pointer :: zz11
     integer(4) :: p_3_
     integer(8) :: up2_
     integer(8) :: ci_
     logical :: p_is_removal_
-    class(t_treatment_treatexpr), pointer :: zz11
-    logical :: zz12
-    real(8) :: zz13
+    class(t_treatment_treatexpr), pointer :: zz12
+    logical :: zz13
     real(8) :: zz14
-    real(8), pointer :: zz15
+    real(8) :: zz15
+    real(8), pointer :: zz16
     logical, pointer :: cyclic_err_
     class(t_fn127), pointer :: getremoval_
-    class(t_lam889), pointer :: zz16
+    class(t_lam894), pointer :: zz17
     integer(4) :: p_5_
     integer(8) :: up2_2_
     integer(8) :: ci2_
     logical :: no_eqn_
-    class(t_treatment_treatexpr), pointer :: zz17
-    logical :: zz18
-    class(t_treatment_treatexpr), pointer :: zz19
+    class(t_treatment_treatexpr), pointer :: zz18
+    logical :: zz19
     class(t_treatment_treatexpr), pointer :: zz20
-    real(8), target :: zz21
-    class(*), pointer :: zz22
-    integer(4) :: zz23
-    real(8) :: zz24
+    class(t_treatment_treatexpr), pointer :: zz21
+    real(8), target :: zz22
+    class(*), pointer :: zz23
+    integer(4) :: zz24
+    real(8) :: zz25
     real(8) :: v_old_2_
     integer(4) :: p_6_
     real(8) :: r_
     integer(8) :: ci_2_
     class(t_treatment_treatexpr), pointer :: expr_2_
-    class(t_treatment_treatexpr), pointer :: zz25
+    class(t_treatment_treatexpr), pointer :: zz26
     real(8), target :: c_node_2_
     real(8) :: cout_
     real(8) :: c_in_2_
     real(8) :: c_in_p_
     real(8) :: c_old_p_
-    real(8), pointer :: zz26
+    real(8), pointer :: zz27
     real(8) :: mass_lost_
-    logical :: zz27
-    real(8) :: zz28
+    logical :: zz28
+    real(8) :: zz29
   np_ = p_simulationcontext__n_pollutants(ctx_)
   if ((np_ <= 0)) then
     return
@@ -1120,37 +1145,38 @@ contains
   if (zz1) then
     return
   end if
-  zz2 = cpp_ptr_d_op_ne(cin_, cpp_vec_d_data(treat_%cin))
-  if (zz2) then
+  zz2 = cpp_vec_d_data(treat_%cin)
+  zz3 = cpp_ptr_d_op_ne(cin_, zz2)
+  if (zz3) then
     p_ = 0
     do
       if (.not. ((p_ < np_))) exit
-      zz5 => treat_%cin%a%a(int(p_, 8))
+      zz6 => treat_%cin%a%a(int(p_, 8))
       if ((.not. cpp_ptr_d_isnull(cin_))) then
-        zz3 => cpp_ptr_d_item_i(cin_, p_)
-        zz4 = zz3
+        zz4 => cpp_ptr_d_item_i(cin_, p_)
+        zz5 = zz4
       else
-        zz4 = 0.0_8
+        zz5 = 0.0_8
       end if
-      zz5 = zz4
+      zz6 = zz5
       p_ = (p_ + 1)
     end do
   end if
   unit_sys_ = ctx_%options%flow_units
-  zz6 = p_ucf__f__ucf(10, ctx_%options)
-  ucf_flow_ = zz6
-  zz7 = p_ucf__f__ucf(3, ctx_%options)
-  ucf_length_ = zz7
+  zz7 = p_ucf__f__ucf(10, ctx_%options)
+  ucf_flow_ = zz7
+  zz8 = p_ucf__f__ucf(3, ctx_%options)
+  ucf_length_ = zz8
   allocate(hrt_hours_)
   hrt_hours_ = (nodes_%hrt%a%a(uj_) / 3600.0_8)
   q_ = (q_raw_ * ucf_flow_)
   v_ = ((nodes_%old_volume%a%a(uj_) + nodes_%volume%a%a(uj_)) * 0.5_8)
   d_ft_ = ((nodes_%depth%a%a(uj_) + nodes_%old_depth%a%a(uj_)) * 0.5_8)
   d_ = (d_ft_ * ucf_length_)
-  zz8 = p_node__f__getsurfarea(nodes_, j_, nodes_%old_depth%a%a(uj_), ctx_%tables, p_ucf__f__getunitsystem(unit_sys_), ctx_%node_subtypes)
-  a1_ = zz8
-  zz9 = p_node__f__getsurfarea(nodes_, j_, nodes_%depth%a%a(uj_), ctx_%tables, p_ucf__f__getunitsystem(unit_sys_), ctx_%node_subtypes)
-  a2_ = zz9
+  zz9 = p_node__f__getsurfarea(nodes_, j_, nodes_%old_depth%a%a(uj_), ctx_%tables, p_ucf__f__getunitsystem(unit_sys_), ctx_%node_subtypes)
+  a1_ = zz9
+  zz10 = p_node__f__getsurfarea(nodes_, j_, nodes_%depth%a%a(uj_), ctx_%tables, p_ucf__f__getunitsystem(unit_sys_), ctx_%node_subtypes)
+  a2_ = zz10
   area_ = ((((a1_ + a2_) * 0.5_8) * ucf_length_) * ucf_length_)
   if ((nodes_%type%a%a(uj_) == 3_1)) then
     v_old_ = nodes_%old_volume%a%a(uj_)
@@ -1168,73 +1194,73 @@ contains
     treat_%removal%a%a(int(p_2_, 8)) = (-1.0_8)
     p_2_ = (p_2_ + 1)
   end do
-  zz10 => cpp_vec_d_new_ul_t(int(np_, 8), 0.0_8)
+  zz11 => cpp_vec_d_new_ul_t(int(np_, 8), 0.0_8)
   if (associated(cpp_exc)) return
-  cpollut_ => zz10
+  cpollut_ => zz11
   p_3_ = 0
   do
     if (.not. ((p_3_ < np_))) exit
     up2_ = int(p_3_, 8)
     ci_ = ((uj_ * int(np_, 8)) + up2_)
-    zz12 = (ieor(ci_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(treat_%compiled), (-9223372036854775807_8 - 1_8)))
-    if (zz12) then
-      zz11 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci_)%p)
-      zz12 = zz11%is_removal
+    zz13 = (ieor(ci_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(treat_%compiled), (-9223372036854775807_8 - 1_8)))
+    if (zz13) then
+      zz12 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci_)%p)
+      zz13 = zz12%is_removal
     end if
-    p_is_removal_ = zz12
-    zz15 => cpollut_%a%a(up2_)
+    p_is_removal_ = zz13
+    zz16 => cpollut_%a%a(up2_)
     if (p_is_removal_) then
-      zz14 = treat_%cin%a%a(up2_)
+      zz15 = treat_%cin%a%a(up2_)
     else
       if ((ieor(ci_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(nodes_%conc), (-9223372036854775807_8 - 1_8)))) then
-        zz13 = nodes_%conc%a%a(ci_)
+        zz14 = nodes_%conc%a%a(ci_)
       else
-        zz13 = 0.0_8
+        zz14 = 0.0_8
       end if
-      zz14 = zz13
+      zz15 = zz14
     end if
-    zz15 = zz14
+    zz16 = zz15
     p_3_ = (p_3_ + 1)
   end do
   allocate(cyclic_err_)
   cyclic_err_ = .false.
-  allocate(zz16)
-  zz16%c_treat => treat_
-  zz16%c_cyclic_err => cyclic_err_
-  zz16%c_uj = uj_
-  zz16%c_np = np_
-  zz16%c_nodes => nodes_
-  zz16%c_dt = dt_
-  zz16%c_hrt_hours => hrt_hours_
-  zz16%c_q = q_
-  zz16%c_v = v_
-  zz16%c_d = d_
-  zz16%c_area = area_
-  zz16%c_cpollut => cpollut_
-  getremoval_ => zz16
+  allocate(zz17)
+  zz17%c_treat => treat_
+  zz17%c_cyclic_err => cyclic_err_
+  zz17%c_uj = uj_
+  zz17%c_np = np_
+  zz17%c_nodes => nodes_
+  zz17%c_dt = dt_
+  zz17%c_hrt_hours => hrt_hours_
+  zz17%c_q = q_
+  zz17%c_v = v_
+  zz17%c_d = d_
+  zz17%c_area = area_
+  zz17%c_cpollut => cpollut_
+  getremoval_ => zz17
   p_5_ = 0
   do
     if (.not. ((p_5_ < np_))) exit
     up2_2_ = int(p_5_, 8)
     ci2_ = ((uj_ * int(np_, 8)) + up2_2_)
-    zz18 = (ieor(ci2_, (-9223372036854775807_8 - 1_8)) >= ieor(cpp_vec_o_size(treat_%compiled), (-9223372036854775807_8 - 1_8)))
-    if (.not. zz18) then
-      zz17 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci2_)%p)
-      zz18 = cpp_vec_o_empty(zz17%tokens)
+    zz19 = (ieor(ci2_, (-9223372036854775807_8 - 1_8)) >= ieor(cpp_vec_o_size(treat_%compiled), (-9223372036854775807_8 - 1_8)))
+    if (.not. zz19) then
+      zz18 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci2_)%p)
+      zz19 = cpp_vec_o_empty(zz18%tokens)
     end if
-    no_eqn_ = zz18
+    no_eqn_ = zz19
     if (no_eqn_) then
       treat_%removal%a%a(up2_2_) = 0.0_8
     else
-      zz20 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci2_)%p)
-      if ((zz20%is_removal .and. (abs(q_raw_) <= s_quality__f__legacy_zero))) then
+      zz21 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci2_)%p)
+      if ((zz21%is_removal .and. (abs(q_raw_) <= s_quality__f__legacy_zero))) then
         treat_%removal%a%a(up2_2_) = 0.0_8
       else
-        zz23 = p_5_
-        zz22 => getremoval_
-        zz24 = getremoval_%invoke(zz23, zz22)
+        zz24 = p_5_
+        zz23 => getremoval_
+        zz25 = getremoval_%invoke(zz24, zz23)
         if (associated(cpp_exc)) return
-        zz21 = zz24
+        zz22 = zz25
       end if
     end if
     p_5_ = (p_5_ + 1)
@@ -1251,8 +1277,8 @@ contains
     if ((ieor(ci_2_, (-9223372036854775807_8 - 1_8)) >= ieor(cpp_vec_d_size(nodes_%conc), (-9223372036854775807_8 - 1_8)))) then
       goto 110
     end if
-    zz25 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci_2_)%p)
-    expr_2_ => zz25
+    zz26 => h_uas_treatment_treatexpr(treat_%compiled%a%a(ci_2_)%p)
+    expr_2_ => zz26
     c_node_2_ = nodes_%conc%a%a(ci_2_)
     cout_ = 0.0_8
     if (expr_2_%is_removal) then
@@ -1265,23 +1291,23 @@ contains
     cout_ = cpp_m_max_d_d(cout_, 0.0_8)
     c_in_p_ = treat_%cin%a%a(int(p_6_, 8))
     if ((ieor(ci_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(nodes_%conc_old), (-9223372036854775807_8 - 1_8)))) then
-      zz26 => nodes_%conc_old%a%a(ci_2_)
+      zz27 => nodes_%conc_old%a%a(ci_2_)
     else
-      zz26 => c_node_2_
+      zz27 => c_node_2_
     end if
-    c_old_p_ = zz26
+    c_old_p_ = zz27
     mass_lost_ = 0.0_8
     if ((dt_ > 0.0_8)) then
       mass_lost_ = (((((c_in_p_ * q_raw_) * dt_) + (c_old_p_ * v_old_2_)) - (cout_ * ((q_raw_ * dt_) + v_old_2_))) / dt_)
       mass_lost_ = cpp_m_max_d_d(0.0_8, mass_lost_)
     end if
-    zz27 = (mass_lost_ > 0.0_8)
-    if (zz27) then
-      zz27 = (ieor(int(p_6_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%mass_balance%qual_routing_reacted), (-9223372036854775807_8 - 1_8)))
+    zz28 = (mass_lost_ > 0.0_8)
+    if (zz28) then
+      zz28 = (ieor(int(p_6_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%mass_balance%qual_routing_reacted), (-9223372036854775807_8 - 1_8)))
     end if
-    if (zz27) then
-      zz28 = (ctx_%mass_balance%qual_routing_reacted%a%a(int(p_6_, 8)) + (mass_lost_ * dt_))
-      ctx_%mass_balance%qual_routing_reacted%a%a(int(p_6_, 8)) = zz28
+    if (zz28) then
+      zz29 = (ctx_%mass_balance%qual_routing_reacted%a%a(int(p_6_, 8)) + (mass_lost_ * dt_))
+      ctx_%mass_balance%qual_routing_reacted%a%a(int(p_6_, 8)) = zz29
     end if
     nodes_%conc%a%a(ci_2_) = cout_
     110 continue
@@ -1299,14 +1325,14 @@ contains
   call p_quality_fvqualitytransport__movefrom(zz2, zz1)
   end procedure p_quality_qualitysolver__init
 
-  module procedure p_lam890
+  module procedure p_lam895
     class(t_lidnodestate), pointer :: state_
     class(t_lidnodestate), pointer :: zz1
   zz1 => h_uas_lidnodestate(a1)
   state_ => zz1
   zres = (.not. cpp_vec_o_empty(state_%cells))
   return
-  end procedure p_lam890
+  end procedure p_lam895
 
   module procedure p_quality_qualitysolver__execute
     logical :: zz1
@@ -1317,62 +1343,66 @@ contains
     integer(4) :: np_
     integer(4) :: nm_
     integer(4) :: nt_
+    type(cpp_ptr_d) :: zz6
+    type(cpp_ptr_d) :: zz7
     logical :: coupled_lids_
-    class(t_lam890), pointer :: zz6
-    type(cpp_iter_o) :: zz7
-    type(cpp_iter_o) :: zz8
-    logical :: zz9
-    logical :: zz10
+    class(t_lam895), pointer :: zz8
+    type(cpp_iter_o) :: zz9
+    type(cpp_iter_o) :: zz10
+    logical :: zz11
+    logical :: zz12
     class(cpp_vec_d), pointer :: mass_in_
-    class(cpp_vec_d), pointer :: zz11
-    class(cpp_vec_d), pointer :: vol_in_
-    class(cpp_vec_d), pointer :: zz12
-    class(cpp_vec_d), pointer :: reacted_
     class(cpp_vec_d), pointer :: zz13
-    class(cpp_vec_d), pointer :: seeped_
+    class(cpp_vec_d), pointer :: vol_in_
     class(cpp_vec_d), pointer :: zz14
-    class(cpp_vec_d), pointer :: dry_
+    class(cpp_vec_d), pointer :: reacted_
     class(cpp_vec_d), pointer :: zz15
-    class(cpp_vec_d), pointer :: external_
+    class(cpp_vec_d), pointer :: seeped_
     class(cpp_vec_d), pointer :: zz16
+    class(cpp_vec_d), pointer :: dry_
+    class(cpp_vec_d), pointer :: zz17
+    class(cpp_vec_d), pointer :: external_
+    class(cpp_vec_d), pointer :: zz18
     class(t_simulationcontext_negativesourcestats), pointer :: negative_sources_
-    class(t_simulationcontext_negativesourcestats), pointer :: zz17
+    class(t_simulationcontext_negativesourcestats), pointer :: zz19
     class(cpp_vec_o), pointer :: held_
-    class(cpp_vec_o), pointer :: zz18
+    class(cpp_vec_o), pointer :: zz20
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
     class(t_lidnodestate), pointer :: state_2_
-    class(t_lidnodestate), pointer :: zz19
-    class(cpp_vec_d), pointer :: zz20
-    class(*), pointer :: zz21
+    class(t_lidnodestate), pointer :: zz21
+    class(cpp_vec_d), pointer :: zz22
+    class(*), pointer :: zz23
     logical :: converged_
     integer(4) :: iteration_
     class(cpp_vec_d), pointer :: previous_
-    class(cpp_vec_d), pointer :: zz22
-    integer(8) :: r_
-    class(t_lidnodestate), pointer :: zz23
     class(cpp_vec_d), pointer :: zz24
-    class(cpp_vec_d), pointer :: zz25
+    integer(8) :: r_
+    class(t_lidnodestate), pointer :: zz25
+    class(cpp_vec_d), pointer :: zz26
+    class(cpp_vec_d), pointer :: zz27
     integer(8) :: i_
-    class(cpp_arr_d), pointer :: zz26
-    real(8) :: zz27
-    real(8) :: zz28
+    class(cpp_arr_d), pointer :: zz28
+    real(8) :: zz29
+    real(8) :: zz30
     class(cpp_str), pointer :: warning_
-    type(cpp_cptr) :: zz29
-    class(cpp_str), pointer :: zz30
-    class(*), pointer :: zz31
-    type(cpp_iter_o) :: zz32
-    type(cpp_iter_o) :: zz33
+    type(cpp_cptr) :: zz31
+    class(cpp_str), pointer :: zz32
+    class(*), pointer :: zz33
     type(cpp_iter_o) :: zz34
-    class(cpp_str), pointer :: zz35
-    class(*), pointer :: zz36
-    class(cpp_vec_o), pointer :: zz37
+    type(cpp_iter_o) :: zz35
+    type(cpp_iter_o) :: zz36
+    class(cpp_str), pointer :: zz37
+    class(*), pointer :: zz38
+    class(cpp_vec_o), pointer :: zz39
     integer(4) :: np_2_
     integer(4) :: nm_2_
     integer(4) :: nt_2_
-    logical :: zz38
-    logical :: zz39
+    logical :: zz40
+    type(cpp_ptr_d) :: zz41
+    logical :: zz42
+    type(cpp_ptr_d) :: zz43
   zz1 = (self%n_pollutants_ <= 0)
   if (zz1) then
     zz1 = (.not. p_transport__f__legacyreactionsactive(ctx_))
@@ -1412,11 +1442,13 @@ contains
       nm_ = p_reactiondata__n_species(ctx_%reactions)
       nt_ = (np_ + nm_)
       if ((np_ > 0)) then
-        call p_transport_heat__f__applybedsoluteexchange(ctx_, cpp_vec_d_data(ctx_%links%conc), np_, 0, nt_, dt_)
+        zz6 = cpp_vec_d_data(ctx_%links%conc)
+        call p_transport_heat__f__applybedsoluteexchange(ctx_, zz6, np_, 0, nt_, dt_)
         if (associated(cpp_exc)) return
       end if
       if ((nm_ > 0)) then
-        call p_transport_heat__f__applybedsoluteexchange(ctx_, cpp_vec_d_data(ctx_%reactions%msx_link_conc), nm_, np_, nt_, dt_)
+        zz7 = cpp_vec_d_data(ctx_%reactions%msx_link_conc)
+        call p_transport_heat__f__applybedsoluteexchange(ctx_, zz7, nm_, np_, nt_, dt_)
         if (associated(cpp_exc)) return
       end if
     end if
@@ -1426,49 +1458,49 @@ contains
   if (associated(cpp_exc)) return
   call p_msxlid__f__preparenodes(ctx_, dt_)
   if (associated(cpp_exc)) return
-  zz10 = (self%n_pollutants_ > 0)
-  if (zz10) then
-    zz7 = cpp_vec_o_begin(ctx_%node_subtypes%storages%lid_state)
-    zz8 = cpp_vec_o_end(ctx_%node_subtypes%storages%lid_state)
-    allocate(zz6)
-    zz9 = cpp_algo_any_of__o(zz7, zz8, zz6, h_mk_lidnodestate, 2)
-    zz10 = zz9
+  zz12 = (self%n_pollutants_ > 0)
+  if (zz12) then
+    zz9 = cpp_vec_o_begin(ctx_%node_subtypes%storages%lid_state)
+    zz10 = cpp_vec_o_end(ctx_%node_subtypes%storages%lid_state)
+    allocate(zz8)
+    zz11 = cpp_algo_any_of__o(zz9, zz10, zz8, h_mk_lidnodestate, 2)
+    zz12 = zz11
   end if
-  coupled_lids_ = zz10
+  coupled_lids_ = zz12
   if (coupled_lids_) then
-    zz11 => cpp_vec_d_clone(ctx_%nodes%qual_mass_in)
+    zz13 => cpp_vec_d_clone(ctx_%nodes%qual_mass_in)
     if (associated(cpp_exc)) return
-    mass_in_ => zz11
-    zz12 => cpp_vec_d_clone(ctx_%nodes%qual_vol_in)
+    mass_in_ => zz13
+    zz14 => cpp_vec_d_clone(ctx_%nodes%qual_vol_in)
     if (associated(cpp_exc)) return
-    vol_in_ => zz12
-    zz13 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_reacted)
+    vol_in_ => zz14
+    zz15 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_reacted)
     if (associated(cpp_exc)) return
-    reacted_ => zz13
-    zz14 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_seep)
+    reacted_ => zz15
+    zz16 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_seep)
     if (associated(cpp_exc)) return
-    seeped_ => zz14
-    zz15 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_final_dry)
+    seeped_ => zz16
+    zz17 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_final_dry)
     if (associated(cpp_exc)) return
-    dry_ => zz15
-    zz16 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_ex_in)
+    dry_ => zz17
+    zz18 => cpp_vec_d_clone(ctx_%mass_balance%qual_routing_ex_in)
     if (associated(cpp_exc)) return
-    external_ => zz16
-    zz17 => p_simulationcontext_negativesourcestats__clone(ctx_%negsrc)
-    negative_sources_ => zz17
-    zz18 => cpp_vec_o_new_0(h_mk_cpp_vec_d, 2)
-    held_ => zz18
+    external_ => zz18
+    zz19 => p_simulationcontext_negativesourcestats__clone(ctx_%negsrc)
+    negative_sources_ => zz19
+    zz20 => cpp_vec_o_new_0(h_mk_cpp_vec_d, 2)
+    held_ => zz20
     x__r1_ => ctx_%node_subtypes%storages%lid_state
     x__i2_ = 0_8
     x__i2_n_ = int(x__r1_%n, 8)
     do
       if (.not. ((x__i2_ < x__i2_n_))) exit
-      zz19 => h_uas_lidnodestate(x__r1_%a%a(x__i2_)%p)
-      state_2_ => zz19
-      zz20 => cpp_vec_d_clone(state_2_%quality_mass)
+      zz21 => h_uas_lidnodestate(x__r1_%a%a(x__i2_)%p)
+      state_2_ => zz21
+      zz22 => cpp_vec_d_clone(state_2_%quality_mass)
       if (associated(cpp_exc)) return
-      zz21 => zz20
-      call cpp_vec_o_push_back(held_, zz21)
+      zz23 => zz22
+      call cpp_vec_o_push_back(held_, zz23)
       x__i2_ = (x__i2_ + 1_8)
     end do
     call cpp_vec_d_assign_vect(ctx_%nodes%conc, ctx_%nodes%conc_old)
@@ -1477,9 +1509,9 @@ contains
     iteration_ = 0
     do
       if (.not. ((iteration_ < 100))) exit
-      zz22 => cpp_vec_d_clone(ctx_%nodes%conc)
+      zz24 => cpp_vec_d_clone(ctx_%nodes%conc)
       if (associated(cpp_exc)) return
-      previous_ => zz22
+      previous_ => zz24
       call cpp_vec_d_assign_vect(ctx_%nodes%qual_mass_in, mass_in_)
       if (associated(cpp_exc)) return
       call cpp_vec_d_assign_vect(ctx_%nodes%qual_vol_in, vol_in_)
@@ -1496,10 +1528,10 @@ contains
       r_ = 0_8
       do
         if (.not. ((ieor(r_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(held_), (-9223372036854775807_8 - 1_8))))) exit
-        zz23 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(r_)%p)
-        zz25 => zz23%quality_mass
-        zz24 => h_uas_cpp_vec_d(held_%a%a(r_)%p)
-        call cpp_vec_d_assign_vect(zz25, zz24)
+        zz25 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(r_)%p)
+        zz27 => zz25%quality_mass
+        zz26 => h_uas_cpp_vec_d(held_%a%a(r_)%p)
+        call cpp_vec_d_assign_vect(zz27, zz26)
         if (associated(cpp_exc)) return
         r_ = (r_ + 1_8)
       end do
@@ -1511,13 +1543,13 @@ contains
       i_ = 0_8
       do
         if (.not. ((ieor(i_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(previous_), (-9223372036854775807_8 - 1_8))))) exit
-        zz28 = abs((previous_%a%a(i_) - ctx_%nodes%conc%a%a(i_)))
-        zz26 => cpp_arr_d_new(3_8)
-        zz26%a(0) = 1.0_8
-        zz26%a(1) = abs(previous_%a%a(i_))
-        zz26%a(2) = abs(ctx_%nodes%conc%a%a(i_))
-        zz27 = cpp_m_max_da(zz26)
-        if ((zz28 > (1E-11_8 * zz27))) then
+        zz30 = abs((previous_%a%a(i_) - ctx_%nodes%conc%a%a(i_)))
+        zz28 => cpp_arr_d_new(3_8)
+        zz28%a(0) = 1.0_8
+        zz28%a(1) = abs(previous_%a%a(i_))
+        zz28%a(2) = abs(ctx_%nodes%conc%a%a(i_))
+        zz29 = cpp_m_max_da(zz28)
+        if ((zz30 > (1E-11_8 * zz29))) then
           converged_ = .false.
           goto 107
         end if
@@ -1531,18 +1563,18 @@ contains
     end do
     103 continue
     if ((.not. converged_)) then
-      zz29 = cpp_r_lit("LID quality mixtures did not converge; inspect quality continuity and reduce the routing step")
-      zz30 => cpp_str_new_cptr(zz29)
-      warning_ => zz30
-      zz32 = cpp_vec_o_begin(ctx_%warnings)
-      zz33 = cpp_vec_o_end(ctx_%warnings)
-      zz31 => warning_
-      zz34 = cpp_algo_find__o(zz32, zz33, zz31, h_mk_cpp_str, 2)
-      if (cpp_iter_o_op_eq(zz34, cpp_vec_o_end(ctx_%warnings))) then
-        zz37 => ctx_%warnings
-        zz35 => cpp_str_clone(warning_)
-        zz36 => zz35
-        call cpp_vec_o_push_back(zz37, zz36)
+      zz31 = cpp_r_lit("LID quality mixtures did not converge; inspect quality continuity and reduce the routing step")
+      zz32 => cpp_str_new_cptr(zz31)
+      warning_ => zz32
+      zz34 = cpp_vec_o_begin(ctx_%warnings)
+      zz35 = cpp_vec_o_end(ctx_%warnings)
+      zz33 => warning_
+      zz36 = cpp_algo_find__o(zz34, zz35, zz33, h_mk_cpp_str, 2)
+      if (cpp_iter_o_op_eq(zz36, cpp_vec_o_end(ctx_%warnings))) then
+        zz39 => ctx_%warnings
+        zz37 => cpp_str_clone(warning_)
+        zz38 => zz37
+        call cpp_vec_o_push_back(zz39, zz38)
       end if
     end if
     call p_lidnode__f__prepareoutletquality(ctx_, dt_, .true.)
@@ -1578,20 +1610,22 @@ contains
     np_2_ = ctx_%links%conc_n_pollutants
     nm_2_ = p_reactiondata__n_species(ctx_%reactions)
     nt_2_ = (merge(np_2_, 0, (np_2_ > 0)) + merge(nm_2_, 0, (nm_2_ > 0)))
-    zz38 = (np_2_ > 0)
-    if (zz38) then
-      zz38 = (.not. cpp_vec_d_empty(ctx_%links%conc))
+    zz40 = (np_2_ > 0)
+    if (zz40) then
+      zz40 = (.not. cpp_vec_d_empty(ctx_%links%conc))
     end if
-    if (zz38) then
-      call p_transport_heat__f__applybedsoluteexchange(ctx_, cpp_vec_d_data(ctx_%links%conc), np_2_, 0, nt_2_, dt_)
+    if (zz40) then
+      zz41 = cpp_vec_d_data(ctx_%links%conc)
+      call p_transport_heat__f__applybedsoluteexchange(ctx_, zz41, np_2_, 0, nt_2_, dt_)
       if (associated(cpp_exc)) return
     end if
-    zz39 = (nm_2_ > 0)
-    if (zz39) then
-      zz39 = (.not. cpp_vec_d_empty(ctx_%reactions%msx_link_conc))
+    zz42 = (nm_2_ > 0)
+    if (zz42) then
+      zz42 = (.not. cpp_vec_d_empty(ctx_%reactions%msx_link_conc))
     end if
-    if (zz39) then
-      call p_transport_heat__f__applybedsoluteexchange(ctx_, cpp_vec_d_data(ctx_%reactions%msx_link_conc), nm_2_, merge(np_2_, 0, (np_2_ > 0)), nt_2_, dt_)
+    if (zz42) then
+      zz43 = cpp_vec_d_data(ctx_%reactions%msx_link_conc)
+      call p_transport_heat__f__applybedsoluteexchange(ctx_, zz43, nm_2_, merge(np_2_, 0, (np_2_ > 0)), nt_2_, dt_)
       if (associated(cpp_exc)) return
     end if
   end if
@@ -1956,7 +1990,7 @@ contains
   end do
   end procedure p_quality_qualitysolver__addcouplingloads
 
-  module procedure p_lam891
+  module procedure p_lam896
     integer(8) :: nn_
     class(t_reactiondata), pointer :: rx_
     logical :: zz1
@@ -2052,7 +2086,7 @@ contains
   call p_simulationcontext_qualityonlyinflow__clear(a1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam891
+  end procedure p_lam896
 
   module procedure p_quality_qualitysolver__addqualityonlyinflows
     integer(4) :: np_
@@ -2060,7 +2094,7 @@ contains
     class(t_nodedata), pointer :: nodes_
     class(t_simulationcontext_massbalance), pointer :: mb_
     class(t_fn128), pointer :: apply_
-    class(t_lam891), pointer :: zz1
+    class(t_lam896), pointer :: zz1
   if ((.not. (dt_ > 0.0_8))) then
     return
   end if
@@ -2599,6 +2633,8 @@ contains
     real(8), pointer :: zz3
     real(8) :: zz4
     real(8), pointer :: zz5
+    type(cpp_ptr_d) :: zz6
+    integer(4) :: zz7
   np_ = self%n_pollutants_
   if ((np_ <= 0)) then
     return
@@ -2647,7 +2683,9 @@ contains
       end if
       p_ = (p_ + 1)
     end do
-    call p_quality__f__applynodetreatment(ctx_, j_, dt_, q_raw_, cpp_vec_d_data(treat_%cin))
+    zz7 = j_
+    zz6 = cpp_vec_d_data(treat_%cin)
+    call p_quality__f__applynodetreatment(ctx_, zz7, dt_, q_raw_, zz6)
     if (associated(cpp_exc)) return
     102 continue
     j_ = (j_ + 1)
@@ -3733,7 +3771,7 @@ contains
   call p_quality_fvqualitytransport__beginwindow(self%fv_transport_)
   end procedure p_quality_qualitysolver__beginfvwindow
 
-  module procedure p_lam892
+  module procedure p_lam897
     logical :: zz1
     logical :: zz2
     integer(8) :: sk_
@@ -3778,7 +3816,7 @@ contains
   self%c_b%led_sweeping%a%a(int(self%c_p, 8)) = zz7
   zz6 = zz7
   return
-  end procedure p_lam892
+  end procedure p_lam897
 
   module procedure p_surfacespecies__f__step
     integer(4) :: np_
@@ -3826,7 +3864,7 @@ contains
     real(8) :: norm_
     real(8) :: zz16
     class(t_fn3), pointer :: apply_sweep_
-    class(t_lam892), pointer :: zz17
+    class(t_lam897), pointer :: zz17
     logical :: subcatch_is_dry_
     logical :: snow_only_blocked_
     logical :: zz18
@@ -5094,18 +5132,18 @@ contains
   return
   end procedure p_treatment__f__parse__rstr_rtreatexpr
 
-  module procedure p_lam893
+  module procedure p_lam898
   call cpp_str_movefrom(self%c_msg, a1)
   self%c_col = a2
   zres = (-1)
   return
-  end procedure p_lam893
+  end procedure p_lam898
 
   module procedure p_treatment__f__validate
     integer(4), pointer :: col_
     integer(4) :: zz1
     class(t_fn53), pointer :: fail_
-    class(t_lam893), pointer :: zz2
+    class(t_lam898), pointer :: zz2
     type(cpp_cptr) :: zz3
     class(cpp_str), pointer :: zz4
     integer(4) :: zz5
@@ -5697,7 +5735,7 @@ contains
   end if
   end procedure p_treatment__f__validate
 
-  module procedure p_lam894
+  module procedure p_lam899
     integer(8) :: i_
     class(cpp_str), pointer :: zz1
     logical :: same_
@@ -5727,11 +5765,11 @@ contains
   end do
   zres = (-1)
   return
-  end procedure p_lam894
+  end procedure p_lam899
 
   module procedure p_treatment__f__parse__rstr_rtreatexpr_rvec_str
     class(t_fn29), pointer :: lookup_
-    class(t_lam894), pointer :: zz1
+    class(t_lam899), pointer :: zz1
     integer(4) :: zz2
   call cpp_vec_o_clear(result_%tokens)
   result_%pollutant_idx = (-1)
@@ -6056,42 +6094,5 @@ contains
   zres = zz60
   return
   end procedure p_treatment__f__evaluate
-
-  module procedure p_treatment__f__precedence_treatment
-  select case (t_)
-  case (2, 3)
-    zres = 1
-    return
-  case (4, 5)
-    zres = 2
-    return
-  case (6)
-    zres = 3
-    return
-  case (7)
-    zres = 4
-    return
-  case default
-    zres = 0
-    return
-  end select
-  end procedure p_treatment__f__precedence_treatment
-
-  module procedure p_treatment__f__isfunction_treatment
-    integer(4) :: v_
-  v_ = t_
-  zres = ((v_ >= 8) .and. (v_ <= 15))
-  return
-  end procedure p_treatment__f__isfunction_treatment
-
-  module procedure p_treatment__f__isoperator_treatment
-  zres = ((((((t_ == 2) .or. (t_ == 3)) .or. (t_ == 4)) .or. (t_ == 5)) .or. (t_ == 6)) .or. (t_ == 7))
-  return
-  end procedure p_treatment__f__isoperator_treatment
-
-  module procedure p_treatment__f__isrightassoc_treatment
-  zres = ((t_ == 6) .or. (t_ == 7))
-  return
-  end procedure p_treatment__f__isrightassoc_treatment
 
 end submodule swmm6_engine_052

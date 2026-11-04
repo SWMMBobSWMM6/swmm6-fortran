@@ -4310,9 +4310,9 @@ contains
   return
   end procedure p_defaultinputplugin__read
 
-  module procedure p_lam840
+  module procedure p_lam844
   return
-  end procedure p_lam840
+  end procedure p_lam844
 
   module procedure p_mg2
   call p_input__f__handle_title(a1, a2)
@@ -4546,7 +4546,7 @@ contains
   call p_input__f__handle_symbols(a1, a2)
   end procedure p_mg59
 
-  module procedure p_lam842
+  module procedure p_lam846
     class(cpp_vec_o), pointer :: dst_
     class(cpp_str), pointer :: zz1
     class(*), pointer :: zz2
@@ -4566,11 +4566,11 @@ contains
   zz7 = cpp_vec_o_insert_itert_itert_itert(dst_, cpp_iter_o_clone(zz6), cpp_vec_o_begin(a2), cpp_vec_o_end(a2))
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam842
+  end procedure p_lam846
 
-  module procedure p_lam841
+  module procedure p_lam845
     type(cpp_cptr) :: x__cap1_
-    class(t_lam842), pointer :: zz1
+    class(t_lam846), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
   x__cap1_ = a1
@@ -4579,7 +4579,7 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam841
+  end procedure p_lam845
 
   module procedure p_mg60
   call p_input__f__handle_map(a1, a2)
@@ -4633,7 +4633,7 @@ contains
   call p_input__f__handle_process_components(a1, a2)
   end procedure p_mg72
 
-  module procedure p_lam843
+  module procedure p_lam847
     class(cpp_str), pointer :: zz1
     class(*), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
@@ -4654,11 +4654,11 @@ contains
   zz8 => cpp_vec_o_emplace_back(zz7, zz6)
   zz9 => h_uas_cpp_pair(zz8%p)
   return
-  end procedure p_lam843
+  end procedure p_lam847
 
   module procedure p_defaultinputplugin__register_builtin_handlers
     class(t_fn22), pointer :: noop_
-    class(t_lam840), pointer :: zz1
+    class(t_lam844), pointer :: zz1
     type(cpp_cptr) :: zz2
     class(cpp_str), pointer :: zz3
     class(t_input_sectionregistry), pointer :: zz4
@@ -4892,7 +4892,7 @@ contains
     class(t_input_sectionregistry), pointer :: zz232
     class(t_mg59), pointer :: zz233
     class(t_fn156), pointer :: capture_
-    class(t_lam841), pointer :: zz234
+    class(t_lam845), pointer :: zz234
     type(cpp_cptr) :: zz235
     class(cpp_str), pointer :: zz236
     class(t_input_sectionregistry), pointer :: zz237
@@ -4979,7 +4979,7 @@ contains
     class(cpp_str), pointer :: zz313
     class(cpp_str), pointer :: zz314
     class(t_input_sectionregistry), pointer :: zz315
-    class(t_lam843), pointer :: zz316
+    class(t_lam847), pointer :: zz316
   allocate(zz1)
   noop_ => zz1
   zz4 => self%registry_
@@ -5802,13 +5802,13 @@ contains
   return
   end procedure p_defaultoutputplugin__preparecheckpoint
 
-  module procedure p_lam844
+  module procedure p_lam848
     class(*), pointer :: zz1
   zz1 => self%c_publication
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam844
+  end procedure p_lam848
 
   module procedure p_defaultoutputplugin__installcheckpoint
     class(t_io_checkpointoutputpublication), pointer :: publication_
@@ -5817,7 +5817,7 @@ contains
     class(cpp_vec_o), pointer :: zz3
     class(t_io_checkpointoutputpublication), pointer :: zz4
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam844), pointer :: zz5
+    class(t_lam848), pointer :: zz5
     class(cpp_defer), pointer :: zz6
     integer(4) :: zz7
     class(cpp_object), pointer :: zz8
@@ -5887,12 +5887,12 @@ contains
   self%state_ = merge(5, 4, (self%n_periods_ /= 0))
   end procedure p_defaultoutputplugin__adoptcheckpoint
 
-  module procedure p_lam845
+  module procedure p_lam849
     real(8) :: zz1
   zz1 = p_datetime__f__addseconds(self%c_ctx%options%start_date, (((real(a1, 8) * self%c_step_ms) + 1.0_8) / 1000.0_8))
   zres = zz1
   return
-  end procedure p_lam845
+  end procedure p_lam849
 
   module procedure p_defaultoutputplugin__validatecheckpoint
     logical :: zz1
@@ -5914,7 +5914,7 @@ contains
     type(cpp_cptr) :: zz13
     integer(4) :: completed_
     class(t_fn122), pointer :: date_
-    class(t_lam845), pointer :: zz14
+    class(t_lam849), pointer :: zz14
     integer(4) :: first_
     integer(4) :: upper_
     integer(4) :: middle_
@@ -6209,12 +6209,12 @@ contains
   return
   end procedure p_defaultoutputplugin__preparefilecheckpoint
 
-  module procedure p_lam846
+  module procedure p_lam850
     real(8) :: zz1
   zz1 = p_datetime__f__addseconds(self%c_ctx%options%start_date, (((real(a1, 8) * self%c_step) + 1.0_8) / 1000.0_8))
   zres = zz1
   return
-  end procedure p_lam846
+  end procedure p_lam850
 
   module procedure p_defaultoutputplugin__validatefilecheckpoint
     logical :: zz1
@@ -6230,7 +6230,7 @@ contains
     type(cpp_cptr) :: zz7
     integer(4) :: completed_
     class(t_fn122), pointer :: date_
-    class(t_lam846), pointer :: zz8
+    class(t_lam850), pointer :: zz8
     integer(4) :: first_
     integer(4) :: upper_
     integer(4) :: mid_

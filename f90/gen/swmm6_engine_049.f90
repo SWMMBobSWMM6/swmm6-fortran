@@ -1037,7 +1037,7 @@ contains
     v_2_ = 0
     do
       if (.not. ((v_2_ < s_subcatchsnapshot__snow_process_count))) exit
-      call p_defaultoutputplugin__writeint4(self, (9 + v_2_))
+      call p_defaultoutputplugin__writeint4(self, (65536 + v_2_))
       if (associated(cpp_exc)) return
       v_2_ = (v_2_ + 1)
     end do
@@ -1870,7 +1870,7 @@ contains
   return
   end procedure p_defaultreportplugin__write_summary
 
-  module procedure p_lam847
+  module procedure p_lam851
     class(cpp_vec_i), pointer :: x__r7_
     integer(8) :: x__i8_
     integer(8) :: x__i8_n_
@@ -1892,9 +1892,9 @@ contains
     x__i8_ = (x__i8_ + 1_8)
   end do
   return
-  end procedure p_lam847
+  end procedure p_lam851
 
-  module procedure p_lam848
+  module procedure p_lam852
     type(cpp_cptr) :: zz1
     class(cpp_cfile), pointer :: zz2
     type(cpp_cptr) :: zz3
@@ -1986,12 +1986,12 @@ contains
     t_ = (t_ + 1)
   end do
   return
-  end procedure p_lam848
+  end procedure p_lam852
 
-  module procedure p_lam849
+  module procedure p_lam853
   zres = (a1 /= 1.0_8)
   return
-  end procedure p_lam849
+  end procedure p_lam853
 
   module procedure p_defaultreportplugin__write_preamble
     type(cpp_cptr) :: ds_
@@ -2292,7 +2292,7 @@ contains
     class(cpp_vec_b), pointer :: has_inflow_
     class(cpp_vec_b), pointer :: zz243
     class(t_fn41), pointer :: mark_
-    class(t_lam847), pointer :: zz244
+    class(t_lam851), pointer :: zz244
     integer(4) :: i_5_
     integer(8) :: ui_5_
     integer(4) :: nt_
@@ -2439,7 +2439,7 @@ contains
     type(cpp_cptr) :: zz363
     integer(4) :: zz364
     class(t_fn162), pointer :: tables_
-    class(t_lam848), pointer :: zz365
+    class(t_lam852), pointer :: zz365
     logical :: any_shape_
     class(cpp_vec_o), pointer :: x__r9_
     integer(8) :: x__i10_
@@ -2462,165 +2462,165 @@ contains
     class(t_table), pointer :: zz376
     class(t_transect_transectdata), pointer :: td_2_
     class(t_transect_transectdata), pointer :: zz377
-    type(cpp_cptr) :: zz378
-    type(cpp_cptr) :: zz379
+    type(cpp_ptr_d) :: zz378
+    type(cpp_ptr_d) :: zz379
     type(cpp_cptr) :: zz380
-    integer(4) :: zz381
+    type(cpp_cptr) :: zz381
     type(cpp_cptr) :: zz382
-    type(cpp_cptr) :: zz383
-    integer(4) :: zz384
-    integer(4) :: nt_2_
+    integer(4) :: zz383
+    type(cpp_cptr) :: zz384
     type(cpp_cptr) :: zz385
-    type(cpp_cptr) :: zz386
-    integer(4) :: zz387
+    integer(4) :: zz386
+    integer(4) :: nt_2_
+    type(cpp_cptr) :: zz387
     type(cpp_cptr) :: zz388
-    type(cpp_cptr) :: zz389
-    integer(4) :: zz390
+    integer(4) :: zz389
+    type(cpp_cptr) :: zz390
     type(cpp_cptr) :: zz391
-    type(cpp_cptr) :: zz392
-    integer(4) :: zz393
+    integer(4) :: zz392
+    type(cpp_cptr) :: zz393
+    type(cpp_cptr) :: zz394
+    integer(4) :: zz395
     integer(4) :: i_8_
-    logical :: zz394
+    logical :: zz396
     class(t_transect_transectdata), pointer :: td_3_
-    class(t_transect_transectdata), pointer :: zz395
-    type(cpp_cptr) :: zz396
-    type(cpp_cptr) :: zz397
+    class(t_transect_transectdata), pointer :: zz397
     type(cpp_cptr) :: zz398
-    integer(4) :: zz399
+    type(cpp_cptr) :: zz399
     type(cpp_cptr) :: zz400
-    type(cpp_cptr) :: zz401
-    integer(4) :: zz402
+    integer(4) :: zz401
+    type(cpp_cptr) :: zz402
     type(cpp_cptr) :: zz403
-    type(cpp_cptr) :: zz404
-    integer(4) :: zz405
+    integer(4) :: zz404
+    type(cpp_cptr) :: zz405
     type(cpp_cptr) :: zz406
-    type(cpp_cptr) :: zz407
-    integer(4) :: zz408
+    integer(4) :: zz407
+    type(cpp_cptr) :: zz408
     type(cpp_cptr) :: zz409
-    type(cpp_cptr) :: zz410
-    integer(4) :: zz411
+    integer(4) :: zz410
+    type(cpp_cptr) :: zz411
+    type(cpp_cptr) :: zz412
+    integer(4) :: zz413
     integer(4) :: us_
     real(8) :: ucf_len_2_
-    type(cpp_ptr_o) :: zz412
-    type(cpp_slot), pointer :: zz413
-    class(cpp_arr_d), pointer :: zz414
-    type(cpp_ptr_d) :: zz415
-    real(8), pointer :: zz416
+    type(cpp_ptr_o) :: zz414
+    type(cpp_slot), pointer :: zz415
+    class(cpp_arr_d), pointer :: zz416
+    type(cpp_ptr_d) :: zz417
+    real(8), pointer :: zz418
     integer(4) :: s_
     integer(8) :: su_
     class(t_street_streetparams), pointer :: sp_
-    class(t_street_streetparams), pointer :: zz417
+    class(t_street_streetparams), pointer :: zz419
     class(t_transect_transectdata), pointer :: td_4_
-    class(t_transect_transectdata), pointer :: zz418
-    type(cpp_cptr) :: zz419
-    class(cpp_str), pointer :: zz420
+    class(t_transect_transectdata), pointer :: zz420
     type(cpp_cptr) :: zz421
-    type(cpp_cptr) :: zz422
-    integer(4) :: zz423
+    class(cpp_str), pointer :: zz422
+    type(cpp_cptr) :: zz423
     type(cpp_cptr) :: zz424
-    type(cpp_cptr) :: zz425
-    integer(4) :: zz426
+    integer(4) :: zz425
+    type(cpp_cptr) :: zz426
     type(cpp_cptr) :: zz427
-    type(cpp_cptr) :: zz428
-    integer(4) :: zz429
+    integer(4) :: zz428
+    type(cpp_cptr) :: zz429
     type(cpp_cptr) :: zz430
-    type(cpp_cptr) :: zz431
-    integer(4) :: zz432
+    integer(4) :: zz431
+    type(cpp_cptr) :: zz432
     type(cpp_cptr) :: zz433
-    type(cpp_cptr) :: zz434
-    integer(4) :: zz435
+    integer(4) :: zz434
+    type(cpp_cptr) :: zz435
     type(cpp_cptr) :: zz436
-    type(cpp_cptr) :: zz437
-    integer(4) :: zz438
+    integer(4) :: zz437
+    type(cpp_cptr) :: zz438
     type(cpp_cptr) :: zz439
-    type(cpp_ptr_o) :: zz440
-    type(cpp_slot), pointer :: zz441
-    type(cpp_cptr), pointer :: zz442
-    integer(4) :: zz443
-    type(cpp_cptr) :: zz444
+    integer(4) :: zz440
+    type(cpp_cptr) :: zz441
+    type(cpp_ptr_o) :: zz442
+    type(cpp_slot), pointer :: zz443
+    type(cpp_cptr), pointer :: zz444
     integer(4) :: zz445
     type(cpp_cptr) :: zz446
-    logical :: zz447
+    integer(4) :: zz447
     type(cpp_cptr) :: zz448
-    type(cpp_cptr) :: zz449
+    logical :: zz449
     type(cpp_cptr) :: zz450
-    integer(4) :: zz451
+    type(cpp_cptr) :: zz451
     type(cpp_cptr) :: zz452
-    logical :: zz453
+    integer(4) :: zz453
     type(cpp_cptr) :: zz454
-    type(cpp_cptr) :: zz455
+    logical :: zz455
     type(cpp_cptr) :: zz456
-    integer(4) :: zz457
+    type(cpp_cptr) :: zz457
     type(cpp_cptr) :: zz458
-    logical :: zz459
+    integer(4) :: zz459
     type(cpp_cptr) :: zz460
-    type(cpp_cptr) :: zz461
+    logical :: zz461
     type(cpp_cptr) :: zz462
-    integer(4) :: zz463
+    type(cpp_cptr) :: zz463
     type(cpp_cptr) :: zz464
-    logical :: zz465
+    integer(4) :: zz465
     type(cpp_cptr) :: zz466
-    type(cpp_cptr) :: zz467
+    logical :: zz467
     type(cpp_cptr) :: zz468
-    integer(4) :: zz469
+    type(cpp_cptr) :: zz469
     type(cpp_cptr) :: zz470
-    logical :: zz471
+    integer(4) :: zz471
     type(cpp_cptr) :: zz472
-    type(cpp_cptr) :: zz473
+    logical :: zz473
     type(cpp_cptr) :: zz474
-    integer(4) :: zz475
+    type(cpp_cptr) :: zz475
     type(cpp_cptr) :: zz476
-    type(cpp_cptr) :: zz477
+    integer(4) :: zz477
     type(cpp_cptr) :: zz478
     type(cpp_cptr) :: zz479
-    integer(4) :: zz480
+    type(cpp_cptr) :: zz480
     type(cpp_cptr) :: zz481
-    logical :: zz482
+    integer(4) :: zz482
     type(cpp_cptr) :: zz483
-    type(cpp_cptr) :: zz484
+    logical :: zz484
     type(cpp_cptr) :: zz485
-    integer(4) :: zz486
-    logical :: zz487
-    logical :: zz488
+    type(cpp_cptr) :: zz486
+    type(cpp_cptr) :: zz487
+    integer(4) :: zz488
     logical :: zz489
+    logical :: zz490
+    logical :: zz491
     class(t_transport_matrix), pointer :: matrix_
-    class(t_transport_matrix), pointer :: zz490
-    type(cpp_cptr) :: zz491
-    class(cpp_str), pointer :: zz492
+    class(t_transport_matrix), pointer :: zz492
     type(cpp_cptr) :: zz493
-    integer(4) :: zz494
-    integer(4) :: im_
+    class(cpp_str), pointer :: zz494
     type(cpp_cptr) :: zz495
-    type(cpp_ptr_o) :: zz496
-    type(cpp_slot), pointer :: zz497
-    type(cpp_cptr), pointer :: zz498
-    integer(4) :: zz499
+    integer(4) :: zz496
+    integer(4) :: im_
+    type(cpp_cptr) :: zz497
+    type(cpp_ptr_o) :: zz498
+    type(cpp_slot), pointer :: zz499
+    type(cpp_cptr), pointer :: zz500
+    integer(4) :: zz501
     integer(4) :: rm_
     type(cpp_cptr) :: rm_name_
-    type(cpp_cptr) :: zz500
-    type(cpp_cptr) :: zz501
     type(cpp_cptr) :: zz502
     type(cpp_cptr) :: zz503
     type(cpp_cptr) :: zz504
     type(cpp_cptr) :: zz505
     type(cpp_cptr) :: zz506
     type(cpp_cptr) :: zz507
-    integer(4) :: zz508
-    logical :: zz509
-    type(cpp_cptr) :: zz510
-    integer(4) :: zz511
-    logical :: zz512
-    type(cpp_cptr) :: zz513
-    integer(4) :: zz514
+    type(cpp_cptr) :: zz508
+    type(cpp_cptr) :: zz509
+    integer(4) :: zz510
+    logical :: zz511
+    type(cpp_cptr) :: zz512
+    integer(4) :: zz513
+    logical :: zz514
+    type(cpp_cptr) :: zz515
+    integer(4) :: zz516
     integer(4) :: sm_
     type(cpp_cptr) :: sm_name_
-    type(cpp_ptr_o) :: zz515
-    type(cpp_slot), pointer :: zz516
-    type(cpp_cptr), pointer :: zz517
-    type(cpp_cptr) :: zz518
-    type(cpp_cptr) :: zz519
+    type(cpp_ptr_o) :: zz517
+    type(cpp_slot), pointer :: zz518
+    type(cpp_cptr), pointer :: zz519
     type(cpp_cptr) :: zz520
-    integer(4) :: zz521
+    type(cpp_cptr) :: zz521
     type(cpp_cptr) :: zz522
     integer(4) :: zz523
     type(cpp_cptr) :: zz524
@@ -2640,59 +2640,61 @@ contains
     type(cpp_cptr) :: zz538
     integer(4) :: zz539
     type(cpp_cptr) :: zz540
-    type(cpp_cptr) :: zz541
+    integer(4) :: zz541
     type(cpp_cptr) :: zz542
     type(cpp_cptr) :: zz543
-    integer(4) :: zz544
+    type(cpp_cptr) :: zz544
     type(cpp_cptr) :: zz545
     integer(4) :: zz546
-    integer(4) :: zz547
-    type(cpp_cptr) :: zz548
+    type(cpp_cptr) :: zz547
+    integer(4) :: zz548
     integer(4) :: zz549
     type(cpp_cptr) :: zz550
-    real(8) :: zz551
+    integer(4) :: zz551
     type(cpp_cptr) :: zz552
-    type(cpp_cptr) :: zz553
+    real(8) :: zz553
     type(cpp_cptr) :: zz554
-    integer(4) :: zz555
+    type(cpp_cptr) :: zz555
     type(cpp_cptr) :: zz556
-    type(cpp_cptr) :: zz557
-    integer(4) :: zz558
+    integer(4) :: zz557
+    type(cpp_cptr) :: zz558
     type(cpp_cptr) :: zz559
-    type(cpp_cptr) :: zz560
-    integer(4) :: zz561
+    integer(4) :: zz560
+    type(cpp_cptr) :: zz561
+    type(cpp_cptr) :: zz562
+    integer(4) :: zz563
     logical :: scaled_rain_
-    class(t_lam849), pointer :: zz562
-    type(cpp_iter_d) :: zz563
-    type(cpp_iter_d) :: zz564
-    logical :: zz565
-    type(cpp_cptr) :: zz566
-    type(cpp_cptr) :: zz567
-    integer(4) :: zz568
+    class(t_lam853), pointer :: zz564
+    type(cpp_iter_d) :: zz565
+    type(cpp_iter_d) :: zz566
+    logical :: zz567
+    type(cpp_cptr) :: zz568
     type(cpp_cptr) :: zz569
-    type(cpp_cptr) :: zz570
-    integer(4) :: zz571
+    integer(4) :: zz570
+    type(cpp_cptr) :: zz571
     type(cpp_cptr) :: zz572
-    type(cpp_cptr) :: zz573
-    integer(4) :: zz574
+    integer(4) :: zz573
+    type(cpp_cptr) :: zz574
     type(cpp_cptr) :: zz575
-    type(cpp_cptr) :: zz576
-    integer(4) :: zz577
+    integer(4) :: zz576
+    type(cpp_cptr) :: zz577
     type(cpp_cptr) :: zz578
     integer(4) :: zz579
     type(cpp_cptr) :: zz580
     integer(4) :: zz581
-    integer(4) :: i_9_
     type(cpp_cptr) :: zz582
-    class(cpp_str), pointer :: zz583
+    integer(4) :: zz583
+    integer(4) :: i_9_
     type(cpp_cptr) :: zz584
-    integer(4) :: zz585
+    class(cpp_str), pointer :: zz585
     type(cpp_cptr) :: zz586
-    type(cpp_cptr) :: zz587
-    integer(4) :: zz588
+    integer(4) :: zz587
+    type(cpp_cptr) :: zz588
     type(cpp_cptr) :: zz589
-    type(cpp_cptr) :: zz590
-    integer(4) :: zz591
+    integer(4) :: zz590
+    type(cpp_cptr) :: zz591
+    type(cpp_cptr) :: zz592
+    integer(4) :: zz593
   zz1 = cpp_r_buf_i(32)
   ds_ = zz1
   zz2 = cpp_r_buf_i(16)
@@ -3522,87 +3524,89 @@ contains
         call p_transect_transectdata__ctor_x(zz377)
         td_2_ => zz377
         if ((.not. cpp_vec_d_empty(t_3_%x))) then
-          call p_transect__f__buildcustomtables(td_2_, 1.0_8, cpp_vec_d_data(t_3_%x), cpp_vec_d_data(t_3_%y), int(cpp_vec_d_size(t_3_%x), 4))
+          zz378 = cpp_vec_d_data(t_3_%x)
+          zz379 = cpp_vec_d_data(t_3_%y)
+          call p_transect__f__buildcustomtables(td_2_, 1.0_8, zz378, zz379, int(cpp_vec_d_size(t_3_%x), 4))
         end if
-        zz378 = cpp_r_lit("Shape")
-        call tables_%invoke(zz378, t_3_%id, td_2_)
+        zz380 = cpp_r_lit("Shape")
+        call tables_%invoke(zz380, t_3_%id, td_2_)
         if (associated(cpp_exc)) return
         130 continue
         x__i12_ = (x__i12_ + 1_8)
       end do
-      zz379 = cpp_r_lit(achar(10) // "  %s")
-      zz380 = cpp_r_lit("")
-      zz381 = cpp_r_fprintf(f_, zz379, zz380)
+      zz381 = cpp_r_lit(achar(10) // "  %s")
+      zz382 = cpp_r_lit("")
+      zz383 = cpp_r_fprintf(f_, zz381, zz382)
       if (associated(cpp_exc)) return
-      zz382 = cpp_r_lit(achar(10) // "  %s")
-      zz383 = cpp_r_lit("")
-      zz384 = cpp_r_fprintf(f_, zz382, zz383)
+      zz384 = cpp_r_lit(achar(10) // "  %s")
+      zz385 = cpp_r_lit("")
+      zz386 = cpp_r_fprintf(f_, zz384, zz385)
       if (associated(cpp_exc)) return
     end if
     nt_2_ = p_transectstore__count(ctx_%transects)
     if ((nt_2_ > 0)) then
-      zz385 = cpp_r_lit(achar(10) // "  %s")
-      zz386 = cpp_r_lit("****************")
-      zz387 = cpp_r_fprintf(f_, zz385, zz386)
+      zz387 = cpp_r_lit(achar(10) // "  %s")
+      zz388 = cpp_r_lit("****************")
+      zz389 = cpp_r_fprintf(f_, zz387, zz388)
       if (associated(cpp_exc)) return
-      zz388 = cpp_r_lit(achar(10) // "  %s")
-      zz389 = cpp_r_lit("Transect Summary")
-      zz390 = cpp_r_fprintf(f_, zz388, zz389)
+      zz390 = cpp_r_lit(achar(10) // "  %s")
+      zz391 = cpp_r_lit("Transect Summary")
+      zz392 = cpp_r_fprintf(f_, zz390, zz391)
       if (associated(cpp_exc)) return
-      zz391 = cpp_r_lit(achar(10) // "  %s")
-      zz392 = cpp_r_lit("****************")
-      zz393 = cpp_r_fprintf(f_, zz391, zz392)
+      zz393 = cpp_r_lit(achar(10) // "  %s")
+      zz394 = cpp_r_lit("****************")
+      zz395 = cpp_r_fprintf(f_, zz393, zz394)
       if (associated(cpp_exc)) return
       i_8_ = 0
       do
-        zz394 = (i_8_ < nt_2_)
-        if (zz394) then
-          zz394 = (i_8_ < int(cpp_vec_o_size(ctx_%transect_tables), 4))
+        zz396 = (i_8_ < nt_2_)
+        if (zz396) then
+          zz396 = (i_8_ < int(cpp_vec_o_size(ctx_%transect_tables), 4))
         end if
-        if (.not. (zz394)) exit
-        zz395 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(i_8_, 8))%p)
-        td_3_ => zz395
-        zz396 = cpp_r_lit("Transect")
-        call tables_%invoke(zz396, td_3_%name, td_3_)
+        if (.not. (zz396)) exit
+        zz397 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(i_8_, 8))%p)
+        td_3_ => zz397
+        zz398 = cpp_r_lit("Transect")
+        call tables_%invoke(zz398, td_3_%name, td_3_)
         if (associated(cpp_exc)) return
         i_8_ = (i_8_ + 1)
       end do
-      zz397 = cpp_r_lit(achar(10) // "  %s")
-      zz398 = cpp_r_lit("")
-      zz399 = cpp_r_fprintf(f_, zz397, zz398)
+      zz399 = cpp_r_lit(achar(10) // "  %s")
+      zz400 = cpp_r_lit("")
+      zz401 = cpp_r_fprintf(f_, zz399, zz400)
       if (associated(cpp_exc)) return
-      zz400 = cpp_r_lit(achar(10) // "  %s")
-      zz401 = cpp_r_lit("")
-      zz402 = cpp_r_fprintf(f_, zz400, zz401)
+      zz402 = cpp_r_lit(achar(10) // "  %s")
+      zz403 = cpp_r_lit("")
+      zz404 = cpp_r_fprintf(f_, zz402, zz403)
       if (associated(cpp_exc)) return
     end if
     if ((p_streetstore__count(ctx_%streets) > 0)) then
-      zz403 = cpp_r_lit(achar(10) // "  %s")
-      zz404 = cpp_r_lit("**************")
-      zz405 = cpp_r_fprintf(f_, zz403, zz404)
+      zz405 = cpp_r_lit(achar(10) // "  %s")
+      zz406 = cpp_r_lit("**************")
+      zz407 = cpp_r_fprintf(f_, zz405, zz406)
       if (associated(cpp_exc)) return
-      zz406 = cpp_r_lit(achar(10) // "  %s")
-      zz407 = cpp_r_lit("Street Summary")
-      zz408 = cpp_r_fprintf(f_, zz406, zz407)
+      zz408 = cpp_r_lit(achar(10) // "  %s")
+      zz409 = cpp_r_lit("Street Summary")
+      zz410 = cpp_r_fprintf(f_, zz408, zz409)
       if (associated(cpp_exc)) return
-      zz409 = cpp_r_lit(achar(10) // "  %s")
-      zz410 = cpp_r_lit("**************")
-      zz411 = cpp_r_fprintf(f_, zz409, zz410)
+      zz411 = cpp_r_lit(achar(10) // "  %s")
+      zz412 = cpp_r_lit("**************")
+      zz413 = cpp_r_fprintf(f_, zz411, zz412)
       if (associated(cpp_exc)) return
       us_ = merge(1, 0, (fu_ >= 3))
-      zz412 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-      zz413 => cpp_ptr_o_item_l(zz412, 3_8)
-      zz414 => h_uas_cpp_arr_d(zz413%p)
-      zz415 = cpp_ptr_d_new_ta_l(zz414, 0_8)
-      zz416 => cpp_ptr_d_item_i(zz415, us_)
-      ucf_len_2_ = zz416
+      zz414 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+      zz415 => cpp_ptr_o_item_l(zz414, 3_8)
+      zz416 => h_uas_cpp_arr_d(zz415%p)
+      zz417 = cpp_ptr_d_new_ta_l(zz416, 0_8)
+      zz418 => cpp_ptr_d_item_i(zz417, us_)
+      ucf_len_2_ = zz418
       s_ = 0
       do
         if (.not. ((s_ < p_streetstore__count(ctx_%streets)))) exit
         su_ = int(s_, 8)
-        allocate(zz417)
-        call p_street_streetparams__ctor_x(zz417)
-        sp_ => zz417
+        allocate(zz419)
+        call p_street_streetparams__ctor_x(zz419)
+        sp_ => zz419
         sp_%width = (ctx_%streets%ft_crown%a%a(su_) / ucf_len_2_)
         sp_%curb_height = (ctx_%streets%h_curb%a%a(su_) / ucf_len_2_)
         sp_%slope = (ctx_%streets%sx%a%a(su_) / 100.0_8)
@@ -3613,168 +3617,168 @@ contains
         sp_%back_width = (ctx_%streets%back_width%a%a(su_) / ucf_len_2_)
         sp_%back_slope = (ctx_%streets%back_slope%a%a(su_) / 100.0_8)
         sp_%back_roughness = ctx_%streets%back_n%a%a(su_)
-        allocate(zz418)
-        call p_transect_transectdata__ctor_x(zz418)
-        td_4_ => zz418
+        allocate(zz420)
+        call p_transect_transectdata__ctor_x(zz420)
+        td_4_ => zz420
         call p_street__f__buildtransect(sp_, td_4_)
         if (associated(cpp_exc)) return
-        zz419 = cpp_r_lit("Street")
-        zz420 => h_uas_cpp_str(ctx_%streets%names%a%a(su_)%p)
-        call tables_%invoke(zz419, zz420, td_4_)
+        zz421 = cpp_r_lit("Street")
+        zz422 => h_uas_cpp_str(ctx_%streets%names%a%a(su_)%p)
+        call tables_%invoke(zz421, zz422, td_4_)
         if (associated(cpp_exc)) return
         s_ = (s_ + 1)
       end do
-      zz421 = cpp_r_lit(achar(10) // "  %s")
-      zz422 = cpp_r_lit("")
-      zz423 = cpp_r_fprintf(f_, zz421, zz422)
+      zz423 = cpp_r_lit(achar(10) // "  %s")
+      zz424 = cpp_r_lit("")
+      zz425 = cpp_r_fprintf(f_, zz423, zz424)
       if (associated(cpp_exc)) return
-      zz424 = cpp_r_lit(achar(10) // "  %s")
-      zz425 = cpp_r_lit("")
-      zz426 = cpp_r_fprintf(f_, zz424, zz425)
+      zz426 = cpp_r_lit(achar(10) // "  %s")
+      zz427 = cpp_r_lit("")
+      zz428 = cpp_r_fprintf(f_, zz426, zz427)
       if (associated(cpp_exc)) return
     end if
   end if
-  zz427 = cpp_r_lit(achar(10) // "  %s")
-  zz428 = cpp_r_lit("")
-  zz429 = cpp_r_fprintf(f_, zz427, zz428)
+  zz429 = cpp_r_lit(achar(10) // "  %s")
+  zz430 = cpp_r_lit("")
+  zz431 = cpp_r_fprintf(f_, zz429, zz430)
   if (associated(cpp_exc)) return
-  zz430 = cpp_r_lit(achar(10) // "  %s")
-  zz431 = cpp_r_lit("****************")
-  zz432 = cpp_r_fprintf(f_, zz430, zz431)
+  zz432 = cpp_r_lit(achar(10) // "  %s")
+  zz433 = cpp_r_lit("****************")
+  zz434 = cpp_r_fprintf(f_, zz432, zz433)
   if (associated(cpp_exc)) return
-  zz433 = cpp_r_lit(achar(10) // "  %s")
-  zz434 = cpp_r_lit("Analysis Options")
-  zz435 = cpp_r_fprintf(f_, zz433, zz434)
+  zz435 = cpp_r_lit(achar(10) // "  %s")
+  zz436 = cpp_r_lit("Analysis Options")
+  zz437 = cpp_r_fprintf(f_, zz435, zz436)
   if (associated(cpp_exc)) return
-  zz436 = cpp_r_lit(achar(10) // "  %s")
-  zz437 = cpp_r_lit("****************")
-  zz438 = cpp_r_fprintf(f_, zz436, zz437)
+  zz438 = cpp_r_lit(achar(10) // "  %s")
+  zz439 = cpp_r_lit("****************")
+  zz440 = cpp_r_fprintf(f_, zz438, zz439)
   if (associated(cpp_exc)) return
-  zz439 = cpp_r_lit(achar(10) // "  Flow Units ............... %s")
-  zz440 = cpp_ptr_o_new_ta_l(s__f__flowunitwords_defaultreportplugin, 0_8)
-  zz441 => cpp_ptr_o_item_i(zz440, fu_)
-  zz442 => h_ref_cpp_cptr(zz441%p)
-  zz443 = cpp_r_fprintf(f_, zz439, zz442)
+  zz441 = cpp_r_lit(achar(10) // "  Flow Units ............... %s")
+  zz442 = cpp_ptr_o_new_ta_l(s__f__flowunitwords_defaultreportplugin, 0_8)
+  zz443 => cpp_ptr_o_item_i(zz442, fu_)
+  zz444 => h_ref_cpp_cptr(zz443%p)
+  zz445 = cpp_r_fprintf(f_, zz441, zz444)
   if (associated(cpp_exc)) return
-  zz444 = cpp_r_lit(achar(10) // "  Process Models:")
-  zz445 = cpp_r_fprintf(f_, zz444)
+  zz446 = cpp_r_lit(achar(10) // "  Process Models:")
+  zz447 = cpp_r_fprintf(f_, zz446)
   if (associated(cpp_exc)) return
-  zz446 = cpp_r_lit(achar(10) // "    Rainfall/Runoff ........ %s")
-  zz447 = (p_simulationcontext__n_gages(ctx_) > 0)
-  if (zz447) then
-    zz447 = (.not. opt_%ignore_rainfall)
+  zz448 = cpp_r_lit(achar(10) // "    Rainfall/Runoff ........ %s")
+  zz449 = (p_simulationcontext__n_gages(ctx_) > 0)
+  if (zz449) then
+    zz449 = (.not. opt_%ignore_rainfall)
   end if
-  if (zz447) then
-    zz448 = cpp_r_lit("YES")
-    zz450 = zz448
+  if (zz449) then
+    zz450 = cpp_r_lit("YES")
+    zz452 = zz450
   else
-    zz449 = cpp_r_lit("NO")
-    zz450 = zz449
+    zz451 = cpp_r_lit("NO")
+    zz452 = zz451
   end if
-  zz451 = cpp_r_fprintf(f_, zz446, zz450)
+  zz453 = cpp_r_fprintf(f_, zz448, zz452)
   if (associated(cpp_exc)) return
-  zz452 = cpp_r_lit(achar(10) // "    RDII ................... %s")
-  zz453 = (p_unithyddata__count(ctx_%unit_hyds) > 0)
-  if (zz453) then
-    zz453 = (.not. opt_%ignore_rdii)
+  zz454 = cpp_r_lit(achar(10) // "    RDII ................... %s")
+  zz455 = (p_unithyddata__count(ctx_%unit_hyds) > 0)
+  if (zz455) then
+    zz455 = (.not. opt_%ignore_rdii)
   end if
-  if (zz453) then
-    zz454 = cpp_r_lit("YES")
-    zz456 = zz454
+  if (zz455) then
+    zz456 = cpp_r_lit("YES")
+    zz458 = zz456
   else
-    zz455 = cpp_r_lit("NO")
-    zz456 = zz455
+    zz457 = cpp_r_lit("NO")
+    zz458 = zz457
   end if
-  zz457 = cpp_r_fprintf(f_, zz452, zz456)
+  zz459 = cpp_r_fprintf(f_, zz454, zz458)
   if (associated(cpp_exc)) return
-  zz458 = cpp_r_lit(achar(10) // "    Snowmelt ............... %s")
-  zz459 = (p_nameindex__size(ctx_%snowpack_names) > 0)
-  if (zz459) then
-    zz459 = (.not. opt_%ignore_snow_melt)
+  zz460 = cpp_r_lit(achar(10) // "    Snowmelt ............... %s")
+  zz461 = (p_nameindex__size(ctx_%snowpack_names) > 0)
+  if (zz461) then
+    zz461 = (.not. opt_%ignore_snow_melt)
   end if
-  if (zz459) then
-    zz460 = cpp_r_lit("YES")
-    zz462 = zz460
+  if (zz461) then
+    zz462 = cpp_r_lit("YES")
+    zz464 = zz462
   else
-    zz461 = cpp_r_lit("NO")
-    zz462 = zz461
+    zz463 = cpp_r_lit("NO")
+    zz464 = zz463
   end if
-  zz463 = cpp_r_fprintf(f_, zz458, zz462)
+  zz465 = cpp_r_fprintf(f_, zz460, zz464)
   if (associated(cpp_exc)) return
-  zz464 = cpp_r_lit(achar(10) // "    Groundwater ............ %s")
-  zz465 = (p_nameindex__size(ctx_%aquifer_names) > 0)
-  if (zz465) then
-    zz465 = (.not. opt_%ignore_groundwater)
+  zz466 = cpp_r_lit(achar(10) // "    Groundwater ............ %s")
+  zz467 = (p_nameindex__size(ctx_%aquifer_names) > 0)
+  if (zz467) then
+    zz467 = (.not. opt_%ignore_groundwater)
   end if
-  if (zz465) then
-    zz466 = cpp_r_lit("YES")
-    zz468 = zz466
+  if (zz467) then
+    zz468 = cpp_r_lit("YES")
+    zz470 = zz468
   else
-    zz467 = cpp_r_lit("NO")
-    zz468 = zz467
+    zz469 = cpp_r_lit("NO")
+    zz470 = zz469
   end if
-  zz469 = cpp_r_fprintf(f_, zz464, zz468)
+  zz471 = cpp_r_fprintf(f_, zz466, zz470)
   if (associated(cpp_exc)) return
-  zz470 = cpp_r_lit(achar(10) // "    Flow Routing ........... %s")
-  zz471 = (p_simulationcontext__n_links(ctx_) > 0)
-  if (zz471) then
-    zz471 = (.not. opt_%ignore_routing)
+  zz472 = cpp_r_lit(achar(10) // "    Flow Routing ........... %s")
+  zz473 = (p_simulationcontext__n_links(ctx_) > 0)
+  if (zz473) then
+    zz473 = (.not. opt_%ignore_routing)
   end if
-  if (zz471) then
-    zz472 = cpp_r_lit("YES")
-    zz474 = zz472
+  if (zz473) then
+    zz474 = cpp_r_lit("YES")
+    zz476 = zz474
   else
-    zz473 = cpp_r_lit("NO")
-    zz474 = zz473
+    zz475 = cpp_r_lit("NO")
+    zz476 = zz475
   end if
-  zz475 = cpp_r_fprintf(f_, zz470, zz474)
+  zz477 = cpp_r_fprintf(f_, zz472, zz476)
   if (associated(cpp_exc)) return
   if ((p_simulationcontext__n_links(ctx_) > 0)) then
-    zz476 = cpp_r_lit(achar(10) // "    Ponding Allowed ........ %s")
+    zz478 = cpp_r_lit(achar(10) // "    Ponding Allowed ........ %s")
     if (opt_%allow_ponding) then
-      zz477 = cpp_r_lit("YES")
-      zz479 = zz477
+      zz479 = cpp_r_lit("YES")
+      zz481 = zz479
     else
-      zz478 = cpp_r_lit("NO")
-      zz479 = zz478
+      zz480 = cpp_r_lit("NO")
+      zz481 = zz480
     end if
-    zz480 = cpp_r_fprintf(f_, zz476, zz479)
+    zz482 = cpp_r_fprintf(f_, zz478, zz481)
     if (associated(cpp_exc)) return
   end if
-  zz481 = cpp_r_lit(achar(10) // "    Water Quality .......... %s")
-  zz482 = (p_simulationcontext__n_pollutants(ctx_) > 0)
-  if (zz482) then
-    zz482 = (.not. opt_%ignore_quality)
+  zz483 = cpp_r_lit(achar(10) // "    Water Quality .......... %s")
+  zz484 = (p_simulationcontext__n_pollutants(ctx_) > 0)
+  if (zz484) then
+    zz484 = (.not. opt_%ignore_quality)
   end if
-  if (zz482) then
-    zz483 = cpp_r_lit("YES")
-    zz485 = zz483
+  if (zz484) then
+    zz485 = cpp_r_lit("YES")
+    zz487 = zz485
   else
-    zz484 = cpp_r_lit("NO")
-    zz485 = zz484
+    zz486 = cpp_r_lit("NO")
+    zz487 = zz486
   end if
-  zz486 = cpp_r_fprintf(f_, zz481, zz485)
+  zz488 = cpp_r_fprintf(f_, zz483, zz487)
   if (associated(cpp_exc)) return
-  zz487 = ctx_%options%water_age
-  if (.not. zz487) then
-    zz487 = ctx_%options%heat_transport
-  end if
-  zz489 = zz487
+  zz489 = ctx_%options%water_age
   if (.not. zz489) then
-    zz488 = ctx_%reactions%configured
-    if (zz488) then
-      zz488 = ctx_%reactions%compiled
-    end if
-    zz489 = zz488
+    zz489 = ctx_%options%heat_transport
   end if
-  if (zz489) then
-    zz490 => p_transport__f__resolve(ctx_, null())
-    matrix_ => zz490
-    zz491 = cpp_r_lit(achar(10) // "%s")
-    zz492 => p_transport__f__formatreportblock(matrix_)
+  zz491 = zz489
+  if (.not. zz491) then
+    zz490 = ctx_%reactions%configured
+    if (zz490) then
+      zz490 = ctx_%reactions%compiled
+    end if
+    zz491 = zz490
+  end if
+  if (zz491) then
+    zz492 => p_transport__f__resolve(ctx_, null())
+    matrix_ => zz492
+    zz493 = cpp_r_lit(achar(10) // "%s")
+    zz494 => p_transport__f__formatreportblock(matrix_)
     if (associated(cpp_exc)) return
-    zz493 = cpp_str_c_str(zz492)
-    zz494 = cpp_r_fprintf(f_, zz491, zz493)
+    zz495 = cpp_str_c_str(zz494)
+    zz496 = cpp_r_fprintf(f_, zz493, zz495)
     if (associated(cpp_exc)) return
   end if
   if ((p_simulationcontext__n_subcatches(ctx_) > 0)) then
@@ -3782,80 +3786,80 @@ contains
     if (((im_ < 0) .or. (im_ > 4))) then
       im_ = 0
     end if
-    zz495 = cpp_r_lit(achar(10) // "  Infiltration Method ...... %s")
-    zz496 = cpp_ptr_o_new_ta_l(s__f__infilmodelwords_defaultreportplugin, 0_8)
-    zz497 => cpp_ptr_o_item_i(zz496, im_)
-    zz498 => h_ref_cpp_cptr(zz497%p)
-    zz499 = cpp_r_fprintf(f_, zz495, zz498)
+    zz497 = cpp_r_lit(achar(10) // "  Infiltration Method ...... %s")
+    zz498 = cpp_ptr_o_new_ta_l(s__f__infilmodelwords_defaultreportplugin, 0_8)
+    zz499 => cpp_ptr_o_item_i(zz498, im_)
+    zz500 => h_ref_cpp_cptr(zz499%p)
+    zz501 = cpp_r_fprintf(f_, zz497, zz500)
     if (associated(cpp_exc)) return
   end if
   if ((p_simulationcontext__n_links(ctx_) > 0)) then
     rm_ = opt_%routing_model
     if ((rm_ == 3)) then
-      zz500 = cpp_r_lit("FV")
-      zz506 = zz500
+      zz502 = cpp_r_lit("FV")
+      zz508 = zz502
     else
       if ((rm_ == 2)) then
-        zz501 = cpp_r_lit("DYNWAVE")
-        zz505 = zz501
+        zz503 = cpp_r_lit("DYNWAVE")
+        zz507 = zz503
       else
         if ((rm_ == 1)) then
-          zz502 = cpp_r_lit("KINWAVE")
-          zz504 = zz502
+          zz504 = cpp_r_lit("KINWAVE")
+          zz506 = zz504
         else
-          zz503 = cpp_r_lit("STEADY")
-          zz504 = zz503
+          zz505 = cpp_r_lit("STEADY")
+          zz506 = zz505
         end if
-        zz505 = zz504
+        zz507 = zz506
       end if
-      zz506 = zz505
+      zz508 = zz507
     end if
-    rm_name_ = zz506
-    zz507 = cpp_r_lit(achar(10) // "  Flow Routing Method ...... %s")
-    zz508 = cpp_r_fprintf(f_, zz507, rm_name_)
+    rm_name_ = zz508
+    zz509 = cpp_r_lit(achar(10) // "  Flow Routing Method ...... %s")
+    zz510 = cpp_r_fprintf(f_, zz509, rm_name_)
     if (associated(cpp_exc)) return
-    zz509 = (rm_ == 3)
-    if (zz509) then
-      zz509 = (opt_%fv%pressure_closure == 1)
+    zz511 = (rm_ == 3)
+    if (zz511) then
+      zz511 = (opt_%fv%pressure_closure == 1)
     end if
-    if (zz509) then
-      zz510 = cpp_r_lit(achar(10) // "  Pressure Closure ......... TPA")
-      zz511 = cpp_r_fprintf(f_, zz510)
+    if (zz511) then
+      zz512 = cpp_r_lit(achar(10) // "  Pressure Closure ......... TPA")
+      zz513 = cpp_r_fprintf(f_, zz512)
       if (associated(cpp_exc)) return
     end if
-    zz512 = ((rm_ == 2) .or. (rm_ == 3))
-    if (zz512) then
-      zz512 = (opt_%unsteady_friction /= 0)
+    zz514 = ((rm_ == 2) .or. (rm_ == 3))
+    if (zz514) then
+      zz514 = (opt_%unsteady_friction /= 0)
     end if
-    if (zz512) then
-      zz513 = cpp_r_lit(achar(10) // "  Unsteady Friction ........ VITKOVSKY (k3 = %g)")
-      zz514 = cpp_r_fprintf(f_, zz513, opt_%uf_k3)
+    if (zz514) then
+      zz515 = cpp_r_lit(achar(10) // "  Unsteady Friction ........ VITKOVSKY (k3 = %g)")
+      zz516 = cpp_r_fprintf(f_, zz515, opt_%uf_k3)
       if (associated(cpp_exc)) return
     end if
   end if
   if ((opt_%routing_model == 2)) then
     sm_ = opt_%surcharge_method
     if (((sm_ >= 0) .and. (sm_ <= 3))) then
-      zz515 = cpp_ptr_o_new_ta_l(s__f__surchargewords_defaultreportplugin, 0_8)
-      zz516 => cpp_ptr_o_item_i(zz515, sm_)
-      zz517 => h_ref_cpp_cptr(zz516%p)
-      zz519 = zz517
+      zz517 = cpp_ptr_o_new_ta_l(s__f__surchargewords_defaultreportplugin, 0_8)
+      zz518 => cpp_ptr_o_item_i(zz517, sm_)
+      zz519 => h_ref_cpp_cptr(zz518%p)
+      zz521 = zz519
     else
-      zz518 = cpp_r_lit("EXTRAN")
-      zz519 = zz518
+      zz520 = cpp_r_lit("EXTRAN")
+      zz521 = zz520
     end if
-    sm_name_ = zz519
-    zz520 = cpp_r_lit(achar(10) // "  Surcharge Method ......... %s")
-    zz521 = cpp_r_fprintf(f_, zz520, sm_name_)
+    sm_name_ = zz521
+    zz522 = cpp_r_lit(achar(10) // "  Surcharge Method ......... %s")
+    zz523 = cpp_r_fprintf(f_, zz522, sm_name_)
     if (associated(cpp_exc)) return
     if ((opt_%node_continuity == 1)) then
-      zz522 = cpp_r_lit(achar(10) // "  Node Continuity .......... SEMI_IMPLICIT")
-      zz523 = cpp_r_fprintf(f_, zz522)
+      zz524 = cpp_r_lit(achar(10) // "  Node Continuity .......... SEMI_IMPLICIT")
+      zz525 = cpp_r_fprintf(f_, zz524)
       if (associated(cpp_exc)) return
     end if
     if (opt_%anderson_accel) then
-      zz524 = cpp_r_lit(achar(10) // "  Anderson Acceleration .... YES")
-      zz525 = cpp_r_fprintf(f_, zz524)
+      zz526 = cpp_r_lit(achar(10) // "  Anderson Acceleration .... YES")
+      zz527 = cpp_r_fprintf(f_, zz526)
       if (associated(cpp_exc)) return
     end if
   end if
@@ -3863,138 +3867,138 @@ contains
   if (associated(cpp_exc)) return
   call p__f__timetostr_defaultreportplugin(opt_%start_date, ts_, 16)
   if (associated(cpp_exc)) return
-  zz526 = cpp_r_lit(achar(10) // "  Starting Date ............ %s %s")
-  zz527 = cpp_r_fprintf(f_, zz526, ds_, ts_)
+  zz528 = cpp_r_lit(achar(10) // "  Starting Date ............ %s %s")
+  zz529 = cpp_r_fprintf(f_, zz528, ds_, ts_)
   if (associated(cpp_exc)) return
   call p__f__datetostr_defaultreportplugin(opt_%end_date, ds_, 32)
   if (associated(cpp_exc)) return
   call p__f__timetostr_defaultreportplugin(opt_%end_date, ts_, 16)
   if (associated(cpp_exc)) return
-  zz528 = cpp_r_lit(achar(10) // "  Ending Date .............. %s %s")
-  zz529 = cpp_r_fprintf(f_, zz528, ds_, ts_)
+  zz530 = cpp_r_lit(achar(10) // "  Ending Date .............. %s %s")
+  zz531 = cpp_r_fprintf(f_, zz530, ds_, ts_)
   if (associated(cpp_exc)) return
-  zz530 = cpp_r_lit(achar(10) // "  Antecedent Dry Days ...... %.1f")
-  zz531 = cpp_r_fprintf(f_, zz530, opt_%dry_days)
+  zz532 = cpp_r_lit(achar(10) // "  Antecedent Dry Days ...... %.1f")
+  zz533 = cpp_r_fprintf(f_, zz532, opt_%dry_days)
   if (associated(cpp_exc)) return
   call p__f__secstohms_defaultreportplugin(mod(cpp_conv_d2i(opt_%report_step), 86400), buf_, 64)
   if (associated(cpp_exc)) return
-  zz532 = cpp_r_lit(achar(10) // "  Report Time Step ......... %s")
-  zz533 = cpp_r_fprintf(f_, zz532, buf_)
+  zz534 = cpp_r_lit(achar(10) // "  Report Time Step ......... %s")
+  zz535 = cpp_r_fprintf(f_, zz534, buf_)
   if (associated(cpp_exc)) return
   if ((p_simulationcontext__n_subcatches(ctx_) > 0)) then
     call p__f__secstohms_defaultreportplugin(mod(cpp_conv_d2i(opt_%wet_step), 86400), buf_, 64)
     if (associated(cpp_exc)) return
-    zz534 = cpp_r_lit(achar(10) // "  Wet Time Step ............ %s")
-    zz535 = cpp_r_fprintf(f_, zz534, buf_)
+    zz536 = cpp_r_lit(achar(10) // "  Wet Time Step ............ %s")
+    zz537 = cpp_r_fprintf(f_, zz536, buf_)
     if (associated(cpp_exc)) return
     call p__f__secstohms_defaultreportplugin(mod(cpp_conv_d2i(opt_%dry_step), 86400), buf_, 64)
     if (associated(cpp_exc)) return
-    zz536 = cpp_r_lit(achar(10) // "  Dry Time Step ............ %s")
-    zz537 = cpp_r_fprintf(f_, zz536, buf_)
+    zz538 = cpp_r_lit(achar(10) // "  Dry Time Step ............ %s")
+    zz539 = cpp_r_fprintf(f_, zz538, buf_)
     if (associated(cpp_exc)) return
   end if
   if ((p_simulationcontext__n_links(ctx_) > 0)) then
-    zz538 = cpp_r_lit(achar(10) // "  Routing Time Step ........ %.2f sec")
-    zz539 = cpp_r_fprintf(f_, zz538, opt_%routing_step)
+    zz540 = cpp_r_lit(achar(10) // "  Routing Time Step ........ %.2f sec")
+    zz541 = cpp_r_fprintf(f_, zz540, opt_%routing_step)
     if (associated(cpp_exc)) return
     if ((opt_%routing_model == 2)) then
-      zz540 = cpp_r_lit(achar(10) // "  Variable Time Step ....... %s")
+      zz542 = cpp_r_lit(achar(10) // "  Variable Time Step ....... %s")
       if ((opt_%variable_step > 0.0_8)) then
-        zz541 = cpp_r_lit("YES")
-        zz543 = zz541
+        zz543 = cpp_r_lit("YES")
+        zz545 = zz543
       else
-        zz542 = cpp_r_lit("NO")
-        zz543 = zz542
+        zz544 = cpp_r_lit("NO")
+        zz545 = zz544
       end if
-      zz544 = cpp_r_fprintf(f_, zz540, zz543)
+      zz546 = cpp_r_fprintf(f_, zz542, zz545)
       if (associated(cpp_exc)) return
-      zz545 = cpp_r_lit(achar(10) // "  Maximum Trials ........... %d")
+      zz547 = cpp_r_lit(achar(10) // "  Maximum Trials ........... %d")
       if ((opt_%max_trials > 0)) then
-        zz546 = opt_%max_trials
+        zz548 = opt_%max_trials
       else
-        zz546 = 8
+        zz548 = 8
       end if
-      zz547 = cpp_r_fprintf(f_, zz545, zz546)
+      zz549 = cpp_r_fprintf(f_, zz547, zz548)
       if (associated(cpp_exc)) return
-      zz548 = cpp_r_lit(achar(10) // "  Number of Threads ........ %d")
-      zz549 = cpp_r_fprintf(f_, zz548, opt_%num_threads)
+      zz550 = cpp_r_lit(achar(10) // "  Number of Threads ........ %d")
+      zz551 = cpp_r_fprintf(f_, zz550, opt_%num_threads)
       if (associated(cpp_exc)) return
-      zz550 = cpp_r_lit(achar(10) // "  Head Tolerance ........... %f %s")
+      zz552 = cpp_r_lit(achar(10) // "  Head Tolerance ........... %f %s")
       if ((opt_%head_tol == 0.0_8)) then
-        zz551 = (0.005_8 * du_opt_%length)
+        zz553 = (0.005_8 * du_opt_%length)
       else
-        zz551 = opt_%head_tol
+        zz553 = opt_%head_tol
       end if
       if ((du_opt_%unit_system == 1)) then
-        zz552 = cpp_r_lit("m")
-        zz554 = zz552
+        zz554 = cpp_r_lit("m")
+        zz556 = zz554
       else
-        zz553 = cpp_r_lit("ft")
-        zz554 = zz553
+        zz555 = cpp_r_lit("ft")
+        zz556 = zz555
       end if
-      zz555 = cpp_r_fprintf(f_, zz550, zz551, zz554)
+      zz557 = cpp_r_fprintf(f_, zz552, zz553, zz556)
       if (associated(cpp_exc)) return
     end if
   end if
-  zz556 = cpp_r_lit(achar(10) // "  %s")
-  zz557 = cpp_r_lit("")
-  zz558 = cpp_r_fprintf(f_, zz556, zz557)
+  zz558 = cpp_r_lit(achar(10) // "  %s")
+  zz559 = cpp_r_lit("")
+  zz560 = cpp_r_fprintf(f_, zz558, zz559)
   if (associated(cpp_exc)) return
-  zz559 = cpp_r_lit(achar(10) // "  %s")
-  zz560 = cpp_r_lit("")
-  zz561 = cpp_r_fprintf(f_, zz559, zz560)
+  zz561 = cpp_r_lit(achar(10) // "  %s")
+  zz562 = cpp_r_lit("")
+  zz563 = cpp_r_fprintf(f_, zz561, zz562)
   if (associated(cpp_exc)) return
-  zz563 = cpp_vec_d_begin(ctx_%gages%scale_factor)
-  zz564 = cpp_vec_d_end(ctx_%gages%scale_factor)
-  allocate(zz562)
-  zz565 = cpp_algo_any_of__d(zz563, zz564, zz562)
-  scaled_rain_ = zz565
+  zz565 = cpp_vec_d_begin(ctx_%gages%scale_factor)
+  zz566 = cpp_vec_d_end(ctx_%gages%scale_factor)
+  allocate(zz564)
+  zz567 = cpp_algo_any_of__d(zz565, zz566, zz564)
+  scaled_rain_ = zz567
   if (scaled_rain_) then
-    zz566 = cpp_r_lit(achar(10) // "  %s")
-    zz567 = cpp_r_lit("************************")
-    zz568 = cpp_r_fprintf(f_, zz566, zz567)
+    zz568 = cpp_r_lit(achar(10) // "  %s")
+    zz569 = cpp_r_lit("************************")
+    zz570 = cpp_r_fprintf(f_, zz568, zz569)
     if (associated(cpp_exc)) return
-    zz569 = cpp_r_lit(achar(10) // "  %s")
-    zz570 = cpp_r_lit("Rainfall Scaling Factors")
-    zz571 = cpp_r_fprintf(f_, zz569, zz570)
+    zz571 = cpp_r_lit(achar(10) // "  %s")
+    zz572 = cpp_r_lit("Rainfall Scaling Factors")
+    zz573 = cpp_r_fprintf(f_, zz571, zz572)
     if (associated(cpp_exc)) return
-    zz572 = cpp_r_lit(achar(10) // "  %s")
-    zz573 = cpp_r_lit("************************")
-    zz574 = cpp_r_fprintf(f_, zz572, zz573)
+    zz574 = cpp_r_lit(achar(10) // "  %s")
+    zz575 = cpp_r_lit("************************")
+    zz576 = cpp_r_fprintf(f_, zz574, zz575)
     if (associated(cpp_exc)) return
-    zz575 = cpp_r_lit(achar(10) // "  %s")
-    zz576 = cpp_r_lit("Configured factors multiply rain gage input.")
-    zz577 = cpp_r_fprintf(f_, zz575, zz576)
+    zz577 = cpp_r_lit(achar(10) // "  %s")
+    zz578 = cpp_r_lit("Configured factors multiply rain gage input.")
+    zz579 = cpp_r_fprintf(f_, zz577, zz578)
     if (associated(cpp_exc)) return
-    zz578 = cpp_r_lit(achar(10) // "  Rain Gage             Scale Factor")
-    zz579 = cpp_r_fprintf(f_, zz578)
-    if (associated(cpp_exc)) return
-    zz580 = cpp_r_lit(achar(10) // "  ----------------------------------")
+    zz580 = cpp_r_lit(achar(10) // "  Rain Gage             Scale Factor")
     zz581 = cpp_r_fprintf(f_, zz580)
+    if (associated(cpp_exc)) return
+    zz582 = cpp_r_lit(achar(10) // "  ----------------------------------")
+    zz583 = cpp_r_fprintf(f_, zz582)
     if (associated(cpp_exc)) return
     i_9_ = 0
     do
       if (.not. ((i_9_ < p_simulationcontext__n_gages(ctx_)))) exit
-      zz582 = cpp_r_lit(achar(10) // "  %-20s %.17g")
-      zz583 => p_nameindex__name_of(ctx_%gage_names, i_9_)
+      zz584 = cpp_r_lit(achar(10) // "  %-20s %.17g")
+      zz585 => p_nameindex__name_of(ctx_%gage_names, i_9_)
       if (associated(cpp_exc)) return
-      zz584 = cpp_str_c_str(zz583)
-      zz585 = cpp_r_fprintf(f_, zz582, zz584, ctx_%gages%scale_factor%a%a(int(i_9_, 8)))
+      zz586 = cpp_str_c_str(zz585)
+      zz587 = cpp_r_fprintf(f_, zz584, zz586, ctx_%gages%scale_factor%a%a(int(i_9_, 8)))
       if (associated(cpp_exc)) return
       i_9_ = (i_9_ + 1)
     end do
-    zz586 = cpp_r_lit(achar(10) // "  %s")
-    zz587 = cpp_r_lit("")
-    zz588 = cpp_r_fprintf(f_, zz586, zz587)
+    zz588 = cpp_r_lit(achar(10) // "  %s")
+    zz589 = cpp_r_lit("")
+    zz590 = cpp_r_fprintf(f_, zz588, zz589)
     if (associated(cpp_exc)) return
-    zz589 = cpp_r_lit(achar(10) // "  %s")
-    zz590 = cpp_r_lit("")
-    zz591 = cpp_r_fprintf(f_, zz589, zz590)
+    zz591 = cpp_r_lit(achar(10) // "  %s")
+    zz592 = cpp_r_lit("")
+    zz593 = cpp_r_fprintf(f_, zz591, zz592)
     if (associated(cpp_exc)) return
   end if
   end procedure p_defaultreportplugin__write_preamble
 
-  module procedure p_lam850
+  module procedure p_lam854
     logical :: zz1
     logical :: zz2
   zz1 = (a1 >= 0)
@@ -4007,9 +4011,9 @@ contains
   end if
   zres = zz2
   return
-  end procedure p_lam850
+  end procedure p_lam854
 
-  module procedure p_lam851
+  module procedure p_lam855
     real(8) :: af_
     real(8) :: depth_in_
     type(cpp_cptr) :: zz1
@@ -4022,9 +4026,9 @@ contains
   zz3 = cpp_r_fprintf(zz2, zz1, a1, af_, depth_in_)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam851
+  end procedure p_lam855
 
-  module procedure p_lam852
+  module procedure p_lam856
     real(8) :: zz1
   if ((ieor(int(a2, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(a1), (-9223372036854775807_8 - 1_8)))) then
     zz1 = a1%a%a(int(a2, 8))
@@ -4033,9 +4037,9 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam852
+  end procedure p_lam856
 
-  module procedure p_lam853
+  module procedure p_lam857
     real(8) :: zz1
   if ((a1 > 0.0_8)) then
     zz1 = cpp_math_log10_d(a1)
@@ -4044,59 +4048,15 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam853
+  end procedure p_lam857
 
-  module procedure p_lam854
+  module procedure p_lam858
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
   zz1 => cpp_arr_make__d(9)
   zz2 => zz1
   zres => zz2
-  return
-  end procedure p_lam854
-
-  module procedure p_lam855
-    type(cpp_cptr) :: zz1
-    class(cpp_cfile), pointer :: zz2
-    integer(4) :: zz3
-  zz2 => self%c_f
-  zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
-  zz3 = cpp_r_fprintf(zz2, zz1, a1, (a2 * self%c_ucf_vol), ((a2 / self%c_gw_area_ft2) * self%c_ucf_dep))
-  if (associated(cpp_exc)) return
-  return
-  end procedure p_lam855
-
-  module procedure p_lam856
-    type(cpp_cptr) :: zz1
-    class(cpp_cfile), pointer :: zz2
-    integer(4) :: zz3
-  zz2 => self%c_f
-  zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
-  zz3 = cpp_r_fprintf(zz2, zz1, a1, (a2 * self%c_ucf1_2), (a2 * self%c_ucf2_2))
-  if (associated(cpp_exc)) return
-  return
-  end procedure p_lam856
-
-  module procedure p_lam857
-    type(cpp_cptr) :: zz1
-    class(cpp_cfile), pointer :: zz2
-    integer(4) :: zz3
-  zz2 => self%c_f
-  zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
-  zz3 = cpp_r_fprintf(zz2, zz1, a1, a2, (a2 * 0.001_8))
-  if (associated(cpp_exc)) return
-  return
-  end procedure p_lam857
-
-  module procedure p_lam858
-    type(cpp_cptr) :: zz1
-    class(cpp_cfile), pointer :: zz2
-    integer(4) :: zz3
-  zz2 => self%c_f
-  zz1 = cpp_r_lit(achar(10) // "  %s%14ld")
-  zz3 = cpp_r_fprintf(zz2, zz1, a1, a2)
-  if (associated(cpp_exc)) return
   return
   end procedure p_lam858
 
@@ -4106,12 +4066,56 @@ contains
     integer(4) :: zz3
   zz2 => self%c_f
   zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
-  zz3 = cpp_r_fprintf(zz2, zz1, a1, (a2 * self%c_land_vcf), (a2 * self%c_mvol_vcf))
+  zz3 = cpp_r_fprintf(zz2, zz1, a1, (a2 * self%c_ucf_vol), ((a2 / self%c_gw_area_ft2) * self%c_ucf_dep))
   if (associated(cpp_exc)) return
   return
   end procedure p_lam859
 
   module procedure p_lam860
+    type(cpp_cptr) :: zz1
+    class(cpp_cfile), pointer :: zz2
+    integer(4) :: zz3
+  zz2 => self%c_f
+  zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
+  zz3 = cpp_r_fprintf(zz2, zz1, a1, (a2 * self%c_ucf1_2), (a2 * self%c_ucf2_2))
+  if (associated(cpp_exc)) return
+  return
+  end procedure p_lam860
+
+  module procedure p_lam861
+    type(cpp_cptr) :: zz1
+    class(cpp_cfile), pointer :: zz2
+    integer(4) :: zz3
+  zz2 => self%c_f
+  zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
+  zz3 = cpp_r_fprintf(zz2, zz1, a1, a2, (a2 * 0.001_8))
+  if (associated(cpp_exc)) return
+  return
+  end procedure p_lam861
+
+  module procedure p_lam862
+    type(cpp_cptr) :: zz1
+    class(cpp_cfile), pointer :: zz2
+    integer(4) :: zz3
+  zz2 => self%c_f
+  zz1 = cpp_r_lit(achar(10) // "  %s%14ld")
+  zz3 = cpp_r_fprintf(zz2, zz1, a1, a2)
+  if (associated(cpp_exc)) return
+  return
+  end procedure p_lam862
+
+  module procedure p_lam863
+    type(cpp_cptr) :: zz1
+    class(cpp_cfile), pointer :: zz2
+    integer(4) :: zz3
+  zz2 => self%c_f
+  zz1 = cpp_r_lit(achar(10) // "  %s%14.3f%14.3f")
+  zz3 = cpp_r_fprintf(zz2, zz1, a1, (a2 * self%c_land_vcf), (a2 * self%c_mvol_vcf))
+  if (associated(cpp_exc)) return
+  return
+  end procedure p_lam863
+
+  module procedure p_lam864
     real(8) :: zz1
   if ((ieor(int(a2, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(a1), (-9223372036854775807_8 - 1_8)))) then
     zz1 = a1%a%a(int(a2, 8))
@@ -4120,9 +4124,9 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam860
+  end procedure p_lam864
 
-  module procedure p_lam861
+  module procedure p_lam865
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -4130,9 +4134,9 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam861
+  end procedure p_lam865
 
-  module procedure p_lam862
+  module procedure p_lam866
     real(8) :: zz1
   if ((ieor(a2, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(a1), (-9223372036854775807_8 - 1_8)))) then
     zz1 = a1%a%a(a2)
@@ -4141,9 +4145,9 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam862
+  end procedure p_lam866
 
-  module procedure p_lam863
+  module procedure p_lam867
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -4151,9 +4155,9 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam863
+  end procedure p_lam867
 
-  module procedure p_lam864
+  module procedure p_lam868
     class(t_defaultreportplugin_nodeerror_src_engine_plugins_de_c406eba0), pointer :: a_
     class(t_defaultreportplugin_nodeerror_src_engine_plugins_de_c406eba0), pointer :: zz1
     class(t_defaultreportplugin_nodeerror_src_engine_plugins_de_c406eba0), pointer :: b_
@@ -4164,9 +4168,9 @@ contains
   b_ => zz2
   zres = (abs(a_%error) > abs(b_%error))
   return
-  end procedure p_lam864
+  end procedure p_lam868
 
-  module procedure p_lam865
+  module procedure p_lam869
     type(cpp_cptr) :: zz1
     class(cpp_cfile), pointer :: zz2
     integer(4) :: zz3
@@ -4175,14 +4179,14 @@ contains
   zz3 = cpp_r_fprintf(zz2, zz1, a1, a2)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam865
+  end procedure p_lam869
 
-  module procedure p_lam866
+  module procedure p_lam870
   zres = ((100.0_8 * real(a1, 8)) / real(self%c_tot, 8))
   return
-  end procedure p_lam866
+  end procedure p_lam870
 
-  module procedure p_lam867
+  module procedure p_lam871
     class(cpp_str), pointer :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_str), pointer :: zz3
@@ -4199,9 +4203,9 @@ contains
   zz4 => cpp_str_clone(zz3)
   zres => zz4
   return
-  end procedure p_lam867
+  end procedure p_lam871
 
-  module procedure p_lam868
+  module procedure p_lam872
     real(8) :: zz1
   if ((ieor(self%c_uj_8, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(a1), (-9223372036854775807_8 - 1_8)))) then
     zz1 = (a1%a%a(self%c_uj_8) * self%c_depth_vcf)
@@ -4210,9 +4214,9 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam868
+  end procedure p_lam872
 
-  module procedure p_lam869
+  module procedure p_lam873
     integer(8) :: uj_19_
     integer(4) :: tt_2_
     logical :: zz1
@@ -4267,7 +4271,7 @@ contains
   end do
   zres = (-1)
   return
-  end procedure p_lam869
+  end procedure p_lam873
 
   module procedure p_defaultreportplugin__write_results
     class(t_simulationoptions), pointer :: opt_
@@ -4310,7 +4314,7 @@ contains
     type(cpp_cptr) :: zz19
     type(cpp_cptr) :: zz20
     class(t_fn4), pointer :: iscount_
-    class(t_lam850), pointer :: zz21
+    class(t_lam854), pointer :: zz21
     type(cpp_cptr) :: depth_word_
     logical :: has_rdii_
     logical :: has_gw_
@@ -4363,7 +4367,7 @@ contains
     type(cpp_cptr) :: zz57
     integer(4) :: zz58
     class(t_fn163), pointer :: row_
-    class(t_lam851), pointer :: zz59
+    class(t_lam855), pointer :: zz59
     logical :: has_snow_
     type(cpp_cptr) :: zz60
     type(cpp_cptr) :: zz61
@@ -4394,11 +4398,11 @@ contains
     integer(4) :: ncol_
     class(t_simulationcontext_massbalance), pointer :: mb_3_
     class(t_fn164), pointer :: at_
-    class(t_lam852), pointer :: zz83
+    class(t_lam856), pointer :: zz83
     class(t_fn106), pointer :: logn_
-    class(t_lam853), pointer :: zz84
+    class(t_lam857), pointer :: zz84
     class(cpp_vec_o), pointer :: vals_
-    class(t_lam854), pointer :: zz85
+    class(t_lam858), pointer :: zz85
     class(cpp_vec_o), pointer :: zz86
     class(cpp_vec_o), pointer :: col_name_
     class(cpp_vec_o), pointer :: zz87
@@ -4574,7 +4578,7 @@ contains
     type(cpp_cptr) :: zz224
     integer(4) :: zz225
     class(t_fn163), pointer :: gwrow_
-    class(t_lam855), pointer :: zz226
+    class(t_lam859), pointer :: zz226
     type(cpp_cptr) :: zz227
     type(cpp_cptr) :: zz228
     type(cpp_cptr) :: zz229
@@ -4609,7 +4613,7 @@ contains
     real(8) :: ucf1_2_
     real(8) :: ucf2_2_
     class(t_fn163), pointer :: row_3_
-    class(t_lam856), pointer :: zz254
+    class(t_lam860), pointer :: zz254
     class(cpp_arr_d), pointer :: rr_
     type(cpp_cptr) :: zz255
     type(cpp_cptr) :: zz256
@@ -4659,7 +4663,7 @@ contains
     type(cpp_cptr) :: zz291
     integer(4) :: zz292
     class(t_fn163), pointer :: row2_
-    class(t_lam857), pointer :: zz293
+    class(t_lam861), pointer :: zz293
     type(cpp_cptr) :: zz294
     type(cpp_cptr) :: zz295
     type(cpp_cptr) :: zz296
@@ -4691,7 +4695,7 @@ contains
     type(cpp_cptr) :: zz322
     integer(4) :: zz323
     class(t_fn165), pointer :: srow_
-    class(t_lam858), pointer :: zz324
+    class(t_lam862), pointer :: zz324
     type(cpp_cptr) :: zz325
     type(cpp_cptr) :: zz326
     type(cpp_cptr) :: zz327
@@ -4731,7 +4735,7 @@ contains
     type(cpp_cptr) :: zz354
     integer(4) :: zz355
     class(t_fn163), pointer :: rowx_
-    class(t_lam859), pointer :: zz356
+    class(t_lam863), pointer :: zz356
     type(cpp_cptr) :: zz357
     type(cpp_cptr) :: zz358
     type(cpp_cptr) :: zz359
@@ -4753,9 +4757,9 @@ contains
     integer(4) :: np_2_
     class(t_simulationcontext_massbalance), pointer :: mb_6_
     class(t_fn164), pointer :: at_2_
-    class(t_lam860), pointer :: zz372
+    class(t_lam864), pointer :: zz372
     class(cpp_vec_o), pointer :: vals_2_
-    class(t_lam861), pointer :: zz373
+    class(t_lam865), pointer :: zz373
     class(cpp_vec_o), pointer :: zz374
     real(8) :: max_err_2_
     integer(4) :: p_10_
@@ -4863,7 +4867,7 @@ contains
     class(cpp_vec_l), pointer :: zz452
     integer(8) :: s_
     class(t_fn166), pointer :: at_3_
-    class(t_lam862), pointer :: zz453
+    class(t_lam866), pointer :: zz453
     class(cpp_arr_o), pointer :: zz454
     type(cpp_cptr) :: zz455
     class(*), pointer :: zz456
@@ -4886,7 +4890,7 @@ contains
     type(cpp_cptr) :: zz473
     class(*), pointer :: zz474
     class(cpp_vec_o), pointer :: vals_3_
-    class(t_lam863), pointer :: zz475
+    class(t_lam867), pointer :: zz475
     class(cpp_vec_o), pointer :: zz476
     class(cpp_vec_o), pointer :: unit_word_
     class(cpp_vec_o), pointer :: zz477
@@ -4993,7 +4997,7 @@ contains
     class(cpp_arr_o), pointer :: zz549
     type(cpp_iter_o) :: zz550
     integer(8) :: zz551
-    class(t_lam864), pointer :: zz552
+    class(t_lam868), pointer :: zz552
     integer(8) :: zz553
     type(cpp_cptr) :: zz554
     type(cpp_cptr) :: zz555
@@ -5187,7 +5191,7 @@ contains
     type(cpp_cptr) :: zz725
     integer(4) :: zz726
     class(t_fn165), pointer :: srow_2_
-    class(t_lam865), pointer :: zz727
+    class(t_lam869), pointer :: zz727
     type(cpp_cptr) :: zz728
     type(cpp_cptr) :: zz729
     type(cpp_cptr) :: zz730
@@ -5202,7 +5206,7 @@ contains
     integer(4) :: zz739
     integer(8) :: tot_
     class(t_fn168), pointer :: pct_3_
-    class(t_lam866), pointer :: zz740
+    class(t_lam870), pointer :: zz740
     type(cpp_cptr) :: zz741
     real(8) :: zz742
     integer(4) :: zz743
@@ -5646,7 +5650,7 @@ contains
     integer(4) :: np_p_
     integer(4) :: np_3_
     class(t_fn134), pointer :: colname_
-    class(t_lam867), pointer :: zz1101
+    class(t_lam871), pointer :: zz1101
     type(cpp_cptr) :: zz1102
     type(cpp_cptr) :: zz1103
     integer(4) :: zz1104
@@ -5827,7 +5831,7 @@ contains
     integer(4) :: li_
     integer(4) :: si_
     class(t_fn169), pointer :: safe_
-    class(t_lam868), pointer :: zz1242
+    class(t_lam872), pointer :: zz1242
     type(cpp_cptr) :: zz1243
     class(cpp_str), pointer :: zz1244
     type(cpp_cptr) :: zz1245
@@ -6495,7 +6499,7 @@ contains
     type(cpp_cptr) :: zz1754
     integer(4) :: zz1755
     class(t_fn71), pointer :: street_of_link_
-    class(t_lam869), pointer :: zz1756
+    class(t_lam873), pointer :: zz1756
     logical :: zz1757
     logical :: header_2_
     real(8) :: inv_len_

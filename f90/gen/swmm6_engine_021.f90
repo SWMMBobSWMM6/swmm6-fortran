@@ -4,6 +4,370 @@ submodule (swmm6_engine) swmm6_engine_021
   implicit none
 contains
 
+  module procedure p_dynwave_dwsolver__recomputeconduitlossone
+    class(t_linkdata), pointer :: links_
+    class(t_conduitdata), pointer :: cd_
+    real(8) :: evap_
+    integer(8) :: uci_
+    integer(4) :: uj_
+    integer(8) :: u_
+    integer(8) :: ucr_
+    integer(1) :: fc_
+    logical :: zz1
+    logical :: zz2
+    logical :: zz3
+    real(8) :: depth_
+    real(8) :: evap_loss_
+    real(8), target :: seep_loss_
+    real(8) :: length_
+    integer(4) :: shape_
+    logical :: gw_two_way_
+    logical :: zz4
+    real(8) :: k_seep_
+    real(8), pointer :: zz5
+    logical :: wantevap_
+    logical :: zz6
+    logical :: wantseep_
+    class(t_xsectparams), pointer :: xs_
+    class(t_xsectparams), pointer :: zz7
+    real(8) :: topwidth_
+    real(8) :: zz8
+    real(8) :: d_seep_
+    logical :: zz9
+    real(8) :: width_
+    real(8) :: zz10
+    real(8) :: zz11
+    real(8) :: zz12
+    real(8) :: zz13
+    real(8) :: total_
+    real(8) :: q_
+  links_ => ctx_%links
+  cd_ => ctx_%link_subtypes%conduits
+  evap_ = self%evap_rate
+  uci_ = int(ci_, 8)
+  uj_ = self%conduit_idx_%a%a(uci_)
+  u_ = int(uj_, 8)
+  ucr_ = int(self%tile_crow_%a%a(uci_), 8)
+  fc_ = links_%flow_class%a%a(u_)
+  zz1 = (((fc_ == 0_1) .or. (fc_ == 1_1)) .or. (fc_ == 2_1))
+  if (.not. zz1) then
+    zz1 = (self%area_mid_%a%a(u_) <= s_constants__f__fudge)
+  end if
+  zz2 = zz1
+  if (.not. zz2) then
+    zz2 = (iand(int(self%tile_is_closed_%a%a(uci_), 4), 255_4) /= 0)
+  end if
+  zz3 = zz2
+  if (.not. zz3) then
+    zz3 = (links_%setting%a%a(u_) == 0.0_8)
+  end if
+  if (zz3) then
+    cd_%evap_loss_rate%a%a(ucr_) = 0.0_8
+    cd_%seep_loss_rate%a%a(ucr_) = 0.0_8
+    return
+  end if
+  depth_ = (0.5_8 * (links_%old_depth%a%a(u_) + links_%depth%a%a(u_)))
+  evap_loss_ = 0.0_8
+  seep_loss_ = 0.0_8
+  if ((depth_ > s_constants__f__fudge)) then
+    length_ = cd_%true_length%a%a(ucr_)
+    if ((length_ <= 0.0_8)) then
+      length_ = cd_%length%a%a(ucr_)
+    end if
+    if ((length_ <= 0.0_8)) then
+      length_ = cd_%mod_length%a%a(ucr_)
+    end if
+    shape_ = links_%xsect_batch_shape%a%a(u_)
+    zz4 = (.not. cpp_vec_b_empty(cd_%gw_coupled))
+    if (zz4) then
+      zz4 = (iand(int(cd_%gw_coupled%a%a(ucr_), 4), 255_4) /= 0)
+    end if
+    gw_two_way_ = zz4
+    if (gw_two_way_) then
+      zz5 => cd_%gw_kc%a%a(ucr_)
+    else
+      zz5 => cd_%seep_rate%a%a(ucr_)
+    end if
+    k_seep_ = zz5
+    zz6 = p_xsect__f__isopen(shape_)
+    wantevap_ = (zz6 .and. (evap_ > 0.0_8))
+    wantseep_ = (k_seep_ > 0.0_8)
+    if ((wantevap_ .or. wantseep_)) then
+      zz7 => p_dynwave__f__buildxsp_dynamicwave(ctx_, u_)
+      xs_ => zz7
+      if (wantevap_) then
+        zz8 = p_xsect__f__getwofy(xs_, depth_)
+        topwidth_ = zz8
+        evap_loss_ = ((topwidth_ * length_) * evap_)
+      end if
+      if (wantseep_) then
+        d_seep_ = depth_
+        zz9 = (shape_ /= 3)
+        if (zz9) then
+          zz9 = (d_seep_ >= xs_%yw_max)
+        end if
+        if (zz9) then
+          d_seep_ = xs_%yw_max
+        end if
+        if ((shape_ == 3)) then
+          zz11 = xs_%w_max
+        else
+          zz10 = p_xsect__f__getwofy(xs_, d_seep_)
+          zz11 = zz10
+        end if
+        width_ = zz11
+        seep_loss_ = ((k_seep_ * width_) * length_)
+        zz12 = (seep_loss_ * ctx_%climate_state%infil_factor)
+        seep_loss_ = zz12
+        if (gw_two_way_) then
+          zz13 = (seep_loss_ * p_hydraulics__f__aquiferseepfactor(depth_, cd_%gw_head_rel%a%a(ucr_), cd_%gw_dc%a%a(ucr_)))
+          seep_loss_ = zz13
+          seep_loss_ = p_hydraulics__f__capaquifergain(seep_loss_, cd_%gw_gain_max%a%a(ucr_))
+        end if
+      end if
+    end if
+    total_ = (evap_loss_ + cpp_m_max_d_d(seep_loss_, 0.0_8))
+    if ((total_ > 0.0_8)) then
+      q_ = (links_%volume%a%a(u_) / (dt_ * real(cd_%barrels%a%a(ucr_), 8)))
+      if ((total_ > q_)) then
+        evap_loss_ = ((evap_loss_ * q_) / total_)
+        if ((seep_loss_ > 0.0_8)) then
+          seep_loss_ = ((seep_loss_ * q_) / total_)
+        end if
+      end if
+    end if
+  end if
+  call p_hydraulics__f__applyseepageforcing(ctx_, u_, seep_loss_)
+  cd_%evap_loss_rate%a%a(ucr_) = evap_loss_
+  cd_%seep_loss_rate%a%a(ucr_) = seep_loss_
+  end procedure p_dynwave_dwsolver__recomputeconduitlossone
+
+  module procedure p_lam250
+    class(cpp_vec_b), pointer :: modes_
+    logical :: zz1
+    logical :: zz2
+    logical :: zz3
+  modes_ => self%c_ctx%forcing%link_seepage_mode
+  zz2 = (ieor(int(a1, 8), (-9223372036854775807_8 - 1_8)) >= ieor(cpp_vec_b_size(modes_), (-9223372036854775807_8 - 1_8)))
+  if (.not. zz2) then
+    zz1 = (modes_%a%a(int(a1, 8)) /= 1_1)
+    if (zz1) then
+      zz1 = (modes_%a%a(int(a1, 8)) /= 2_1)
+    end if
+    zz2 = zz1
+  end if
+  zz3 = zz2
+  if (zz3) then
+    zz3 = ((self%c_cd%evap_loss_rate%a%a(int(a2, 8)) + self%c_cd%seep_loss_rate%a%a(int(a2, 8))) > 0.0_8)
+  end if
+  zres = zz3
+  return
+  end procedure p_lam250
+
+  module procedure p_dynwave_dwsolver__limitconduitlosses
+    class(t_nodedata), pointer :: nodes_
+    class(t_conduitdata), pointer :: cd_
+    class(t_fn104), pointer :: adjustable_
+    class(t_lam250), pointer :: zz1
+    integer(4) :: ci_
+    integer(4) :: j_2_
+    integer(4) :: r_2_
+    logical :: zz2
+    integer(4) :: n1_
+    integer(4) :: n2_
+    real(8) :: rate_
+    real(8) :: share_
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz3
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz4
+    logical :: zz5
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz6
+    real(8) :: zz7
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz8
+    real(8) :: zz9
+    integer(4) :: i_
+    real(8) :: rate_2_
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz10
+    logical :: zz11
+    real(8) :: area_
+    real(8) :: zz12
+    real(8) :: storage_rate_
+    real(8) :: volume_
+    integer(4) :: k_
+    integer(4) :: link_
+    logical :: zz13
+    type(cpp_ptr_d) :: zz14
+    integer(4) :: zz15
+    real(8) :: zz16
+    real(8) :: zz17
+    real(8) :: zz18
+    real(8) :: zz19
+    real(8) :: net_
+    real(8) :: available_
+    integer(4) :: ci_2_
+    integer(4) :: j_3_
+    integer(4) :: r_3_
+    logical :: zz20
+    integer(4) :: n1_2_
+    integer(4) :: n2_2_
+    real(8) :: factor_
+    real(8) :: rate_3_
+    real(8) :: positive_
+    real(8) :: scale_
+    real(8) :: zz21
+    real(8) :: zz22
+    real(8) :: zz23
+    real(8) :: reduction_
+    real(8) :: share_2_
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz24
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz25
+    logical :: zz26
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz27
+    real(8) :: zz28
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz29
+    real(8) :: zz30
+  nodes_ => ctx_%nodes
+  cd_ => ctx_%link_subtypes%conduits
+  allocate(zz1)
+  zz1%c_ctx => ctx_
+  zz1%c_cd => cd_
+  adjustable_ => zz1
+  call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%xnode_%conduit_loss), cpp_vec_d_end(self%xnode_%conduit_loss), 0.0_8)
+  if (associated(cpp_exc)) return
+  ci_ = 0
+  do
+    if (.not. ((ci_ < self%n_conduits_))) exit
+    j_2_ = self%tile_uj_%a%a(int(ci_, 8))
+    r_2_ = self%tile_crow_%a%a(int(ci_, 8))
+    zz2 = adjustable_%invoke(j_2_, r_2_)
+    if ((.not. zz2)) then
+      goto 102
+    end if
+    n1_ = self%tile_n1_%a%a(int(ci_, 8))
+    n2_ = self%tile_n2_%a%a(int(ci_, 8))
+    rate_ = ((cd_%evap_loss_rate%a%a(int(r_2_, 8)) + cd_%seep_loss_rate%a%a(int(r_2_, 8))) * self%tile_barrels_d_%a%a(int(ci_, 8)))
+    zz3 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_, 8))%p)
+    zz5 = (.not. (iand(int(zz3%is_outfall, 4), 255_4) /= 0))
+    if (zz5) then
+      zz4 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_, 8))%p)
+      zz5 = (.not. (iand(int(zz4%is_outfall, 4), 255_4) /= 0))
+    end if
+    share_ = merge(0.5_8, 1.0_8, zz5)
+    zz6 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_, 8))%p)
+    if ((.not. (iand(int(zz6%is_outfall, 4), 255_4) /= 0))) then
+      zz7 = (self%xnode_%conduit_loss%a%a(int(n1_, 8)) + (share_ * rate_))
+      self%xnode_%conduit_loss%a%a(int(n1_, 8)) = zz7
+    end if
+    zz8 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_, 8))%p)
+    if ((.not. (iand(int(zz8%is_outfall, 4), 255_4) /= 0))) then
+      zz9 = (self%xnode_%conduit_loss%a%a(int(n2_, 8)) + (share_ * rate_))
+      self%xnode_%conduit_loss%a%a(int(n2_, 8)) = zz9
+    end if
+    102 continue
+    ci_ = (ci_ + 1)
+  end do
+  i_ = 0
+  do
+    if (.not. ((i_ < self%n_nodes_))) exit
+    self%xnode_%loss_factor%a%a(int(i_, 8)) = 1.0_8
+    rate_2_ = self%xnode_%conduit_loss%a%a(int(i_, 8))
+    zz11 = (rate_2_ <= 0.0_8)
+    if (.not. zz11) then
+      zz10 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(i_, 8))%p)
+      zz11 = (iand(int(zz10%is_outfall, 4), 255_4) /= 0)
+    end if
+    if (zz11) then
+      goto 104
+    end if
+    if ((nodes_%storage_area%a%a(int(i_, 8)) > 0.0_8)) then
+      zz12 = self%xnode_%new_surf_area%a%a(int(i_, 8))
+    else
+      zz12 = cpp_m_max_d_d(self%xnode_%new_surf_area%a%a(int(i_, 8)), self%min_surf_area_)
+    end if
+    area_ = zz12
+    storage_rate_ = ((cpp_m_max_d_d(0.0_8, (nodes_%old_depth%a%a(int(i_, 8)) - s_constants__f__fudge)) * area_) / dt_)
+    if ((nodes_%storage_area%a%a(int(i_, 8)) > 0.0_8)) then
+      volume_ = nodes_%old_volume%a%a(int(i_, 8))
+      k_ = self%csr_row_%a%a(int(i_, 8))
+      do
+        if (.not. ((k_ < self%csr_row_%a%a(int((i_ + 1), 8))))) exit
+        link_ = self%csr_link_%a%a(int(k_, 8))
+        zz13 = (ctx_%links%type%a%a(int(link_, 8)) /= 0_1)
+        if (.not. zz13) then
+          zz13 = (ctx_%links%xsect_shape%a%a(int(link_, 8)) == 25_2)
+        end if
+        if (zz13) then
+          goto 106
+        end if
+        zz15 = i_
+        zz16 = self%area1_%a%a(int(link_, 8))
+        zz17 = self%area2_%a%a(int(link_, 8))
+        zz14 = cpp_vec_d_data(self%aa_y_prev_)
+        zz18 = p_dynwave__f__chamberpipevolumechange_dynamicwave(ctx_, zz15, link_, zz16, zz17, zz14)
+        zz19 = (volume_ - zz18)
+        volume_ = zz19
+        106 continue
+        k_ = (k_ + 1)
+      end do
+      storage_rate_ = (volume_ / dt_)
+    end if
+    net_ = ((nodes_%inflow%a%a(int(i_, 8)) - nodes_%outflow%a%a(int(i_, 8))) + rate_2_)
+    available_ = cpp_m_min_d_d((net_ + storage_rate_), ((net_ + nodes_%old_net_inflow%a%a(int(i_, 8))) + (2.0_8 * storage_rate_)))
+    self%xnode_%loss_factor%a%a(int(i_, 8)) = cpp_m_min_d_d(1.0_8, cpp_m_max_d_d(0.0_8, (available_ / rate_2_)))
+    104 continue
+    i_ = (i_ + 1)
+  end do
+  ci_2_ = 0
+  do
+    if (.not. ((ci_2_ < self%n_conduits_))) exit
+    j_3_ = self%tile_uj_%a%a(int(ci_2_, 8))
+    r_3_ = self%tile_crow_%a%a(int(ci_2_, 8))
+    zz20 = adjustable_%invoke(j_3_, r_3_)
+    if ((.not. zz20)) then
+      goto 108
+    end if
+    n1_2_ = self%tile_n1_%a%a(int(ci_2_, 8))
+    n2_2_ = self%tile_n2_%a%a(int(ci_2_, 8))
+    factor_ = cpp_m_min_d_d(self%xnode_%loss_factor%a%a(int(n1_2_, 8)), self%xnode_%loss_factor%a%a(int(n2_2_, 8)))
+    if ((factor_ >= 1.0_8)) then
+      goto 108
+    end if
+    rate_3_ = (cd_%evap_loss_rate%a%a(int(r_3_, 8)) + cd_%seep_loss_rate%a%a(int(r_3_, 8)))
+    positive_ = (cd_%evap_loss_rate%a%a(int(r_3_, 8)) + cpp_m_max_d_d(0.0_8, cd_%seep_loss_rate%a%a(int(r_3_, 8))))
+    if ((cd_%seep_loss_rate%a%a(int(r_3_, 8)) >= 0.0_8)) then
+      zz21 = factor_
+    else
+      zz21 = ((positive_ - (rate_3_ * (1.0_8 - factor_))) / positive_)
+    end if
+    scale_ = zz21
+    zz22 = (cd_%evap_loss_rate%a%a(int(r_3_, 8)) * scale_)
+    cd_%evap_loss_rate%a%a(int(r_3_, 8)) = zz22
+    if ((cd_%seep_loss_rate%a%a(int(r_3_, 8)) > 0.0_8)) then
+      zz23 = (cd_%seep_loss_rate%a%a(int(r_3_, 8)) * scale_)
+      cd_%seep_loss_rate%a%a(int(r_3_, 8)) = zz23
+    end if
+    reduction_ = ((rate_3_ * self%tile_barrels_d_%a%a(int(ci_2_, 8))) * (1.0_8 - factor_))
+    zz24 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_2_, 8))%p)
+    zz26 = (.not. (iand(int(zz24%is_outfall, 4), 255_4) /= 0))
+    if (zz26) then
+      zz25 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_2_, 8))%p)
+      zz26 = (.not. (iand(int(zz25%is_outfall, 4), 255_4) /= 0))
+    end if
+    share_2_ = merge(0.5_8, 1.0_8, zz26)
+    zz27 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_2_, 8))%p)
+    if ((.not. (iand(int(zz27%is_outfall, 4), 255_4) /= 0))) then
+      zz28 = (nodes_%outflow%a%a(int(n1_2_, 8)) - (share_2_ * reduction_))
+      nodes_%outflow%a%a(int(n1_2_, 8)) = zz28
+    end if
+    zz29 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_2_, 8))%p)
+    if ((.not. (iand(int(zz29%is_outfall, 4), 255_4) /= 0))) then
+      zz30 = (nodes_%outflow%a%a(int(n2_2_, 8)) - (share_2_ * reduction_))
+      nodes_%outflow%a%a(int(n2_2_, 8)) = zz30
+    end if
+    108 continue
+    ci_2_ = (ci_2_ + 1)
+  end do
+  end procedure p_dynwave_dwsolver__limitconduitlosses
+
   module procedure p_lam251
     integer(8) :: uci_
     integer(4) :: j_
@@ -1844,62 +2208,65 @@ contains
     integer(4) :: k_
     integer(4) :: link_
     logical :: zz9
-    real(8) :: zz10
+    type(cpp_ptr_d) :: zz10
     real(8) :: zz11
-    logical :: zz12
+    real(8) :: zz12
+    real(8) :: zz13
+    real(8) :: zz14
+    logical :: zz15
     logical :: upstream_
     real(8) :: end_depth_
-    real(8), pointer :: zz13
+    real(8), pointer :: zz16
     integer(4) :: row_
-    real(8), pointer :: zz14
-    real(8) :: zz15
+    real(8), pointer :: zz17
+    real(8) :: zz18
     real(8) :: capacity_
     real(8) :: current_
-    real(8) :: zz16
-    real(8) :: zz17
+    real(8) :: zz19
+    real(8) :: zz20
     real(8) :: denom_
     real(8) :: depth_
     class(t_fn106), pointer :: pipepartvolume_
-    class(t_lam256), pointer :: zz18
+    class(t_lam256), pointer :: zz21
     real(8) :: base_
-    real(8) :: zz19
+    real(8) :: zz22
     real(8) :: jac_
     real(8) :: low_
     real(8) :: high_
     integer(4) :: trial_
     real(8) :: volume_2_
-    real(8) :: zz20
-    real(8) :: zz21
-    real(8) :: residual_
-    real(8) :: zz22
     real(8) :: zz23
-    logical :: zz24
-    real(8) :: max_depth_
+    real(8) :: zz24
+    real(8) :: residual_
     real(8) :: zz25
     real(8) :: zz26
-    real(8), pointer :: zz27
+    logical :: zz27
+    real(8) :: max_depth_
     real(8) :: zz28
+    real(8) :: zz29
+    real(8), pointer :: zz30
+    real(8) :: zz31
     real(8) :: volume_3_
     integer(4) :: k_3_
     integer(4) :: link_3_
     integer(4) :: other_
-    integer(4), pointer :: zz29
+    integer(4), pointer :: zz32
     real(8) :: share_
-    real(8) :: zz30
-    logical :: zz31
+    real(8) :: zz33
+    logical :: zz34
     class(t_lidnodestate), pointer :: state_
-    class(t_lidnodestate), pointer :: zz32
+    class(t_lidnodestate), pointer :: zz35
     integer(8) :: k_4_
     class(t_lidnodecell), pointer :: cell_
-    class(t_lidnodecell), pointer :: zz33
+    class(t_lidnodecell), pointer :: zz36
     real(8) :: take_
-    real(8) :: zz34
-    real(8) :: zz35
+    real(8) :: zz37
+    real(8) :: zz38
     logical :: pond_
-    logical :: zz36
+    logical :: zz39
     real(8) :: capacity_2_
     real(8) :: depth_2_
-    real(8) :: zz37
+    real(8) :: zz40
     logical :: is_surcharged_
     real(8) :: sum_
     real(8) :: denom_semi_
@@ -1907,48 +2274,48 @@ contains
     real(8) :: y_vj_
     real(8) :: denomv_
     real(8) :: f_
-    real(8) :: zz38
-    real(8) :: zz39
+    real(8) :: zz41
+    real(8) :: zz42
     logical :: use_surcharge_dqdh_
     real(8) :: y_new_
     real(8) :: denom_2_
     real(8) :: dy_
-    logical :: zz40
-    logical :: zz41
+    logical :: zz43
+    logical :: zz44
     real(8) :: dy_2_
     real(8) :: corr_
     real(8) :: denom_3_
     real(8) :: f_2_
-    real(8) :: zz42
+    real(8) :: zz45
     real(8) :: dy_3_
     type(cpp_cptr) :: p_
-    type(cpp_cptr) :: zz43
-    type(cpp_cptr) :: zz44
-    type(cpp_cptr) :: tr_
-    type(cpp_cptr) :: zz45
     type(cpp_cptr) :: zz46
-    type(cpp_cptr) :: sk_
     type(cpp_cptr) :: zz47
+    type(cpp_cptr) :: tr_
     type(cpp_cptr) :: zz48
-    logical :: zz49
-    integer(8) :: zz50
-    logical :: zz51
+    type(cpp_cptr) :: zz49
+    type(cpp_cptr) :: sk_
+    type(cpp_cptr) :: zz50
+    type(cpp_cptr) :: zz51
     logical :: zz52
-    logical :: zz53
+    integer(8) :: zz53
+    logical :: zz54
+    logical :: zz55
+    logical :: zz56
     type(cpp_cptr) :: fname_
-    type(cpp_cptr) :: zz54
-    integer(8) :: zz55
-    type(cpp_cptr) :: zz56
-    integer(4) :: zz57
-    type(cpp_cptr) :: zz58
-    class(cpp_cfile), pointer :: zz59
-    type(cpp_cptr) :: zz60
-    class(cpp_cfile), pointer :: zz61
-    integer(4) :: zz62
+    type(cpp_cptr) :: zz57
+    integer(8) :: zz58
+    type(cpp_cptr) :: zz59
+    integer(4) :: zz60
+    type(cpp_cptr) :: zz61
+    class(cpp_cfile), pointer :: zz62
     type(cpp_cptr) :: zz63
     class(cpp_cfile), pointer :: zz64
     integer(4) :: zz65
-    integer(4) :: zz66
+    type(cpp_cptr) :: zz66
+    class(cpp_cfile), pointer :: zz67
+    integer(4) :: zz68
+    integer(4) :: zz69
   nodes_ => ctx_%nodes
   ui_ = int(node_idx_, 8)
   zz1 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(ui_)%p)
@@ -2005,30 +2372,33 @@ contains
       if (zz9) then
         goto 102
       end if
-      zz10 = p_dynwave__f__chamberpipevolumechange_dynamicwave(ctx_, node_idx_, link_, self%area1_%a%a(int(link_, 8)), self%area2_%a%a(int(link_, 8)), cpp_vec_d_data(self%aa_y_prev_))
-      zz11 = (target_ - zz10)
-      target_ = zz11
-      zz12 = ((self%surcharge_method == 0) .or. (self%surcharge_method == 3))
-      if (zz12) then
-        zz12 = (.not. p_dynwave__f__isopenshape_dynamicwave(ctx_%links%xsect_shape%a%a(int(link_, 8))))
+      zz11 = self%area1_%a%a(int(link_, 8))
+      zz12 = self%area2_%a%a(int(link_, 8))
+      zz10 = cpp_vec_d_data(self%aa_y_prev_)
+      zz13 = p_dynwave__f__chamberpipevolumechange_dynamicwave(ctx_, node_idx_, link_, zz11, zz12, zz10)
+      zz14 = (target_ - zz13)
+      target_ = zz14
+      zz15 = ((self%surcharge_method == 0) .or. (self%surcharge_method == 3))
+      if (zz15) then
+        zz15 = (.not. p_dynwave__f__isopenshape_dynamicwave(ctx_%links%xsect_shape%a%a(int(link_, 8))))
       end if
-      if (zz12) then
+      if (zz15) then
         upstream_ = (ctx_%links%node1%a%a(int(link_, 8)) == node_idx_)
         if (upstream_) then
-          zz13 => self%depth1_%a%a(int(link_, 8))
+          zz16 => self%depth1_%a%a(int(link_, 8))
         else
-          zz13 => self%depth2_%a%a(int(link_, 8))
+          zz16 => self%depth2_%a%a(int(link_, 8))
         end if
-        end_depth_ = zz13
+        end_depth_ = zz16
         if ((end_depth_ >= ctx_%links%xsect_y_full%a%a(int(link_, 8)))) then
           row_ = p_linksubtypes__conduit_row(ctx_%link_subtypes, link_)
           if (upstream_) then
-            zz14 => self%surf_area1_%a%a(int(link_, 8))
+            zz17 => self%surf_area1_%a%a(int(link_, 8))
           else
-            zz14 => self%surf_area2_%a%a(int(link_, 8))
+            zz17 => self%surf_area2_%a%a(int(link_, 8))
           end if
-          zz15 = (surf_area_ - (zz14 * real(ctx_%link_subtypes%conduits%barrels%a%a(int(row_, 8)), 8)))
-          surf_area_ = zz15
+          zz18 = (surf_area_ - (zz17 * real(ctx_%link_subtypes%conduits%barrels%a%a(int(row_, 8)), 8)))
+          surf_area_ = zz18
         end if
       end if
       102 continue
@@ -2036,11 +2406,11 @@ contains
     end do
     surf_area_ = cpp_m_max_d_d(0.0_8, surf_area_)
     capacity_ = nodes_%full_volume%a%a(ui_)
-    zz16 = p_node__f__getvolume(nodes_, node_idx_, y_last_, null(), 0, null())
-    current_ = zz16
+    zz19 = p_node__f__getvolume(nodes_, node_idx_, y_last_, null(), 0, null())
+    current_ = zz19
     if ((can_pond_ .and. (y_last_ > full_depth_))) then
-      zz17 = (current_ + ((y_last_ - full_depth_) * t_%ponded_area))
-      current_ = zz17
+      zz20 = (current_ + ((y_last_ - full_depth_) * t_%ponded_area))
+      current_ = zz20
     end if
     denom_ = (surf_area_ + ((0.5_8 * dt_) * self%xnode_%sumdqdh%a%a(ui_)))
     depth_ = 0.0_8
@@ -2054,14 +2424,14 @@ contains
     else
       depth_ = (y_last_ + ((target_ - current_) / denom_))
       if ((surf_area_ > (2.0_8 * nodes_%storage_area%a%a(ui_)))) then
-        allocate(zz18)
-        zz18%c_this => self
-        zz18%c_ui = ui_
-        zz18%c_ctx => ctx_
-        zz18%c_node_idx = node_idx_
-        pipepartvolume_ => zz18
-        zz19 = pipepartvolume_%invoke(y_last_)
-        base_ = zz19
+        allocate(zz21)
+        zz21%c_this => self
+        zz21%c_ui = ui_
+        zz21%c_ctx => ctx_
+        zz21%c_node_idx = node_idx_
+        pipepartvolume_ => zz21
+        zz22 = pipepartvolume_%invoke(y_last_)
+        base_ = zz22
         jac_ = ((0.5_8 * dt_) * self%xnode_%sumdqdh%a%a(ui_))
         low_ = 0.0_8
         high_ = (full_depth_ + t_%sur_depth)
@@ -2072,15 +2442,15 @@ contains
         trial_ = 0
         do
           if (.not. ((trial_ < 40))) exit
-          zz20 = p_node__f__getvolume(nodes_, node_idx_, depth_, null(), 0, null())
-          volume_2_ = zz20
+          zz23 = p_node__f__getvolume(nodes_, node_idx_, depth_, null(), 0, null())
+          volume_2_ = zz23
           if ((can_pond_ .and. (depth_ > full_depth_))) then
-            zz21 = (volume_2_ + ((depth_ - full_depth_) * t_%ponded_area))
-            volume_2_ = zz21
+            zz24 = (volume_2_ + ((depth_ - full_depth_) * t_%ponded_area))
+            volume_2_ = zz24
           end if
-          zz23 = volume_2_
-          zz22 = pipepartvolume_%invoke(depth_)
-          residual_ = ((((zz23 + zz22) - base_) + (jac_ * (depth_ - y_last_))) - target_)
+          zz26 = volume_2_
+          zz25 = pipepartvolume_%invoke(depth_)
+          residual_ = ((((zz26 + zz25) - base_) + (jac_ * (depth_ - y_last_))) - target_)
           if ((abs(residual_) <= (1E-10_8 * cpp_m_max_d_d(1.0_8, abs(target_))))) then
             goto 103
           end if
@@ -2093,32 +2463,32 @@ contains
           trial_ = (trial_ + 1)
         end do
         103 continue
-        zz24 = (.not. can_pond_)
-        if (zz24) then
-          zz24 = (depth_ > ((full_depth_ + t_%sur_depth) - 1E-08_8))
+        zz27 = (.not. can_pond_)
+        if (zz27) then
+          zz27 = (depth_ > ((full_depth_ + t_%sur_depth) - 1E-08_8))
         end if
-        if (zz24) then
+        if (zz27) then
           depth_ = (full_depth_ + t_%sur_depth)
         end if
       end if
     end if
     depth_ = cpp_m_max_d_d(0.0_8, depth_)
     if (can_pond_) then
-      zz25 = 0.0_8
+      zz28 = 0.0_8
     else
-      zz25 = t_%sur_depth
+      zz28 = t_%sur_depth
     end if
-    max_depth_ = (full_depth_ + zz25)
+    max_depth_ = (full_depth_ + zz28)
     if (((.not. can_pond_) .and. (depth_ >= max_depth_))) then
       depth_ = max_depth_
       nodes_%overflow%a%a(ui_) = (cpp_m_max_d_d(0.0_8, (target_ - capacity_)) / dt_)
     end if
-    zz27 => nodes_%volume%a%a(ui_)
-    zz26 = p_node__f__getvolume(nodes_, node_idx_, depth_, null(), 0, null())
-    zz27 = zz26
+    zz30 => nodes_%volume%a%a(ui_)
+    zz29 = p_node__f__getvolume(nodes_, node_idx_, depth_, null(), 0, null())
+    zz30 = zz29
     if ((can_pond_ .and. (depth_ > full_depth_))) then
-      zz28 = (nodes_%volume%a%a(ui_) + ((depth_ - full_depth_) * t_%ponded_area))
-      nodes_%volume%a%a(ui_) = zz28
+      zz31 = (nodes_%volume%a%a(ui_) + ((depth_ - full_depth_) * t_%ponded_area))
+      nodes_%volume%a%a(ui_) = zz31
       nodes_%overflow%a%a(ui_) = (cpp_m_max_d_d(0.0_8, (nodes_%volume%a%a(ui_) - cpp_m_max_d_d(nodes_%old_volume%a%a(ui_), capacity_))) / dt_)
     end if
     nodes_%depth%a%a(ui_) = depth_
@@ -2135,50 +2505,50 @@ contains
       if (.not. ((k_3_ < self%csr_row_%a%a((ui_ + 1_8))))) exit
       link_3_ = self%csr_link_%a%a(int(k_3_, 8))
       if ((ctx_%links%node1%a%a(int(link_3_, 8)) == node_idx_)) then
-        zz29 => ctx_%links%node2%a%a(int(link_3_, 8))
+        zz32 => ctx_%links%node2%a%a(int(link_3_, 8))
       else
-        zz29 => ctx_%links%node1%a%a(int(link_3_, 8))
+        zz32 => ctx_%links%node1%a%a(int(link_3_, 8))
       end if
-      other_ = zz29
+      other_ = zz32
       share_ = merge(1.0_8, 0.5_8, (ctx_%nodes%type%a%a(int(other_, 8)) == 1_1))
-      zz30 = (volume_3_ - (share_ * (ctx_%links%volume%a%a(int(link_3_, 8)) - ctx_%links%old_volume%a%a(int(link_3_, 8)))))
-      volume_3_ = zz30
+      zz33 = (volume_3_ - (share_ * (ctx_%links%volume%a%a(int(link_3_, 8)) - ctx_%links%old_volume%a%a(int(link_3_, 8)))))
+      volume_3_ = zz33
       k_3_ = (k_3_ + 1)
     end do
-    zz31 = (volume_3_ < 0.0_8)
-    if (zz31) then
-      zz31 = (.not. p_lidnode__f__richardsmode(ctx_, node_idx_))
+    zz34 = (volume_3_ < 0.0_8)
+    if (zz34) then
+      zz34 = (.not. p_lidnode__f__richardsmode(ctx_, node_idx_))
     end if
-    if (zz31) then
-      zz32 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(int(p_nodesubtypes__storage_row(ctx_%node_subtypes, node_idx_), 8))%p)
-      state_ => zz32
+    if (zz34) then
+      zz35 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(int(p_nodesubtypes__storage_row(ctx_%node_subtypes, node_idx_), 8))%p)
+      state_ => zz35
       k_4_ = 0_8
       do
         if (.not. (((ieor(k_4_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8))) .and. (volume_3_ < 0.0_8)))) exit
-        zz33 => h_uas_lidnodecell(state_%cells%a%a(k_4_)%p)
-        cell_ => zz33
+        zz36 => h_uas_lidnodecell(state_%cells%a%a(k_4_)%p)
+        cell_ => zz36
         take_ = cpp_m_min_d_d((-volume_3_), cpp_m_max_d_d(0.0_8, (((cell_%theta - cell_%wilting_point) * cell_%geometric_volume) + state_%port_delta%a%a(k_4_))))
-        zz34 = (state_%port_delta%a%a(k_4_) - take_)
-        state_%port_delta%a%a(k_4_) = zz34
-        zz35 = (volume_3_ + take_)
-        volume_3_ = zz35
+        zz37 = (state_%port_delta%a%a(k_4_) - take_)
+        state_%port_delta%a%a(k_4_) = zz37
+        zz38 = (volume_3_ + take_)
+        volume_3_ = zz38
         k_4_ = (k_4_ + 1_8)
       end do
     end if
     volume_3_ = cpp_m_max_d_d(0.0_8, volume_3_)
     nodes_%overflow%a%a(ui_) = 0.0_8
-    zz36 = ctx_%options%allow_ponding
-    if (zz36) then
-      zz36 = (nodes_%ponded_area%a%a(ui_) > 0.0_8)
+    zz39 = ctx_%options%allow_ponding
+    if (zz39) then
+      zz39 = (nodes_%ponded_area%a%a(ui_) > 0.0_8)
     end if
-    pond_ = zz36
+    pond_ = zz39
     capacity_2_ = nodes_%full_volume%a%a(ui_)
     if (((.not. pond_) .and. (volume_3_ > capacity_2_))) then
       nodes_%overflow%a%a(ui_) = ((volume_3_ - capacity_2_) / dt_)
       volume_3_ = capacity_2_
     end if
-    zz37 = p_node__f__getdepth(nodes_, node_idx_, cpp_m_min_d_d(volume_3_, capacity_2_), ctx_%tables, self%unit_sys_, ctx_%node_subtypes)
-    depth_2_ = zz37
+    zz40 = p_node__f__getdepth(nodes_, node_idx_, cpp_m_min_d_d(volume_3_, capacity_2_), ctx_%tables, self%unit_sys_, ctx_%node_subtypes)
+    depth_2_ = zz40
     if ((pond_ .and. (volume_3_ > capacity_2_))) then
       depth_2_ = (nodes_%full_depth%a%a(ui_) + ((volume_3_ - capacity_2_) / nodes_%ponded_area%a%a(ui_)))
     end if
@@ -2220,15 +2590,15 @@ contains
       denomv_ = sum_
       if (((ycrown_ > 0.0_8) .and. (y_last_ < (1.25_8 * ycrown_)))) then
         f_ = ((y_last_ - ycrown_) / ycrown_)
-        zz38 = (denomv_ + (((self%xnode_%old_surf_area%a%a(ui_) / dt_) - sum_) * cpp_math_exp_d(((-15.0_8) * f_))))
-        denomv_ = zz38
+        zz41 = (denomv_ + (((self%xnode_%old_surf_area%a%a(ui_) / dt_) - sum_) * cpp_math_exp_d(((-15.0_8) * f_))))
+        denomv_ = zz41
       end if
       if ((denomv_ /= 0.0_8)) then
-        zz39 = (y_last_ + (dq_ / denomv_))
+        zz42 = (y_last_ + (dq_ / denomv_))
       else
-        zz39 = y_last_
+        zz42 = y_last_
       end if
-      y_vj_ = zz39
+      y_vj_ = zz42
       if ((is_surcharged_ .and. (y_vj_ < ycrown_))) then
         y_vj_ = (ycrown_ - s_constants__f__fudge)
       end if
@@ -2257,15 +2627,15 @@ contains
       y_new_ = (full_depth_ - s_constants__f__fudge)
     end if
   else
-    zz41 = (.not. use_surcharge_dqdh_)
-    if (.not. zz41) then
-      zz40 = is_storage_
-      if (zz40) then
-        zz40 = (self%xnode_%sumdqdh%a%a(ui_) == 0.0_8)
+    zz44 = (.not. use_surcharge_dqdh_)
+    if (.not. zz44) then
+      zz43 = is_storage_
+      if (zz43) then
+        zz43 = (self%xnode_%sumdqdh%a%a(ui_) == 0.0_8)
       end if
-      zz41 = zz40
+      zz44 = zz43
     end if
-    if (zz41) then
+    if (zz44) then
       dy_2_ = (dv_ / surf_area_)
       y_new_ = (y_old_ + dy_2_)
       if ((.not. is_ponded_)) then
@@ -2285,8 +2655,8 @@ contains
       denom_3_ = self%xnode_%sumdqdh%a%a(ui_)
       if (((y_last_ < (1.25_8 * ycrown_)) .and. (ycrown_ > 0.0_8))) then
         f_2_ = ((y_last_ - ycrown_) / ycrown_)
-        zz42 = (denom_3_ + (((self%xnode_%old_surf_area%a%a(ui_) / dt_) - self%xnode_%sumdqdh%a%a(ui_)) * cpp_math_exp_d(((-15.0_8) * f_2_))))
-        denom_3_ = zz42
+        zz45 = (denom_3_ + (((self%xnode_%old_surf_area%a%a(ui_) / dt_) - self%xnode_%sumdqdh%a%a(ui_)) * cpp_math_exp_d(((-15.0_8) * f_2_))))
+        denom_3_ = zz45
       end if
       dy_3_ = 0.0_8
       if ((denom_3_ /= 0.0_8)) then
@@ -2306,52 +2676,52 @@ contains
     s_dynwave_dwsolver__s_nf_29_done = .true.
   end if
   if ((s_dynwave_dwsolver__s_nf_target_30 == (-2_8))) then
-    zz43 = cpp_r_lit("SWMM_TRACE_NODE")
-    zz44 = cpp_r_getenv(zz43)
-    p_ = zz44
-    zz45 = cpp_r_lit("SWMM_TRACE_RSTEP")
-    zz46 = cpp_r_getenv(zz45)
-    tr_ = zz46
-    zz47 = cpp_r_lit("SWMM_TRACE_SKIP")
-    zz48 = cpp_r_getenv(zz47)
-    sk_ = zz48
+    zz46 = cpp_r_lit("SWMM_TRACE_NODE")
+    zz47 = cpp_r_getenv(zz46)
+    p_ = zz47
+    zz48 = cpp_r_lit("SWMM_TRACE_RSTEP")
+    zz49 = cpp_r_getenv(zz48)
+    tr_ = zz49
+    zz50 = cpp_r_lit("SWMM_TRACE_SKIP")
+    zz51 = cpp_r_getenv(zz50)
+    sk_ = zz51
     s_dynwave_dwsolver__s_nf_target_30 = (-1_8)
-    zz49 = (.not. cpp_cptr_isnull(sk_))
-    if (zz49) then
-      zz49 = (int(sk_%b%a(sk_%o + 0), 4) /= 0)
-    end if
-    if (zz49) then
-      zz50 = cpp_r_atol(sk_)
-      s_dynwave_dwsolver__s_nf_skip_31 = zz50
-    end if
-    zz51 = (.not. cpp_cptr_isnull(p_))
-    if (zz51) then
-      zz51 = (int(p_%b%a(p_%o + 0), 4) /= 0)
-    end if
-    zz52 = zz51
+    zz52 = (.not. cpp_cptr_isnull(sk_))
     if (zz52) then
-      zz52 = (.not. cpp_cptr_isnull(tr_))
+      zz52 = (int(sk_%b%a(sk_%o + 0), 4) /= 0)
     end if
-    zz53 = zz52
-    if (zz53) then
-      zz53 = (int(tr_%b%a(tr_%o + 0), 4) /= 0)
+    if (zz52) then
+      zz53 = cpp_r_atol(sk_)
+      s_dynwave_dwsolver__s_nf_skip_31 = zz53
     end if
-    if (zz53) then
-      zz54 = cpp_r_buf_i(512)
-      fname_ = zz54
-      zz55 = cpp_r_atol(p_)
-      s_dynwave_dwsolver__s_nf_target_30 = zz55
-      zz56 = cpp_r_lit("%s.node%ld")
-      zz57 = cpp_r_snprintf_cptr_ul_cptr_oa(fname_, 512_8, zz56, tr_, s_dynwave_dwsolver__s_nf_target_30)
+    zz54 = (.not. cpp_cptr_isnull(p_))
+    if (zz54) then
+      zz54 = (int(p_%b%a(p_%o + 0), 4) /= 0)
+    end if
+    zz55 = zz54
+    if (zz55) then
+      zz55 = (.not. cpp_cptr_isnull(tr_))
+    end if
+    zz56 = zz55
+    if (zz56) then
+      zz56 = (int(tr_%b%a(tr_%o + 0), 4) /= 0)
+    end if
+    if (zz56) then
+      zz57 = cpp_r_buf_i(512)
+      fname_ = zz57
+      zz58 = cpp_r_atol(p_)
+      s_dynwave_dwsolver__s_nf_target_30 = zz58
+      zz59 = cpp_r_lit("%s.node%ld")
+      zz60 = cpp_r_snprintf_cptr_ul_cptr_oa(fname_, 512_8, zz59, tr_, s_dynwave_dwsolver__s_nf_target_30)
       if (associated(cpp_exc)) return
-      zz58 = cpp_r_lit("w")
-      zz59 => cpp_r_fopen(fname_, zz58)
+      zz61 = cpp_r_lit("w")
+      zz62 => cpp_r_fopen(fname_, zz61)
       if (associated(cpp_exc)) return
-      s_dynwave_dwsolver__s_nf_29 => zz59
+      s_dynwave_dwsolver__s_nf_29 => zz62
       if ((.not. (.not. associated(s_dynwave_dwsolver__s_nf_29)))) then
-        zz61 => s_dynwave_dwsolver__s_nf_29
-        zz60 = cpp_r_lit("n,yOld,yLast,dQ,dV,surfArea,sumdqdh,surch,yNew" // achar(10))
-        zz62 = cpp_r_fprintf(zz61, zz60)
+        zz64 => s_dynwave_dwsolver__s_nf_29
+        zz63 = cpp_r_lit("n,yOld,yLast,dQ,dV,surfArea,sumdqdh,surch,yNew" // achar(10))
+        zz65 = cpp_r_fprintf(zz64, zz63)
         if (associated(cpp_exc)) return
       end if
     end if
@@ -2359,12 +2729,12 @@ contains
   if (((.not. (.not. associated(s_dynwave_dwsolver__s_nf_29))) .and. (int(node_idx_, 8) == s_dynwave_dwsolver__s_nf_target_30))) then
     s_dynwave_dwsolver__s_nf_count_32 = (s_dynwave_dwsolver__s_nf_count_32 + 1)
     if (((int(s_dynwave_dwsolver__s_nf_count_32, 8) > s_dynwave_dwsolver__s_nf_skip_31) .and. (int(s_dynwave_dwsolver__s_nf_count_32, 8) <= (s_dynwave_dwsolver__s_nf_skip_31 + 128_8)))) then
-      zz64 => s_dynwave_dwsolver__s_nf_29
-      zz63 = cpp_r_lit("%d,%a,%a,%a,%a,%a,%a,%d,%a" // achar(10))
-      zz65 = cpp_r_fprintf(zz64, zz63, s_dynwave_dwsolver__s_nf_count_32, y_old_, y_last_, dq_, dv_, surf_area_, self%xnode_%sumdqdh%a%a(ui_), merge(1, 0, is_surcharged_), y_new_)
+      zz67 => s_dynwave_dwsolver__s_nf_29
+      zz66 = cpp_r_lit("%d,%a,%a,%a,%a,%a,%a,%d,%a" // achar(10))
+      zz68 = cpp_r_fprintf(zz67, zz66, s_dynwave_dwsolver__s_nf_count_32, y_old_, y_last_, dq_, dv_, surf_area_, self%xnode_%sumdqdh%a%a(ui_), merge(1, 0, is_surcharged_), y_new_)
       if (associated(cpp_exc)) return
       if ((int(s_dynwave_dwsolver__s_nf_count_32, 8) >= (s_dynwave_dwsolver__s_nf_skip_31 + 128_8))) then
-        zz66 = cpp_r_fclose(s_dynwave_dwsolver__s_nf_29)
+        zz69 = cpp_r_fclose(s_dynwave_dwsolver__s_nf_29)
         if (associated(cpp_exc)) return
         s_dynwave_dwsolver__s_nf_29 => null()
       end if

@@ -4,6 +4,159 @@ submodule (swmm6_engine) swmm6_engine_029
   implicit none
 contains
 
+  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__ctor_x
+  call p_fv_implicitnetworksolver_condensationdiagnostics__ctor_raw(self, cpp_raw_v)
+  call p_fv_implicitnetworksolver_condensationdiagnostics__init_d(self)
+  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__ctor_x
+
+  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__clone
+    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: o_
+    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_fv_implicitnetworksolver_condensationdiagnostics__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_fv_implicitnetworksolver_condensationdiagnostics__c_23658dd5(o_, self)
+  zres => o_
+  return
+  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__clone
+
+  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__c_23658dd5
+    class(t_fv_nativegmres_result), pointer :: zz1
+    class(t_fv_nativegmres_result), pointer :: zz2
+    class(t_fv_implicitnetworksolver_blockiludiagnostics), pointer :: zz3
+    class(t_fv_implicitnetworksolver_blockiludiagnostics), pointer :: zz4
+    class(t_fv_implicitnetworksolver_workspacediagnostics), pointer :: zz5
+    class(t_fv_implicitnetworksolver_workspacediagnostics), pointer :: zz6
+  self%status = s_%status
+  self%eliminated = s_%eliminated
+  self%retained = s_%retained
+  self%failed_cell = s_%failed_cell
+  self%failed_interface_pivot = s_%failed_interface_pivot
+  self%schur_entries = s_%schur_entries
+  self%peak_workspace_bytes = s_%peak_workspace_bytes
+  self%minimum_block_pivot_ratio = s_%minimum_block_pivot_ratio
+  self%minimum_interface_pivot_ratio = s_%minimum_interface_pivot_ratio
+  self%full_true_residual = s_%full_true_residual
+  self%full_tolerance = s_%full_tolerance
+  self%reduced_true_residual = s_%reduced_true_residual
+  self%used_dense = s_%used_dense
+  self%used_reduced_gmres = s_%used_reduced_gmres
+  self%used_tree = s_%used_tree
+  self%tree_eliminated = s_%tree_eliminated
+  self%core_scalars = s_%core_scalars
+  self%unsafe_leaf_pivots = s_%unsafe_leaf_pivots
+  self%core_entries = s_%core_entries
+  self%minimum_leaf_pivot_ratio = s_%minimum_leaf_pivot_ratio
+  self%core_true_residual = s_%core_true_residual
+  zz1 => null()
+  if (associated(s_%reduced)) then
+    zz2 => p_fv_nativegmres_result__clone(s_%reduced)
+    zz1 => zz2
+  end if
+  self%reduced => zz1
+  zz3 => null()
+  if (associated(s_%reduced_block_ilu)) then
+    zz4 => p_fv_implicitnetworksolver_blockiludiagnostics__clone(s_%reduced_block_ilu)
+    zz3 => zz4
+  end if
+  self%reduced_block_ilu => zz3
+  zz5 => null()
+  if (associated(s_%reduced_workspace)) then
+    zz6 => p_fv_implicitnetworksolver_workspacediagnostics__clone(s_%reduced_workspace)
+    zz5 => zz6
+  end if
+  self%reduced_workspace => zz5
+  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__c_23658dd5
+
+  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__assign
+    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%status = s_%status
+  self%eliminated = s_%eliminated
+  self%retained = s_%retained
+  self%failed_cell = s_%failed_cell
+  self%failed_interface_pivot = s_%failed_interface_pivot
+  self%schur_entries = s_%schur_entries
+  self%peak_workspace_bytes = s_%peak_workspace_bytes
+  self%minimum_block_pivot_ratio = s_%minimum_block_pivot_ratio
+  self%minimum_interface_pivot_ratio = s_%minimum_interface_pivot_ratio
+  self%full_true_residual = s_%full_true_residual
+  self%full_tolerance = s_%full_tolerance
+  self%reduced_true_residual = s_%reduced_true_residual
+  self%used_dense = s_%used_dense
+  self%used_reduced_gmres = s_%used_reduced_gmres
+  self%used_tree = s_%used_tree
+  self%tree_eliminated = s_%tree_eliminated
+  self%core_scalars = s_%core_scalars
+  self%unsafe_leaf_pivots = s_%unsafe_leaf_pivots
+  self%core_entries = s_%core_entries
+  self%minimum_leaf_pivot_ratio = s_%minimum_leaf_pivot_ratio
+  self%core_true_residual = s_%core_true_residual
+  call p_fv_nativegmres_result__assign(self%reduced, s_%reduced)
+  call p_fv_implicitnetworksolver_blockiludiagnostics__assign(self%reduced_block_ilu, s_%reduced_block_ilu)
+  call p_fv_implicitnetworksolver_workspacediagnostics__assign(self%reduced_workspace, s_%reduced_workspace)
+  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__assign
+
+  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__movefrom
+    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
+    class(t_fv_nativegmres_result), pointer :: zz2
+    class(t_fv_implicitnetworksolver_blockiludiagnostics), pointer :: zz3
+    class(t_fv_implicitnetworksolver_workspacediagnostics), pointer :: zz4
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%status = s_%status
+  self%eliminated = s_%eliminated
+  self%retained = s_%retained
+  self%failed_cell = s_%failed_cell
+  self%failed_interface_pivot = s_%failed_interface_pivot
+  self%schur_entries = s_%schur_entries
+  self%peak_workspace_bytes = s_%peak_workspace_bytes
+  self%minimum_block_pivot_ratio = s_%minimum_block_pivot_ratio
+  self%minimum_interface_pivot_ratio = s_%minimum_interface_pivot_ratio
+  self%full_true_residual = s_%full_true_residual
+  self%full_tolerance = s_%full_tolerance
+  self%reduced_true_residual = s_%reduced_true_residual
+  self%used_dense = s_%used_dense
+  self%used_reduced_gmres = s_%used_reduced_gmres
+  self%used_tree = s_%used_tree
+  self%tree_eliminated = s_%tree_eliminated
+  self%core_scalars = s_%core_scalars
+  self%unsafe_leaf_pivots = s_%unsafe_leaf_pivots
+  self%core_entries = s_%core_entries
+  self%minimum_leaf_pivot_ratio = s_%minimum_leaf_pivot_ratio
+  self%core_true_residual = s_%core_true_residual
+  self%reduced => s_%reduced
+  allocate(zz2)
+  call p_fv_nativegmres_result__ctor_x(zz2)
+  s_%reduced => zz2
+  self%reduced_block_ilu => s_%reduced_block_ilu
+  allocate(zz3)
+  call p_fv_implicitnetworksolver_blockiludiagnostics__ctor_x(zz3)
+  s_%reduced_block_ilu => zz3
+  self%reduced_workspace => s_%reduced_workspace
+  allocate(zz4)
+  call p_fv_implicitnetworksolver_workspacediagnostics__ctor_x(zz4)
+  s_%reduced_workspace => zz4
+  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__movefrom
+
+  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__movenew
+    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: o_
+    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_fv_implicitnetworksolver_condensationdiagnostics__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_fv_implicitnetworksolver_condensationdiagnostics__movefrom(o_, s_)
+  zres => o_
+  return
+  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__movenew
+
   module procedure p_fv_implicitnetworksolver_controls__ctor_raw
   end procedure p_fv_implicitnetworksolver_controls__ctor_raw
 
@@ -642,7 +795,7 @@ contains
   module procedure p_fv_implicitnetworksolver_linearworkspace__ctor_raw
   end procedure p_fv_implicitnetworksolver_linearworkspace__ctor_raw
 
-  module procedure p_lam345
+  module procedure p_lam348
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -650,9 +803,9 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam345
+  end procedure p_lam348
 
-  module procedure p_lam346
+  module procedure p_lam349
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -660,7 +813,7 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam346
+  end procedure p_lam349
 
   module procedure p_fv_implicitnetworksolver_linearworkspace__init_d
     class(cpp_vec_l), pointer :: zz1
@@ -670,9 +823,9 @@ contains
     class(cpp_vec_i), pointer :: zz5
     class(cpp_vec_i), pointer :: zz6
     class(cpp_vec_d), pointer :: zz7
-    class(t_lam345), pointer :: zz8
+    class(t_lam348), pointer :: zz8
     class(cpp_vec_o), pointer :: zz9
-    class(t_lam346), pointer :: zz10
+    class(t_lam349), pointer :: zz10
     class(cpp_vec_o), pointer :: zz11
     class(t_fv_nativegmres), pointer :: zz12
   self%valid_ = .false.
@@ -848,7 +1001,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_fv_implicitnetworksolver_linearworkspace__assign
 
-  module procedure p_lam347
+  module procedure p_lam350
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -856,9 +1009,9 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam347
+  end procedure p_lam350
 
-  module procedure p_lam348
+  module procedure p_lam351
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -866,7 +1019,7 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam348
+  end procedure p_lam351
 
   module procedure p_fv_implicitnetworksolver_linearworkspace__movefrom
     class(t_fv_implicitnetworksolver_linearworkspace), pointer :: zz1
@@ -877,9 +1030,9 @@ contains
     class(cpp_vec_i), pointer :: zz6
     class(cpp_vec_i), pointer :: zz7
     class(cpp_vec_d), pointer :: zz8
-    class(t_lam347), pointer :: zz9
+    class(t_lam350), pointer :: zz9
     class(cpp_vec_o), pointer :: zz10
-    class(t_lam348), pointer :: zz11
+    class(t_lam351), pointer :: zz11
     class(cpp_vec_o), pointer :: zz12
     class(t_fv_nativegmres), pointer :: zz13
   zz1 => self
@@ -2269,41 +2422,11 @@ contains
   module procedure p_fv_implicitreachsolver_linearization__ctor_raw
   end procedure p_fv_implicitreachsolver_linearization__ctor_raw
 
-  module procedure p_lam349
-    class(cpp_arr_d), pointer :: zz1
-    class(*), pointer :: zz2
-  zres => null()
-  zz1 => cpp_arr_make__d(4)
-  zz2 => zz1
-  zres => zz2
-  return
-  end procedure p_lam349
-
-  module procedure p_lam350
-    class(cpp_arr_d), pointer :: zz1
-    class(*), pointer :: zz2
-  zres => null()
-  zz1 => cpp_arr_make__d(4)
-  zz2 => zz1
-  zres => zz2
-  return
-  end procedure p_lam350
-
-  module procedure p_lam351
-    class(cpp_arr_d), pointer :: zz1
-    class(*), pointer :: zz2
-  zres => null()
-  zz1 => cpp_arr_make__d(4)
-  zz2 => zz1
-  zres => zz2
-  return
-  end procedure p_lam351
-
   module procedure p_lam352
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
-  zz1 => cpp_arr_make__d(2)
+  zz1 => cpp_arr_make__d(4)
   zz2 => zz1
   zres => zz2
   return
@@ -2313,22 +2436,52 @@ contains
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
-  zz1 => cpp_arr_make__d(2)
+  zz1 => cpp_arr_make__d(4)
   zz2 => zz1
   zres => zz2
   return
   end procedure p_lam353
 
+  module procedure p_lam354
+    class(cpp_arr_d), pointer :: zz1
+    class(*), pointer :: zz2
+  zres => null()
+  zz1 => cpp_arr_make__d(4)
+  zz2 => zz1
+  zres => zz2
+  return
+  end procedure p_lam354
+
+  module procedure p_lam355
+    class(cpp_arr_d), pointer :: zz1
+    class(*), pointer :: zz2
+  zres => null()
+  zz1 => cpp_arr_make__d(2)
+  zz2 => zz1
+  zres => zz2
+  return
+  end procedure p_lam355
+
+  module procedure p_lam356
+    class(cpp_arr_d), pointer :: zz1
+    class(*), pointer :: zz2
+  zres => null()
+  zz1 => cpp_arr_make__d(2)
+  zz2 => zz1
+  zres => zz2
+  return
+  end procedure p_lam356
+
   module procedure p_fv_implicitreachsolver_linearization__init_d
-    class(t_lam349), pointer :: zz1
+    class(t_lam352), pointer :: zz1
     class(cpp_vec_o), pointer :: zz2
-    class(t_lam350), pointer :: zz3
+    class(t_lam353), pointer :: zz3
     class(cpp_vec_o), pointer :: zz4
-    class(t_lam351), pointer :: zz5
+    class(t_lam354), pointer :: zz5
     class(cpp_vec_o), pointer :: zz6
-    class(t_lam352), pointer :: zz7
+    class(t_lam355), pointer :: zz7
     class(cpp_vec_o), pointer :: zz8
-    class(t_lam353), pointer :: zz9
+    class(t_lam356), pointer :: zz9
     class(cpp_vec_o), pointer :: zz10
     class(cpp_arr_d), pointer :: zz11
   allocate(zz1)
@@ -2440,41 +2593,11 @@ contains
   call cpp_arr_assign__d(self%column_scale, s_%column_scale)
   end procedure p_fv_implicitreachsolver_linearization__assign
 
-  module procedure p_lam354
-    class(cpp_arr_d), pointer :: zz1
-    class(*), pointer :: zz2
-  zres => null()
-  zz1 => cpp_arr_make__d(4)
-  zz2 => zz1
-  zres => zz2
-  return
-  end procedure p_lam354
-
-  module procedure p_lam355
-    class(cpp_arr_d), pointer :: zz1
-    class(*), pointer :: zz2
-  zres => null()
-  zz1 => cpp_arr_make__d(4)
-  zz2 => zz1
-  zres => zz2
-  return
-  end procedure p_lam355
-
-  module procedure p_lam356
-    class(cpp_arr_d), pointer :: zz1
-    class(*), pointer :: zz2
-  zres => null()
-  zz1 => cpp_arr_make__d(4)
-  zz2 => zz1
-  zres => zz2
-  return
-  end procedure p_lam356
-
   module procedure p_lam357
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
-  zz1 => cpp_arr_make__d(2)
+  zz1 => cpp_arr_make__d(4)
   zz2 => zz1
   zres => zz2
   return
@@ -2484,23 +2607,53 @@ contains
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
-  zz1 => cpp_arr_make__d(2)
+  zz1 => cpp_arr_make__d(4)
   zz2 => zz1
   zres => zz2
   return
   end procedure p_lam358
 
+  module procedure p_lam359
+    class(cpp_arr_d), pointer :: zz1
+    class(*), pointer :: zz2
+  zres => null()
+  zz1 => cpp_arr_make__d(4)
+  zz2 => zz1
+  zres => zz2
+  return
+  end procedure p_lam359
+
+  module procedure p_lam360
+    class(cpp_arr_d), pointer :: zz1
+    class(*), pointer :: zz2
+  zres => null()
+  zz1 => cpp_arr_make__d(2)
+  zz2 => zz1
+  zres => zz2
+  return
+  end procedure p_lam360
+
+  module procedure p_lam361
+    class(cpp_arr_d), pointer :: zz1
+    class(*), pointer :: zz2
+  zres => null()
+  zz1 => cpp_arr_make__d(2)
+  zz2 => zz1
+  zres => zz2
+  return
+  end procedure p_lam361
+
   module procedure p_fv_implicitreachsolver_linearization__movefrom
     class(t_fv_implicitreachsolver_linearization), pointer :: zz1
-    class(t_lam354), pointer :: zz2
+    class(t_lam357), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
-    class(t_lam355), pointer :: zz4
+    class(t_lam358), pointer :: zz4
     class(cpp_vec_o), pointer :: zz5
-    class(t_lam356), pointer :: zz6
+    class(t_lam359), pointer :: zz6
     class(cpp_vec_o), pointer :: zz7
-    class(t_lam357), pointer :: zz8
+    class(t_lam360), pointer :: zz8
     class(cpp_vec_o), pointer :: zz9
-    class(t_lam358), pointer :: zz10
+    class(t_lam361), pointer :: zz10
     class(cpp_vec_o), pointer :: zz11
   zz1 => self
   if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
@@ -3598,7 +3751,7 @@ contains
   return
   end procedure p_fv__anon_hydraulics_fv_nativeconduitcondensation_cp_747d99d3
 
-  module procedure p_lam359
+  module procedure p_lam362
     logical :: zz1
     integer(8) :: zz2
   zz1 = (a1 /= 0_8)
@@ -3613,9 +3766,9 @@ contains
   self%c_count = zz2
   zres = .true.
   return
-  end procedure p_lam359
+  end procedure p_lam362
 
-  module procedure p_lam360
+  module procedure p_lam363
     integer(8) :: capacity_
     integer(8) :: zz1
     integer(8) :: zz2
@@ -3628,9 +3781,9 @@ contains
     self%c_retained = zz2
   end if
   return
-  end procedure p_lam360
+  end procedure p_lam363
 
-  module procedure p_lam362
+  module procedure p_lam365
     integer(8) :: zz1
   zz1 = cpp_vec_d_capacity(a1)
   if ((ieor(zz1, (-9223372036854775807_8 - 1_8)) < ieor(a2, (-9223372036854775807_8 - 1_8)))) then
@@ -3639,11 +3792,11 @@ contains
   end if
   call cpp_vec_d_resize_ul(a1, a2)
   return
-  end procedure p_lam362
+  end procedure p_lam365
 
-  module procedure p_lam361
+  module procedure p_lam364
     class(t_fn98), pointer :: size_2_
-    class(t_lam362), pointer :: zz1
+    class(t_lam365), pointer :: zz1
     class(cpp_arr_o), pointer :: x__r3_
     class(cpp_arr_o), pointer :: zz2
     integer(8) :: x__i4_
@@ -3677,9 +3830,9 @@ contains
     x__i4_ = (x__i4_ + 1_8)
   end do
   return
-  end procedure p_lam361
+  end procedure p_lam364
 
-  module procedure p_lam363
+  module procedure p_lam366
     logical :: zz1
     logical :: zz2
   self%c_result%matvecs = (self%c_result%matvecs + 1)
@@ -3698,9 +3851,9 @@ contains
   end if
   zres = .true.
   return
-  end procedure p_lam363
+  end procedure p_lam366
 
-  module procedure p_lam364
+  module procedure p_lam367
     logical :: zz1
     type(cpp_ptr_d) :: zz2
     logical :: zz3
@@ -3725,16 +3878,23 @@ contains
   end if
   zres = .true.
   return
-  end procedure p_lam364
+  end procedure p_lam367
 
-  module procedure p_lam365
-    logical :: zz1
+  module procedure p_lam368
+    type(cpp_ptr_d) :: zz1
+    class(t_fn96), pointer :: zz2
+    type(cpp_ptr_d) :: zz3
+    logical :: zz4
     integer(8) :: i_
-    real(8) :: zz2
-    real(8), pointer :: zz3
-  zz1 = self%c_apply%invoke(cpp_vec_d_data(self%c_this%x_), cpp_vec_d_data(self%c_this%image_))
+    type(cpp_ptr_d) :: zz5
+    real(8) :: zz6
+    real(8), pointer :: zz7
+  zz2 => self%c_apply
+  zz1 = cpp_vec_d_data(self%c_this%x_)
+  zz3 = cpp_vec_d_data(self%c_this%image_)
+  zz4 = zz2%invoke(zz1, zz3)
   if (associated(cpp_exc)) return
-  if ((.not. zz1)) then
+  if ((.not. zz4)) then
     zres = .false.
     return
   end if
@@ -3744,9 +3904,10 @@ contains
     self%c_this%r_%a%a(i_) = (self%c_b%a%a(i_) - self%c_this%image_%a%a(i_))
     i_ = (i_ + 1_8)
   end do
-  zz3 => self%c_result%true_residual
-  zz2 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(cpp_vec_d_data(self%c_this%r_), self%c_n)
-  zz3 = zz2
+  zz7 => self%c_result%true_residual
+  zz5 = cpp_vec_d_data(self%c_this%r_)
+  zz6 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(zz5, self%c_n)
+  zz7 = zz6
   if ((.not. cpp_double_isfinite(self%c_result%true_residual))) then
     self%c_result%status = 3
     zres = .false.
@@ -3754,13 +3915,13 @@ contains
   end if
   zres = .true.
   return
-  end procedure p_lam365
+  end procedure p_lam368
 
-  module procedure p_lam366
+  module procedure p_lam369
   zres => null()
   zres => self%c_this%hessenberg_%a%a(((self%c_j * (self%c_m + 1_8)) + a1))
   return
-  end procedure p_lam366
+  end procedure p_lam369
 
   module procedure p_fv_nativegmres__solve
     class(t_fv_nativegmres_result), pointer :: result_
@@ -3776,16 +3937,16 @@ contains
     logical :: zz9
     logical :: zz10
     logical :: zz11
-    logical :: zz12
+    type(cpp_ptr_d) :: zz12
     logical :: zz13
-    class(t_fv_nativegmres_result), pointer :: zz14
+    logical :: zz14
+    class(t_fv_nativegmres_result), pointer :: zz15
     integer(8) :: m_
-    integer(8) :: zz15
-    class(cpp_sysexception), pointer :: zz16
+    integer(8) :: zz16
     integer(8) :: limit_
     integer(8), pointer :: count_
     class(t_fn97), pointer :: addproduct_
-    class(t_lam359), pointer :: zz17
+    class(t_lam362), pointer :: zz17
     logical :: zz18
     logical :: zz19
     logical :: zz20
@@ -3799,7 +3960,7 @@ contains
     integer(8), pointer :: retained_
     logical, pointer :: exceeds_
     class(t_fn98), pointer :: request_
-    class(t_lam360), pointer :: zz28
+    class(t_lam363), pointer :: zz28
     class(cpp_arr_o), pointer :: x__r1_
     class(cpp_arr_o), pointer :: zz29
     integer(8) :: x__i2_
@@ -3809,7 +3970,7 @@ contains
     logical :: had_workspace_
     integer(8) :: zz31
     class(t_fn3), pointer :: allocate_
-    class(t_lam361), pointer :: zz32
+    class(t_lam364), pointer :: zz32
     class(cpp_object), pointer :: zz33
     class(cpp_object), pointer :: e_
     class(t_fv_nativegmres_result), pointer :: zz34
@@ -3819,109 +3980,128 @@ contains
     logical, pointer :: zz38
     class(t_fv_nativegmres_result), pointer :: zz39
     real(8) :: bnorm_
-    real(8) :: zz40
-    logical :: zz41
-    class(t_fv_nativegmres_result), pointer :: zz42
+    type(cpp_ptr_d) :: zz40
+    real(8) :: zz41
+    logical :: zz42
+    class(t_fv_nativegmres_result), pointer :: zz43
     class(t_fn96), pointer :: apply_
-    class(t_lam363), pointer :: zz43
+    class(t_lam366), pointer :: zz44
     class(t_fn96), pointer :: precondition_
-    class(t_lam364), pointer :: zz44
+    class(t_lam367), pointer :: zz45
     class(t_fn5), pointer :: trueresidual_
-    class(t_lam365), pointer :: zz45
-    logical :: zz46
-    class(t_fv_nativegmres_result), pointer :: zz47
+    class(t_lam368), pointer :: zz46
+    logical :: zz47
     class(t_fv_nativegmres_result), pointer :: zz48
+    class(t_fv_nativegmres_result), pointer :: zz49
     integer(4) :: stagnant_
     real(8) :: old_residual_
     integer(8) :: i_2_
     integer(8) :: used_
     logical :: breakdown_
     integer(8), pointer :: j_
-    logical :: zz49
     logical :: zz50
-    logical :: zz51
-    logical :: zz52
-    class(t_fv_nativegmres_result), pointer :: zz53
+    type(cpp_ptr_d) :: zz51
+    type(cpp_ptr_d) :: zz52
+    type(cpp_ptr_d) :: zz53
+    logical :: zz54
+    type(cpp_ptr_d) :: zz55
+    type(cpp_ptr_d) :: zz56
+    logical :: zz57
+    logical :: zz58
+    class(t_fv_nativegmres_result), pointer :: zz59
     real(8) :: before_
-    real(8) :: zz54
-    class(t_fv_nativegmres_result), pointer :: zz55
+    type(cpp_ptr_d) :: zz60
+    real(8) :: zz61
+    class(t_fv_nativegmres_result), pointer :: zz62
     class(t_fn99), pointer :: h_
-    class(t_lam366), pointer :: zz56
+    class(t_lam369), pointer :: zz63
     integer(8) :: k_
-    real(8), target :: zz57
-    real(8), pointer :: zz58
-    real(8) :: zz59
-    real(8) :: zz60
-    integer(8) :: i_3_
-    real(8), pointer :: zz61
-    real(8), pointer :: zz62
-    real(8) :: zz63
-    real(8) :: after_
-    real(8) :: zz64
-    integer(8) :: k_2_
-    real(8) :: correction_
-    real(8) :: zz65
-    real(8), target :: zz66
-    real(8), pointer :: zz67
-    real(8) :: zz68
-    integer(8) :: i_4_
+    real(8), target :: zz64
+    real(8), pointer :: zz65
+    type(cpp_ptr_d) :: zz66
+    type(cpp_ptr_d) :: zz67
+    type(cpp_ptr_d) :: zz68
     real(8) :: zz69
     real(8) :: zz70
-    class(t_fv_nativegmres_result), pointer :: zz71
-    real(8), target :: zz72
-    real(8), pointer :: zz73
-    real(8) :: zz74
-    integer(8) :: i_5_
-    integer(8) :: k_3_
-    real(8) :: a_2_
-    real(8), pointer :: zz75
-    real(8) :: bnext_
-    real(8), pointer :: zz76
-    real(8), target :: zz77
-    real(8), pointer :: zz78
+    integer(8) :: i_3_
+    real(8), pointer :: zz71
+    real(8), pointer :: zz72
+    real(8) :: zz73
+    real(8) :: after_
+    type(cpp_ptr_d) :: zz74
+    real(8) :: zz75
+    integer(8) :: k_2_
+    real(8) :: correction_
+    type(cpp_ptr_d) :: zz76
+    type(cpp_ptr_d) :: zz77
+    type(cpp_ptr_d) :: zz78
     real(8) :: zz79
     real(8), target :: zz80
     real(8), pointer :: zz81
     real(8) :: zz82
-    real(8) :: rotation_
-    real(8), pointer :: zz83
-    real(8), pointer :: zz84
-    class(t_fv_nativegmres_result), pointer :: zz85
-    real(8), pointer :: zz86
-    real(8), pointer :: zz87
+    integer(8) :: i_4_
+    real(8) :: zz83
+    type(cpp_ptr_d) :: zz84
+    real(8) :: zz85
+    class(t_fv_nativegmres_result), pointer :: zz86
+    real(8), target :: zz87
     real(8), pointer :: zz88
-    real(8), pointer :: zz89
-    real(8), target :: zz90
+    real(8) :: zz89
+    integer(8) :: i_5_
+    integer(8) :: k_3_
+    real(8) :: a_2_
+    real(8), pointer :: zz90
+    real(8) :: bnext_
     real(8), pointer :: zz91
-    real(8) :: zz92
-    real(8), target :: zz93
-    real(8), pointer :: zz94
-    real(8) :: zz95
+    real(8), target :: zz92
+    real(8), pointer :: zz93
+    real(8) :: zz94
+    real(8), target :: zz95
+    real(8), pointer :: zz96
+    real(8) :: zz97
+    real(8) :: rotation_
+    real(8), pointer :: zz98
+    real(8), pointer :: zz99
+    class(t_fv_nativegmres_result), pointer :: zz100
+    real(8), pointer :: zz101
+    real(8), pointer :: zz102
+    real(8), pointer :: zz103
+    real(8), pointer :: zz104
+    real(8), target :: zz105
+    real(8), pointer :: zz106
+    real(8) :: zz107
+    real(8), target :: zz108
+    real(8), pointer :: zz109
+    real(8) :: zz110
     real(8) :: a_3_
-    logical :: zz96
+    logical :: zz111
     integer(8) :: i_6_
-    integer(8) :: zz97
+    integer(8) :: zz112
     real(8) :: value_
     integer(8) :: j_2_
-    real(8) :: zz98
-    class(t_fv_nativegmres_result), pointer :: zz99
+    real(8) :: zz113
+    class(t_fv_nativegmres_result), pointer :: zz114
     integer(8) :: j_3_
     integer(8) :: i_7_
-    real(8) :: zz100
-    logical :: zz101
-    logical :: zz102
-    logical :: zz103
-    class(t_fv_nativegmres_result), pointer :: zz104
+    real(8) :: zz115
+    type(cpp_ptr_d) :: zz116
+    logical :: zz117
+    type(cpp_ptr_d) :: zz118
+    type(cpp_ptr_d) :: zz119
+    logical :: zz120
+    logical :: zz121
+    class(t_fv_nativegmres_result), pointer :: zz122
     integer(8) :: i_8_
-    real(8) :: zz105
-    logical :: zz106
-    class(t_fv_nativegmres_result), pointer :: zz107
-    logical :: zz108
-    class(t_fv_nativegmres_result), pointer :: zz109
-    class(t_fv_nativegmres_result), pointer :: zz110
-    class(t_fv_nativegmres_result), pointer :: zz111
-    class(t_fv_nativegmres_result), pointer :: zz112
-    class(t_fv_nativegmres_result), pointer :: zz113
+    real(8) :: zz123
+    type(cpp_ptr_d) :: zz124
+    logical :: zz125
+    class(t_fv_nativegmres_result), pointer :: zz126
+    logical :: zz127
+    class(t_fv_nativegmres_result), pointer :: zz128
+    class(t_fv_nativegmres_result), pointer :: zz129
+    class(t_fv_nativegmres_result), pointer :: zz130
+    class(t_fv_nativegmres_result), pointer :: zz131
+    class(t_fv_nativegmres_result), pointer :: zz132
   zres => null()
   allocate(zz1)
   call p_fv_nativegmres_result__ctor_x(zz1)
@@ -3967,25 +4147,23 @@ contains
     end if
     zz11 = zz10
   end if
-  zz13 = zz11
-  if (.not. zz13) then
-    zz12 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__finite_nativegmres(cpp_vec_d_data(b_), n_)
-    zz13 = (.not. zz12)
+  zz14 = zz11
+  if (.not. zz14) then
+    zz12 = cpp_vec_d_data(b_)
+    zz13 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__finite_nativegmres(zz12, n_)
+    zz14 = (.not. zz13)
   end if
-  if (zz13) then
-    zz14 => p_fv_nativegmres_result__movenew(result_)
-    zres => zz14
+  if (zz14) then
+    zz15 => p_fv_nativegmres_result__movenew(result_)
+    zres => zz15
     return
   end if
   m_ = cpp_m_min_ul_ul(n_, int(cpp_m_min_i_i(controls_%restart, cpp_m_max_i_i(1, controls_%max_iterations)), 8))
-  zz15 = p_fv_nativegmres__bytes(self)
-  if ((ieor(zz15, (-9223372036854775807_8 - 1_8)) > ieor(controls_%workspace_limit_bytes, (-9223372036854775807_8 - 1_8)))) then
+  zz16 = p_fv_nativegmres__bytes(self)
+  if ((ieor(zz16, (-9223372036854775807_8 - 1_8)) > ieor(controls_%workspace_limit_bytes, (-9223372036854775807_8 - 1_8)))) then
     call p_fv_nativegmres__release(self)
   end if
-  zz16 => cpp_sysexception_new("NotImplementedException", "TODO vector::max_size")
-  cpp_exc => zz16
-  return
-  limit_ = 0_8
+  limit_ = cpp_m_min_ul_ul(cpp_udiv8(controls_%workspace_limit_bytes, 8_8), 1152921504606846975_8)
   allocate(count_)
   count_ = 0_8
   allocate(zz17)
@@ -4099,49 +4277,50 @@ contains
   end if
   call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%x_), cpp_vec_d_end(self%x_), 0.0_8)
   if (associated(cpp_exc)) return
-  zz40 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(cpp_vec_d_data(b_), n_)
-  bnorm_ = zz40
+  zz40 = cpp_vec_d_data(b_)
+  zz41 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(zz40, n_)
+  bnorm_ = zz41
   result_%tolerance = (controls_%absolute_tolerance + (controls_%relative_tolerance * bnorm_))
-  zz41 = (.not. cpp_double_isfinite(bnorm_))
-  if (.not. zz41) then
-    zz41 = (.not. cpp_double_isfinite(result_%tolerance))
+  zz42 = (.not. cpp_double_isfinite(bnorm_))
+  if (.not. zz42) then
+    zz42 = (.not. cpp_double_isfinite(result_%tolerance))
   end if
-  if (zz41) then
+  if (zz42) then
     result_%status = 3
-    zz42 => p_fv_nativegmres_result__movenew(result_)
-    zres => zz42
+    zz43 => p_fv_nativegmres_result__movenew(result_)
+    zres => zz43
     return
   end if
-  allocate(zz43)
-  zz43%c_result => result_
-  zz43%c_matrix => matrix_
-  zz43%c_n = n_
-  apply_ => zz43
   allocate(zz44)
-  zz44%c_inverse => inverse_
   zz44%c_result => result_
+  zz44%c_matrix => matrix_
   zz44%c_n = n_
-  precondition_ => zz44
+  apply_ => zz44
   allocate(zz45)
-  zz45%c_apply => apply_
-  zz45%c_this => self
-  zz45%c_n = n_
-  zz45%c_b => b_
+  zz45%c_inverse => inverse_
   zz45%c_result => result_
-  trueresidual_ => zz45
-  zz46 = trueresidual_%invoke()
+  zz45%c_n = n_
+  precondition_ => zz45
+  allocate(zz46)
+  zz46%c_apply => apply_
+  zz46%c_this => self
+  zz46%c_n = n_
+  zz46%c_b => b_
+  zz46%c_result => result_
+  trueresidual_ => zz46
+  zz47 = trueresidual_%invoke()
   if (associated(cpp_exc)) return
-  if ((.not. zz46)) then
-    zz47 => p_fv_nativegmres_result__movenew(result_)
-    zres => zz47
+  if ((.not. zz47)) then
+    zz48 => p_fv_nativegmres_result__movenew(result_)
+    zres => zz48
     return
   end if
   if ((result_%true_residual <= result_%tolerance)) then
     call cpp_vec_d_assign_vect(output_, self%x_)
     if (associated(cpp_exc)) return
     result_%status = 0
-    zz48 => p_fv_nativegmres_result__movenew(result_)
-    zres => zz48
+    zz49 => p_fv_nativegmres_result__movenew(result_)
+    zres => zz49
     return
   end if
   stagnant_ = 0
@@ -4164,92 +4343,106 @@ contains
     allocate(j_)
     j_ = 0_8
     do
-      zz49 = (ieor(j_, (-9223372036854775807_8 - 1_8)) < ieor(m_, (-9223372036854775807_8 - 1_8)))
-      if (zz49) then
-        zz49 = (result_%iterations < controls_%max_iterations)
+      zz50 = (ieor(j_, (-9223372036854775807_8 - 1_8)) < ieor(m_, (-9223372036854775807_8 - 1_8)))
+      if (zz50) then
+        zz50 = (result_%iterations < controls_%max_iterations)
       end if
-      if (.not. (zz49)) exit
-      zz50 = precondition_%invoke(cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(self%basis_), (j_ * n_)), cpp_vec_d_data(self%z_))
+      if (.not. (zz50)) exit
+      zz51 = cpp_vec_d_data(self%basis_)
+      zz53 = cpp_ptr_d_op_add_ptrt_l(zz51, (j_ * n_))
+      zz52 = cpp_vec_d_data(self%z_)
+      zz54 = precondition_%invoke(zz53, zz52)
       if (associated(cpp_exc)) return
-      zz52 = (.not. zz50)
-      if (.not. zz52) then
-        zz51 = apply_%invoke(cpp_vec_d_data(self%z_), cpp_vec_d_data(self%w_))
+      zz58 = (.not. zz54)
+      if (.not. zz58) then
+        zz55 = cpp_vec_d_data(self%z_)
+        zz56 = cpp_vec_d_data(self%w_)
+        zz57 = apply_%invoke(zz55, zz56)
         if (associated(cpp_exc)) return
-        zz52 = (.not. zz51)
+        zz58 = (.not. zz57)
       end if
-      if (zz52) then
-        zz53 => p_fv_nativegmres_result__movenew(result_)
-        zres => zz53
+      if (zz58) then
+        zz59 => p_fv_nativegmres_result__movenew(result_)
+        zres => zz59
         return
       end if
-      zz54 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(cpp_vec_d_data(self%w_), n_)
-      before_ = zz54
+      zz60 = cpp_vec_d_data(self%w_)
+      zz61 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(zz60, n_)
+      before_ = zz61
       if ((.not. cpp_double_isfinite(before_))) then
         result_%status = 3
-        zz55 => p_fv_nativegmres_result__movenew(result_)
-        zres => zz55
+        zz62 => p_fv_nativegmres_result__movenew(result_)
+        zres => zz62
         return
       end if
-      allocate(zz56)
-      zz56%c_this => self
-      zz56%c_j => j_
-      zz56%c_m = m_
-      h_ => zz56
+      allocate(zz63)
+      zz63%c_this => self
+      zz63%c_j => j_
+      zz63%c_m = m_
+      h_ => zz63
       k_ = 0_8
       do
         if (.not. ((ieor(k_, (-9223372036854775807_8 - 1_8)) <= ieor(j_, (-9223372036854775807_8 - 1_8))))) exit
-        zz58 => h_%invoke(k_)
-        zz59 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__dot_nativegmres(cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(self%basis_), (k_ * n_)), cpp_vec_d_data(self%w_), n_)
-        zz60 = zz59
-        zz58 = zz60
-        zz57 = zz60
+        zz65 => h_%invoke(k_)
+        zz66 = cpp_vec_d_data(self%basis_)
+        zz68 = cpp_ptr_d_op_add_ptrt_l(zz66, (k_ * n_))
+        zz67 = cpp_vec_d_data(self%w_)
+        zz69 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__dot_nativegmres(zz68, zz67, n_)
+        zz70 = zz69
+        zz65 = zz70
+        zz64 = zz70
         i_3_ = 0_8
         do
           if (.not. ((ieor(i_3_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
-          zz62 => self%w_%a%a(i_3_)
-          zz61 => h_%invoke(k_)
-          zz63 = (zz62 - (zz61 * self%basis_%a%a(((k_ * n_) + i_3_))))
-          zz62 = zz63
+          zz72 => self%w_%a%a(i_3_)
+          zz71 => h_%invoke(k_)
+          zz73 = (zz72 - (zz71 * self%basis_%a%a(((k_ * n_) + i_3_))))
+          zz72 = zz73
           i_3_ = (i_3_ + 1_8)
         end do
         k_ = (k_ + 1_8)
       end do
-      zz64 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(cpp_vec_d_data(self%w_), n_)
-      after_ = zz64
+      zz74 = cpp_vec_d_data(self%w_)
+      zz75 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(zz74, n_)
+      after_ = zz75
       if ((after_ < (0.7_8 * before_))) then
         result_%reorthogonalizations = (result_%reorthogonalizations + 1)
         k_2_ = 0_8
         do
           if (.not. ((ieor(k_2_, (-9223372036854775807_8 - 1_8)) <= ieor(j_, (-9223372036854775807_8 - 1_8))))) exit
-          zz65 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__dot_nativegmres(cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(self%basis_), (k_2_ * n_)), cpp_vec_d_data(self%w_), n_)
-          correction_ = zz65
-          zz67 => h_%invoke(k_2_)
-          zz68 = (zz67 + correction_)
-          zz67 = zz68
-          zz66 = zz68
+          zz76 = cpp_vec_d_data(self%basis_)
+          zz78 = cpp_ptr_d_op_add_ptrt_l(zz76, (k_2_ * n_))
+          zz77 = cpp_vec_d_data(self%w_)
+          zz79 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__dot_nativegmres(zz78, zz77, n_)
+          correction_ = zz79
+          zz81 => h_%invoke(k_2_)
+          zz82 = (zz81 + correction_)
+          zz81 = zz82
+          zz80 = zz82
           i_4_ = 0_8
           do
             if (.not. ((ieor(i_4_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
-            zz69 = (self%w_%a%a(i_4_) - (correction_ * self%basis_%a%a(((k_2_ * n_) + i_4_))))
-            self%w_%a%a(i_4_) = zz69
+            zz83 = (self%w_%a%a(i_4_) - (correction_ * self%basis_%a%a(((k_2_ * n_) + i_4_))))
+            self%w_%a%a(i_4_) = zz83
             i_4_ = (i_4_ + 1_8)
           end do
           k_2_ = (k_2_ + 1_8)
         end do
-        zz70 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(cpp_vec_d_data(self%w_), n_)
-        after_ = zz70
+        zz84 = cpp_vec_d_data(self%w_)
+        zz85 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__norm_nativegmres(zz84, n_)
+        after_ = zz85
       end if
       if ((.not. cpp_double_isfinite(after_))) then
         result_%status = 3
-        zz71 => p_fv_nativegmres_result__movenew(result_)
-        zres => zz71
+        zz86 => p_fv_nativegmres_result__movenew(result_)
+        zres => zz86
         return
       end if
       breakdown_ = (after_ <= (1.4210854715202004E-14_8 * before_))
-      zz73 => h_%invoke((j_ + 1_8))
-      zz74 = after_
-      zz73 = zz74
-      zz72 = zz74
+      zz88 => h_%invoke((j_ + 1_8))
+      zz89 = after_
+      zz88 = zz89
+      zz87 = zz89
       if ((.not. breakdown_)) then
         i_5_ = 0_8
         do
@@ -4261,54 +4454,54 @@ contains
       k_3_ = 0_8
       do
         if (.not. ((ieor(k_3_, (-9223372036854775807_8 - 1_8)) < ieor(j_, (-9223372036854775807_8 - 1_8))))) exit
-        zz75 => h_%invoke(k_3_)
-        a_2_ = zz75
-        zz76 => h_%invoke((k_3_ + 1_8))
-        bnext_ = zz76
-        zz78 => h_%invoke(k_3_)
-        zz79 = ((self%cosine_%a%a(k_3_) * a_2_) + (self%sine_%a%a(k_3_) * bnext_))
-        zz78 = zz79
-        zz77 = zz79
-        zz81 => h_%invoke((k_3_ + 1_8))
-        zz82 = (((-self%sine_%a%a(k_3_)) * a_2_) + (self%cosine_%a%a(k_3_) * bnext_))
-        zz81 = zz82
-        zz80 = zz82
+        zz90 => h_%invoke(k_3_)
+        a_2_ = zz90
+        zz91 => h_%invoke((k_3_ + 1_8))
+        bnext_ = zz91
+        zz93 => h_%invoke(k_3_)
+        zz94 = ((self%cosine_%a%a(k_3_) * a_2_) + (self%sine_%a%a(k_3_) * bnext_))
+        zz93 = zz94
+        zz92 = zz94
+        zz96 => h_%invoke((k_3_ + 1_8))
+        zz97 = (((-self%sine_%a%a(k_3_)) * a_2_) + (self%cosine_%a%a(k_3_) * bnext_))
+        zz96 = zz97
+        zz95 = zz97
         k_3_ = (k_3_ + 1_8)
       end do
-      zz83 => h_%invoke(j_)
-      zz84 => h_%invoke((j_ + 1_8))
-      rotation_ = cpp_libm_hypot(zz83, zz84)
+      zz98 => h_%invoke(j_)
+      zz99 => h_%invoke((j_ + 1_8))
+      rotation_ = cpp_libm_hypot(zz98, zz99)
       result_%iterations = (result_%iterations + 1)
       if (((.not. cpp_double_isfinite(rotation_)) .or. (rotation_ == 0.0_8))) then
         result_%status = 6
-        zz85 => p_fv_nativegmres_result__movenew(result_)
-        zres => zz85
+        zz100 => p_fv_nativegmres_result__movenew(result_)
+        zres => zz100
         return
       end if
-      zz87 => self%cosine_%a%a(j_)
-      zz86 => h_%invoke(j_)
-      zz87 = (zz86 / rotation_)
-      zz89 => self%sine_%a%a(j_)
-      zz88 => h_%invoke((j_ + 1_8))
-      zz89 = (zz88 / rotation_)
-      zz91 => h_%invoke(j_)
-      zz92 = rotation_
-      zz91 = zz92
-      zz90 = zz92
-      zz94 => h_%invoke((j_ + 1_8))
-      zz95 = 0.0_8
-      zz94 = zz95
-      zz93 = zz95
+      zz102 => self%cosine_%a%a(j_)
+      zz101 => h_%invoke(j_)
+      zz102 = (zz101 / rotation_)
+      zz104 => self%sine_%a%a(j_)
+      zz103 => h_%invoke((j_ + 1_8))
+      zz104 = (zz103 / rotation_)
+      zz106 => h_%invoke(j_)
+      zz107 = rotation_
+      zz106 = zz107
+      zz105 = zz107
+      zz109 => h_%invoke((j_ + 1_8))
+      zz110 = 0.0_8
+      zz109 = zz110
+      zz108 = zz110
       a_3_ = self%g_%a%a(j_)
       self%g_%a%a(j_) = (self%cosine_%a%a(j_) * a_3_)
       self%g_%a%a((j_ + 1_8)) = ((-self%sine_%a%a(j_)) * a_3_)
       result_%estimated_residual = abs(self%g_%a%a((j_ + 1_8)))
       used_ = (j_ + 1_8)
-      zz96 = breakdown_
-      if (.not. zz96) then
-        zz96 = (result_%estimated_residual <= result_%tolerance)
+      zz111 = breakdown_
+      if (.not. zz111) then
+        zz111 = (result_%estimated_residual <= result_%tolerance)
       end if
-      if (zz96) then
+      if (zz111) then
         goto 109
       end if
       j_ = (j_ + 1_8)
@@ -4316,22 +4509,22 @@ contains
     109 continue
     i_6_ = used_
     do
-      zz97 = i_6_
+      zz112 = i_6_
       i_6_ = (i_6_ - 1_8)
-      if (.not. ((ieor(zz97, (-9223372036854775807_8 - 1_8)) > ieor(0_8, (-9223372036854775807_8 - 1_8))))) exit
+      if (.not. ((ieor(zz112, (-9223372036854775807_8 - 1_8)) > ieor(0_8, (-9223372036854775807_8 - 1_8))))) exit
       value_ = self%g_%a%a(i_6_)
       j_2_ = (i_6_ + 1_8)
       do
         if (.not. ((ieor(j_2_, (-9223372036854775807_8 - 1_8)) < ieor(used_, (-9223372036854775807_8 - 1_8))))) exit
-        zz98 = (value_ - (self%hessenberg_%a%a(((j_2_ * (m_ + 1_8)) + i_6_)) * self%y_%a%a(j_2_)))
-        value_ = zz98
+        zz113 = (value_ - (self%hessenberg_%a%a(((j_2_ * (m_ + 1_8)) + i_6_)) * self%y_%a%a(j_2_)))
+        value_ = zz113
         j_2_ = (j_2_ + 1_8)
       end do
       self%y_%a%a(i_6_) = (value_ / self%hessenberg_%a%a(((i_6_ * (m_ + 1_8)) + i_6_)))
       if ((.not. cpp_double_isfinite(self%y_%a%a(i_6_)))) then
         result_%status = 6
-        zz99 => p_fv_nativegmres_result__movenew(result_)
-        zres => zz99
+        zz114 => p_fv_nativegmres_result__movenew(result_)
+        zres => zz114
         return
       end if
     end do
@@ -4343,46 +4536,50 @@ contains
       i_7_ = 0_8
       do
         if (.not. ((ieor(i_7_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
-        zz100 = (self%update_%a%a(i_7_) + (self%basis_%a%a(((j_3_ * n_) + i_7_)) * self%y_%a%a(j_3_)))
-        self%update_%a%a(i_7_) = zz100
+        zz115 = (self%update_%a%a(i_7_) + (self%basis_%a%a(((j_3_ * n_) + i_7_)) * self%y_%a%a(j_3_)))
+        self%update_%a%a(i_7_) = zz115
         i_7_ = (i_7_ + 1_8)
       end do
       j_3_ = (j_3_ + 1_8)
     end do
-    zz101 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__finite_nativegmres(cpp_vec_d_data(self%update_), n_)
-    zz103 = (.not. zz101)
-    if (.not. zz103) then
-      zz102 = precondition_%invoke(cpp_vec_d_data(self%update_), cpp_vec_d_data(self%z_))
+    zz116 = cpp_vec_d_data(self%update_)
+    zz117 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__finite_nativegmres(zz116, n_)
+    zz121 = (.not. zz117)
+    if (.not. zz121) then
+      zz118 = cpp_vec_d_data(self%update_)
+      zz119 = cpp_vec_d_data(self%z_)
+      zz120 = precondition_%invoke(zz118, zz119)
       if (associated(cpp_exc)) return
-      zz103 = (.not. zz102)
+      zz121 = (.not. zz120)
     end if
-    if (zz103) then
+    if (zz121) then
       if ((result_%status == 1)) then
         result_%status = 3
       end if
-      zz104 => p_fv_nativegmres_result__movenew(result_)
-      zres => zz104
+      zz122 => p_fv_nativegmres_result__movenew(result_)
+      zres => zz122
       return
     end if
     i_8_ = 0_8
     do
       if (.not. ((ieor(i_8_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
-      zz105 = (self%x_%a%a(i_8_) + self%z_%a%a(i_8_))
-      self%x_%a%a(i_8_) = zz105
+      zz123 = (self%x_%a%a(i_8_) + self%z_%a%a(i_8_))
+      self%x_%a%a(i_8_) = zz123
       i_8_ = (i_8_ + 1_8)
     end do
-    zz106 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__finite_nativegmres(cpp_vec_d_data(self%x_), n_)
-    if ((.not. zz106)) then
+    zz124 = cpp_vec_d_data(self%x_)
+    zz125 = p_fv__anon_hydraulics_fv_nativegmres_cpp__f__finite_nativegmres(zz124, n_)
+    if ((.not. zz125)) then
       result_%status = 3
-      zz107 => p_fv_nativegmres_result__movenew(result_)
-      zres => zz107
+      zz126 => p_fv_nativegmres_result__movenew(result_)
+      zres => zz126
       return
     end if
-    zz108 = trueresidual_%invoke()
+    zz127 = trueresidual_%invoke()
     if (associated(cpp_exc)) return
-    if ((.not. zz108)) then
-      zz109 => p_fv_nativegmres_result__movenew(result_)
-      zres => zz109
+    if ((.not. zz127)) then
+      zz128 => p_fv_nativegmres_result__movenew(result_)
+      zres => zz128
       return
     end if
     if ((result_%true_residual <= result_%tolerance)) then
@@ -4390,14 +4587,14 @@ contains
       if (associated(cpp_exc)) return
       result_%status = 0
       result_%happy_breakdown = breakdown_
-      zz110 => p_fv_nativegmres_result__movenew(result_)
-      zres => zz110
+      zz129 => p_fv_nativegmres_result__movenew(result_)
+      zres => zz129
       return
     end if
     if (breakdown_) then
       result_%status = 6
-      zz111 => p_fv_nativegmres_result__movenew(result_)
-      zres => zz111
+      zz130 => p_fv_nativegmres_result__movenew(result_)
+      zres => zz130
       return
     end if
     if ((result_%true_residual >= (old_residual_ * 0.999_8))) then
@@ -4407,8 +4604,8 @@ contains
     end if
     if ((stagnant_ >= controls_%stagnant_restarts)) then
       result_%status = 7
-      zz112 => p_fv_nativegmres_result__movenew(result_)
-      zres => zz112
+      zz131 => p_fv_nativegmres_result__movenew(result_)
+      zres => zz131
       return
     end if
     if ((result_%iterations < controls_%max_iterations)) then
@@ -4416,8 +4613,8 @@ contains
     end if
   end do
   result_%status = 8
-  zz113 => p_fv_nativegmres_result__movenew(result_)
-  zres => zz113
+  zz132 => p_fv_nativegmres_result__movenew(result_)
+  zres => zz132
   return
   end procedure p_fv_nativegmres__solve
 
@@ -5173,7 +5370,7 @@ contains
   return
   end procedure p_fv_nativegmres_result__converged
 
-  module procedure p_lam310
+  module procedure p_lam311
     class(*), pointer :: zz1
     class(*), pointer :: zz2
     class(*), pointer :: zz3
@@ -5219,9 +5416,9 @@ contains
   zz21 => cpp_tupn_new_oa(zz1, zz2, zz3, zz4, zz5, zz6, zz7, zz8, zz9, zz10, zz11, zz12, zz13, zz14, zz15, zz16, zz17, zz18, zz19, zz20)
   zres => zz21
   return
-  end procedure p_lam310
+  end procedure p_lam311
 
-  module procedure p_lam311
+  module procedure p_lam312
   call cpp_vec_i_push_back(self%c_mesh%face_cl, a1)
   call cpp_vec_i_push_back(self%c_mesh%face_cr, a2)
   call cpp_vec_i_push_back(self%c_mesh%face_node, a3)
@@ -5234,9 +5431,9 @@ contains
   call cpp_vec_b_push_back(self%c_mesh%face_gate, 0_1)
   call cpp_vec_i_push_back(self%c_mesh%face_culvert, (-1))
   return
-  end procedure p_lam311
+  end procedure p_lam312
 
-  module procedure p_lam312
+  module procedure p_lam313
     integer(8) :: ur_4_
     integer(4) :: begin_2_
     integer(4) :: count_2_
@@ -5245,9 +5442,9 @@ contains
   count_2_ = self%c_mesh%conduit_cell_count%a%a(ur_4_)
   zres = merge(begin_2_, ((begin_2_ + count_2_) - 1), (a1%end == 0))
   return
-  end procedure p_lam312
+  end procedure p_lam313
 
-  module procedure p_lam313
+  module procedure p_lam314
     integer(4) :: j_4_
     integer(8) :: uj_4_
     integer(4) :: n_
@@ -5270,19 +5467,19 @@ contains
   off_ = zz2
   zres = (self%c_ctx%nodes%invert_elev%a%a(int(n_, 8)) + off_)
   return
-  end procedure p_lam313
-
-  module procedure p_lam314
-  self%c_gate = int(ior(iand(int(self%c_gate, 4), 255_4), iand(int(merge(1_1, 2_1, (a1 > 0)), 4), 255_4)), 1)
-  return
   end procedure p_lam314
 
   module procedure p_lam315
-  zres = (0.5_8 * (a1 + a2))
+  self%c_gate = int(ior(iand(int(self%c_gate, 4), 255_4), iand(int(merge(1_1, 2_1, (a1 > 0)), 4), 255_4)), 1)
   return
   end procedure p_lam315
 
   module procedure p_lam316
+  zres = (0.5_8 * (a1 + a2))
+  return
+  end procedure p_lam316
+
+  module procedure p_lam317
     integer(8) :: uc_
   uc_ = int(a1, 8)
   if ((self%c_mesh%cell_face0%a%a(uc_) < 0)) then
@@ -5293,9 +5490,9 @@ contains
     self%c_mesh%cell_side1%a%a(uc_) = a3
   end if
   return
-  end procedure p_lam316
+  end procedure p_lam317
 
-  module procedure p_lam317
+  module procedure p_lam318
     integer(8) :: uf_2_
   uf_2_ = int(a2, 8)
   if ((int(a3, 4) == 0)) then
@@ -5306,7 +5503,7 @@ contains
     a5 = int((int(self%c_mesh%face_dir_l%a%a(uf_2_), 4) * int(self%c_mesh%face_dir_r%a%a(uf_2_), 4)), 1)
   end if
   return
-  end procedure p_lam317
+  end procedure p_lam318
 
   module procedure p_fv__f__buildnetworkmesh
     class(t_fv_meshbuildreport), pointer :: rep_
@@ -5349,7 +5546,7 @@ contains
     class(*), pointer :: zz19
     class(cpp_vec_o), pointer :: zz20
     class(t_fn202), pointer :: geom_key_
-    class(t_lam310), pointer :: zz21
+    class(t_lam311), pointer :: zz21
     class(cpp_map), pointer :: geom_memo_
     class(cpp_map), pointer :: zz22
     integer(4) :: n_closed_
@@ -5431,7 +5628,7 @@ contains
     class(*), pointer :: zz71
     class(cpp_vec_o), pointer :: zz72
     class(t_fn203), pointer :: add_face_
-    class(t_lam311), pointer :: zz73
+    class(t_lam312), pointer :: zz73
     integer(4) :: r_2_
     integer(8) :: ur_2_
     integer(4) :: begin_
@@ -5460,9 +5657,9 @@ contains
     class(t_fv__anon_hydraulics_fv_networkmeshbuilder_cpp_attachment), pointer :: zz79
     class(*), pointer :: zz80
     class(t_fn204), pointer :: chain_end_cell_
-    class(t_lam312), pointer :: zz81
+    class(t_lam313), pointer :: zz81
     class(t_fn205), pointer :: invert_at_
-    class(t_lam313), pointer :: zz82
+    class(t_lam314), pointer :: zz82
     class(cpp_vec_b), pointer :: conduit_gate_
     class(cpp_vec_b), pointer :: zz83
     integer(4) :: r_4_
@@ -5470,7 +5667,7 @@ contains
     integer(8) :: uj_5_
     integer(1), pointer :: gate_
     class(t_fn74), pointer :: block_
-    class(t_lam314), pointer :: zz84
+    class(t_lam315), pointer :: zz84
     class(cpp_arr_i), pointer :: ends_
     class(cpp_arr_i), pointer :: zz85
     integer(4) :: e_
@@ -5584,7 +5781,7 @@ contains
     class(t_xsectparams), pointer :: zz149
     class(t_xsectparams), pointer :: xb_
     class(t_fn108), pointer :: mid_
-    class(t_lam315), pointer :: zz150
+    class(t_lam316), pointer :: zz150
     real(8) :: zz151
     real(8), pointer :: zz152
     real(8) :: zz153
@@ -5618,7 +5815,7 @@ contains
     class(cpp_pair), pointer :: zz180
     integer(4) :: nc_
     class(t_fn206), pointer :: attach_cell_face_
-    class(t_lam316), pointer :: zz181
+    class(t_lam317), pointer :: zz181
     integer(4) :: f_
     integer(8) :: uf_
     integer(4) :: c_
@@ -5633,7 +5830,7 @@ contains
     class(cpp_vec_o), pointer :: zz189
     class(t_fv_meshbuildreport), pointer :: zz190
     class(t_fn207), pointer :: step_
-    class(t_lam317), pointer :: zz191
+    class(t_lam318), pointer :: zz191
     integer(4) :: c0_
     integer(8) :: u0_
     integer(4), target :: fa_

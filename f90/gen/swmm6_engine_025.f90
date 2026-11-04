@@ -427,12 +427,6 @@ contains
   if (associated(cpp_exc)) return
   end procedure p__anon_hydraulics_routingcheckpoint_cpp__f__greenamp_7bb3b38d
 
-  module procedure p_lam290
-  call p_detail_completedsourcearchive__op_call__ri_ri_rd(self%c_a, a1%from, a1%to, a1%volume)
-  if (associated(cpp_exc)) return
-  return
-  end procedure p_lam290
-
   module procedure p_lam291
   call p_detail_completedsourcearchive__op_call__ri_ri_rd(self%c_a, a1%from, a1%to, a1%volume)
   if (associated(cpp_exc)) return
@@ -440,29 +434,35 @@ contains
   end procedure p_lam291
 
   module procedure p_lam292
-  call p_detail_completedsourcearchive__op_call__ri_ri_rd(self%c_a, a1%link, a1%cell, a1%volume)
+  call p_detail_completedsourcearchive__op_call__ri_ri_rd(self%c_a, a1%from, a1%to, a1%volume)
   if (associated(cpp_exc)) return
   return
   end procedure p_lam292
 
   module procedure p_lam293
-  call p_detail_completedsourcearchive__op_call__rd(self%c_a, a1%theta)
+  call p_detail_completedsourcearchive__op_call__ri_ri_rd(self%c_a, a1%link, a1%cell, a1%volume)
   if (associated(cpp_exc)) return
   return
   end procedure p_lam293
 
+  module procedure p_lam294
+  call p_detail_completedsourcearchive__op_call__rd(self%c_a, a1%theta)
+  if (associated(cpp_exc)) return
+  return
+  end procedure p_lam294
+
   module procedure p__anon_hydraulics_routingcheckpoint_cpp__f__lidstate_7f73e89a
     class(t_richards_report), pointer :: r_
-    class(t_lam290), pointer :: zz1
+    class(t_lam291), pointer :: zz1
     class(*), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
-    class(t_lam291), pointer :: zz4
+    class(t_lam292), pointer :: zz4
     class(*), pointer :: zz5
     class(cpp_vec_o), pointer :: zz6
-    class(t_lam292), pointer :: zz7
+    class(t_lam293), pointer :: zz7
     class(*), pointer :: zz8
     class(cpp_vec_o), pointer :: zz9
-    class(t_lam293), pointer :: zz10
+    class(t_lam294), pointer :: zz10
     class(*), pointer :: zz11
     class(cpp_vec_o), pointer :: zz12
     logical :: zz13
@@ -527,11 +527,11 @@ contains
   end if
   end procedure p__anon_hydraulics_routingcheckpoint_cpp__f__lidstate_7f73e89a
 
-  module procedure p_lam294
+  module procedure p_lam295
   call cpp_vec_d_push_back(self%c_td%stations, a1)
   call cpp_vec_d_push_back(self%c_td%elevations, a2)
   return
-  end procedure p_lam294
+  end procedure p_lam295
 
   module procedure p_street__f__buildtransect
     real(8) :: w1_
@@ -543,7 +543,7 @@ contains
     real(8) :: y4_
     real(8) :: ymax_
     class(t_fn190), pointer :: pt_
-    class(t_lam294), pointer :: zz1
+    class(t_lam295), pointer :: zz1
     real(8), pointer :: zz2
     real(8), pointer :: zz3
     real(8), pointer :: zz4
@@ -1077,7 +1077,7 @@ contains
   return
   end procedure p_toposort__f__sortlinks
 
-  module procedure p_lam295
+  module procedure p_lam296
     logical :: zz1
     logical :: zz2
     real(8) :: n_
@@ -1115,7 +1115,7 @@ contains
   end if
   zres = 0.0_8
   return
-  end procedure p_lam295
+  end procedure p_lam296
 
   module procedure p_transect__f__buildtables
     integer(4) :: n_in_
@@ -1142,7 +1142,7 @@ contains
     integer(4) :: i_2_
     integer(4) :: i_3_
     class(t_fn54), pointer :: getflow_
-    class(t_lam295), pointer :: zz8
+    class(t_lam296), pointer :: zz8
     real(8) :: dy_
     type(cpp_ptr_d) :: zz9
     real(8), pointer :: zz10
@@ -2575,8 +2575,11 @@ contains
     integer(4), target :: hi_
     integer(4) :: n_
     type(cpp_ptr_d) :: ld_
+    type(cpp_ptr_d) :: zz3
     type(cpp_ptr_d) :: la_
+    type(cpp_ptr_d) :: zz4
     type(cpp_ptr_d) :: lh_
+    type(cpp_ptr_d) :: zz5
   if ((nthreads_ < 1)) then
     nthreads_ = 1
   end if
@@ -2600,9 +2603,12 @@ contains
       goto 102
     end if
     n_ = (hi_ - lo_)
-    ld_ = cpp_vec_d_data(g_%buf_d)
-    la_ = cpp_vec_d_data(g_%buf_r)
-    lh_ = cpp_vec_d_data(g_%buf_r2)
+    zz3 = cpp_vec_d_data(g_%buf_d)
+    ld_ = zz3
+    zz4 = cpp_vec_d_data(g_%buf_r)
+    la_ = zz4
+    zz5 = cpp_vec_d_data(g_%buf_r2)
+    lh_ = zz5
     call p__anon_hydraulics_xsectbatch_cpp__f__gather_depths_xsectbatch(g_, d1_, ld_, lo_, n_)
     call p__anon_hydraulics_xsectbatch_cpp__f__apply_area_hydr_4e09530e(g_, ld_, la_, lh_, lo_, n_)
     call p__anon_hydraulics_xsectbatch_cpp__f__scatter_results_6d97243c(g_, la_, a1_, lo_, n_)
@@ -2629,7 +2635,9 @@ contains
     integer(4), target :: hi_
     integer(4) :: n_
     type(cpp_ptr_d) :: ld_
+    type(cpp_ptr_d) :: zz3
     type(cpp_ptr_d) :: lw_
+    type(cpp_ptr_d) :: zz4
   if ((nthreads_ < 1)) then
     nthreads_ = 1
   end if
@@ -2653,8 +2661,10 @@ contains
       goto 102
     end if
     n_ = (hi_ - lo_)
-    ld_ = cpp_vec_d_data(g_%buf_d)
-    lw_ = cpp_vec_d_data(g_%buf_r)
+    zz3 = cpp_vec_d_data(g_%buf_d)
+    ld_ = zz3
+    zz4 = cpp_vec_d_data(g_%buf_r)
+    lw_ = zz4
     call p__anon_hydraulics_xsectbatch_cpp__f__gather_depths_xsectbatch(g_, d1_, ld_, lo_, n_)
     call p__anon_hydraulics_xsectbatch_cpp__f__apply_width_ker_78113002(g_, ld_, lw_, lo_, n_)
     call p__anon_hydraulics_xsectbatch_cpp__f__scatter_results_6d97243c(g_, lw_, w1_, lo_, n_)
@@ -2872,23 +2882,23 @@ contains
   return
   end procedure p__anon_hydraulics_xsectbatch_cpp_tableref__movenew
 
-  module procedure p_lam296
+  module procedure p_lam297
     integer(8) :: uj_
   uj_ = int(self%c_g%link_idx%a%a(int(a1, 8)), 8)
   zres = self%c_ctx%links%xsect_curve%a%a(uj_)
   return
-  end procedure p_lam296
+  end procedure p_lam297
 
-  module procedure p_lam297
+  module procedure p_lam298
     integer(4) :: zz1
     integer(4) :: zz2
   zz1 = self%c_curve_of%invoke(a1)
   zz2 = self%c_curve_of%invoke(a2)
   zres = (zz1 < zz2)
   return
-  end procedure p_lam297
+  end procedure p_lam298
 
-  module procedure p_lam298
+  module procedure p_lam299
     class(cpp_vec_i), pointer :: tmp_
     class(cpp_vec_i), pointer :: zz1
     integer(4) :: k_4_
@@ -2905,9 +2915,9 @@ contains
   end do
   call cpp_vec_i_swap(a1, tmp_)
   return
-  end procedure p_lam298
+  end procedure p_lam299
 
-  module procedure p_lam299
+  module procedure p_lam300
     class(cpp_vec_d), pointer :: tmp_2_
     class(cpp_vec_d), pointer :: zz1
     integer(4) :: k_5_
@@ -2924,9 +2934,9 @@ contains
   end do
   call cpp_vec_d_swap(a1, tmp_2_)
   return
-  end procedure p_lam299
+  end procedure p_lam300
 
-  module procedure p_lam300
+  module procedure p_lam301
     class(cpp_vec_o), pointer :: tmp_3_
     class(cpp_vec_o), pointer :: zz1
     integer(4) :: k_6_
@@ -2947,7 +2957,7 @@ contains
   end do
   call cpp_vec_o_swap(a1, tmp_3_)
   return
-  end procedure p_lam300
+  end procedure p_lam301
 
   module procedure p__anon_hydraulics_xsectbatch_cpp__f__sortgroupbytran_1ca0113f
     integer(4) :: count_
@@ -2956,24 +2966,24 @@ contains
     class(cpp_vec_i), pointer :: zz2
     integer(4) :: k_
     class(t_fn71), pointer :: curve_of_
-    class(t_lam296), pointer :: zz3
+    class(t_lam297), pointer :: zz3
     type(cpp_iter_i) :: zz4
     type(cpp_iter_i) :: zz5
     class(cpp_arr_i), pointer :: zz6
     type(cpp_iter_i) :: zz7
     integer(8) :: zz8
-    class(t_lam297), pointer :: zz9
+    class(t_lam298), pointer :: zz9
     integer(8) :: zz10
     logical :: already_sorted_
     integer(4) :: k_3_
     integer(4) :: x__cap1_
     class(cpp_arr_o), pointer :: permute_
     class(cpp_arr_o), pointer :: zz11
-    class(t_lam298), pointer :: zz12
+    class(t_lam299), pointer :: zz12
     class(*), pointer :: zz13
-    class(t_lam299), pointer :: zz14
+    class(t_lam300), pointer :: zz14
     class(*), pointer :: zz15
-    class(t_lam300), pointer :: zz16
+    class(t_lam301), pointer :: zz16
     class(*), pointer :: zz17
     class(t_fn41), pointer :: zz18
     class(t_fn42), pointer :: zz19
@@ -3092,7 +3102,9 @@ contains
   end procedure p__anon_hydraulics_xsectbatch_cpp__f__sortgroupbytran_1ca0113f
 
   module procedure p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch
-  zres = cpp_vec_d_data(g_%y_full)
+    type(cpp_ptr_d) :: zz1
+  zz1 = cpp_vec_d_data(g_%y_full)
+  zres = zz1
   return
   end procedure p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch
 
@@ -3458,73 +3470,117 @@ contains
     integer(8) :: ulo_
     type(cpp_ptr_d) :: ld_
     type(cpp_ptr_d) :: la_
-    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: tbl_
-    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz1
-    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: inv_
-    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz2
-    class(t_xsect_locatelut), pointer :: zz3
+    type(cpp_ptr_d) :: zz1
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d) :: zz3
     type(cpp_ptr_d) :: zz4
     type(cpp_ptr_d) :: zz5
     type(cpp_ptr_d) :: zz6
-    integer(4) :: zz7
+    type(cpp_ptr_d) :: zz7
+    type(cpp_ptr_d) :: zz8
+    type(cpp_ptr_d) :: zz9
+    type(cpp_ptr_d) :: zz10
+    type(cpp_ptr_d) :: zz11
+    type(cpp_ptr_d) :: zz12
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d) :: zz14
+    type(cpp_ptr_d) :: zz15
+    type(cpp_ptr_o) :: zz16
+    type(cpp_ptr_d) :: zz17
+    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: tbl_
+    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz18
+    type(cpp_ptr_d) :: zz19
+    type(cpp_ptr_d) :: zz20
+    type(cpp_ptr_d) :: zz21
+    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: inv_
+    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz22
+    type(cpp_ptr_d) :: zz23
+    type(cpp_ptr_d) :: zz24
+    type(cpp_ptr_d) :: zz25
+    class(t_xsect_locatelut), pointer :: zz26
+    type(cpp_ptr_d) :: zz27
+    type(cpp_ptr_d) :: zz28
+    integer(4) :: zz29
     integer(4) :: k_
     integer(8) :: uk_
-    real(8), pointer :: zz8
-    class(t_xsectparams), pointer :: zz9
-    real(8), pointer :: zz10
-    real(8) :: zz11
+    real(8), pointer :: zz30
+    class(t_xsectparams), pointer :: zz31
+    real(8), pointer :: zz32
+    real(8) :: zz33
   ulo_ = int(lo_, 8)
   ld_ = cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8))
   la_ = cpp_ptr_d_op_add_ptrt_l(local_a_, int(lo_, 8))
   select case (g_%shape)
   case (1, 24)
-    call p_xsect_batch__f__area_circular(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8)), la_, n_)
+    zz1 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+    zz3 = cpp_ptr_d_op_add_ptrt_l(zz1, int(lo_, 8))
+    zz2 = cpp_vec_d_data(g_%a_full)
+    call p_xsect_batch__f__area_circular(ld_, zz3, cpp_ptr_d_op_add_ptrt_l(zz2, int(lo_, 8)), la_, n_)
     goto 101
   case (3, 4)
-    call p_xsect_batch__f__area_rect(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), la_, n_)
+    zz4 = cpp_vec_d_data(g_%w_max)
+    call p_xsect_batch__f__area_rect(ld_, cpp_ptr_d_op_add_ptrt_l(zz4, int(lo_, 8)), la_, n_)
     goto 101
   case (5)
-    call p_xsect_batch__f__area_trapezoidal(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%y_bot), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), la_, n_)
+    zz5 = cpp_vec_d_data(g_%y_bot)
+    zz7 = cpp_ptr_d_op_add_ptrt_l(zz5, int(lo_, 8))
+    zz6 = cpp_vec_d_data(g_%s_bot)
+    call p_xsect_batch__f__area_trapezoidal(ld_, zz7, cpp_ptr_d_op_add_ptrt_l(zz6, int(lo_, 8)), la_, n_)
     goto 101
   case (6)
-    call p_xsect_batch__f__area_triangular(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), la_, n_)
+    zz8 = cpp_vec_d_data(g_%s_bot)
+    call p_xsect_batch__f__area_triangular(ld_, cpp_ptr_d_op_add_ptrt_l(zz8, int(lo_, 8)), la_, n_)
     goto 101
   case (7)
-    call p_xsect_batch__f__area_parabolic(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_bot), int(lo_, 8)), la_, n_)
+    zz9 = cpp_vec_d_data(g_%r_bot)
+    call p_xsect_batch__f__area_parabolic(ld_, cpp_ptr_d_op_add_ptrt_l(zz9, int(lo_, 8)), la_, n_)
     goto 101
   case (8)
-    call p_xsect_batch__f__area_powerfunc(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_bot), int(lo_, 8)), la_, n_)
+    zz10 = cpp_vec_d_data(g_%s_bot)
+    zz12 = cpp_ptr_d_op_add_ptrt_l(zz10, int(lo_, 8))
+    zz11 = cpp_vec_d_data(g_%r_bot)
+    call p_xsect_batch__f__area_powerfunc(ld_, zz12, cpp_ptr_d_op_add_ptrt_l(zz11, int(lo_, 8)), la_, n_)
     goto 101
   case (22, 23, 25)
     if ((.not. cpp_vec_o_empty(g_%area_tables))) then
-      call p_xsect_batch__f__perlink_tabulated(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8)), cpp_ptr_o_op_add_ptrt_l(cpp_vec_o_data(g_%area_tables), ulo_), g_%transect_tbl_size, la_, n_)
+      zz13 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+      zz15 = cpp_ptr_d_op_add_ptrt_l(zz13, int(lo_, 8))
+      zz14 = cpp_vec_d_data(g_%a_full)
+      zz17 = cpp_ptr_d_op_add_ptrt_l(zz14, int(lo_, 8))
+      zz16 = cpp_vec_o_data(g_%area_tables)
+      call p_xsect_batch__f__perlink_tabulated(ld_, zz15, zz17, cpp_ptr_o_op_add_ptrt_l(zz16, ulo_), g_%transect_tbl_size, la_, n_)
     end if
     goto 101
   case default
-    zz1 => p__anon_hydraulics_xsectbatch_cpp__f__area_table_for_xsectbatch(g_%shape)
-    tbl_ => zz1
+    zz18 => p__anon_hydraulics_xsectbatch_cpp__f__area_table_for_xsectbatch(g_%shape)
+    tbl_ => zz18
     if ((.not. cpp_ptr_d_isnull(tbl_%data))) then
-      call p_xsect_batch__f__area_tabulated(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8)), tbl_%data, tbl_%size, la_, n_)
+      zz19 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+      zz21 = cpp_ptr_d_op_add_ptrt_l(zz19, int(lo_, 8))
+      zz20 = cpp_vec_d_data(g_%a_full)
+      call p_xsect_batch__f__area_tabulated(ld_, zz21, cpp_ptr_d_op_add_ptrt_l(zz20, int(lo_, 8)), tbl_%data, tbl_%size, la_, n_)
     else
-      zz2 => p__anon_hydraulics_xsectbatch_cpp__f__area_inv_table_8d23b6e3(g_%shape)
-      inv_ => zz2
+      zz22 => p__anon_hydraulics_xsectbatch_cpp__f__area_inv_table_8d23b6e3(g_%shape)
+      inv_ => zz22
       if ((.not. cpp_ptr_d_isnull(inv_%data))) then
-        zz4 = cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8))
-        zz5 = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8))
-        zz6 = inv_%data
-        zz7 = inv_%size
-        zz3 => p__anon_hydraulics_xsectbatch_cpp__f__area_inv_lut_fo_1627e2e0(g_%shape)
-        call p_xsect_batch__f__area_inv_tabulated(ld_, zz4, zz5, zz6, zz7, zz3, la_, n_)
+        zz23 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+        zz25 = cpp_ptr_d_op_add_ptrt_l(zz23, int(lo_, 8))
+        zz24 = cpp_vec_d_data(g_%a_full)
+        zz27 = cpp_ptr_d_op_add_ptrt_l(zz24, int(lo_, 8))
+        zz28 = inv_%data
+        zz29 = inv_%size
+        zz26 => p__anon_hydraulics_xsectbatch_cpp__f__area_inv_lut_fo_1627e2e0(g_%shape)
+        call p_xsect_batch__f__area_inv_tabulated(ld_, zz25, zz27, zz28, zz29, zz26, la_, n_)
       else
         k_ = lo_
         do
           if (.not. ((k_ < (lo_ + n_)))) exit
           uk_ = int(k_, 8)
-          zz8 => cpp_ptr_d_item_ul(local_a_, uk_)
-          zz9 => p__anon_hydraulics_xsectbatch_cpp__f__paramsat_xsectbatch(g_, k_)
-          zz10 => cpp_ptr_d_item_ul(local_d_, uk_)
-          zz11 = p_xsect__f__getaofy(zz9, zz10)
-          zz8 = zz11
+          zz30 => cpp_ptr_d_item_ul(local_a_, uk_)
+          zz31 => p__anon_hydraulics_xsectbatch_cpp__f__paramsat_xsectbatch(g_, k_)
+          zz32 => cpp_ptr_d_item_ul(local_d_, uk_)
+          zz33 = p_xsect__f__getaofy(zz31, zz32)
+          zz30 = zz33
           k_ = (k_ + 1)
         end do
       end if
@@ -3538,53 +3594,103 @@ contains
     integer(8) :: ulo_
     type(cpp_ptr_d) :: ld_
     type(cpp_ptr_d) :: lh_
+    type(cpp_ptr_d) :: zz1
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d) :: zz3
+    type(cpp_ptr_d) :: zz4
+    type(cpp_ptr_d) :: zz5
+    type(cpp_ptr_d) :: zz6
+    type(cpp_ptr_d) :: zz7
+    type(cpp_ptr_d) :: zz8
+    type(cpp_ptr_d) :: zz9
+    type(cpp_ptr_d) :: zz10
+    type(cpp_ptr_d) :: zz11
+    type(cpp_ptr_d) :: zz12
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d) :: zz14
+    type(cpp_ptr_d) :: zz15
+    type(cpp_ptr_d) :: zz16
+    type(cpp_ptr_d) :: zz17
+    type(cpp_ptr_d) :: zz18
+    type(cpp_ptr_d) :: zz19
+    type(cpp_ptr_d) :: zz20
+    type(cpp_ptr_o) :: zz21
+    type(cpp_ptr_d) :: zz22
     class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: tbl_
-    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz1
+    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz23
+    type(cpp_ptr_d) :: zz24
+    type(cpp_ptr_d) :: zz25
+    type(cpp_ptr_d) :: zz26
     integer(4) :: k_
     integer(8) :: uk_
-    real(8), pointer :: zz2
-    class(t_xsectparams), pointer :: zz3
-    real(8), pointer :: zz4
-    real(8) :: zz5
+    real(8), pointer :: zz27
+    class(t_xsectparams), pointer :: zz28
+    real(8), pointer :: zz29
+    real(8) :: zz30
   ulo_ = int(lo_, 8)
   ld_ = cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8))
   lh_ = cpp_ptr_d_op_add_ptrt_l(local_h_, int(lo_, 8))
   select case (g_%shape)
   case (1, 24)
-    call p_xsect_batch__f__hydrad_circular(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_full), int(lo_, 8)), lh_, n_)
+    zz1 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+    zz3 = cpp_ptr_d_op_add_ptrt_l(zz1, int(lo_, 8))
+    zz2 = cpp_vec_d_data(g_%r_full)
+    call p_xsect_batch__f__hydrad_circular(ld_, zz3, cpp_ptr_d_op_add_ptrt_l(zz2, int(lo_, 8)), lh_, n_)
     goto 101
   case (3)
-    call p_xsect_batch__f__hydrad_rect_closed(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8)), lh_, n_)
+    zz4 = cpp_vec_d_data(g_%w_max)
+    zz6 = cpp_ptr_d_op_add_ptrt_l(zz4, int(lo_, 8))
+    zz5 = cpp_vec_d_data(g_%a_full)
+    call p_xsect_batch__f__hydrad_rect_closed(ld_, zz6, cpp_ptr_d_op_add_ptrt_l(zz5, int(lo_, 8)), lh_, n_)
     goto 101
   case (4)
-    call p_xsect_batch__f__hydrad_rect_open(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), lh_, n_)
+    zz7 = cpp_vec_d_data(g_%w_max)
+    zz9 = cpp_ptr_d_op_add_ptrt_l(zz7, int(lo_, 8))
+    zz8 = cpp_vec_d_data(g_%s_bot)
+    call p_xsect_batch__f__hydrad_rect_open(ld_, zz9, cpp_ptr_d_op_add_ptrt_l(zz8, int(lo_, 8)), lh_, n_)
     goto 101
   case (5)
-    call p_xsect_batch__f__hydrad_trapezoidal(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%y_bot), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_bot), int(lo_, 8)), lh_, n_)
+    zz10 = cpp_vec_d_data(g_%y_bot)
+    zz12 = cpp_ptr_d_op_add_ptrt_l(zz10, int(lo_, 8))
+    zz11 = cpp_vec_d_data(g_%s_bot)
+    zz14 = cpp_ptr_d_op_add_ptrt_l(zz11, int(lo_, 8))
+    zz13 = cpp_vec_d_data(g_%r_bot)
+    call p_xsect_batch__f__hydrad_trapezoidal(ld_, zz12, zz14, cpp_ptr_d_op_add_ptrt_l(zz13, int(lo_, 8)), lh_, n_)
     goto 101
   case (6)
-    call p_xsect_batch__f__hydrad_triangular(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_bot), int(lo_, 8)), lh_, n_)
+    zz15 = cpp_vec_d_data(g_%s_bot)
+    zz17 = cpp_ptr_d_op_add_ptrt_l(zz15, int(lo_, 8))
+    zz16 = cpp_vec_d_data(g_%r_bot)
+    call p_xsect_batch__f__hydrad_triangular(ld_, zz17, cpp_ptr_d_op_add_ptrt_l(zz16, int(lo_, 8)), lh_, n_)
     goto 101
   case (22, 23, 25)
     if ((.not. cpp_vec_o_empty(g_%hrad_tables))) then
-      call p_xsect_batch__f__perlink_tabulated(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_full), int(lo_, 8)), cpp_ptr_o_op_add_ptrt_l(cpp_vec_o_data(g_%hrad_tables), ulo_), g_%transect_tbl_size, lh_, n_)
+      zz18 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+      zz20 = cpp_ptr_d_op_add_ptrt_l(zz18, int(lo_, 8))
+      zz19 = cpp_vec_d_data(g_%r_full)
+      zz22 = cpp_ptr_d_op_add_ptrt_l(zz19, int(lo_, 8))
+      zz21 = cpp_vec_o_data(g_%hrad_tables)
+      call p_xsect_batch__f__perlink_tabulated(ld_, zz20, zz22, cpp_ptr_o_op_add_ptrt_l(zz21, ulo_), g_%transect_tbl_size, lh_, n_)
     end if
     goto 101
   case default
-    zz1 => p__anon_hydraulics_xsectbatch_cpp__f__hydrad_table_fo_4a94ab1c(g_%shape)
-    tbl_ => zz1
+    zz23 => p__anon_hydraulics_xsectbatch_cpp__f__hydrad_table_fo_4a94ab1c(g_%shape)
+    tbl_ => zz23
     if ((.not. cpp_ptr_d_isnull(tbl_%data))) then
-      call p_xsect_batch__f__hydrad_tabulated(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_full), int(lo_, 8)), tbl_%data, tbl_%size, lh_, n_)
+      zz24 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+      zz26 = cpp_ptr_d_op_add_ptrt_l(zz24, int(lo_, 8))
+      zz25 = cpp_vec_d_data(g_%r_full)
+      call p_xsect_batch__f__hydrad_tabulated(ld_, zz26, cpp_ptr_d_op_add_ptrt_l(zz25, int(lo_, 8)), tbl_%data, tbl_%size, lh_, n_)
     else
       k_ = lo_
       do
         if (.not. ((k_ < (lo_ + n_)))) exit
         uk_ = int(k_, 8)
-        zz2 => cpp_ptr_d_item_ul(local_h_, uk_)
-        zz3 => p__anon_hydraulics_xsectbatch_cpp__f__paramsat_xsectbatch(g_, k_)
-        zz4 => cpp_ptr_d_item_ul(local_d_, uk_)
-        zz5 = p_xsect__f__getrofy(zz3, zz4)
-        zz2 = zz5
+        zz27 => cpp_ptr_d_item_ul(local_h_, uk_)
+        zz28 => p__anon_hydraulics_xsectbatch_cpp__f__paramsat_xsectbatch(g_, k_)
+        zz29 => cpp_ptr_d_item_ul(local_d_, uk_)
+        zz30 = p_xsect__f__getrofy(zz28, zz29)
+        zz27 = zz30
         k_ = (k_ + 1)
       end do
     end if
@@ -3597,53 +3703,91 @@ contains
     integer(8) :: ulo_
     type(cpp_ptr_d) :: ld_
     type(cpp_ptr_d) :: lw_
+    type(cpp_ptr_d) :: zz1
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d) :: zz3
+    type(cpp_ptr_d) :: zz4
+    type(cpp_ptr_d) :: zz5
+    type(cpp_ptr_d) :: zz6
+    type(cpp_ptr_d) :: zz7
+    type(cpp_ptr_d) :: zz8
+    type(cpp_ptr_d) :: zz9
+    type(cpp_ptr_d) :: zz10
+    type(cpp_ptr_d) :: zz11
+    type(cpp_ptr_d) :: zz12
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d) :: zz14
+    type(cpp_ptr_o) :: zz15
+    type(cpp_ptr_d) :: zz16
     class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: tbl_
-    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz1
+    class(t__anon_hydraulics_xsectbatch_cpp_tableref), pointer :: zz17
+    type(cpp_ptr_d) :: zz18
+    type(cpp_ptr_d) :: zz19
+    type(cpp_ptr_d) :: zz20
     integer(4) :: k_
     integer(8) :: uk_
-    real(8), pointer :: zz2
-    class(t_xsectparams), pointer :: zz3
-    real(8), pointer :: zz4
-    real(8) :: zz5
+    real(8), pointer :: zz21
+    class(t_xsectparams), pointer :: zz22
+    real(8), pointer :: zz23
+    real(8) :: zz24
   ulo_ = int(lo_, 8)
   ld_ = cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8))
   lw_ = cpp_ptr_d_op_add_ptrt_l(local_w_, int(lo_, 8))
   select case (g_%shape)
   case (1, 24)
-    call p_xsect_batch__f__width_circular(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), lw_, n_)
+    zz1 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+    zz3 = cpp_ptr_d_op_add_ptrt_l(zz1, int(lo_, 8))
+    zz2 = cpp_vec_d_data(g_%w_max)
+    call p_xsect_batch__f__width_circular(ld_, zz3, cpp_ptr_d_op_add_ptrt_l(zz2, int(lo_, 8)), lw_, n_)
     goto 101
   case (4)
-    call p_xsect_batch__f__width_rect(cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), lw_, n_)
+    zz4 = cpp_vec_d_data(g_%w_max)
+    call p_xsect_batch__f__width_rect(cpp_ptr_d_op_add_ptrt_l(zz4, int(lo_, 8)), lw_, n_)
     goto 101
   case (3)
-    call p_xsect_batch__f__width_rect_closed(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), lw_, n_)
+    zz5 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+    zz7 = cpp_ptr_d_op_add_ptrt_l(zz5, int(lo_, 8))
+    zz6 = cpp_vec_d_data(g_%w_max)
+    call p_xsect_batch__f__width_rect_closed(ld_, zz7, cpp_ptr_d_op_add_ptrt_l(zz6, int(lo_, 8)), lw_, n_)
     goto 101
   case (5)
-    call p_xsect_batch__f__width_trapezoidal(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%y_bot), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), lw_, n_)
+    zz8 = cpp_vec_d_data(g_%y_bot)
+    zz10 = cpp_ptr_d_op_add_ptrt_l(zz8, int(lo_, 8))
+    zz9 = cpp_vec_d_data(g_%s_bot)
+    call p_xsect_batch__f__width_trapezoidal(ld_, zz10, cpp_ptr_d_op_add_ptrt_l(zz9, int(lo_, 8)), lw_, n_)
     goto 101
   case (6)
-    call p_xsect_batch__f__width_triangular(ld_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%s_bot), int(lo_, 8)), lw_, n_)
+    zz11 = cpp_vec_d_data(g_%s_bot)
+    call p_xsect_batch__f__width_triangular(ld_, cpp_ptr_d_op_add_ptrt_l(zz11, int(lo_, 8)), lw_, n_)
     goto 101
   case (22, 23, 25)
     if ((.not. cpp_vec_o_empty(g_%width_tables))) then
-      call p_xsect_batch__f__perlink_tabulated(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), cpp_ptr_o_op_add_ptrt_l(cpp_vec_o_data(g_%width_tables), ulo_), g_%transect_tbl_size, lw_, n_)
+      zz12 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+      zz14 = cpp_ptr_d_op_add_ptrt_l(zz12, int(lo_, 8))
+      zz13 = cpp_vec_d_data(g_%w_max)
+      zz16 = cpp_ptr_d_op_add_ptrt_l(zz13, int(lo_, 8))
+      zz15 = cpp_vec_o_data(g_%width_tables)
+      call p_xsect_batch__f__perlink_tabulated(ld_, zz14, zz16, cpp_ptr_o_op_add_ptrt_l(zz15, ulo_), g_%transect_tbl_size, lw_, n_)
     end if
     goto 101
   case default
-    zz1 => p__anon_hydraulics_xsectbatch_cpp__f__width_table_for_7b072a54(g_%shape)
-    tbl_ => zz1
+    zz17 => p__anon_hydraulics_xsectbatch_cpp__f__width_table_for_7b072a54(g_%shape)
+    tbl_ => zz17
     if ((.not. cpp_ptr_d_isnull(tbl_%data))) then
-      call p_xsect_batch__f__width_tabulated(ld_, cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%w_max), int(lo_, 8)), tbl_%data, tbl_%size, lw_, n_)
+      zz18 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+      zz20 = cpp_ptr_d_op_add_ptrt_l(zz18, int(lo_, 8))
+      zz19 = cpp_vec_d_data(g_%w_max)
+      call p_xsect_batch__f__width_tabulated(ld_, zz20, cpp_ptr_d_op_add_ptrt_l(zz19, int(lo_, 8)), tbl_%data, tbl_%size, lw_, n_)
     else
       k_ = lo_
       do
         if (.not. ((k_ < (lo_ + n_)))) exit
         uk_ = int(k_, 8)
-        zz2 => cpp_ptr_d_item_ul(local_w_, uk_)
-        zz3 => p__anon_hydraulics_xsectbatch_cpp__f__paramsat_xsectbatch(g_, k_)
-        zz4 => cpp_ptr_d_item_ul(local_d_, uk_)
-        zz5 = p_xsect__f__getwofy(zz3, zz4)
-        zz2 = zz5
+        zz21 => cpp_ptr_d_item_ul(local_w_, uk_)
+        zz22 => p__anon_hydraulics_xsectbatch_cpp__f__paramsat_xsectbatch(g_, k_)
+        zz23 => cpp_ptr_d_item_ul(local_d_, uk_)
+        zz24 = p_xsect__f__getwofy(zz22, zz23)
+        zz21 = zz24
         k_ = (k_ + 1)
       end do
     end if
@@ -3654,38 +3798,70 @@ contains
 
   module procedure p__anon_hydraulics_xsectbatch_cpp__f__apply_area_hydr_4e09530e
     logical :: zz1
-    logical :: zz2
-    logical :: zz3
-    logical :: zz4
-    logical :: zz5
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d) :: zz3
+    type(cpp_ptr_d) :: zz4
+    type(cpp_ptr_d) :: zz5
+    type(cpp_ptr_d) :: zz6
+    type(cpp_ptr_d) :: zz7
+    logical :: zz8
+    logical :: zz9
+    logical :: zz10
+    logical :: zz11
     integer(8) :: ulo_
+    type(cpp_ptr_d) :: zz12
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d) :: zz14
+    type(cpp_ptr_d) :: zz15
+    type(cpp_ptr_d) :: zz16
+    type(cpp_ptr_d) :: zz17
+    type(cpp_ptr_o) :: zz18
+    type(cpp_ptr_d) :: zz19
+    type(cpp_ptr_o) :: zz20
+    type(cpp_ptr_o) :: zz21
   zz1 = (g_%shape == 1)
   if (.not. zz1) then
     zz1 = (g_%shape == 24)
   end if
   if (zz1) then
-    call p_xsect_batch__f__area_hydrad_circular(cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_full), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(local_a_, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(local_h_, int(lo_, 8)), n_)
+    zz3 = cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8))
+    zz2 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+    zz5 = cpp_ptr_d_op_add_ptrt_l(zz2, int(lo_, 8))
+    zz4 = cpp_vec_d_data(g_%a_full)
+    zz7 = cpp_ptr_d_op_add_ptrt_l(zz4, int(lo_, 8))
+    zz6 = cpp_vec_d_data(g_%r_full)
+    call p_xsect_batch__f__area_hydrad_circular(zz3, zz5, zz7, cpp_ptr_d_op_add_ptrt_l(zz6, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(local_a_, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(local_h_, int(lo_, 8)), n_)
     return
   end if
-  zz2 = (g_%shape == 22)
-  if (.not. zz2) then
-    zz2 = (g_%shape == 23)
+  zz8 = (g_%shape == 22)
+  if (.not. zz8) then
+    zz8 = (g_%shape == 23)
   end if
-  zz3 = zz2
-  if (.not. zz3) then
-    zz3 = (g_%shape == 25)
+  zz9 = zz8
+  if (.not. zz9) then
+    zz9 = (g_%shape == 25)
   end if
-  zz4 = zz3
-  if (zz4) then
-    zz4 = (.not. cpp_vec_o_empty(g_%area_tables))
+  zz10 = zz9
+  if (zz10) then
+    zz10 = (.not. cpp_vec_o_empty(g_%area_tables))
   end if
-  zz5 = zz4
-  if (zz5) then
-    zz5 = (.not. cpp_vec_o_empty(g_%hrad_tables))
+  zz11 = zz10
+  if (zz11) then
+    zz11 = (.not. cpp_vec_o_empty(g_%hrad_tables))
   end if
-  if (zz5) then
+  if (zz11) then
     ulo_ = int(lo_, 8)
-    call p_xsect_batch__f__perlink_tabulated_pair(cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%a_full), int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(g_%r_full), int(lo_, 8)), cpp_ptr_o_op_add_ptrt_l(cpp_vec_o_data(g_%area_tables), ulo_), cpp_ptr_o_op_add_ptrt_l(cpp_vec_o_data(g_%hrad_tables), ulo_), g_%transect_tbl_size, cpp_ptr_d_op_add_ptrt_l(local_a_, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(local_h_, int(lo_, 8)), n_)
+    zz13 = cpp_ptr_d_op_add_ptrt_l(local_d_, int(lo_, 8))
+    zz12 = p__anon_hydraulics_xsectbatch_cpp__f__norm_param_xsectbatch(g_)
+    zz15 = cpp_ptr_d_op_add_ptrt_l(zz12, int(lo_, 8))
+    zz14 = cpp_vec_d_data(g_%a_full)
+    zz17 = cpp_ptr_d_op_add_ptrt_l(zz14, int(lo_, 8))
+    zz16 = cpp_vec_d_data(g_%r_full)
+    zz19 = cpp_ptr_d_op_add_ptrt_l(zz16, int(lo_, 8))
+    zz18 = cpp_vec_o_data(g_%area_tables)
+    zz21 = cpp_ptr_o_op_add_ptrt_l(zz18, ulo_)
+    zz20 = cpp_vec_o_data(g_%hrad_tables)
+    call p_xsect_batch__f__perlink_tabulated_pair(zz13, zz15, zz17, zz19, zz21, cpp_ptr_o_op_add_ptrt_l(zz20, ulo_), g_%transect_tbl_size, cpp_ptr_d_op_add_ptrt_l(local_a_, int(lo_, 8)), cpp_ptr_d_op_add_ptrt_l(local_h_, int(lo_, 8)), n_)
     return
   end if
   call p__anon_hydraulics_xsectbatch_cpp__f__apply_area_kern_5d0a2151(g_, local_d_, local_a_, lo_, n_)
@@ -5543,15 +5719,15 @@ contains
   return
   end procedure p_xsect_xsecteval__findroot_newton
 
-  module procedure p_lam301
+  module procedure p_lam302
   zres = merge(abs(a1), (-abs(a1)), (a2 >= 0.0_8))
   return
-  end procedure p_lam301
+  end procedure p_lam302
 
   module procedure p_xsect_xsecteval__findroot_ridder
     integer(4) :: maxit_
     class(t_fn108), pointer :: sign_
-    class(t_lam301), pointer :: zz1
+    class(t_lam302), pointer :: zz1
     real(8) :: ans_
     real(8) :: fhi_
     real(8) :: flo_
@@ -6034,184 +6210,5 @@ contains
   zres = zz1
   return
   end procedure p_xsect_xsecteval__circ_getdsda
-
-  module procedure p_xsect_xsecteval__filled_circ_getaofy
-    class(t_xsectparams), pointer :: t_
-    class(t_xsectparams), pointer :: zz1
-    real(8) :: zz2
-    real(8) :: zz3
-    real(8) :: a_
-    real(8) :: zz4
-  zz1 => p_xsectparams__new_rxsectparams(xs_)
-  t_ => zz1
-  zz2 = (t_%y_full + xs_%y_bot)
-  t_%y_full = zz2
-  zz3 = (t_%a_full + xs_%a_bot)
-  t_%a_full = zz3
-  zz4 = p_xsect_xsecteval__circ_getaofy(self, t_, (y_ + xs_%y_bot))
-  a_ = zz4
-  zres = (a_ - xs_%a_bot)
-  return
-  end procedure p_xsect_xsecteval__filled_circ_getaofy
-
-  module procedure p_xsect_xsecteval__filled_circ_getyofa
-    class(t_xsectparams), pointer :: t_
-    class(t_xsectparams), pointer :: zz1
-    real(8) :: zz2
-    real(8) :: zz3
-    real(8) :: y_
-    real(8) :: zz4
-  zz1 => p_xsectparams__new_rxsectparams(xs_)
-  t_ => zz1
-  zz2 = (t_%y_full + xs_%y_bot)
-  t_%y_full = zz2
-  zz3 = (t_%a_full + xs_%a_bot)
-  t_%a_full = zz3
-  zz4 = p_xsect_xsecteval__circ_getyofa(self, t_, (a_ + xs_%a_bot))
-  y_ = zz4
-  zres = (y_ - xs_%y_bot)
-  return
-  end procedure p_xsect_xsecteval__filled_circ_getyofa
-
-  module procedure p_xsect_xsecteval__filled_circ_getrofy
-    class(t_xsectparams), pointer :: t_
-    class(t_xsectparams), pointer :: zz1
-    real(8) :: zz2
-    real(8) :: zz3
-    real(8) :: yy_
-    real(8) :: a_
-    real(8) :: zz4
-    real(8) :: r_
-    real(8) :: zz5
-    real(8) :: zz6
-    real(8) :: p_
-  zz1 => p_xsectparams__new_rxsectparams(xs_)
-  t_ => zz1
-  zz2 = (t_%y_full + xs_%y_bot)
-  t_%y_full = zz2
-  zz3 = (t_%a_full + xs_%a_bot)
-  t_%a_full = zz3
-  yy_ = (y_ + xs_%y_bot)
-  zz4 = p_xsect_xsecteval__circ_getaofy(self, t_, yy_)
-  a_ = zz4
-  zz6 = (0.25_8 * t_%y_full)
-  zz5 = p_xsect_xsecteval__lookup(self, (yy_ / t_%y_full), self%tbl%r_circ, self%tbl%n_r_circ)
-  r_ = (zz6 * zz5)
-  p_ = (a_ / r_)
-  a_ = (a_ - xs_%a_bot)
-  p_ = ((p_ - xs_%r_bot) + xs_%s_bot)
-  zres = (a_ / p_)
-  return
-  end procedure p_xsect_xsecteval__filled_circ_getrofy
-
-  module procedure p_xsect_xsecteval__rect_closed_getrofa
-  zres = p_xsect_shape__f__rectclosedrofa(a_, xs_%w_max, xs_%a_full)
-  return
-  end procedure p_xsect_xsecteval__rect_closed_getrofa
-
-  module procedure p_xsect_xsecteval__rect_closed_getsofa
-  if (((a_ / xs_%a_full) > s_xsect__f__rect_alfmax)) then
-    zres = (xs_%s_max + (((xs_%s_full - xs_%s_max) * ((a_ / xs_%a_full) - s_xsect__f__rect_alfmax)) / (1.0_8 - s_xsect__f__rect_alfmax)))
-    return
-  end if
-  zres = (a_ * cpp_math_pow_dd(p_xsect_xsecteval__rect_closed_getrofa(self, xs_, a_), 0.6666666666666666_8))
-  return
-  end procedure p_xsect_xsecteval__rect_closed_getsofa
-
-  module procedure p_xsect_xsecteval__rect_closed_getdsda
-    real(8) :: alpha_
-    real(8) :: zz1
-    real(8) :: r_
-  alpha_ = (a_ / xs_%a_full)
-  if ((alpha_ > s_xsect__f__rect_alfmax)) then
-    zres = ((xs_%s_full - xs_%s_max) / ((1.0_8 - s_xsect__f__rect_alfmax) * xs_%a_full))
-    return
-  end if
-  if ((alpha_ <= 1E-30_8)) then
-    zz1 = p_xsect_xsecteval__generic_getdsda(self, xs_, a_)
-    zres = zz1
-    return
-  end if
-  r_ = p_xsect_xsecteval__rect_closed_getrofa(self, xs_, a_)
-  zres = ((1.6666666666666667_8 - ((0.6666666666666666_8 * (2.0_8 / xs_%w_max)) * r_)) * cpp_math_pow_dd(r_, 0.6666666666666666_8))
-  return
-  end procedure p_xsect_xsecteval__rect_closed_getdsda
-
-  module procedure p_xsect_xsecteval__rect_open_getsofa
-    real(8) :: y_
-    real(8) :: r_
-  y_ = (a_ / xs_%w_max)
-  r_ = (a_ / (((2.0_8 - xs_%s_bot) * y_) + xs_%w_max))
-  zres = (a_ * cpp_math_pow_dd(r_, 0.6666666666666666_8))
-  return
-  end procedure p_xsect_xsecteval__rect_open_getsofa
-
-  module procedure p_xsect_xsecteval__rect_open_getdsda
-    real(8) :: zz1
-    real(8) :: r_
-    real(8) :: zz2
-    real(8) :: dpda_
-  if (((a_ / xs_%a_full) <= 1E-30_8)) then
-    zz1 = p_xsect_xsecteval__generic_getdsda(self, xs_, a_)
-    zres = zz1
-    return
-  end if
-  zz2 = p_xsect_xsecteval__getrofa(self, xs_, a_)
-  r_ = zz2
-  dpda_ = ((2.0_8 - xs_%s_bot) / xs_%w_max)
-  zres = ((1.6666666666666667_8 - ((0.6666666666666666_8 * dpda_) * r_)) * cpp_math_pow_dd(r_, 0.6666666666666666_8))
-  return
-  end procedure p_xsect_xsecteval__rect_open_getdsda
-
-  module procedure p_xsect_xsecteval__rect_triang_getaofy
-  if ((y_ <= xs_%y_bot)) then
-    zres = ((y_ * y_) * xs_%s_bot)
-    return
-  end if
-  zres = (xs_%a_bot + ((y_ - xs_%y_bot) * xs_%w_max))
-  return
-  end procedure p_xsect_xsecteval__rect_triang_getaofy
-
-  module procedure p_xsect_xsecteval__rect_triang_getwofy
-  if ((y_ <= xs_%y_bot)) then
-    zres = ((2.0_8 * xs_%s_bot) * y_)
-    return
-  end if
-  zres = xs_%w_max
-  return
-  end procedure p_xsect_xsecteval__rect_triang_getwofy
-
-  module procedure p_xsect_xsecteval__rect_triang_getyofa
-  if ((a_ <= xs_%a_bot)) then
-    zres = sqrt((a_ / xs_%s_bot))
-    return
-  end if
-  zres = (xs_%y_bot + ((a_ - xs_%a_bot) / xs_%w_max))
-  return
-  end procedure p_xsect_xsecteval__rect_triang_getyofa
-
-  module procedure p_xsect_xsecteval__rect_triang_getrofa
-    real(8) :: y_
-    real(8) :: p_
-    real(8) :: alf_
-    real(8) :: zz1
-  if ((a_ <= 0.0_8)) then
-    zres = 0.0_8
-    return
-  end if
-  y_ = p_xsect_xsecteval__rect_triang_getyofa(self, xs_, a_)
-  if ((y_ <= xs_%y_bot)) then
-    zres = (a_ / ((2.0_8 * y_) * xs_%r_bot))
-    return
-  end if
-  p_ = (((2.0_8 * xs_%y_bot) * xs_%r_bot) + (2.0_8 * (y_ - xs_%y_bot)))
-  alf_ = ((a_ / xs_%a_full) - s_xsect__f__rect_triang_alfmax)
-  if ((alf_ > 0.0_8)) then
-    zz1 = (p_ + ((alf_ / (1.0_8 - s_xsect__f__rect_triang_alfmax)) * xs_%w_max))
-    p_ = zz1
-  end if
-  zres = (a_ / p_)
-  return
-  end procedure p_xsect_xsecteval__rect_triang_getrofa
 
 end submodule swmm6_engine_025

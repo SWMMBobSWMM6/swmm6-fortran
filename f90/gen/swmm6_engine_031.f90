@@ -131,12 +131,12 @@ contains
   end do
   end procedure p_fv_pressurizedheadsolver__assemblerhs
 
-  module procedure p_lam379
+  module procedure p_lam382
   zres = (iand(int(self%c_this%unk_dirichlet_%a%a(int(a1, 8)), 4), 255_4) /= 0)
   return
-  end procedure p_lam379
+  end procedure p_lam382
 
-  module procedure p_lam380
+  module procedure p_lam383
     logical :: zz1
     logical :: zz2
     logical :: zz3
@@ -148,9 +148,9 @@ contains
   end if
   zres = zz3
   return
-  end procedure p_lam380
+  end procedure p_lam383
 
-  module procedure p_lam381
+  module procedure p_lam384
     integer(8) :: i_6_
     integer(4) :: u_6_
     real(8) :: s_
@@ -185,7 +185,7 @@ contains
     i_6_ = (i_6_ + 1_8)
   end do
   return
-  end procedure p_lam381
+  end procedure p_lam384
 
   module procedure p_fv_pressurizedheadsolver__solvecomponent
     integer(4) :: b_
@@ -195,9 +195,9 @@ contains
     real(8), pointer :: zz1
     real(8) :: zz2
     class(t_fn4), pointer :: isdir_
-    class(t_lam379), pointer :: zz3
+    class(t_lam382), pointer :: zz3
     class(t_fn104), pointer :: edgeactive_
-    class(t_lam380), pointer :: zz4
+    class(t_lam383), pointer :: zz4
     integer(4) :: u_2_
     integer(8) :: uu_
     real(8) :: zz5
@@ -246,7 +246,7 @@ contains
     class(cpp_vec_d), pointer :: zz19
     integer(8) :: i_5_
     class(t_fn194), pointer :: matvec_
-    class(t_lam381), pointer :: zz20
+    class(t_lam384), pointer :: zz20
     real(8) :: bnorm_
     integer(8) :: i_7_
     real(8) :: zz21
@@ -566,7 +566,7 @@ contains
   end do
   end procedure p_fv_pressurizedheadsolver__solvecomponent
 
-  module procedure p_lam382
+  module procedure p_lam385
     integer(8) :: uu_
     real(8), pointer :: zz1
   if ((a1 < 0)) then
@@ -581,11 +581,11 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam382
+  end procedure p_lam385
 
   module procedure p_fv_pressurizedheadsolver__backsubstitute
     class(t_fn197), pointer :: headof_
-    class(t_lam382), pointer :: zz1
+    class(t_lam385), pointer :: zz1
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -2136,7 +2136,7 @@ contains
   end select
   end procedure p_fv_secgeom__f__widthofdepth
 
-  module procedure p_lam383
+  module procedure p_lam386
     real(8) :: dxdy_
     real(8) :: zz1
   if ((a1 > 0.0_8)) then
@@ -2147,7 +2147,7 @@ contains
   dxdy_ = zz1
   zres = sqrt((1.0_8 + (dxdy_ * dxdy_)))
   return
-  end procedure p_lam383
+  end procedure p_lam386
 
   module procedure p_fv_secgeom__f__perimeterofdepth
     real(8) :: r_
@@ -2160,7 +2160,7 @@ contains
     real(8) :: hc_
     real(8) :: m_
     class(t_fn106), pointer :: ds_
-    class(t_lam383), pointer :: zz3
+    class(t_lam386), pointer :: zz3
     real(8) :: y0_
     class(*), pointer :: zz4
     real(8) :: zz5
@@ -3380,20 +3380,20 @@ contains
   return
   end procedure p_climate_climatefilereader__getrecord
 
-  module procedure p_lam387
+  module procedure p_lam390
   self%c_y = a1
   return
-  end procedure p_lam387
+  end procedure p_lam390
 
-  module procedure p_lam388
+  module procedure p_lam391
   self%c_m = a1
   return
-  end procedure p_lam388
+  end procedure p_lam391
 
-  module procedure p_lam389
+  module procedure p_lam392
   self%c_d = a1
   return
-  end procedure p_lam389
+  end procedure p_lam392
 
   module procedure p_climate_climatefilereader__detectformat
     logical :: zz1
@@ -3418,11 +3418,11 @@ contains
     type(cpp_cptr) :: s_
     type(cpp_cptr) :: zz14
     type(cpp_cptr) :: zz15
-    class(t_lam387), pointer :: zz16
+    class(t_lam390), pointer :: zz16
     class(cpp_refi), pointer :: zz17
-    class(t_lam388), pointer :: zz18
+    class(t_lam391), pointer :: zz18
     class(cpp_refi), pointer :: zz19
-    class(t_lam389), pointer :: zz20
+    class(t_lam392), pointer :: zz20
     class(cpp_refi), pointer :: zz21
     integer(4) :: zz22
     logical :: zz23
@@ -3592,7 +3592,7 @@ contains
   return
   end procedure p_climate_climatefilereader__isghcndformat
 
-  module procedure p_lam390
+  module procedure p_lam393
   select case (self%c_this%format_)
   case (1)
     call p_climate_climatefilereader__parseuserline(self%c_this, a1)
@@ -3615,21 +3615,6 @@ contains
   end select
   101 continue
   return
-  end procedure p_lam390
-
-  module procedure p_lam391
-  self%c_ly = a1
-  return
-  end procedure p_lam391
-
-  module procedure p_lam392
-  self%c_lm = a1
-  return
-  end procedure p_lam392
-
-  module procedure p_lam393
-  self%c_ld = a1
-  return
   end procedure p_lam393
 
   module procedure p_lam394
@@ -3647,11 +3632,26 @@ contains
   return
   end procedure p_lam396
 
+  module procedure p_lam397
+  self%c_ly = a1
+  return
+  end procedure p_lam397
+
+  module procedure p_lam398
+  self%c_lm = a1
+  return
+  end procedure p_lam398
+
+  module procedure p_lam399
+  self%c_ld = a1
+  return
+  end procedure p_lam399
+
   module procedure p_climate_climatefilereader__buffermonth
     type(cpp_cptr) :: line_
     type(cpp_cptr) :: zz1
     class(t_fn121), pointer :: processline_
-    class(t_lam390), pointer :: zz2
+    class(t_lam393), pointer :: zz2
     type(cpp_cptr) :: zz3
     integer(8) :: len_
     logical :: zz4
@@ -3667,20 +3667,20 @@ contains
     type(cpp_cptr) :: sta_
     type(cpp_cptr) :: zz10
     type(cpp_cptr) :: zz11
-    class(t_lam391), pointer :: zz12
+    class(t_lam394), pointer :: zz12
     class(cpp_refi), pointer :: zz13
-    class(t_lam392), pointer :: zz14
+    class(t_lam395), pointer :: zz14
     class(cpp_refi), pointer :: zz15
-    class(t_lam393), pointer :: zz16
+    class(t_lam396), pointer :: zz16
     class(cpp_refi), pointer :: zz17
     integer(4) :: zz18
     type(cpp_cptr) :: zz19
     type(cpp_cptr) :: zz20
-    class(t_lam394), pointer :: zz21
+    class(t_lam397), pointer :: zz21
     class(cpp_refi), pointer :: zz22
-    class(t_lam395), pointer :: zz23
+    class(t_lam398), pointer :: zz23
     class(cpp_refi), pointer :: zz24
-    class(t_lam396), pointer :: zz25
+    class(t_lam399), pointer :: zz25
     class(cpp_refi), pointer :: zz26
     integer(4) :: zz27
     type(cpp_cptr) :: ys_
@@ -3885,20 +3885,20 @@ contains
   end do
   end procedure p_climate_climatefilereader__clearbuffer
 
-  module procedure p_lam397
+  module procedure p_lam400
   self%c_y = a1
   return
-  end procedure p_lam397
+  end procedure p_lam400
 
-  module procedure p_lam398
+  module procedure p_lam401
   self%c_m = a1
   return
-  end procedure p_lam398
+  end procedure p_lam401
 
-  module procedure p_lam399
+  module procedure p_lam402
   self%c_d = a1
   return
-  end procedure p_lam399
+  end procedure p_lam402
 
   module procedure p_climate_climatefilereader__parseuserline
     type(cpp_cptr) :: sta_
@@ -3919,11 +3919,11 @@ contains
     integer(4), pointer :: m_
     integer(4), pointer :: d_
     type(cpp_cptr) :: zz10
-    class(t_lam397), pointer :: zz11
+    class(t_lam400), pointer :: zz11
     class(cpp_refi), pointer :: zz12
-    class(t_lam398), pointer :: zz13
+    class(t_lam401), pointer :: zz13
     class(cpp_refi), pointer :: zz14
-    class(t_lam399), pointer :: zz15
+    class(t_lam402), pointer :: zz15
     class(cpp_refi), pointer :: zz16
     integer(4) :: zz17
     logical :: zz18
@@ -4060,25 +4060,25 @@ contains
   end if
   end procedure p_climate_climatefilereader__parseuserline
 
-  module procedure p_lam400
+  module procedure p_lam403
   self%c_y = a1
   return
-  end procedure p_lam400
+  end procedure p_lam403
 
-  module procedure p_lam401
+  module procedure p_lam404
   self%c_m = a1
   return
-  end procedure p_lam401
+  end procedure p_lam404
 
-  module procedure p_lam402
+  module procedure p_lam405
   self%c_d = a1
   return
-  end procedure p_lam402
+  end procedure p_lam405
 
-  module procedure p_lam403
+  module procedure p_lam406
   self%c_v = a1
   return
-  end procedure p_lam403
+  end procedure p_lam406
 
   module procedure p_climate_climatefilereader__parseghcndline
     integer(4) :: len_
@@ -4087,11 +4087,11 @@ contains
     integer(4), pointer :: d_
     type(cpp_cptr) :: zz1
     type(cpp_cptr) :: zz2
-    class(t_lam400), pointer :: zz3
+    class(t_lam403), pointer :: zz3
     class(cpp_refi), pointer :: zz4
-    class(t_lam401), pointer :: zz5
+    class(t_lam404), pointer :: zz5
     class(cpp_refi), pointer :: zz6
-    class(t_lam402), pointer :: zz7
+    class(t_lam405), pointer :: zz7
     class(cpp_refi), pointer :: zz8
     integer(4) :: zz9
     integer(4) :: i_
@@ -4105,7 +4105,7 @@ contains
     integer(4), pointer :: zz16
     type(cpp_cptr) :: zz17
     type(cpp_cptr) :: zz18
-    class(t_lam403), pointer :: zz19
+    class(t_lam406), pointer :: zz19
     class(cpp_refd), pointer :: zz20
     integer(4) :: zz21
     real(8) :: zz22
@@ -5233,11 +5233,13 @@ contains
   module procedure p_gage__f__updatepastrain
     integer(4) :: j_
     integer(8) :: uj_
+    type(cpp_ptr_d) :: zz1
   j_ = 0
   do
     if (.not. ((j_ < p_simulationcontext__n_gages(ctx_)))) exit
     uj_ = int(j_, 8)
-    call p_gage__anon_hydrology_gage_cpp__f__accumulatepastrain_gage(cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(ctx_%gages%past_rain), (uj_ * int(s_gage__f__maxpastrain, 8))), ctx_%gages%past_rain_accum%a%a(uj_), ctx_%gages%past_rain_interval%a%a(uj_), ctx_%gages%rainfall%a%a(uj_), time_step_)
+    zz1 = cpp_vec_d_data(ctx_%gages%past_rain)
+    call p_gage__anon_hydrology_gage_cpp__f__accumulatepastrain_gage(cpp_ptr_d_op_add_ptrt_l(zz1, (uj_ * int(s_gage__f__maxpastrain, 8))), ctx_%gages%past_rain_accum%a%a(uj_), ctx_%gages%past_rain_interval%a%a(uj_), ctx_%gages%rainfall%a%a(uj_), time_step_)
     j_ = (j_ + 1)
   end do
   end procedure p_gage__f__updatepastrain
@@ -6214,157 +6216,5 @@ contains
   zres => o_
   return
   end procedure p_groundwater_gwcontext__movenew
-
-  module procedure p_groundwater__f__gwf_validate
-    class(cpp_vec_o), pointer :: tokens_
-    class(cpp_vec_o), pointer :: zz1
-    type(cpp_slot), pointer :: zz2
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwftoken), pointer :: zz3
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz4
-    type(cpp_cptr) :: zz5
-    class(cpp_str), pointer :: zz6
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwfparser), pointer :: parser_
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwfparser), pointer :: zz7
-    class(cpp_vec_o), pointer :: zz8
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwftoken), pointer :: rest_
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwftoken), pointer :: zz9
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz10
-    type(cpp_cptr) :: zz11
-    class(cpp_str), pointer :: zz12
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz13
-    type(cpp_cptr) :: zz14
-    class(cpp_str), pointer :: zz15
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz16
-    type(cpp_cptr) :: zz17
-    class(cpp_str), pointer :: zz18
-    type(cpp_cptr) :: zz19
-    class(cpp_str), pointer :: zz20
-    class(t_mathexpr_expression), pointer :: probe_
-    class(t_mathexpr_expression), pointer :: zz21
-    integer(4) :: zz22
-    logical :: zz23
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz24
-    type(cpp_cptr) :: zz25
-    class(cpp_str), pointer :: zz26
-    class(cpp_object), pointer :: zz27
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: f_
-    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz28
-    class(cpp_object), pointer :: x__ex1_
-    type(cpp_cptr) :: zz29
-  call cpp_str_clear(msg_)
-  col_ = (-1)
-  zz1 => p_groundwater__anon_hydrology_groundwater_cpp__f__gwf_4a0f4462(expr_)
-  if (associated(cpp_exc)) goto 102
-  tokens_ => zz1
-  zz2 => cpp_vec_o_front(tokens_)
-  zz3 => h_uas_groundwater__anon_hydrology_groundwater_cpp_gwftoken(zz2%p)
-  if ((zz3%kind == 7)) then
-    allocate(zz4)
-    call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz4)
-    if (associated(cpp_exc)) goto 102
-    zz5 = cpp_r_lit("expression is empty")
-    zz6 => cpp_str_new_cptr(zz5)
-    zz4%msg_2 => zz6
-    zz4%col = 0
-    cpp_exc => zz4
-    goto 102
-  end if
-  allocate(zz7)
-  call p_groundwater__anon_hydrology_groundwater_cpp_gwfparser__ctor_x(zz7)
-  zz8 => cpp_vec_o_clone(tokens_)
-  if (associated(cpp_exc)) goto 102
-  zz7%t => zz8
-  parser_ => zz7
-  call p_groundwater__anon_hydrology_groundwater_cpp_gwfparser__expr(parser_)
-  if (associated(cpp_exc)) goto 102
-  zz9 => p_groundwater__anon_hydrology_groundwater_cpp_gwfparser__cur(parser_)
-  rest_ => zz9
-  if ((rest_%kind /= 7)) then
-    if ((rest_%kind == 5)) then
-      allocate(zz10)
-      call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz10)
-      if (associated(cpp_exc)) goto 102
-      zz11 = cpp_r_lit("unbalanced parenthesis")
-      zz12 => cpp_str_new_cptr(zz11)
-      zz10%msg_2 => zz12
-      zz10%col = rest_%col
-      cpp_exc => zz10
-      goto 102
-    end if
-    if ((rest_%kind == 6)) then
-      allocate(zz13)
-      call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz13)
-      if (associated(cpp_exc)) goto 102
-      zz14 = cpp_r_lit("unexpected ','")
-      zz15 => cpp_str_new_cptr(zz14)
-      zz13%msg_2 => zz15
-      zz13%col = rest_%col
-      cpp_exc => zz13
-      goto 102
-    end if
-    allocate(zz16)
-    call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz16)
-    if (associated(cpp_exc)) goto 102
-    zz17 = cpp_r_lit("missing operator before '")
-    zz18 => cpp_str_cat_cptr_str(zz17, rest_%text)
-    zz19 = cpp_r_lit("'")
-    zz20 => cpp_str_cat_str_cptr(zz18, zz19)
-    zz16%msg_2 => zz20
-    zz16%col = rest_%col
-    cpp_exc => zz16
-    goto 102
-  end if
-  allocate(zz21)
-  call p_mathexpr_expression__ctor_x(zz21)
-  probe_ => zz21
-  zz22 = p_mathexpr__f__parse(expr_, probe_)
-  if (associated(cpp_exc)) goto 102
-  zz23 = (zz22 /= 0)
-  if (.not. zz23) then
-    zz23 = (.not. probe_%valid)
-  end if
-  if (zz23) then
-    allocate(zz24)
-    call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz24)
-    if (associated(cpp_exc)) goto 102
-    zz25 = cpp_r_lit("internal: expression rejected by the engine parser")
-    zz26 => cpp_str_new_cptr(zz25)
-    zz24%msg_2 => zz26
-    zz24%col = (-1)
-    cpp_exc => zz24
-    goto 102
-  end if
-  goto 101
-  102 continue
-  zz27 => cpp_exc
-  if (h_is_groundwater__anon_hydrology_groundwater_cpp_gwffail(zz27)) then
-    cpp_exc => null()
-    zz28 => h_as_groundwater__anon_hydrology_groundwater_cpp_gwffail(zz27)
-    f_ => zz28
-    call cpp_dbg_caught(f_)
-    if (associated(cpp_exc)) return
-    call cpp_str_assign_str(msg_, f_%msg_2)
-    col_ = f_%col
-    zres = (-1)
-    return
-    goto 101
-  end if
-  if (.true.) then
-    cpp_exc => null()
-    x__ex1_ => zz27
-    call cpp_dbg_caught(x__ex1_)
-    if (associated(cpp_exc)) return
-    zz29 = cpp_r_lit("internal: expression rejected by the engine parser")
-    call cpp_str_assign_cptr(msg_, zz29)
-    col_ = (-1)
-    zres = (-1)
-    return
-    goto 101
-  end if
-  return
-  101 continue
-  zres = 0
-  return
-  end procedure p_groundwater__f__gwf_validate
 
 end submodule swmm6_engine_031

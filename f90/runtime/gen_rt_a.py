@@ -995,8 +995,14 @@ def vec_prim(k):
     zres => self%a%a(0)'''
     d['back'] = '''
     zres => self%a%a(self%n - 1)'''
+    # libstdc++'s data() is nullptr until the vector first allocates (capacity 0); the engine tests it
+    # (C# Cpp.Vec.data)
     d['data'] = '''
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8'''
     d['begin'] = '''
     zres%v => self
@@ -1240,8 +1246,14 @@ def vec_o():
     zres => self%a%a(0)'''
     d['back'] = '''
     zres => self%a%a(self%n - 1)'''
+    # libstdc++'s data() is nullptr until the vector first allocates (capacity 0); the engine tests it
+    # (C# Cpp.Vec.data)
     d['data'] = '''
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8'''
     d['begin'] = '''
     zres%v => self

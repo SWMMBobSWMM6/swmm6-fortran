@@ -1037,7 +1037,7 @@ contains
   return
   end procedure p_pluginfactory__load_plugins
 
-  module procedure p_lam870
+  module procedure p_lam874
     type(cpp_mit) :: it_
     class(*), pointer :: zz1
     class(cpp_umap), pointer :: zz2
@@ -1066,9 +1066,9 @@ contains
     self%c_last_err = rc_
   end if
   return
-  end procedure p_lam870
+  end procedure p_lam874
 
-  module procedure p_lam871
+  module procedure p_lam875
     type(cpp_mit) :: it_2_
     class(*), pointer :: zz1
     class(cpp_umap), pointer :: zz2
@@ -1097,9 +1097,9 @@ contains
     self%c_last_err = rc_2_
   end if
   return
-  end procedure p_lam871
+  end procedure p_lam875
 
-  module procedure p_lam872
+  module procedure p_lam876
     type(cpp_mit) :: it_3_
     class(*), pointer :: zz1
     class(cpp_umap), pointer :: zz2
@@ -1128,17 +1128,17 @@ contains
     self%c_last_err = rc_3_
   end if
   return
-  end procedure p_lam872
+  end procedure p_lam876
 
   module procedure p_pluginfactory__initialize_all
     integer(4), pointer :: last_err_
     class(cpp_arr_o), pointer :: initialize_
     class(cpp_arr_o), pointer :: zz1
-    class(t_lam870), pointer :: zz2
+    class(t_lam874), pointer :: zz2
     class(*), pointer :: zz3
-    class(t_lam871), pointer :: zz4
+    class(t_lam875), pointer :: zz4
     class(*), pointer :: zz5
-    class(t_lam872), pointer :: zz6
+    class(t_lam876), pointer :: zz6
     class(*), pointer :: zz7
     integer(8) :: i_
     class(t_fn89), pointer :: zz8
@@ -1741,7 +1741,7 @@ contains
   return
   end procedure p_pluginfactory__scan_directory
 
-  module procedure p_lam873
+  module procedure p_lam877
     class(cpp_str), pointer :: id_
     class(cpp_str), pointer :: zz1
     class(cpp_str), pointer :: ver_
@@ -1820,11 +1820,11 @@ contains
     zz25 = idx_
   end if
   return
-  end procedure p_lam873
+  end procedure p_lam877
 
   module procedure p_pluginfactory__register_builtin_infos
     class(t_fn92), pointer :: register_one_
-    class(t_lam873), pointer :: zz1
+    class(t_lam877), pointer :: zz1
     class(t_builtindefaultinputplugininfo), pointer :: zz2
     class(t_builtindefaultoutputplugininfo), pointer :: zz3
     class(t_builtindefaultreportplugininfo), pointer :: zz4
@@ -1846,7 +1846,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_pluginfactory__register_builtin_infos
 
-  module procedure p_lam874
+  module procedure p_lam878
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -1867,9 +1867,9 @@ contains
   end do
   zres = .false.
   return
-  end procedure p_lam874
+  end procedure p_lam878
 
-  module procedure p_lam875
+  module procedure p_lam879
     class(cpp_str), pointer :: msg_
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
@@ -1907,15 +1907,15 @@ contains
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam875
+  end procedure p_lam879
 
   module procedure p_pluginfactory__validate_filter_invariant
     class(cpp_vec_o), pointer :: filters_
     class(cpp_vec_o), pointer :: zz1
     class(t_fn93), pointer :: has_role_
-    class(t_lam874), pointer :: zz2
+    class(t_lam878), pointer :: zz2
     class(t_fn94), pointer :: warn_
-    class(t_lam875), pointer :: zz3
+    class(t_lam879), pointer :: zz3
     logical :: zz4
     logical :: zz5
     logical :: zz6
@@ -2019,7 +2019,7 @@ contains
   return
   end procedure p_pluginfactory__is_file_path
 
-  module procedure p_lam876
+  module procedure p_lam880
     integer(4) :: zz1
     logical :: zz2
   zz2 = (ieor(cpp_str_size(a1), (-9223372036854775807_8 - 1_8)) >= ieor(cpp_str_size(a2), (-9223372036854775807_8 - 1_8)))
@@ -2030,11 +2030,11 @@ contains
   end if
   zres = zz2
   return
-  end procedure p_lam876
+  end procedure p_lam880
 
   module procedure p_pluginfactory__is_shared_library
     class(t_fn95), pointer :: ends_with_
-    class(t_lam876), pointer :: zz1
+    class(t_lam880), pointer :: zz1
     type(cpp_cptr) :: zz2
     class(cpp_str), pointer :: zz3
     logical :: zz4
@@ -3134,13 +3134,13 @@ contains
   return
   end procedure p_components_processcomponentregistry__anon_src_engin_c7de04c9
 
-  module procedure p_lam877
+  module procedure p_lam881
     class(*), pointer :: zz1
   zz1 => self%c_in
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam877
+  end procedure p_lam881
 
   module procedure p_components__f__read_component_config
     class(cpp_fspath), pointer :: p_
@@ -3153,7 +3153,7 @@ contains
     class(cpp_ifstream), pointer :: in_
     class(cpp_ifstream), pointer :: zz7
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam877), pointer :: zz8
+    class(t_lam881), pointer :: zz8
     class(cpp_defer), pointer :: zz9
     integer(4) :: zz10
     type(cpp_cptr) :: zz11
@@ -3562,14 +3562,14 @@ contains
   return
   end procedure p_components__f__parse_component_config_stream
 
-  module procedure p_lam878
+  module procedure p_lam882
   zres = int(cpp_r_toupper(iand(int(a1, 4), 255_4)), 1)
   return
-  end procedure p_lam878
+  end procedure p_lam882
 
   module procedure p_components__anon_plugins_processcomponentregistry_c_bc93c647
     class(cpp_str), pointer :: s_l_
-    class(t_lam878), pointer :: zz1
+    class(t_lam882), pointer :: zz1
     type(cpp_iter_b) :: zz2
     type(cpp_iter_b) :: zz3
     type(cpp_iter_b) :: zz4
@@ -4456,7 +4456,7 @@ contains
   return
   end procedure p_quality_conservativemixing__prepare
 
-  module procedure p_lam879
+  module procedure p_lam883
     integer(8) :: i_2_
     real(8), pointer :: zz1
     real(8), pointer :: zz2
@@ -4500,10 +4500,19 @@ contains
   end do
   zres = .true.
   return
-  end procedure p_lam879
+  end procedure p_lam883
+
+  module procedure p_lam884
+    class(t_quality_mixedscalar), pointer :: x__t_
+    class(t_quality_mixedscalar), pointer :: zz1
+  zz1 => p_quality_mixedscalar__movenew(self%c_output)
+  x__t_ => zz1
+  call p_quality_mixedscalar__movefrom(self%c_output, self%c_accepted)
+  call p_quality_mixedscalar__movefrom(self%c_accepted, x__t_)
+  return
+  end procedure p_lam884
 
   module procedure p_quality_conservativemixing__solve
-    class(t_quality_mixedscalar), pointer :: output_l_
     class(t_quality_conservativemixing_result), pointer :: result_
     class(t_quality_conservativemixing_result), pointer :: zz1
     integer(8) :: n_
@@ -4521,46 +4530,47 @@ contains
     class(t_quality_conservativemixing_result), pointer :: zz10
     real(8) :: mass_
     class(t_fn96), pointer :: matrix_
-    class(t_lam879), pointer :: zz11
+    class(t_lam883), pointer :: zz11
     logical, target :: zz12
-    logical :: zz13
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d) :: zz14
+    logical :: zz15
     integer(8) :: i_3_
-    real(8) :: zz14
+    real(8) :: zz16
     class(t_fv_nativegmres_controls), pointer :: controls_
-    class(t_fv_nativegmres_controls), pointer :: zz15
+    class(t_fv_nativegmres_controls), pointer :: zz17
     class(t_fv_nativegmres_result), pointer :: linear_
-    class(t_fv_nativegmres_result), pointer :: zz16
-    class(t_quality_conservativemixing_result), pointer :: zz17
+    class(t_fv_nativegmres_result), pointer :: zz18
+    class(t_quality_conservativemixing_result), pointer :: zz19
     real(8) :: scale_
     real(8) :: initial_
     real(8) :: final_
     integer(8) :: i_4_
     real(8) :: c_
     real(8) :: held_2_
-    real(8) :: zz18
-    logical :: zz19
-    logical :: zz20
+    real(8) :: zz20
     logical :: zz21
-    class(t_quality_conservativemixing_result), pointer :: zz22
-    real(8) :: zz23
-    real(8), pointer :: zz24
-    real(8) :: before_
+    logical :: zz22
+    logical :: zz23
+    class(t_quality_conservativemixing_result), pointer :: zz24
     real(8) :: zz25
-    real(8) :: zz26
+    real(8), pointer :: zz26
+    real(8) :: before_
+    real(8) :: zz27
+    real(8) :: zz28
     class(cpp_vec_o), pointer :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
     class(t_quality_watertransfer), pointer :: t_2_
-    class(t_quality_watertransfer), pointer :: zz27
+    class(t_quality_watertransfer), pointer :: zz29
     real(8) :: mass_2_
-    real(8) :: zz28
+    real(8) :: zz30
     integer(8) :: i_5_
-    real(8) :: zz29
-    class(t_quality_conservativemixing_result), pointer :: zz30
-    class(t_quality_mixedscalar), pointer :: zz31
+    real(8) :: zz31
     class(t_quality_conservativemixing_result), pointer :: zz32
+    class(t_lam884), pointer :: zz33
+    class(t_quality_conservativemixing_result), pointer :: zz34
   zres => null()
-  output_l_ => output_
   allocate(zz1)
   call p_quality_conservativemixing_result__ctor_x(zz1)
   result_ => zz1
@@ -4627,29 +4637,31 @@ contains
   zz11%c_n = n_
   zz11%c_this => self
   matrix_ => zz11
-  zz13 = matrix_%invoke(cpp_vec_d_data(self%guess_), cpp_vec_d_data(self%image_))
+  zz13 = cpp_vec_d_data(self%guess_)
+  zz14 = cpp_vec_d_data(self%image_)
+  zz15 = matrix_%invoke(zz13, zz14)
   if (associated(cpp_exc)) return
-  zz12 = zz13
+  zz12 = zz15
   i_3_ = 0_8
   do
     if (.not. ((ieor(i_3_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
-    zz14 = (self%rhs_%a%a(i_3_) - self%image_%a%a(i_3_))
-    self%rhs_%a%a(i_3_) = zz14
+    zz16 = (self%rhs_%a%a(i_3_) - self%image_%a%a(i_3_))
+    self%rhs_%a%a(i_3_) = zz16
     i_3_ = (i_3_ + 1_8)
   end do
-  allocate(zz15)
-  call p_fv_nativegmres_controls__ctor_x(zz15)
-  controls_ => zz15
+  allocate(zz17)
+  call p_fv_nativegmres_controls__ctor_x(zz17)
+  controls_ => zz17
   controls_%relative_tolerance = 1E-13_8
   controls_%absolute_tolerance = 1E-14_8
   controls_%max_iterations = cpp_m_max_i_i(200, int(cpp_m_min_ul_ul((n_ * 2_8), 2000_8), 4))
-  zz16 => p_fv_nativegmres__solve(self%gmres_, self%rhs_, matrix_, null(), controls_, self%correction_)
+  zz18 => p_fv_nativegmres__solve(self%gmres_, self%rhs_, matrix_, null(), controls_, self%correction_)
   if (associated(cpp_exc)) return
-  linear_ => zz16
+  linear_ => zz18
   result_%iterations = linear_%iterations
   if ((.not. p_fv_nativegmres_result__converged(linear_))) then
-    zz17 => p_quality_conservativemixing_result__movenew(result_)
-    zres => zz17
+    zz19 => p_quality_conservativemixing_result__movenew(result_)
+    zres => zz19
     return
   end if
   call cpp_vec_d_resize_ul(accepted_%concentration, n_)
@@ -4663,42 +4675,42 @@ contains
     if (.not. ((ieor(i_4_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
     c_ = (self%guess_%a%a(i_4_) + self%correction_%a%a(i_4_))
     if (cpp_vec_d_empty(scalar_%held_dry_mass)) then
-      zz18 = 0.0_8
+      zz20 = 0.0_8
     else
-      zz18 = scalar_%held_dry_mass%a%a(i_4_)
+      zz20 = scalar_%held_dry_mass%a%a(i_4_)
     end if
-    held_2_ = zz18
-    zz21 = (.not. cpp_double_isfinite(c_))
-    if (.not. zz21) then
-      zz20 = scalar_%nonnegative
-      if (zz20) then
-        zz19 = (c_ < ((-1E-12_8) * cpp_m_max_d_d(1.0_8, abs(self%guess_%a%a(i_4_)))))
-        if (.not. zz19) then
-          zz19 = (accepted_%held_dry_mass%a%a(i_4_) < 0.0_8)
+    held_2_ = zz20
+    zz23 = (.not. cpp_double_isfinite(c_))
+    if (.not. zz23) then
+      zz22 = scalar_%nonnegative
+      if (zz22) then
+        zz21 = (c_ < ((-1E-12_8) * cpp_m_max_d_d(1.0_8, abs(self%guess_%a%a(i_4_)))))
+        if (.not. zz21) then
+          zz21 = (accepted_%held_dry_mass%a%a(i_4_) < 0.0_8)
         end if
-        zz20 = zz19
+        zz22 = zz21
       end if
-      zz21 = zz20
+      zz23 = zz22
     end if
-    if (zz21) then
-      zz22 => p_quality_conservativemixing_result__movenew(result_)
-      zres => zz22
+    if (zz23) then
+      zz24 => p_quality_conservativemixing_result__movenew(result_)
+      zres => zz24
       return
     end if
-    zz24 => accepted_%concentration%a%a(i_4_)
+    zz26 => accepted_%concentration%a%a(i_4_)
     if (scalar_%nonnegative) then
-      zz23 = cpp_m_max_d_d(0.0_8, c_)
+      zz25 = cpp_m_max_d_d(0.0_8, c_)
     else
-      zz23 = c_
+      zz25 = c_
     end if
-    zz24 = zz23
+    zz26 = zz25
     accepted_%exported_mass%a%a(i_4_) = (self%water_%exported%a%a(i_4_) * accepted_%concentration%a%a(i_4_))
     accepted_%seeped_mass%a%a(i_4_) = (self%water_%seeped%a%a(i_4_) * accepted_%concentration%a%a(i_4_))
     before_ = (self%water_%old_volume%a%a(i_4_) * scalar_%old_concentration%a%a(i_4_))
-    zz25 = (initial_ + ((before_ + scalar_%source_mass%a%a(i_4_)) + held_2_))
-    initial_ = zz25
-    zz26 = (scale_ + ((abs(before_) + abs(scalar_%source_mass%a%a(i_4_))) + abs(held_2_)))
-    scale_ = zz26
+    zz27 = (initial_ + ((before_ + scalar_%source_mass%a%a(i_4_)) + held_2_))
+    initial_ = zz27
+    zz28 = (scale_ + ((abs(before_) + abs(scalar_%source_mass%a%a(i_4_))) + abs(held_2_)))
+    scale_ = zz28
     i_4_ = (i_4_ + 1_8)
   end do
   call cpp_vec_d_clear(accepted_%transfer_mass)
@@ -4708,35 +4720,37 @@ contains
   x__i4_n_ = int(x__r3_%n, 8)
   do
     if (.not. ((x__i4_ < x__i4_n_))) exit
-    zz27 => h_uas_quality_watertransfer(x__r3_%a%a(x__i4_)%p)
-    t_2_ => zz27
+    zz29 => h_uas_quality_watertransfer(x__r3_%a%a(x__i4_)%p)
+    t_2_ => zz29
     mass_2_ = (t_2_%volume * accepted_%concentration%a%a(t_2_%donor))
     call cpp_vec_d_push_back(accepted_%transfer_mass, mass_2_)
     if ((self%diagonal_%a%a(t_2_%receiver) == 0.0_8)) then
-      zz28 = (accepted_%held_dry_mass%a%a(t_2_%receiver) + mass_2_)
-      accepted_%held_dry_mass%a%a(t_2_%receiver) = zz28
+      zz30 = (accepted_%held_dry_mass%a%a(t_2_%receiver) + mass_2_)
+      accepted_%held_dry_mass%a%a(t_2_%receiver) = zz30
     end if
     x__i4_ = (x__i4_ + 1_8)
   end do
   i_5_ = 0_8
   do
     if (.not. ((ieor(i_5_, (-9223372036854775807_8 - 1_8)) < ieor(n_, (-9223372036854775807_8 - 1_8))))) exit
-    zz29 = (final_ + ((((self%water_%new_volume%a%a(i_5_) * accepted_%concentration%a%a(i_5_)) + accepted_%held_dry_mass%a%a(i_5_)) + accepted_%exported_mass%a%a(i_5_)) + accepted_%seeped_mass%a%a(i_5_)))
-    final_ = zz29
+    zz31 = (final_ + ((((self%water_%new_volume%a%a(i_5_) * accepted_%concentration%a%a(i_5_)) + accepted_%held_dry_mass%a%a(i_5_)) + accepted_%exported_mass%a%a(i_5_)) + accepted_%seeped_mass%a%a(i_5_)))
+    final_ = zz31
     i_5_ = (i_5_ + 1_8)
   end do
   result_%mass_residual = ((initial_ - final_) / scale_)
   if ((abs(result_%mass_residual) > 1E-09_8)) then
-    zz30 => p_quality_conservativemixing_result__movenew(result_)
-    zres => zz30
+    zz32 => p_quality_conservativemixing_result__movenew(result_)
+    zres => zz32
     return
   end if
   result_%converged = .true.
-  zz31 => output_l_
-  output_l_ => accepted_
-  accepted_ => zz31
-  zz32 => p_quality_conservativemixing_result__movenew(result_)
-  zres => zz32
+  allocate(zz33)
+  zz33%c_output => output_
+  zz33%c_accepted => accepted_
+  call zz33%invoke()
+  if (associated(cpp_exc)) return
+  zz34 => p_quality_conservativemixing_result__movenew(result_)
+  zres => zz34
   return
   end procedure p_quality_conservativemixing__solve
 
@@ -5890,15 +5904,15 @@ contains
   return
   end procedure p_quality_watertransfer__movenew
 
-  module procedure p_lam880
+  module procedure p_lam885
     class(*), pointer :: zz1
   zz1 => self%c_os
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam880
+  end procedure p_lam885
 
-  module procedure p_lam881
+  module procedure p_lam886
     class(t_quality_mixedscalar), pointer :: zz1
     class(t_quality_mixedscalar), pointer :: zz2
     type(cpp_iter_d) :: zz3
@@ -5915,7 +5929,7 @@ contains
   zz5 => h_uas_cpp_vec_d(self%c_this%held_%a%a(a1)%p)
   zres = (zz7 - cpp_algo_accumulate_iterd_iterd_d(zz6, cpp_vec_d_end(zz5), 0.0_8))
   return
-  end procedure p_lam881
+  end procedure p_lam886
 
   module procedure p_quality_fvqualitytransport__execute
     logical :: advanced_
@@ -5958,7 +5972,7 @@ contains
     class(cpp_ofstream), pointer :: os_
     class(cpp_ofstream), pointer :: zz20
     class(cpp_defer), pointer :: x__dtor5_
-    class(t_lam880), pointer :: zz21
+    class(t_lam885), pointer :: zz21
     class(cpp_defer), pointer :: zz22
     integer(4) :: zz23
     class(cpp_ostream), pointer :: zz24
@@ -6102,7 +6116,7 @@ contains
     class(cpp_str), pointer :: zz104
     class(cpp_runtimeerror), pointer :: zz105
     class(t_fn119), pointer :: drydelta_
-    class(t_lam881), pointer :: zz106
+    class(t_lam886), pointer :: zz106
     integer(8) :: p_2_
     class(t_quality_mixedscalar), pointer :: r_
     class(t_quality_mixedscalar), pointer :: zz107

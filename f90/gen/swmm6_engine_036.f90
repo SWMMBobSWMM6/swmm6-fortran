@@ -4,6 +4,30 @@ submodule (swmm6_engine) swmm6_engine_036
   implicit none
 contains
 
+  module procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_2c3004b9
+    class(t_richards_job_src_engine_hydrology_richardscolumn_cpp_596), pointer :: zz1
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%ids => s_%ids
+  self%first = s_%first
+  self%last = s_%last
+  self%exception => s_%exception
+  end procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_2c3004b9
+
+  module procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_3dc387ad
+    class(t_richards_job_src_engine_hydrology_richardscolumn_cpp_596), pointer :: o_
+    class(t_richards_job_src_engine_hydrology_richardscolumn_cpp_596), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards_job_src_engine_hydrology_richardscolumn_cp_829916f4(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards_job_src_engine_hydrology_richardscolumn_cp_2c3004b9(o_, s_)
+  zres => o_
+  return
+  end procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_3dc387ad
+
   module procedure p_richards__f__valid__rmaterial_d
     logical :: zz1
     logical :: zz2
@@ -152,24 +176,49 @@ contains
   return
   end procedure p_richards__f__conductivity
 
-  module procedure p_lam453
+  module procedure p_lam456
+    class(cpp_vec_o), pointer :: c_2_l_
+    class(cpp_vec_o), pointer :: r_4_l_
     logical :: zz1
-    class(cpp_sysexception), pointer :: zz2
-    class(cpp_sysexception), pointer :: zz3
+    class(cpp_vec_o), pointer :: zz2
+    class(cpp_vec_o), pointer :: zz3
+    class(cpp_vec_o), pointer :: zz4
+    class(cpp_vec_o), pointer :: zz5
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz6
+    class(cpp_vec_o), pointer :: zz7
+    class(cpp_vec_o), pointer :: zz8
+    class(cpp_vec_o), pointer :: zz9
+    class(cpp_vec_o), pointer :: zz10
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz11
+  c_2_l_ => a1
+  r_4_l_ => a2
   zz1 = a3
   if (zz1) then
-    zz1 = (ieor(cpp_vec_o_size(a1), (-9223372036854775807_8 - 1_8)) >= ieor(8_8, (-9223372036854775807_8 - 1_8)))
+    zz1 = (ieor(cpp_vec_o_size(c_2_l_), (-9223372036854775807_8 - 1_8)) >= ieor(8_8, (-9223372036854775807_8 - 1_8)))
   end if
   if (zz1) then
-    zz2 => cpp_sysexception_new("NotImplementedException", "TODO type openswmm::richards::(anonymous namespace)::Batch")
-    cpp_exc => zz2
-    return
+    zz2 => c_2_l_
+    zz3 => h_new_cpp_vec_o_richards_column()
+    c_2_l_ => zz3
+    zz4 => r_4_l_
+    zz5 => h_new_cpp_vec_o_richards_report()
+    r_4_l_ => zz5
+    zz6 => p_richards__anon_hydrology_richardscolumn_cpp_batch_t_addbbb41(zz2, zz4)
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_true__run(zz6, self%c_dt)
+    if (associated(cpp_exc)) return
   else
-    zz3 => cpp_sysexception_new("NotImplementedException", "TODO type openswmm::richards::(anonymous namespace)::Batch")
-    cpp_exc => zz3
-    return
+    zz7 => c_2_l_
+    zz8 => h_new_cpp_vec_o_richards_column()
+    c_2_l_ => zz8
+    zz9 => r_4_l_
+    zz10 => h_new_cpp_vec_o_richards_report()
+    r_4_l_ => zz10
+    zz11 => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_878f0278(zz7, zz9)
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_false__run(zz11, self%c_dt)
+    if (associated(cpp_exc)) return
   end if
-  end procedure p_lam453
+  return
+  end procedure p_lam456
 
   module procedure p_richards__f__advance
     class(t_perf_processtimer), pointer :: process_timer_
@@ -268,7 +317,7 @@ contains
     type(cpp_slot), pointer :: zz70
     class(cpp_vec_l), pointer :: zz71
     class(t_fn52), pointer :: runbatch_
-    class(t_lam453), pointer :: zz72
+    class(t_lam456), pointer :: zz72
     logical :: parallel_complete_
     logical :: zz73
     class(cpp_vec_o), pointer :: jobs_
@@ -654,6 +703,7 @@ contains
     a_ = (a_ + 1_8)
   end do
   allocate(zz72)
+  zz72%c_dt = dt_
   runbatch_ => zz72
   parallel_complete_ = .false.
   zz73 = (ieor(cpp_vec_o_size(trial_), (-9223372036854775807_8 - 1_8)) >= ieor(256_8, (-9223372036854775807_8 - 1_8)))
@@ -898,1800 +948,10 @@ contains
   return
   end procedure p_richards__f__advance
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_61c9195e
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_61c9195e
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_6f26ce7b
-    class(cpp_vec_o), pointer :: c_l_
-    class(cpp_vec_o), pointer :: r_l_
-    type(cpp_slot), pointer :: zz1
-    class(t_richards_column), pointer :: zz2
-    class(cpp_vec_o), pointer :: zz3
-    class(cpp_vec_o), pointer :: zz4
-    class(cpp_vec_d), pointer :: zz5
-    class(cpp_vec_d), pointer :: zz6
-    class(cpp_vec_d), pointer :: zz7
-    class(cpp_vec_o), pointer :: zz8
-    class(cpp_vec_o), pointer :: zz9
-    class(cpp_vec_d), pointer :: zz10
-    class(cpp_vec_d), pointer :: zz11
-    class(cpp_vec_d), pointer :: zz12
-    class(cpp_vec_d), pointer :: zz13
-    class(cpp_vec_d), pointer :: zz14
-    class(cpp_vec_d), pointer :: zz15
-    class(cpp_vec_d), pointer :: zz16
-    class(cpp_vec_d), pointer :: zz17
-    class(cpp_vec_d), pointer :: zz18
-    class(cpp_vec_d), pointer :: zz19
-    class(cpp_vec_d), pointer :: zz20
-    class(cpp_vec_b), pointer :: zz21
-    class(cpp_vec_d), pointer :: zz22
-    class(cpp_arr_o), pointer :: x__r1_
-    class(cpp_arr_o), pointer :: zz23
-    integer(8) :: x__i2_
-    integer(8) :: x__i2_n_
-    class(cpp_vec_d), pointer :: scratch_
-    class(cpp_vec_d), pointer :: zz24
-    class(cpp_sysexception), pointer :: zz25
-    integer(4) :: k_
-    integer(4) :: a_
-    class(t_richards_cell), pointer :: cell_
-    class(t_richards_column), pointer :: zz26
-    class(t_richards_cell), pointer :: zz27
-    integer(4) :: i_
-    class(t_richards_column), pointer :: zz28
-    real(8), pointer :: zz29
-    class(cpp_arr_d), pointer :: values_
-    class(cpp_arr_d), pointer :: zz30
-    class(cpp_sysexception), pointer :: zz31
-    real(8) :: zz32
-    real(8), pointer :: zz33
-  c_l_ => c_
-  r_l_ => r_
-  zz1 => cpp_vec_o_front(c_l_)
-  zz2 => h_uas_richards_column(zz1%p)
-  self%n = int(cpp_vec_o_size(zz2%cells), 4)
-  self%lanes = int(cpp_vec_o_size(c_l_), 4)
-  zz3 => c_l_
-  zz4 => h_new_cpp_vec_o_richards_column()
-  c_l_ => zz4
-  self%columns => zz3
-  zz5 => cpp_vec_d_new_0()
-  self%y => zz5
-  zz6 => cpp_vec_d_new_0()
-  self%volume => zz6
-  zz7 => cpp_vec_d_new_0()
-  self%lower_bound => zz7
-  zz8 => r_l_
-  zz9 => h_new_cpp_vec_o_richards_report()
-  r_l_ => zz9
-  self%reports => zz8
-  zz10 => cpp_vec_d_new_0()
-  self%head => zz10
-  zz11 => cpp_vec_d_new_0()
-  self%k => zz11
-  zz12 => cpp_vec_d_new_0()
-  self%f => zz12
-  zz13 => cpp_vec_d_new_0()
-  self%fp => zz13
-  zz14 => cpp_vec_d_new_0()
-  self%residual => zz14
-  zz15 => cpp_vec_d_new_0()
-  self%lo => zz15
-  zz16 => cpp_vec_d_new_0()
-  self%di => zz16
-  zz17 => cpp_vec_d_new_0()
-  self%up => zz17
-  zz18 => cpp_vec_d_new_0()
-  self%delta => zz18
-  zz19 => cpp_vec_d_new_0()
-  self%perturbed => zz19
-  zz20 => cpp_vec_d_new_0()
-  self%epsilon => zz20
-  zz21 => cpp_vec_b_new_0()
-  self%done => zz21
-  zz22 => cpp_vec_d_new_0()
-  self%coefficients => zz22
-  call cpp_vec_d_resize_ul(self%y, int((self%n * self%lanes), 8))
-  call cpp_vec_d_resize_ul(self%volume, cpp_vec_d_size(self%y))
-  call cpp_vec_d_resize_ul(self%lower_bound, cpp_vec_d_size(self%y))
-  zz23 => cpp_arr_o_new(11_8)
-  zz23%a(0)%p => self%head
-  zz23%a(1)%p => self%k
-  zz23%a(2)%p => self%f
-  zz23%a(3)%p => self%fp
-  zz23%a(4)%p => self%residual
-  zz23%a(5)%p => self%lo
-  zz23%a(6)%p => self%di
-  zz23%a(7)%p => self%up
-  zz23%a(8)%p => self%delta
-  zz23%a(9)%p => self%perturbed
-  zz23%a(10)%p => self%epsilon
-  x__r1_ => zz23
-  x__i2_ = 0_8
-  x__i2_n_ = int(size(x__r1_%a), 8)
-  do
-    if (.not. ((x__i2_ < x__i2_n_))) exit
-    zz24 => h_uas_cpp_vec_d(x__r1_%a(x__i2_)%p)
-    scratch_ => zz24
-    call cpp_vec_d_resize_ul(scratch_, cpp_vec_d_size(self%y))
-    x__i2_ = (x__i2_ + 1_8)
-  end do
-  call cpp_vec_b_resize_ul(self%done, int(self%lanes, 8))
-  zz25 => cpp_sysexception_new("NotImplementedException", "TODO type openswmm::richards::(anonymous namespace)::Batch<>")
-  cpp_exc => zz25
-  return
-  k_ = 0
-  do
-    if (.not. ((k_ < self%n))) exit
-    a_ = 0
-    do
-      if (.not. ((a_ < self%lanes))) exit
-      zz26 => h_uas_richards_column(self%columns%a%a(int(a_, 8))%p)
-      zz27 => h_uas_richards_cell(zz26%cells%a%a(int(k_, 8))%p)
-      cell_ => zz27
-      i_ = ((k_ * self%lanes) + a_)
-      zz29 => self%y%a%a(int(i_, 8))
-      zz28 => h_uas_richards_column(self%columns%a%a(int(a_, 8))%p)
-      zz29 = zz28%water%a%a(int(k_, 8))
-      self%volume%a%a(int(i_, 8)) = cell_%volume
-      zz30 => cpp_arr_d_new(12_8)
-      zz30%a(0) = cell_%area
-      zz30%a(1) = cell_%z
-      zz30%a(2) = cell_%dz
-      zz30%a(3) = cell_%theta_s
-      zz30%a(4) = cell_%ks
-      zz30%a(5) = cell_%wilting
-      zz30%a(6) = cell_%potential_et
-      zz30%a(7) = cell_%material%theta_r
-      zz30%a(8) = cell_%material%alpha
-      zz30%a(9) = cell_%material%n
-      zz30%a(10) = cell_%material%l
-      zz30%a(11) = cell_%material%specific_storage
-      values_ => zz30
-      zz31 => cpp_sysexception_new("NotImplementedException", "TODO type openswmm::richards::(anonymous namespace)::Batch<>")
-      cpp_exc => zz31
-      return
-      zz33 => self%lower_bound%a%a(int(i_, 8))
-      if ((k_ /= 0)) then
-        zz32 = (cell_%material%theta_r * cell_%volume)
-      else
-        zz32 = 0.0_8
-      end if
-      zz33 = zz32
-      a_ = (a_ + 1)
-    end do
-    k_ = (k_ + 1)
-  end do
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_6f26ce7b
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_133c75d5
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: o_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_61c9195e(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_6f26ce7b(o_, c_, r_)
-  if (associated(cpp_exc)) return
-  zres => o_
-  return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_133c75d5
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__ctor_x
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_61c9195e(self, cpp_raw_v)
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__ctor_x
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__clone
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: o_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_61c9195e(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_8b668421(o_, self)
-  if (associated(cpp_exc)) return
-  zres => o_
-  return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__clone
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_8b668421
-    class(cpp_vec_o), pointer :: zz1
-    class(cpp_vec_o), pointer :: zz2
-    class(cpp_vec_d), pointer :: zz3
-    class(cpp_vec_d), pointer :: zz4
-    class(cpp_vec_d), pointer :: zz5
-    class(cpp_vec_d), pointer :: zz6
-    class(cpp_vec_d), pointer :: zz7
-    class(cpp_vec_d), pointer :: zz8
-    class(cpp_vec_o), pointer :: zz9
-    class(cpp_vec_o), pointer :: zz10
-    class(cpp_vec_d), pointer :: zz11
-    class(cpp_vec_d), pointer :: zz12
-    class(cpp_vec_d), pointer :: zz13
-    class(cpp_vec_d), pointer :: zz14
-    class(cpp_vec_d), pointer :: zz15
-    class(cpp_vec_d), pointer :: zz16
-    class(cpp_vec_d), pointer :: zz17
-    class(cpp_vec_d), pointer :: zz18
-    class(cpp_vec_d), pointer :: zz19
-    class(cpp_vec_d), pointer :: zz20
-    class(cpp_vec_d), pointer :: zz21
-    class(cpp_vec_d), pointer :: zz22
-    class(cpp_vec_d), pointer :: zz23
-    class(cpp_vec_d), pointer :: zz24
-    class(cpp_vec_d), pointer :: zz25
-    class(cpp_vec_d), pointer :: zz26
-    class(cpp_vec_d), pointer :: zz27
-    class(cpp_vec_d), pointer :: zz28
-    class(cpp_vec_d), pointer :: zz29
-    class(cpp_vec_d), pointer :: zz30
-    class(cpp_vec_d), pointer :: zz31
-    class(cpp_vec_d), pointer :: zz32
-    class(cpp_vec_b), pointer :: zz33
-    class(cpp_vec_b), pointer :: zz34
-    class(cpp_vec_d), pointer :: zz35
-    class(cpp_vec_d), pointer :: zz36
-  self%n = s_%n
-  self%lanes = s_%lanes
-  zz1 => null()
-  if (associated(s_%columns)) then
-    zz2 => cpp_vec_o_clone(s_%columns)
-    if (associated(cpp_exc)) return
-    zz1 => zz2
-  end if
-  self%columns => zz1
-  zz3 => null()
-  if (associated(s_%y)) then
-    zz4 => cpp_vec_d_clone(s_%y)
-    if (associated(cpp_exc)) return
-    zz3 => zz4
-  end if
-  self%y => zz3
-  zz5 => null()
-  if (associated(s_%volume)) then
-    zz6 => cpp_vec_d_clone(s_%volume)
-    if (associated(cpp_exc)) return
-    zz5 => zz6
-  end if
-  self%volume => zz5
-  zz7 => null()
-  if (associated(s_%lower_bound)) then
-    zz8 => cpp_vec_d_clone(s_%lower_bound)
-    if (associated(cpp_exc)) return
-    zz7 => zz8
-  end if
-  self%lower_bound => zz7
-  zz9 => null()
-  if (associated(s_%reports)) then
-    zz10 => cpp_vec_o_clone(s_%reports)
-    if (associated(cpp_exc)) return
-    zz9 => zz10
-  end if
-  self%reports => zz9
-  zz11 => null()
-  if (associated(s_%head)) then
-    zz12 => cpp_vec_d_clone(s_%head)
-    if (associated(cpp_exc)) return
-    zz11 => zz12
-  end if
-  self%head => zz11
-  zz13 => null()
-  if (associated(s_%k)) then
-    zz14 => cpp_vec_d_clone(s_%k)
-    if (associated(cpp_exc)) return
-    zz13 => zz14
-  end if
-  self%k => zz13
-  zz15 => null()
-  if (associated(s_%f)) then
-    zz16 => cpp_vec_d_clone(s_%f)
-    if (associated(cpp_exc)) return
-    zz15 => zz16
-  end if
-  self%f => zz15
-  zz17 => null()
-  if (associated(s_%fp)) then
-    zz18 => cpp_vec_d_clone(s_%fp)
-    if (associated(cpp_exc)) return
-    zz17 => zz18
-  end if
-  self%fp => zz17
-  zz19 => null()
-  if (associated(s_%residual)) then
-    zz20 => cpp_vec_d_clone(s_%residual)
-    if (associated(cpp_exc)) return
-    zz19 => zz20
-  end if
-  self%residual => zz19
-  zz21 => null()
-  if (associated(s_%lo)) then
-    zz22 => cpp_vec_d_clone(s_%lo)
-    if (associated(cpp_exc)) return
-    zz21 => zz22
-  end if
-  self%lo => zz21
-  zz23 => null()
-  if (associated(s_%di)) then
-    zz24 => cpp_vec_d_clone(s_%di)
-    if (associated(cpp_exc)) return
-    zz23 => zz24
-  end if
-  self%di => zz23
-  zz25 => null()
-  if (associated(s_%up)) then
-    zz26 => cpp_vec_d_clone(s_%up)
-    if (associated(cpp_exc)) return
-    zz25 => zz26
-  end if
-  self%up => zz25
-  zz27 => null()
-  if (associated(s_%delta)) then
-    zz28 => cpp_vec_d_clone(s_%delta)
-    if (associated(cpp_exc)) return
-    zz27 => zz28
-  end if
-  self%delta => zz27
-  zz29 => null()
-  if (associated(s_%perturbed)) then
-    zz30 => cpp_vec_d_clone(s_%perturbed)
-    if (associated(cpp_exc)) return
-    zz29 => zz30
-  end if
-  self%perturbed => zz29
-  zz31 => null()
-  if (associated(s_%epsilon)) then
-    zz32 => cpp_vec_d_clone(s_%epsilon)
-    if (associated(cpp_exc)) return
-    zz31 => zz32
-  end if
-  self%epsilon => zz31
-  zz33 => null()
-  if (associated(s_%done)) then
-    zz34 => cpp_vec_b_clone(s_%done)
-    if (associated(cpp_exc)) return
-    zz33 => zz34
-  end if
-  self%done => zz33
-  zz35 => null()
-  if (associated(s_%coefficients)) then
-    zz36 => cpp_vec_d_clone(s_%coefficients)
-    if (associated(cpp_exc)) return
-    zz35 => zz36
-  end if
-  self%coefficients => zz35
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_8b668421
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__assign
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: zz1
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%n = s_%n
-  self%lanes = s_%lanes
-  call cpp_vec_o_assign_vect(self%columns, s_%columns)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%y, s_%y)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%volume, s_%volume)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%lower_bound, s_%lower_bound)
-  if (associated(cpp_exc)) return
-  call cpp_vec_o_assign_vect(self%reports, s_%reports)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%head, s_%head)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%k, s_%k)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%f, s_%f)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%fp, s_%fp)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%residual, s_%residual)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%lo, s_%lo)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%di, s_%di)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%up, s_%up)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%delta, s_%delta)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%perturbed, s_%perturbed)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%epsilon, s_%epsilon)
-  if (associated(cpp_exc)) return
-  call cpp_vec_b_assign_vect(self%done, s_%done)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%coefficients, s_%coefficients)
-  if (associated(cpp_exc)) return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__assign
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_4a5faab9
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: zz1
-    class(cpp_vec_o), pointer :: zz2
-    class(cpp_vec_d), pointer :: zz3
-    class(cpp_vec_d), pointer :: zz4
-    class(cpp_vec_d), pointer :: zz5
-    class(cpp_vec_o), pointer :: zz6
-    class(cpp_vec_d), pointer :: zz7
-    class(cpp_vec_d), pointer :: zz8
-    class(cpp_vec_d), pointer :: zz9
-    class(cpp_vec_d), pointer :: zz10
-    class(cpp_vec_d), pointer :: zz11
-    class(cpp_vec_d), pointer :: zz12
-    class(cpp_vec_d), pointer :: zz13
-    class(cpp_vec_d), pointer :: zz14
-    class(cpp_vec_d), pointer :: zz15
-    class(cpp_vec_d), pointer :: zz16
-    class(cpp_vec_d), pointer :: zz17
-    class(cpp_vec_b), pointer :: zz18
-    class(cpp_vec_d), pointer :: zz19
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%n = s_%n
-  self%lanes = s_%lanes
-  self%columns => s_%columns
-  zz2 => cpp_vec_o_new_0(h_mk_richards_column, 2)
-  s_%columns => zz2
-  self%y => s_%y
-  zz3 => cpp_vec_d_new_0()
-  s_%y => zz3
-  self%volume => s_%volume
-  zz4 => cpp_vec_d_new_0()
-  s_%volume => zz4
-  self%lower_bound => s_%lower_bound
-  zz5 => cpp_vec_d_new_0()
-  s_%lower_bound => zz5
-  self%reports => s_%reports
-  zz6 => cpp_vec_o_new_0(h_mk_richards_report, 2)
-  s_%reports => zz6
-  self%head => s_%head
-  zz7 => cpp_vec_d_new_0()
-  s_%head => zz7
-  self%k => s_%k
-  zz8 => cpp_vec_d_new_0()
-  s_%k => zz8
-  self%f => s_%f
-  zz9 => cpp_vec_d_new_0()
-  s_%f => zz9
-  self%fp => s_%fp
-  zz10 => cpp_vec_d_new_0()
-  s_%fp => zz10
-  self%residual => s_%residual
-  zz11 => cpp_vec_d_new_0()
-  s_%residual => zz11
-  self%lo => s_%lo
-  zz12 => cpp_vec_d_new_0()
-  s_%lo => zz12
-  self%di => s_%di
-  zz13 => cpp_vec_d_new_0()
-  s_%di => zz13
-  self%up => s_%up
-  zz14 => cpp_vec_d_new_0()
-  s_%up => zz14
-  self%delta => s_%delta
-  zz15 => cpp_vec_d_new_0()
-  s_%delta => zz15
-  self%perturbed => s_%perturbed
-  zz16 => cpp_vec_d_new_0()
-  s_%perturbed => zz16
-  self%epsilon => s_%epsilon
-  zz17 => cpp_vec_d_new_0()
-  s_%epsilon => zz17
-  self%done => s_%done
-  zz18 => cpp_vec_b_new_0()
-  s_%done => zz18
-  self%coefficients => s_%coefficients
-  zz19 => cpp_vec_d_new_0()
-  s_%coefficients => zz19
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_4a5faab9
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__movenew
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: o_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_61c9195e(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_4a5faab9(o_, s_)
-  zres => o_
-  return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__movenew
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat
-    integer(8) :: i_
-    class(cpp_sysexception), pointer :: zz1
-    class(*), pointer :: field_
-    class(t_richards_cell), pointer :: zz2
-    class(t_fn228), pointer :: zz3
-    real(8) :: zz4
-    real(8), pointer :: zz5
-    class(t_fn228), pointer :: zz6
-    real(8) :: zz7
-    real(8), pointer :: zz8
-    class(t_fn228), pointer :: zz9
-    real(8) :: zz10
-    real(8), pointer :: zz11
-    class(t_fn228), pointer :: zz12
-    real(8) :: zz13
-    real(8), pointer :: zz14
-    class(t_fn228), pointer :: zz15
-    real(8) :: zz16
-    real(8), pointer :: zz17
-    class(t_fn228), pointer :: zz18
-    real(8) :: zz19
-    real(8), pointer :: zz20
-    class(t_fn228), pointer :: zz21
-    real(8) :: zz22
-    real(8), pointer :: zz23
-    class(t_richards_material), pointer :: zz24
-    class(t_fn228), pointer :: zz25
-    real(8) :: zz26
-    real(8), pointer :: zz27
-    class(t_fn228), pointer :: zz28
-    real(8) :: zz29
-    real(8), pointer :: zz30
-    class(t_fn228), pointer :: zz31
-    real(8) :: zz32
-    real(8), pointer :: zz33
-    class(t_fn228), pointer :: zz34
-    real(8) :: zz35
-    real(8), pointer :: zz36
-    class(t_fn228), pointer :: zz37
-    real(8) :: zz38
-    real(8), pointer :: zz39
-  zres => null()
-  i_ = int(((k_ * self%lanes) + a_), 8)
-  zz1 => cpp_sysexception_new("NotImplementedException", "TODO type openswmm::richards::(anonymous namespace)::Batch<>")
-  cpp_exc => zz1
-  return
-  field_ => null()
-  allocate(zz2)
-  call p_richards_cell__ctor_x(zz2)
-  zz2%volume = self%volume%a%a(i_)
-  zz5 => zz2%area
-  zz3 => h_uas_fn228(field_)
-  zz4 = zz3%invoke(0)
-  zz5 = zz4
-  zz8 => zz2%z
-  zz6 => h_uas_fn228(field_)
-  zz7 = zz6%invoke(1)
-  zz8 = zz7
-  zz11 => zz2%dz
-  zz9 => h_uas_fn228(field_)
-  zz10 = zz9%invoke(2)
-  zz11 = zz10
-  zz14 => zz2%theta_s
-  zz12 => h_uas_fn228(field_)
-  zz13 = zz12%invoke(3)
-  zz14 = zz13
-  zz17 => zz2%ks
-  zz15 => h_uas_fn228(field_)
-  zz16 = zz15%invoke(4)
-  zz17 = zz16
-  zz20 => zz2%wilting
-  zz18 => h_uas_fn228(field_)
-  zz19 = zz18%invoke(5)
-  zz20 = zz19
-  zz23 => zz2%potential_et
-  zz21 => h_uas_fn228(field_)
-  zz22 = zz21%invoke(6)
-  zz23 = zz22
-  allocate(zz24)
-  call p_richards_material__ctor_x(zz24)
-  zz27 => zz24%theta_r
-  zz25 => h_uas_fn228(field_)
-  zz26 = zz25%invoke(7)
-  zz27 = zz26
-  zz30 => zz24%alpha
-  zz28 => h_uas_fn228(field_)
-  zz29 = zz28%invoke(8)
-  zz30 = zz29
-  zz33 => zz24%n
-  zz31 => h_uas_fn228(field_)
-  zz32 = zz31%invoke(9)
-  zz33 = zz32
-  zz36 => zz24%l
-  zz34 => h_uas_fn228(field_)
-  zz35 = zz34%invoke(10)
-  zz36 = zz35
-  zz39 => zz24%specific_storage
-  zz37 => h_uas_fn228(field_)
-  zz38 = zz37%invoke(11)
-  zz39 = zz38
-  zz2%material => zz24
-  zres => zz2
-  return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs
-    integer(4) :: a_
-    logical :: zz1
-    integer(4), target :: zz2
-    class(t_richards_report), pointer :: zz3
-    integer(4) :: zz4
-    integer(4) :: a_2_
-    logical :: zz5
-    class(t_richards_column), pointer :: zz6
-    logical :: zz7
-    class(t_richards_column), pointer :: zz8
-    real(8), pointer :: zz9
-    real(8) :: zz10
-    integer(4) :: k_
-    integer(4) :: a_3_
-    logical :: zz11
-    integer(4) :: i_
-    class(t_richards_cell), pointer :: c_
-    class(t_richards_cell), pointer :: zz12
-    real(8) :: zz13
-    real(8) :: zz14
-    real(8), pointer :: zz15
-    real(8) :: zz16
-    real(8), pointer :: zz17
-    real(8) :: stress_
-    real(8) :: zz18
-    real(8) :: e_
-    real(8) :: zz19
-    real(8), target :: zz20
-    real(8) :: zz21
-    integer(4) :: k_2_
-    integer(4) :: a_4_
-    logical :: zz22
-    integer(4) :: i_2_
-    integer(4) :: j_
-    class(t_richards_cell), pointer :: c_2_
-    class(t_richards_cell), pointer :: zz23
-    class(t_richards_cell), pointer :: d_
-    class(t_richards_cell), pointer :: zz24
-    real(8) :: area_
-    real(8) :: conductance_
-    logical :: zz25
-    logical :: zz26
-    logical :: zz27
-    logical :: zz28
-    logical :: zz29
-    logical :: zz30
-    logical :: zz31
-    logical :: zz32
-    logical :: zz33
-    logical :: zz34
-    real(8) :: q_
-    real(8) :: zz35
-    real(8) :: zz36
-    real(8) :: zz37
-    real(8), target :: zz38
-    real(8) :: zz39
-    integer(4) :: a_5_
-    logical :: zz40
-    integer(4) :: i_3_
-    class(t_richards_column), pointer :: col_
-    class(t_richards_column), pointer :: zz41
-    class(t_richards_cell), pointer :: c_3_
-    class(t_richards_cell), pointer :: zz42
-    real(8) :: area_2_
-    real(8), pointer :: zz43
-    real(8) :: q_2_
-    logical :: zz44
-    logical :: zz45
-    logical :: zz46
-    logical :: zz47
-    real(8) :: resistance_
-    real(8) :: zz48
-    integer(4), target :: zz49
-    integer(4) :: zz50
-    integer(4), target :: zz51
-    integer(4) :: zz52
-    real(8) :: zz53
-    real(8), target :: zz54
-    real(8) :: zz55
-  call cpp_vec_d_assign_ul_t(f_, cpp_vec_d_size(w_), 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(self%head, cpp_vec_d_size(w_), 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(self%k, cpp_vec_d_size(w_), 0.0_8)
-  if (associated(cpp_exc)) return
-  if ((.not. (.not. associated(faces_)))) then
-    call cpp_vec_d_assign_ul_t(faces_, int((self%n * self%lanes), 8), 0.0_8)
-    if (associated(cpp_exc)) return
-  end if
-  if ((.not. (.not. associated(et_)))) then
-    call cpp_vec_d_assign_ul_t(et_, cpp_vec_d_size(w_), 0.0_8)
-    if (associated(cpp_exc)) return
-  end if
-  if ((.not. (.not. associated(limited_)))) then
-    call cpp_vec_i_assign_ul_t(limited_, int(self%lanes, 8), 0)
-    if (associated(cpp_exc)) return
-  end if
-  a_ = 0
-  do
-    if (.not. ((a_ < self%lanes))) exit
-    zz1 = (.not. (.not. (.not. associated(inactive_))))
-    if (.not. zz1) then
-      zz1 = (.not. (iand(int(inactive_%a%a(int(a_, 8)), 4), 255_4) /= 0))
-    end if
-    if (zz1) then
-      zz3 => h_uas_richards_report(self%reports%a%a(int(a_, 8))%p)
-      zz4 = (zz3%rhs + 1)
-      zz3%rhs = zz4
-      zz2 = zz4
-    end if
-    a_ = (a_ + 1)
-  end do
-  a_2_ = 0
-  do
-    if (.not. ((a_2_ < self%lanes))) exit
-    zz5 = (.not. (.not. (.not. associated(inactive_))))
-    if (.not. zz5) then
-      zz5 = (.not. (iand(int(inactive_%a%a(int(a_2_, 8)), 4), 255_4) /= 0))
-    end if
-    zz7 = zz5
-    if (zz7) then
-      zz6 => h_uas_richards_column(self%columns%a%a(int(a_2_, 8))%p)
-      zz7 = (zz6%inflow > 0.0_8)
-    end if
-    if (zz7) then
-      zz9 => f_%a%a(int(a_2_, 8))
-      zz8 => h_uas_richards_column(self%columns%a%a(int(a_2_, 8))%p)
-      zz10 = (zz9 + zz8%inflow)
-      zz9 = zz10
-    end if
-    a_2_ = (a_2_ + 1)
-  end do
-  k_ = 0
-  do
-    if (.not. ((k_ < self%n))) exit
-    a_3_ = 0
-    do
-      if (.not. ((a_3_ < self%lanes))) exit
-      zz11 = (.not. (.not. associated(inactive_)))
-      if (zz11) then
-        zz11 = (iand(int(inactive_%a%a(int(a_3_, 8)), 4), 255_4) /= 0)
-      end if
-      if (zz11) then
-        goto 108
-      end if
-      i_ = ((k_ * self%lanes) + a_3_)
-      zz12 => p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat(self, k_, a_3_)
-      if (associated(cpp_exc)) return
-      c_ => zz12
-      zz15 => self%head%a%a(int(i_, 8))
-      zz14 = c_%z
-      if ((k_ /= 0)) then
-        zz13 = p_richards__f__pressure(c_%material, c_%theta_s, (w_%a%a(int(i_, 8)) / c_%volume))
-      else
-        zz13 = (cpp_m_max_d_d(0.0_8, w_%a%a(int(i_, 8))) / (c_%area * c_%theta_s))
-      end if
-      zz15 = (zz14 + zz13)
-      zz17 => self%k%a%a(int(i_, 8))
-      if ((k_ /= 0)) then
-        zz16 = p_richards__f__conductivity(c_%material, c_%ks, (self%head%a%a(int(i_, 8)) - c_%z))
-      else
-        zz16 = 0.0_8
-      end if
-      zz17 = zz16
-      if ((k_ /= 0)) then
-        zz18 = cpp_m_clamp_d_d_d((((w_%a%a(int(i_, 8)) / c_%volume) - c_%wilting) / cpp_m_max_d_d((c_%theta_s - c_%wilting), 1E-12_8)), 0.0_8, 1.0_8)
-      else
-        zz18 = cpp_m_clamp_d_d_d((w_%a%a(int(i_, 8)) / ((c_%area * c_%theta_s) * 1E-06_8)), 0.0_8, 1.0_8)
-      end if
-      stress_ = zz18
-      e_ = (c_%potential_et * stress_)
-      zz19 = (f_%a%a(int(i_, 8)) - e_)
-      f_%a%a(int(i_, 8)) = zz19
-      if ((.not. (.not. associated(et_)))) then
-        zz21 = e_
-        et_%a%a(int(i_, 8)) = zz21
-        zz20 = zz21
-      end if
-      108 continue
-      a_3_ = (a_3_ + 1)
-    end do
-    k_ = (k_ + 1)
-  end do
-  k_2_ = 0
-  do
-    if (.not. ((k_2_ < (self%n - 1)))) exit
-    a_4_ = 0
-    do
-      if (.not. ((a_4_ < self%lanes))) exit
-      zz22 = (.not. (.not. associated(inactive_)))
-      if (zz22) then
-        zz22 = (iand(int(inactive_%a%a(int(a_4_, 8)), 4), 255_4) /= 0)
-      end if
-      if (zz22) then
-        goto 112
-      end if
-      i_2_ = ((k_2_ * self%lanes) + a_4_)
-      j_ = (i_2_ + self%lanes)
-      zz23 => p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat(self, k_2_, a_4_)
-      if (associated(cpp_exc)) return
-      c_2_ => zz23
-      zz24 => p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat(self, (k_2_ + 1), a_4_)
-      if (associated(cpp_exc)) return
-      d_ => zz24
-      area_ = cpp_m_min_d_d(c_2_%area, d_%area)
-      conductance_ = 0.0_8
-      if ((k_2_ == 0)) then
-        conductance_ = ((area_ * (d_%ks + self%k%a%a(int(j_, 8)))) / d_%dz)
-      else
-        zz29 = (c_2_%material%alpha == d_%material%alpha)
-        if (zz29) then
-          zz29 = (c_2_%material%n == d_%material%n)
-        end if
-        zz30 = zz29
-        if (zz30) then
-          zz30 = (c_2_%material%theta_r == d_%material%theta_r)
-        end if
-        zz31 = zz30
-        if (zz31) then
-          zz31 = (c_2_%material%l == d_%material%l)
-        end if
-        zz32 = zz31
-        if (zz32) then
-          zz32 = (c_2_%ks == d_%ks)
-        end if
-        if (zz32) then
-          conductance_ = (((area_ * ((c_2_%dz * self%k%a%a(int(j_, 8))) + (d_%dz * self%k%a%a(int(i_2_, 8))))) / (c_2_%dz + d_%dz)) / (0.5_8 * (c_2_%dz + d_%dz)))
-        else
-          zz34 = (self%k%a%a(int(i_2_, 8)) > 0.0_8)
-          if (zz34) then
-            zz34 = (self%k%a%a(int(j_, 8)) > 0.0_8)
-          end if
-          if (zz34) then
-            conductance_ = (area_ / (((0.5_8 * c_2_%dz) / self%k%a%a(int(i_2_, 8))) + ((0.5_8 * d_%dz) / self%k%a%a(int(j_, 8)))))
-          end if
-        end if
-      end if
-      q_ = (conductance_ * (self%head%a%a(int(i_2_, 8)) - self%head%a%a(int(j_, 8))))
-      if (((k_2_ == 0) .and. (q_ > 0.0_8))) then
-        zz35 = (q_ * cpp_m_clamp_d_d_d((w_%a%a(int(i_2_, 8)) / ((c_2_%area * c_2_%theta_s) * 1E-06_8)), 0.0_8, 1.0_8))
-        q_ = zz35
-      end if
-      zz36 = (f_%a%a(int(i_2_, 8)) - q_)
-      f_%a%a(int(i_2_, 8)) = zz36
-      zz37 = (f_%a%a(int(j_, 8)) + q_)
-      f_%a%a(int(j_, 8)) = zz37
-      if ((.not. (.not. associated(faces_)))) then
-        zz39 = q_
-        faces_%a%a(int(i_2_, 8)) = zz39
-        zz38 = zz39
-      end if
-      112 continue
-      a_4_ = (a_4_ + 1)
-    end do
-    k_2_ = (k_2_ + 1)
-  end do
-  a_5_ = 0
-  do
-    if (.not. ((a_5_ < self%lanes))) exit
-    zz40 = (.not. (.not. associated(inactive_)))
-    if (zz40) then
-      zz40 = (iand(int(inactive_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
-    end if
-    if (zz40) then
-      goto 114
-    end if
-    i_3_ = (((self%n - 1) * self%lanes) + a_5_)
-    zz41 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
-    col_ => zz41
-    zz42 => p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat(self, (self%n - 1), a_5_)
-    if (associated(cpp_exc)) return
-    c_3_ => zz42
-    if ((col_%bottom_area > 0.0_8)) then
-      zz43 => col_%bottom_area
-    else
-      zz43 => c_3_%area
-    end if
-    area_2_ = zz43
-    q_2_ = 0.0_8
-    if ((col_%bottom == 1)) then
-      q_2_ = (cpp_m_min_d_d(self%k%a%a(int(i_3_, 8)), col_%bottom_k) * area_2_)
-    else
-      zz46 = (col_%bottom == 2)
-      if (zz46) then
-        zz46 = (self%k%a%a(int(i_3_, 8)) > 0.0_8)
-      end if
-      zz47 = zz46
-      if (zz47) then
-        zz47 = (col_%bottom_k > 0.0_8)
-      end if
-      if (zz47) then
-        resistance_ = (((0.5_8 * c_3_%dz) / self%k%a%a(int(i_3_, 8))) + (col_%bottom_distance / col_%bottom_k))
-        q_2_ = ((area_2_ * (self%head%a%a(int(i_3_, 8)) - col_%bottom_head)) / resistance_)
-      end if
-    end if
-    zz48 = (q_2_ * col_%bottom_factor)
-    q_2_ = zz48
-    if ((.not. (.not. associated(rates_)))) then
-      if ((q_2_ > rates_%out%a%a(int(a_5_, 8)))) then
-        q_2_ = rates_%out%a%a(int(a_5_, 8))
-        if ((.not. (.not. associated(limited_)))) then
-          zz50 = 1
-          limited_%a%a(int(a_5_, 8)) = zz50
-          zz49 = zz50
-        end if
-      else if ((q_2_ < (-rates_%in%a%a(int(a_5_, 8))))) then
-        q_2_ = (-rates_%in%a%a(int(a_5_, 8)))
-        if ((.not. (.not. associated(limited_)))) then
-          zz52 = (-1)
-          limited_%a%a(int(a_5_, 8)) = zz52
-          zz51 = zz52
-        end if
-      end if
-    end if
-    zz53 = (f_%a%a(int(i_3_, 8)) - q_2_)
-    f_%a%a(int(i_3_, 8)) = zz53
-    if ((.not. (.not. associated(faces_)))) then
-      zz55 = q_2_
-      faces_%a%a(int(i_3_, 8)) = zz55
-      zz54 = zz55
-    end if
-    114 continue
-    a_5_ = (a_5_ + 1)
-  end do
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_758ab188
-    integer(4) :: a_
-    integer(1) :: zz1
-    integer(1), pointer :: zz2
-    integer(4) :: it_
-    logical :: all_
-    integer(4) :: a_2_
-    integer(4), target :: zz3
-    class(t_richards_report), pointer :: zz4
-    integer(4) :: zz5
-    real(8) :: norm_
-    integer(4) :: k_
-    integer(4) :: i_
-    class(t_richards_column), pointer :: zz6
-    real(8) :: zz7
-    logical :: zz8
-    integer(1) :: zz9
-    integer(1), pointer :: zz10
-    integer(4) :: color_
-    integer(4) :: k_2_
-    integer(4) :: a_3_
-    integer(4) :: i_2_
-    real(8) :: wet_distance_
-    class(t_richards_cell), pointer :: zz11
-    real(8) :: zz12
-    real(8) :: zz13
-    real(8), pointer :: zz14
-    real(8) :: zz15
-    integer(4) :: zz16
-    integer(4) :: k_3_
-    integer(4) :: a_4_
-    integer(4) :: j_
-    integer(4) :: row_
-    integer(4) :: i_3_
-    real(8) :: value_
-    real(8) :: zz17
-    integer(4) :: zz18
-    integer(4) :: k_4_
-    integer(4) :: a_5_
-    integer(4) :: i_4_
-    real(8) :: zz19
-    real(8), pointer :: zz20
-    real(8) :: factor_
-    real(8) :: zz21
-    real(8) :: zz22
-    integer(4) :: k_5_
-    integer(4) :: a_6_
-    integer(4) :: i_5_
-    real(8) :: zz23
-    real(8) :: zz24
-    integer(4) :: a_7_
-    real(8) :: damping_
-    integer(4) :: k_6_
-    integer(4) :: i_6_
-    integer(4) :: k_7_
-    real(8) :: zz25
-  call cpp_vec_d_assign_vect(out_, start_)
-  if (associated(cpp_exc)) return
-  call cpp_vec_b_assign_ul_t(self%done, int(self%lanes, 8), 0_1)
-  if (associated(cpp_exc)) return
-  call cpp_vec_b_assign_ul_t(success_, int(self%lanes, 8), 0_1)
-  if (associated(cpp_exc)) return
-  call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%residual), cpp_vec_d_end(self%residual), 0.0_8)
-  if (associated(cpp_exc)) return
-  a_ = 0
-  do
-    if (.not. ((a_ < self%lanes))) exit
-    if ((steps_%a%a(int(a_, 8)) == 0.0_8)) then
-      zz2 => self%done%a%a(int(a_, 8))
-      zz1 = 1_1
-      success_%a%a(int(a_, 8)) = zz1
-      zz2 = zz1
-    end if
-    a_ = (a_ + 1)
-  end do
-  it_ = 0
-  do
-    if (.not. ((it_ < 35))) exit
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs(self, out_, self%f, null(), null(), self%done, rates_, null())
-    if (associated(cpp_exc)) return
-    all_ = .true.
-    a_2_ = 0
-    do
-      if (.not. ((a_2_ < self%lanes))) exit
-      if ((.not. (iand(int(self%done%a%a(int(a_2_, 8)), 4), 255_4) /= 0))) then
-        zz4 => h_uas_richards_report(self%reports%a%a(int(a_2_, 8))%p)
-        zz5 = (zz4%newton + 1)
-        zz4%newton = zz5
-        zz3 = zz5
-        norm_ = 0.0_8
-        k_ = 0
-        do
-          if (.not. ((k_ < self%n))) exit
-          i_ = ((k_ * self%lanes) + a_2_)
-          self%residual%a%a(int(i_, 8)) = ((out_%a%a(int(i_, 8)) - start_%a%a(int(i_, 8))) - (steps_%a%a(int(a_2_, 8)) * self%f%a%a(int(i_, 8))))
-          if ((.not. cpp_double_isfinite(self%residual%a%a(int(i_, 8))))) then
-            norm_ = transfer(9218868437227405312_8, 0.0_8)
-            goto 107
-          end if
-          norm_ = cpp_m_max_d_d(norm_, (abs(self%residual%a%a(int(i_, 8))) / self%volume%a%a(int(i_, 8))))
-          k_ = (k_ + 1)
-        end do
-        107 continue
-        zz8 = cpp_double_isfinite(norm_)
-        if (zz8) then
-          zz7 = norm_
-          zz6 => h_uas_richards_column(self%columns%a%a(int(a_2_, 8))%p)
-          zz8 = (zz7 <= cpp_m_min_d_d(1E-11_8, (zz6%options%atol * 0.001_8)))
-        end if
-        if (zz8) then
-          zz10 => self%done%a%a(int(a_2_, 8))
-          zz9 = 1_1
-          success_%a%a(int(a_2_, 8)) = zz9
-          zz10 = zz9
-        else
-          all_ = .false.
-        end if
-      end if
-      a_2_ = (a_2_ + 1)
-    end do
-    if (all_) then
-      goto 103
-    end if
-    call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%lo), cpp_vec_d_end(self%lo), 0.0_8)
-    if (associated(cpp_exc)) return
-    call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%up), cpp_vec_d_end(self%up), 0.0_8)
-    if (associated(cpp_exc)) return
-    call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%di), cpp_vec_d_end(self%di), 1.0_8)
-    if (associated(cpp_exc)) return
-    color_ = 0
-    do
-      if (.not. ((color_ < 3))) exit
-      call cpp_vec_d_assign_vect(self%perturbed, out_)
-      if (associated(cpp_exc)) return
-      k_2_ = color_
-      do
-        if (.not. ((k_2_ < self%n))) exit
-        a_3_ = 0
-        do
-          if (.not. ((a_3_ < self%lanes))) exit
-          if ((.not. (iand(int(self%done%a%a(int(a_3_, 8)), 4), 255_4) /= 0))) then
-            i_2_ = ((k_2_ * self%lanes) + a_3_)
-            zz12 = out_%a%a(int(i_2_, 8))
-            zz11 => p_richards__anon_hydrology_richardscolumn_cpp_batch__1__cellat(self, k_2_, a_3_)
-            if (associated(cpp_exc)) return
-            wet_distance_ = abs((zz12 - (zz11%theta_s * self%volume%a%a(int(i_2_, 8)))))
-            zz14 => self%epsilon%a%a(int(i_2_, 8))
-            if ((k_2_ /= 0)) then
-              zz13 = cpp_m_max_d_d(wet_distance_, (0.0001_8 * self%volume%a%a(int(i_2_, 8))))
-            else
-              zz13 = self%volume%a%a(int(i_2_, 8))
-            end if
-            zz14 = (1E-08_8 * zz13)
-            zz15 = (self%perturbed%a%a(int(i_2_, 8)) + self%epsilon%a%a(int(i_2_, 8)))
-            self%perturbed%a%a(int(i_2_, 8)) = zz15
-          end if
-          a_3_ = (a_3_ + 1)
-        end do
-        zz16 = (k_2_ + 3)
-        k_2_ = zz16
-      end do
-      call p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs(self, self%perturbed, self%fp, null(), null(), self%done, rates_, null())
-      if (associated(cpp_exc)) return
-      k_3_ = color_
-      do
-        if (.not. ((k_3_ < self%n))) exit
-        a_4_ = 0
-        do
-          if (.not. ((a_4_ < self%lanes))) exit
-          if ((.not. (iand(int(self%done%a%a(int(a_4_, 8)), 4), 255_4) /= 0))) then
-            j_ = ((k_3_ * self%lanes) + a_4_)
-            row_ = cpp_m_max_i_i(0, (k_3_ - 1))
-            do
-              if (.not. ((row_ <= cpp_m_min_i_i((self%n - 1), (k_3_ + 1))))) exit
-              i_3_ = ((row_ * self%lanes) + a_4_)
-              value_ = (((-steps_%a%a(int(a_4_, 8))) * (self%fp%a%a(int(i_3_, 8)) - self%f%a%a(int(i_3_, 8)))) / self%epsilon%a%a(int(j_, 8)))
-              if ((row_ == k_3_)) then
-                zz17 = (self%di%a%a(int(i_3_, 8)) + value_)
-                self%di%a%a(int(i_3_, 8)) = zz17
-              else if ((row_ < k_3_)) then
-                self%up%a%a(int(i_3_, 8)) = value_
-              else
-                self%lo%a%a(int(i_3_, 8)) = value_
-              end if
-              row_ = (row_ + 1)
-            end do
-          end if
-          a_4_ = (a_4_ + 1)
-        end do
-        zz18 = (k_3_ + 3)
-        k_3_ = zz18
-      end do
-      color_ = (color_ + 1)
-    end do
-    k_4_ = 0
-    do
-      if (.not. ((k_4_ < self%n))) exit
-      a_5_ = 0
-      do
-        if (.not. ((a_5_ < self%lanes))) exit
-        i_4_ = ((k_4_ * self%lanes) + a_5_)
-        zz20 => self%delta%a%a(int(i_4_, 8))
-        if ((iand(int(self%done%a%a(int(a_5_, 8)), 4), 255_4) /= 0)) then
-          zz19 = 0.0_8
-        else
-          zz19 = (-self%residual%a%a(int(i_4_, 8)))
-        end if
-        zz20 = zz19
-        if ((k_4_ /= 0)) then
-          factor_ = (self%lo%a%a(int(i_4_, 8)) / self%di%a%a(int((i_4_ - self%lanes), 8)))
-          zz21 = (self%di%a%a(int(i_4_, 8)) - (factor_ * self%up%a%a(int((i_4_ - self%lanes), 8))))
-          self%di%a%a(int(i_4_, 8)) = zz21
-          zz22 = (self%delta%a%a(int(i_4_, 8)) - (factor_ * self%delta%a%a(int((i_4_ - self%lanes), 8))))
-          self%delta%a%a(int(i_4_, 8)) = zz22
-        end if
-        a_5_ = (a_5_ + 1)
-      end do
-      k_4_ = (k_4_ + 1)
-    end do
-    k_5_ = (self%n - 1)
-    do
-      if (.not. ((k_5_ >= 0))) exit
-      a_6_ = 0
-      do
-        if (.not. ((a_6_ < self%lanes))) exit
-        i_5_ = ((k_5_ * self%lanes) + a_6_)
-        if (((k_5_ + 1) < self%n)) then
-          zz23 = (self%delta%a%a(int(i_5_, 8)) - (self%up%a%a(int(i_5_, 8)) * self%delta%a%a(int((i_5_ + self%lanes), 8))))
-          self%delta%a%a(int(i_5_, 8)) = zz23
-        end if
-        zz24 = (self%delta%a%a(int(i_5_, 8)) / self%di%a%a(int(i_5_, 8)))
-        self%delta%a%a(int(i_5_, 8)) = zz24
-        a_6_ = (a_6_ + 1)
-      end do
-      k_5_ = (k_5_ - 1)
-    end do
-    a_7_ = 0
-    do
-      if (.not. ((a_7_ < self%lanes))) exit
-      if ((.not. (iand(int(self%done%a%a(int(a_7_, 8)), 4), 255_4) /= 0))) then
-        damping_ = 1.0_8
-        k_6_ = 0
-        do
-          if (.not. ((k_6_ < self%n))) exit
-          i_6_ = ((k_6_ * self%lanes) + a_7_)
-          if ((.not. cpp_double_isfinite(self%delta%a%a(int(i_6_, 8))))) then
-            self%done%a%a(int(a_7_, 8)) = 1_1
-            damping_ = 0.0_8
-            goto 131
-          end if
-          if ((self%delta%a%a(int(i_6_, 8)) < 0.0_8)) then
-            damping_ = cpp_m_min_d_d(damping_, ((0.9_8 * (out_%a%a(int(i_6_, 8)) - self%lower_bound%a%a(int(i_6_, 8)))) / (-self%delta%a%a(int(i_6_, 8)))))
-          end if
-          k_6_ = (k_6_ + 1)
-        end do
-        131 continue
-        if ((damping_ <= 1E-10_8)) then
-          self%done%a%a(int(a_7_, 8)) = 1_1
-          goto 130
-        end if
-        k_7_ = 0
-        do
-          if (.not. ((k_7_ < self%n))) exit
-          zz25 = (out_%a%a(int(((k_7_ * self%lanes) + a_7_), 8)) + (damping_ * self%delta%a%a(int(((k_7_ * self%lanes) + a_7_), 8))))
-          out_%a%a(int(((k_7_ * self%lanes) + a_7_), 8)) = zz25
-          k_7_ = (k_7_ + 1)
-        end do
-      end if
-      130 continue
-      a_7_ = (a_7_ + 1)
-    end do
-    it_ = (it_ + 1)
-  end do
-  103 continue
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_758ab188
-
-  module procedure p_lam454
-    class(t_richards_column), pointer :: c_
-    class(t_richards_column), pointer :: zz1
-    logical :: zz2
-  zz1 => h_uas_richards_column(a1)
-  c_ => zz1
-  zz2 = cpp_double_isfinite(c_%bottom_out_limit)
-  if (.not. zz2) then
-    zz2 = cpp_double_isfinite(c_%bottom_in_limit)
-  end if
-  zres = zz2
-  return
-  end procedure p_lam454
-
-  module procedure p_lam455
-    integer(4) :: a_2_
-    real(8) :: first_
-    real(8) :: zz1
-    class(t_richards_column), pointer :: zz2
-    class(t_richards_report), pointer :: zz3
-    real(8) :: zz4
-    real(8), pointer :: zz5
-    class(t_richards_column), pointer :: zz6
-    class(t_richards_report), pointer :: zz7
-    real(8) :: zz8
-    real(8), pointer :: zz9
-  call cpp_vec_d_resize_ul(a1%out, int(self%c_this%lanes, 8))
-  call cpp_vec_d_resize_ul(a1%in, int(self%c_this%lanes, 8))
-  a_2_ = 0
-  do
-    if (.not. ((a_2_ < self%c_this%lanes))) exit
-    if ((.not. (.not. associated(a3)))) then
-      zz1 = (a2%a%a(int(a_2_, 8)) * a3%a%a(int((((self%c_this%n - 1) * self%c_this%lanes) + a_2_), 8)))
-    else
-      zz1 = 0.0_8
-    end if
-    first_ = zz1
-    zz5 => a1%out%a%a(int(a_2_, 8))
-    zz2 => h_uas_richards_column(self%c_this%columns%a%a(int(a_2_, 8))%p)
-    zz4 = zz2%bottom_out_limit
-    zz3 => h_uas_richards_report(self%c_this%reports%a%a(int(a_2_, 8))%p)
-    zz5 = p_richards__anon_hydrology_richardscolumn_cpp__f__res_821a95c7(zz4, (zz3%bottom_outflow + cpp_m_max_d_d(0.0_8, first_)), a2%a%a(int(a_2_, 8)))
-    zz9 => a1%in%a%a(int(a_2_, 8))
-    zz6 => h_uas_richards_column(self%c_this%columns%a%a(int(a_2_, 8))%p)
-    zz8 = zz6%bottom_in_limit
-    zz7 => h_uas_richards_report(self%c_this%reports%a%a(int(a_2_, 8))%p)
-    zz9 = p_richards__anon_hydrology_richardscolumn_cpp__f__res_821a95c7(zz8, (zz7%bottom_inflow + cpp_m_max_d_d(0.0_8, (-first_))), a2%a%a(int(a_2_, 8)))
-    a_2_ = (a_2_ + 1)
-  end do
-  return
-  end procedure p_lam455
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__run
-    class(cpp_vec_d), pointer :: time_
-    class(cpp_vec_d), pointer :: zz1
-    class(cpp_vec_d), pointer :: step_
-    class(cpp_vec_d), pointer :: zz2
-    class(cpp_vec_d), pointer :: full_
-    class(cpp_vec_d), pointer :: zz3
-    class(cpp_vec_d), pointer :: half_
-    class(cpp_vec_d), pointer :: zz4
-    class(cpp_vec_d), pointer :: two_
-    class(cpp_vec_d), pointer :: zz5
-    class(cpp_vec_d), pointer :: f_
-    class(cpp_vec_d), pointer :: zz6
-    class(cpp_vec_d), pointer :: faces1_
-    class(cpp_vec_d), pointer :: zz7
-    class(cpp_vec_d), pointer :: faces2_
-    class(cpp_vec_d), pointer :: zz8
-    class(cpp_vec_d), pointer :: et1_
-    class(cpp_vec_d), pointer :: zz9
-    class(cpp_vec_d), pointer :: et2_
-    class(cpp_vec_d), pointer :: zz10
-    class(cpp_vec_d), pointer :: h_
-    class(cpp_vec_d), pointer :: zz11
-    class(cpp_vec_b), pointer :: good_
-    class(cpp_vec_b), pointer :: zz12
-    class(cpp_vec_b), pointer :: good1_
-    class(cpp_vec_b), pointer :: zz13
-    class(cpp_vec_b), pointer :: good2_
-    class(cpp_vec_b), pointer :: zz14
-    class(cpp_vec_b), pointer :: inactive_
-    class(cpp_vec_b), pointer :: zz15
-    class(cpp_vec_i), pointer :: limited1_
-    class(cpp_vec_i), pointer :: zz16
-    class(cpp_vec_i), pointer :: limited2_
-    class(cpp_vec_i), pointer :: zz17
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: full_rates_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz18
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: half_rates_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz19
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: second_rates_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz20
-    integer(4) :: a_
-    class(t_richards_column), pointer :: zz21
-    real(8), pointer :: zz22
-    logical :: bounded_
-    class(t_lam454), pointer :: zz23
-    type(cpp_iter_o) :: zz24
-    type(cpp_iter_o) :: zz25
-    logical :: zz26
-    class(t_fn230), pointer :: rates_
-    class(t_lam455), pointer :: zz27
-    integer(4) :: attempts_
-    type(cpp_iter_d) :: zz28
-    real(8), pointer :: zz29
-    integer(4) :: zz30
-    class(cpp_vec_o), pointer :: x__r1_
-    integer(8) :: x__i2_
-    integer(8) :: x__i2_n_
-    class(t_richards_report), pointer :: r_
-    class(t_richards_report), pointer :: zz31
-    type(cpp_cptr) :: zz32
-    class(cpp_str), pointer :: zz33
-    integer(4) :: a_3_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz34
-    class(cpp_vec_d), pointer :: zz35
-    class(cpp_vec_d), pointer :: x__r3_
-    integer(8) :: x__i4_
-    integer(8) :: x__i4_n_
-    real(8), pointer :: v_
-    real(8) :: zz36
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz37
-    class(cpp_vec_d), pointer :: zz38
-    integer(4) :: a_4_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz39
-    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz40
-    class(cpp_vec_i), pointer :: zz41
-    integer(4) :: a_5_
-    class(t_richards_report), pointer :: report_
-    class(t_richards_report), pointer :: zz42
-    class(t_richards_options), pointer :: opt_
-    class(t_richards_column), pointer :: zz43
-    real(8) :: error_
-    integer(4) :: k_
-    integer(4) :: i_
-    real(8) :: scale_
-    logical :: zz44
-    logical :: zz45
-    logical :: zz46
-    real(8) :: zz47
-    real(8), pointer :: zz48
-    integer(4) :: stage_
-    integer(4) :: k_2_
-    class(t_richards_column), pointer :: zz49
-    logical :: zz50
-    real(8) :: received_
-    class(t_richards_column), pointer :: zz51
-    real(8) :: zz52
-    class(t_richards_transfer), pointer :: zz53
-    class(*), pointer :: zz54
-    class(cpp_vec_o), pointer :: zz55
-    integer(4) :: i_2_
-    real(8) :: v_2_
-    real(8), pointer :: zz56
-    real(8) :: zz57
-    class(t_richards_transfer), pointer :: zz58
-    class(*), pointer :: zz59
-    class(cpp_vec_o), pointer :: zz60
-    class(t_richards_transfer), pointer :: zz61
-    class(*), pointer :: zz62
-    class(cpp_vec_o), pointer :: zz63
-    real(8) :: zz64
-    real(8) :: zz65
-    real(8) :: zz66
-    class(t_richards_transfer), pointer :: zz67
-    class(*), pointer :: zz68
-    class(cpp_vec_o), pointer :: zz69
-    class(t_richards_transfer), pointer :: zz70
-    class(*), pointer :: zz71
-    class(cpp_vec_o), pointer :: zz72
-    real(8) :: e_
-    real(8), pointer :: zz73
-    real(8) :: zz74
-    real(8) :: zz75
-    class(t_richards_transfer), pointer :: zz76
-    class(*), pointer :: zz77
-    class(cpp_vec_o), pointer :: zz78
-    class(cpp_arr_i), pointer :: x__r5_
-    class(cpp_arr_i), pointer :: zz79
-    integer(8) :: x__i6_
-    integer(8) :: x__i6_n_
-    integer(4) :: limited_
-    integer(4) :: zz80
-    integer(4) :: zz81
-    integer(4) :: k_3_
-    real(8) :: zz82
-    real(8), pointer :: zz83
-    real(8) :: zz84
-    type(cpp_cptr) :: zz85
-    class(cpp_str), pointer :: zz86
-    integer(4) :: a_6_
-    class(t_richards_column), pointer :: col_
-    class(t_richards_column), pointer :: zz87
-    class(t_richards_report), pointer :: report_2_
-    class(t_richards_report), pointer :: zz88
-    real(8) :: initial_
-    real(8) :: final_
-    integer(4) :: k_4_
-    real(8) :: zz89
-    real(8) :: zz90
-  zz1 => cpp_vec_d_new_ul_t(int(self%lanes, 8), 0.0_8)
-  if (associated(cpp_exc)) return
-  time_ => zz1
-  zz2 => cpp_vec_d_new_ul(int(self%lanes, 8))
-  step_ => zz2
-  zz3 => cpp_vec_d_new_0()
-  full_ => zz3
-  zz4 => cpp_vec_d_new_0()
-  half_ => zz4
-  zz5 => cpp_vec_d_new_0()
-  two_ => zz5
-  zz6 => cpp_vec_d_new_0()
-  f_ => zz6
-  zz7 => cpp_vec_d_new_0()
-  faces1_ => zz7
-  zz8 => cpp_vec_d_new_0()
-  faces2_ => zz8
-  zz9 => cpp_vec_d_new_0()
-  et1_ => zz9
-  zz10 => cpp_vec_d_new_0()
-  et2_ => zz10
-  zz11 => cpp_vec_d_new_0()
-  h_ => zz11
-  zz12 => cpp_vec_b_new_ul(int(self%lanes, 8))
-  good_ => zz12
-  zz13 => cpp_vec_b_new_ul(int(self%lanes, 8))
-  good1_ => zz13
-  zz14 => cpp_vec_b_new_ul(int(self%lanes, 8))
-  good2_ => zz14
-  zz15 => cpp_vec_b_new_ul(int(self%lanes, 8))
-  inactive_ => zz15
-  zz16 => cpp_vec_i_new_0()
-  limited1_ => zz16
-  zz17 => cpp_vec_i_new_0()
-  limited2_ => zz17
-  allocate(zz18)
-  call p_richards__anon_hydrology_richardscolumn_cpp_boundar_9cc751bd(zz18)
-  full_rates_ => zz18
-  allocate(zz19)
-  call p_richards__anon_hydrology_richardscolumn_cpp_boundar_9cc751bd(zz19)
-  half_rates_ => zz19
-  allocate(zz20)
-  call p_richards__anon_hydrology_richardscolumn_cpp_boundar_9cc751bd(zz20)
-  second_rates_ => zz20
-  a_ = 0
-  do
-    if (.not. ((a_ < self%lanes))) exit
-    zz22 => step_%a%a(int(a_, 8))
-    zz21 => h_uas_richards_column(self%columns%a%a(int(a_, 8))%p)
-    zz22 = cpp_m_min_d_d(dt_, zz21%options%max_step)
-    a_ = (a_ + 1)
-  end do
-  zz24 = cpp_vec_o_begin(self%columns)
-  zz25 = cpp_vec_o_end(self%columns)
-  allocate(zz23)
-  zz26 = cpp_algo_any_of__o(zz24, zz25, zz23, h_mk_richards_column, 2)
-  bounded_ = zz26
-  allocate(zz27)
-  zz27%c_this => self
-  rates_ => zz27
-  attempts_ = 0
-  do
-    zz28 = cpp_algo_min_element_itert_itert__d(cpp_vec_d_begin(time_), cpp_vec_d_end(time_))
-    zz29 => cpp_iter_d_deref(zz28)
-    if (.not. ((zz29 < dt_))) exit
-    zz30 = (attempts_ + 1)
-    attempts_ = zz30
-    if ((zz30 > 200000)) then
-      x__r1_ => self%reports
-      x__i2_ = 0_8
-      x__i2_n_ = int(x__r1_%n, 8)
-      do
-        if (.not. ((x__i2_ < x__i2_n_))) exit
-        zz31 => h_uas_richards_report(x__r1_%a%a(x__i2_)%p)
-        r_ => zz31
-        r_%ok = .false.
-        zz33 => r_%error
-        zz32 = cpp_r_lit("Richards adaptive-step limit exceeded")
-        call cpp_str_assign_cptr(zz33, zz32)
-        x__i2_ = (x__i2_ + 1_8)
-      end do
-      return
-    end if
-    a_3_ = 0
-    do
-      if (.not. ((a_3_ < self%lanes))) exit
-      step_%a%a(int(a_3_, 8)) = cpp_m_min_d_d(step_%a%a(int(a_3_, 8)), cpp_m_max_d_d(0.0_8, (dt_ - time_%a%a(int(a_3_, 8)))))
-      a_3_ = (a_3_ + 1)
-    end do
-    if (bounded_) then
-      call rates_%invoke(full_rates_, step_, null())
-    end if
-    zz35 => self%y
-    if (bounded_) then
-      zz34 => full_rates_
-    else
-      zz34 => null()
-    end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_758ab188(self, zz35, step_, full_, good_, zz34)
-    if (associated(cpp_exc)) return
-    call cpp_vec_d_assign_vect(h_, step_)
-    if (associated(cpp_exc)) return
-    x__r3_ => h_
-    x__i4_ = 0_8
-    x__i4_n_ = int(x__r3_%n, 8)
-    do
-      if (.not. ((x__i4_ < x__i4_n_))) exit
-      v_ => x__r3_%a%a(x__i4_)
-      zz36 = (v_ * 0.5_8)
-      v_ = zz36
-      x__i4_ = (x__i4_ + 1_8)
-    end do
-    if (bounded_) then
-      call rates_%invoke(half_rates_, h_, null())
-    end if
-    zz38 => self%y
-    if (bounded_) then
-      zz37 => half_rates_
-    else
-      zz37 => null()
-    end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_758ab188(self, zz38, h_, half_, good1_, zz37)
-    if (associated(cpp_exc)) return
-    a_4_ = 0
-    do
-      if (.not. ((a_4_ < self%lanes))) exit
-      inactive_%a%a(int(a_4_, 8)) = int(merge(1, 0, (step_%a%a(int(a_4_, 8)) == 0.0_8)), 1)
-      a_4_ = (a_4_ + 1)
-    end do
-    if (bounded_) then
-      call p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs(self, half_, f_, faces1_, et1_, inactive_, half_rates_, limited1_)
-      if (associated(cpp_exc)) return
-      call rates_%invoke(second_rates_, h_, faces1_)
-    end if
-    if (bounded_) then
-      zz39 => second_rates_
-    else
-      zz39 => null()
-    end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_758ab188(self, half_, h_, two_, good2_, zz39)
-    if (associated(cpp_exc)) return
-    if ((.not. bounded_)) then
-      call p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs(self, half_, f_, faces1_, et1_, inactive_, null(), null())
-      if (associated(cpp_exc)) return
-    end if
-    if (bounded_) then
-      zz40 => second_rates_
-    else
-      zz40 => null()
-    end if
-    if (bounded_) then
-      zz41 => limited2_
-    else
-      zz41 => null()
-    end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch__1__rhs(self, two_, f_, faces2_, et2_, inactive_, zz40, zz41)
-    if (associated(cpp_exc)) return
-    a_5_ = 0
-    do
-      if (.not. ((a_5_ < self%lanes))) exit
-      if ((step_%a%a(int(a_5_, 8)) == 0.0_8)) then
-        goto 114
-      end if
-      zz42 => h_uas_richards_report(self%reports%a%a(int(a_5_, 8))%p)
-      report_ => zz42
-      zz43 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
-      opt_ => zz43%options
-      error_ = 0.0_8
-      k_ = 0
-      do
-        if (.not. ((k_ < self%n))) exit
-        i_ = ((k_ * self%lanes) + a_5_)
-        scale_ = ((opt_%atol * self%volume%a%a(int(i_, 8))) + (opt_%rtol * cpp_m_max_d_d(abs(two_%a%a(int(i_, 8))), abs(self%y%a%a(int(i_, 8))))))
-        error_ = cpp_m_max_d_d(error_, (abs((two_%a%a(int(i_, 8)) - full_%a%a(int(i_, 8)))) / scale_))
-        k_ = (k_ + 1)
-      end do
-      zz44 = (iand(int(good_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
-      if (zz44) then
-        zz44 = (iand(int(good1_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
-      end if
-      zz45 = zz44
-      if (zz45) then
-        zz45 = (iand(int(good2_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
-      end if
-      zz46 = zz45
-      if (zz46) then
-        zz46 = cpp_double_isfinite(error_)
-      end if
-      if ((zz46 .and. (error_ <= 1.0_8))) then
-        report_%accepted = (report_%accepted + 1)
-        zz48 => report_%min_step
-        if ((report_%min_step > 0.0_8)) then
-          zz47 = cpp_m_min_d_d(report_%min_step, step_%a%a(int(a_5_, 8)))
-        else
-          zz47 = step_%a%a(int(a_5_, 8))
-        end if
-        zz48 = zz47
-        stage_ = 0
-        do
-          if (.not. ((stage_ < 2))) exit
-          k_2_ = 0
-          do
-            if (.not. ((k_2_ < self%n))) exit
-            zz50 = (k_2_ == 0)
-            if (zz50) then
-              zz49 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
-              zz50 = (zz49%inflow > 0.0_8)
-            end if
-            if (zz50) then
-              zz51 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
-              received_ = (zz51%inflow * h_%a%a(int(a_5_, 8)))
-              zz52 = (report_%inflow + received_)
-              report_%inflow = zz52
-              zz55 => report_%transfers
-              allocate(zz53)
-              call p_richards_transfer__ctor_x(zz53)
-              zz53%from = (-2)
-              zz53%to = 0
-              zz53%volume = received_
-              zz54 => zz53
-              call cpp_vec_o_push_back(zz55, zz54)
-            end if
-            i_2_ = ((k_2_ * self%lanes) + a_5_)
-            zz57 = h_%a%a(int(a_5_, 8))
-            if ((stage_ /= 0)) then
-              zz56 => faces2_%a%a(int(i_2_, 8))
-            else
-              zz56 => faces1_%a%a(int(i_2_, 8))
-            end if
-            v_2_ = (zz57 * zz56)
-            if (((k_2_ + 1) < self%n)) then
-              if ((v_2_ > 0.0_8)) then
-                zz60 => report_%transfers
-                allocate(zz58)
-                call p_richards_transfer__ctor_x(zz58)
-                zz58%from = k_2_
-                zz58%to = (k_2_ + 1)
-                zz58%volume = v_2_
-                zz59 => zz58
-                call cpp_vec_o_push_back(zz60, zz59)
-              else if ((v_2_ < 0.0_8)) then
-                zz63 => report_%transfers
-                allocate(zz61)
-                call p_richards_transfer__ctor_x(zz61)
-                zz61%from = (k_2_ + 1)
-                zz61%to = k_2_
-                zz61%volume = (-v_2_)
-                zz62 => zz61
-                call cpp_vec_o_push_back(zz63, zz62)
-              end if
-            else
-              zz64 = (report_%bottom_volume + v_2_)
-              report_%bottom_volume = zz64
-              if ((v_2_ > 0.0_8)) then
-                zz65 = (report_%bottom_outflow + v_2_)
-                report_%bottom_outflow = zz65
-              else if ((v_2_ < 0.0_8)) then
-                zz66 = (report_%bottom_inflow - v_2_)
-                report_%bottom_inflow = zz66
-              end if
-              if ((v_2_ > 0.0_8)) then
-                zz69 => report_%transfers
-                allocate(zz67)
-                call p_richards_transfer__ctor_x(zz67)
-                zz67%from = k_2_
-                zz67%to = (-4)
-                zz67%volume = v_2_
-                zz68 => zz67
-                call cpp_vec_o_push_back(zz69, zz68)
-              else if ((v_2_ < 0.0_8)) then
-                zz72 => report_%transfers
-                allocate(zz70)
-                call p_richards_transfer__ctor_x(zz70)
-                zz70%from = (-5)
-                zz70%to = k_2_
-                zz70%volume = (-v_2_)
-                zz71 => zz70
-                call cpp_vec_o_push_back(zz72, zz71)
-              end if
-            end if
-            zz74 = h_%a%a(int(a_5_, 8))
-            if ((stage_ /= 0)) then
-              zz73 => et2_%a%a(int(i_2_, 8))
-            else
-              zz73 => et1_%a%a(int(i_2_, 8))
-            end if
-            e_ = (zz74 * zz73)
-            zz75 = (report_%evaporation + e_)
-            report_%evaporation = zz75
-            if ((e_ > 0.0_8)) then
-              zz78 => report_%transfers
-              allocate(zz76)
-              call p_richards_transfer__ctor_x(zz76)
-              zz76%from = k_2_
-              zz76%to = (-3)
-              zz76%volume = e_
-              zz77 => zz76
-              call cpp_vec_o_push_back(zz78, zz77)
-            end if
-            k_2_ = (k_2_ + 1)
-          end do
-          stage_ = (stage_ + 1)
-        end do
-        if (bounded_) then
-          zz79 => cpp_arr_i_new(2_8)
-          zz79%a(0) = limited1_%a%a(int(a_5_, 8))
-          zz79%a(1) = limited2_%a%a(int(a_5_, 8))
-          x__r5_ => zz79
-          x__i6_ = 0_8
-          x__i6_n_ = int(size(x__r5_%a), 8)
-          do
-            if (.not. ((x__i6_ < x__i6_n_))) exit
-            limited_ = x__r5_%a(x__i6_)
-            zz80 = (report_%bottom_out_limited + merge(1, 0, (limited_ == 1)))
-            report_%bottom_out_limited = zz80
-            zz81 = (report_%bottom_in_limited + merge(1, 0, (limited_ == (-1))))
-            report_%bottom_in_limited = zz81
-            x__i6_ = (x__i6_ + 1_8)
-          end do
-        end if
-        k_3_ = 0
-        do
-          if (.not. ((k_3_ < self%n))) exit
-          self%y%a%a(int(((k_3_ * self%lanes) + a_5_), 8)) = two_%a%a(int(((k_3_ * self%lanes) + a_5_), 8))
-          k_3_ = (k_3_ + 1)
-        end do
-        time_%a%a(int(a_5_, 8)) = cpp_m_min_d_d(dt_, (time_%a%a(int(a_5_, 8)) + step_%a%a(int(a_5_, 8))))
-        step_%a%a(int(a_5_, 8)) = cpp_m_min_d_d(opt_%max_step, (step_%a%a(int(a_5_, 8)) * cpp_m_clamp_d_d_d((0.8_8 / sqrt(cpp_m_max_d_d(error_, 1E-08_8))), 0.5_8, 2.0_8)))
-      else
-        report_%rejected = (report_%rejected + 1)
-        zz83 => step_%a%a(int(a_5_, 8))
-        if ((cpp_double_isfinite(error_) .and. (error_ > 1.0_8))) then
-          zz82 = cpp_m_clamp_d_d_d((0.8_8 / sqrt(error_)), 0.1_8, 0.5_8)
-        else
-          zz82 = 0.5_8
-        end if
-        zz84 = (zz83 * zz82)
-        zz83 = zz84
-        if ((step_%a%a(int(a_5_, 8)) < (1E-09_8 * cpp_m_max_d_d(1.0_8, dt_)))) then
-          report_%ok = .false.
-          zz86 => report_%error
-          zz85 = cpp_r_lit("Richards step underflow / Newton failure")
-          call cpp_str_assign_cptr(zz86, zz85)
-          return
-        end if
-      end if
-      114 continue
-      a_5_ = (a_5_ + 1)
-    end do
-  end do
-  a_6_ = 0
-  do
-    if (.not. ((a_6_ < self%lanes))) exit
-    zz87 => h_uas_richards_column(self%columns%a%a(int(a_6_, 8))%p)
-    col_ => zz87
-    zz88 => h_uas_richards_report(self%reports%a%a(int(a_6_, 8))%p)
-    report_2_ => zz88
-    initial_ = cpp_algo_accumulate_iterd_iterd_d(cpp_vec_d_begin(col_%water), cpp_vec_d_end(col_%water), 0.0_8)
-    final_ = 0.0_8
-    k_4_ = 0
-    do
-      if (.not. ((k_4_ < self%n))) exit
-      col_%water%a%a(int(k_4_, 8)) = self%y%a%a(int(((k_4_ * self%lanes) + a_6_), 8))
-      zz89 = (final_ + col_%water%a%a(int(k_4_, 8)))
-      final_ = zz89
-      k_4_ = (k_4_ + 1)
-    end do
-    report_2_%balance = (((final_ - initial_) + report_2_%bottom_volume) + report_2_%evaporation)
-    if ((col_%inflow > 0.0_8)) then
-      zz90 = (report_2_%balance - report_2_%inflow)
-      report_2_%balance = zz90
-    end if
-    a_6_ = (a_6_ + 1)
-  end do
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch__1__run
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_raw
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_raw
-
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0_581620af
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_5df761c4
     class(cpp_vec_o), pointer :: c_l_
     class(cpp_vec_o), pointer :: r_l_
     type(cpp_slot), pointer :: zz1
@@ -2829,38 +1089,72 @@ contains
     end do
     k_ = (k_ + 1)
   end do
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0_581620af
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_5df761c4
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0_72031679
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: o_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: zz1
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_878f0278
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
   zres => null()
   allocate(zz1)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_raw(zz1, cpp_raw_v)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b(zz1, cpp_raw_v)
   o_ => zz1
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0_581620af(o_, c_, r_)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_5df761c4(o_, c_, r_)
   zres => o_
   return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0_72031679
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_878f0278
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_x
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_raw(self, cpp_raw_v)
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_x
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_1248f121
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_f662bd1e(self, p_)
+  if (associated(cpp_exc)) return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_1248f121
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__clone
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: o_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: zz1
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6512d615
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
   zres => null()
   allocate(zz1)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_raw(zz1, cpp_raw_v)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b(zz1, cpp_raw_v)
   o_ => zz1
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0_4e82d487(o_, self)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_1248f121(o_, p_)
   if (associated(cpp_exc)) return
   zres => o_
   return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__clone
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6512d615
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0_4e82d487
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_60c67bb4
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_68085d55(self, p_)
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_60c67bb4
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_95fa5170
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_60c67bb4(o_, p_)
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_95fa5170
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_bd4197c8
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b(self, cpp_raw_v)
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_bd4197c8
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_c2134853
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_f662bd1e(o_, self)
+  if (associated(cpp_exc)) return
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_c2134853
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_f662bd1e
     class(cpp_vec_o), pointer :: zz1
     class(cpp_vec_o), pointer :: zz2
     class(cpp_vec_d), pointer :: zz3
@@ -3025,10 +1319,10 @@ contains
     zz35 => zz36
   end if
   self%coefficients => zz35
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0_4e82d487
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_f662bd1e
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__assign
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: zz1
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a6f93901
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
   zz1 => self
   if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
     return
@@ -3071,10 +1365,10 @@ contains
   if (associated(cpp_exc)) return
   call cpp_vec_d_assign_vect(self%coefficients, s_%coefficients)
   if (associated(cpp_exc)) return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__assign
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a6f93901
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__movefrom
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: zz1
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_68085d55
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
     class(cpp_vec_o), pointer :: zz2
     class(cpp_vec_d), pointer :: zz3
     class(cpp_vec_d), pointer :: zz4
@@ -3153,21 +1447,21 @@ contains
   self%coefficients => s_%coefficients
   zz19 => cpp_vec_d_new_0()
   s_%coefficients => zz19
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__movefrom
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_68085d55
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__movenew
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: o_
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: zz1
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_4c99cacf
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
   zres => null()
   allocate(zz1)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__ctor_raw(zz1, cpp_raw_v)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a9c7595b(zz1, cpp_raw_v)
   o_ => zz1
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__movefrom(o_, s_)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_68085d55(o_, s_)
   zres => o_
   return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__movenew
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_4c99cacf
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951
     class(t_richards_column), pointer :: zz1
     class(t_richards_cell), pointer :: zz2
   zres => null()
@@ -3175,9 +1469,9 @@ contains
   zz2 => h_uas_richards_cell(zz1%cells%a%a(int(k_, 8))%p)
   zres => zz2
   return
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs
     integer(4) :: a_
     logical :: zz1
     integer(4), target :: zz2
@@ -3324,7 +1618,7 @@ contains
         goto 108
       end if
       i_ = ((k_ * self%lanes) + a_3_)
-      zz12 => p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat(self, k_, a_3_)
+      zz12 => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951(self, k_, a_3_)
       c_ => zz12
       zz15 => self%head%a%a(int(i_, 8))
       zz14 = c_%z
@@ -3375,9 +1669,9 @@ contains
       end if
       i_2_ = ((k_2_ * self%lanes) + a_4_)
       j_ = (i_2_ + self%lanes)
-      zz23 => p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat(self, k_2_, a_4_)
+      zz23 => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951(self, k_2_, a_4_)
       c_2_ => zz23
-      zz24 => p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat(self, (k_2_ + 1), a_4_)
+      zz24 => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951(self, (k_2_ + 1), a_4_)
       d_ => zz24
       area_ = cpp_m_min_d_d(c_2_%area, d_%area)
       conductance_ = 0.0_8
@@ -3444,7 +1738,7 @@ contains
     i_3_ = (((self%n - 1) * self%lanes) + a_5_)
     zz41 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
     col_ => zz41
-    zz42 => p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat(self, (self%n - 1), a_5_)
+    zz42 => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951(self, (self%n - 1), a_5_)
     c_3_ => zz42
     if ((col_%bottom_area > 0.0_8)) then
       zz43 => col_%bottom_area
@@ -3498,9 +1792,9 @@ contains
     114 continue
     a_5_ = (a_5_ + 1)
   end do
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__implicit
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6cbf6319
     integer(4) :: a_
     integer(1) :: zz1
     integer(1), pointer :: zz2
@@ -3578,7 +1872,7 @@ contains
   it_ = 0
   do
     if (.not. ((it_ < 35))) exit
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs(self, out_, self%f, null(), null(), self%done, rates_, null())
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs(self, out_, self%f, null(), null(), self%done, rates_, null())
     if (associated(cpp_exc)) return
     all_ = .true.
     a_2_ = 0
@@ -3643,7 +1937,7 @@ contains
           if ((.not. (iand(int(self%done%a%a(int(a_3_, 8)), 4), 255_4) /= 0))) then
             i_2_ = ((k_2_ * self%lanes) + a_3_)
             zz12 = out_%a%a(int(i_2_, 8))
-            zz11 => p_richards__anon_hydrology_richardscolumn_cpp_batch_0__cellat(self, k_2_, a_3_)
+            zz11 => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_00950951(self, k_2_, a_3_)
             wet_distance_ = abs((zz12 - (zz11%theta_s * self%volume%a%a(int(i_2_, 8)))))
             zz14 => self%epsilon%a%a(int(i_2_, 8))
             if ((k_2_ /= 0)) then
@@ -3660,7 +1954,7 @@ contains
         zz16 = (k_2_ + 3)
         k_2_ = zz16
       end do
-      call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs(self, self%perturbed, self%fp, null(), null(), self%done, rates_, null())
+      call p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs(self, self%perturbed, self%fp, null(), null(), self%done, rates_, null())
       if (associated(cpp_exc)) return
       k_3_ = color_
       do
@@ -3773,9 +2067,9 @@ contains
     it_ = (it_ + 1)
   end do
   103 continue
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__implicit
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6cbf6319
 
-  module procedure p_lam456
+  module procedure p_lam457
     class(t_richards_column), pointer :: c_
     class(t_richards_column), pointer :: zz1
     logical :: zz2
@@ -3787,9 +2081,9 @@ contains
   end if
   zres = zz2
   return
-  end procedure p_lam456
+  end procedure p_lam457
 
-  module procedure p_lam457
+  module procedure p_lam458
     integer(4) :: a_2_
     real(8) :: first_
     real(8) :: zz1
@@ -3825,9 +2119,9 @@ contains
     a_2_ = (a_2_ + 1)
   end do
   return
-  end procedure p_lam457
+  end procedure p_lam458
 
-  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__run
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_false__run
     class(cpp_vec_d), pointer :: time_
     class(cpp_vec_d), pointer :: zz1
     class(cpp_vec_d), pointer :: step_
@@ -3872,12 +2166,12 @@ contains
     class(t_richards_column), pointer :: zz21
     real(8), pointer :: zz22
     logical :: bounded_
-    class(t_lam456), pointer :: zz23
+    class(t_lam457), pointer :: zz23
     type(cpp_iter_o) :: zz24
     type(cpp_iter_o) :: zz25
     logical :: zz26
     class(t_fn230), pointer :: rates_
-    class(t_lam457), pointer :: zz27
+    class(t_lam458), pointer :: zz27
     integer(4) :: attempts_
     type(cpp_iter_d) :: zz28
     real(8), pointer :: zz29
@@ -4074,7 +2368,7 @@ contains
     else
       zz34 => null()
     end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__implicit(self, zz35, step_, full_, good_, zz34)
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6cbf6319(self, zz35, step_, full_, good_, zz34)
     if (associated(cpp_exc)) return
     call cpp_vec_d_assign_vect(h_, step_)
     if (associated(cpp_exc)) return
@@ -4097,7 +2391,7 @@ contains
     else
       zz37 => null()
     end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__implicit(self, zz38, h_, half_, good1_, zz37)
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6cbf6319(self, zz38, h_, half_, good1_, zz37)
     if (associated(cpp_exc)) return
     a_4_ = 0
     do
@@ -4106,7 +2400,7 @@ contains
       a_4_ = (a_4_ + 1)
     end do
     if (bounded_) then
-      call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs(self, half_, f_, faces1_, et1_, inactive_, half_rates_, limited1_)
+      call p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs(self, half_, f_, faces1_, et1_, inactive_, half_rates_, limited1_)
       if (associated(cpp_exc)) return
       call rates_%invoke(second_rates_, h_, faces1_)
     end if
@@ -4115,10 +2409,10 @@ contains
     else
       zz39 => null()
     end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__implicit(self, half_, h_, two_, good2_, zz39)
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_6cbf6319(self, half_, h_, two_, good2_, zz39)
     if (associated(cpp_exc)) return
     if ((.not. bounded_)) then
-      call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs(self, half_, f_, faces1_, et1_, inactive_, null(), null())
+      call p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs(self, half_, f_, faces1_, et1_, inactive_, null(), null())
       if (associated(cpp_exc)) return
     end if
     if (bounded_) then
@@ -4131,7 +2425,7 @@ contains
     else
       zz41 => null()
     end if
-    call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__rhs(self, two_, f_, faces2_, et2_, inactive_, zz40, zz41)
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_false__rhs(self, two_, f_, faces2_, et2_, inactive_, zz40, zz41)
     if (associated(cpp_exc)) return
     a_5_ = 0
     do
@@ -4350,7 +2644,1812 @@ contains
     end if
     a_6_ = (a_6_ + 1)
   end do
-  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_0__run
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_false__run
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_5bf79367
+    class(cpp_vec_o), pointer :: c_l_
+    class(cpp_vec_o), pointer :: r_l_
+    type(cpp_slot), pointer :: zz1
+    class(t_richards_column), pointer :: zz2
+    class(cpp_vec_o), pointer :: zz3
+    class(cpp_vec_o), pointer :: zz4
+    class(cpp_vec_d), pointer :: zz5
+    class(cpp_vec_d), pointer :: zz6
+    class(cpp_vec_d), pointer :: zz7
+    class(cpp_vec_o), pointer :: zz8
+    class(cpp_vec_o), pointer :: zz9
+    class(cpp_vec_d), pointer :: zz10
+    class(cpp_vec_d), pointer :: zz11
+    class(cpp_vec_d), pointer :: zz12
+    class(cpp_vec_d), pointer :: zz13
+    class(cpp_vec_d), pointer :: zz14
+    class(cpp_vec_d), pointer :: zz15
+    class(cpp_vec_d), pointer :: zz16
+    class(cpp_vec_d), pointer :: zz17
+    class(cpp_vec_d), pointer :: zz18
+    class(cpp_vec_d), pointer :: zz19
+    class(cpp_vec_d), pointer :: zz20
+    class(cpp_vec_b), pointer :: zz21
+    class(cpp_vec_d), pointer :: zz22
+    class(cpp_arr_o), pointer :: x__r1_
+    class(cpp_arr_o), pointer :: zz23
+    integer(8) :: x__i2_
+    integer(8) :: x__i2_n_
+    class(cpp_vec_d), pointer :: scratch_
+    class(cpp_vec_d), pointer :: zz24
+    integer(4) :: k_
+    integer(4) :: a_
+    class(t_richards_cell), pointer :: cell_
+    class(t_richards_column), pointer :: zz25
+    class(t_richards_cell), pointer :: zz26
+    integer(4) :: i_
+    class(t_richards_column), pointer :: zz27
+    real(8), pointer :: zz28
+    class(cpp_arr_d), pointer :: values_
+    class(cpp_arr_d), pointer :: zz29
+    integer(4) :: p_
+    type(cpp_ptr_d) :: zz30
+    real(8), pointer :: zz31
+    real(8), pointer :: zz32
+    real(8) :: zz33
+    real(8), pointer :: zz34
+  c_l_ => c_
+  r_l_ => r_
+  zz1 => cpp_vec_o_front(c_l_)
+  zz2 => h_uas_richards_column(zz1%p)
+  self%n = int(cpp_vec_o_size(zz2%cells), 4)
+  self%lanes = int(cpp_vec_o_size(c_l_), 4)
+  zz3 => c_l_
+  zz4 => h_new_cpp_vec_o_richards_column()
+  c_l_ => zz4
+  self%columns => zz3
+  zz5 => cpp_vec_d_new_0()
+  self%y => zz5
+  zz6 => cpp_vec_d_new_0()
+  self%volume => zz6
+  zz7 => cpp_vec_d_new_0()
+  self%lower_bound => zz7
+  zz8 => r_l_
+  zz9 => h_new_cpp_vec_o_richards_report()
+  r_l_ => zz9
+  self%reports => zz8
+  zz10 => cpp_vec_d_new_0()
+  self%head => zz10
+  zz11 => cpp_vec_d_new_0()
+  self%k => zz11
+  zz12 => cpp_vec_d_new_0()
+  self%f => zz12
+  zz13 => cpp_vec_d_new_0()
+  self%fp => zz13
+  zz14 => cpp_vec_d_new_0()
+  self%residual => zz14
+  zz15 => cpp_vec_d_new_0()
+  self%lo => zz15
+  zz16 => cpp_vec_d_new_0()
+  self%di => zz16
+  zz17 => cpp_vec_d_new_0()
+  self%up => zz17
+  zz18 => cpp_vec_d_new_0()
+  self%delta => zz18
+  zz19 => cpp_vec_d_new_0()
+  self%perturbed => zz19
+  zz20 => cpp_vec_d_new_0()
+  self%epsilon => zz20
+  zz21 => cpp_vec_b_new_0()
+  self%done => zz21
+  zz22 => cpp_vec_d_new_0()
+  self%coefficients => zz22
+  call cpp_vec_d_resize_ul(self%y, int((self%n * self%lanes), 8))
+  call cpp_vec_d_resize_ul(self%volume, cpp_vec_d_size(self%y))
+  call cpp_vec_d_resize_ul(self%lower_bound, cpp_vec_d_size(self%y))
+  zz23 => cpp_arr_o_new(11_8)
+  zz23%a(0)%p => self%head
+  zz23%a(1)%p => self%k
+  zz23%a(2)%p => self%f
+  zz23%a(3)%p => self%fp
+  zz23%a(4)%p => self%residual
+  zz23%a(5)%p => self%lo
+  zz23%a(6)%p => self%di
+  zz23%a(7)%p => self%up
+  zz23%a(8)%p => self%delta
+  zz23%a(9)%p => self%perturbed
+  zz23%a(10)%p => self%epsilon
+  x__r1_ => zz23
+  x__i2_ = 0_8
+  x__i2_n_ = int(size(x__r1_%a), 8)
+  do
+    if (.not. ((x__i2_ < x__i2_n_))) exit
+    zz24 => h_uas_cpp_vec_d(x__r1_%a(x__i2_)%p)
+    scratch_ => zz24
+    call cpp_vec_d_resize_ul(scratch_, cpp_vec_d_size(self%y))
+    x__i2_ = (x__i2_ + 1_8)
+  end do
+  call cpp_vec_b_resize_ul(self%done, int(self%lanes, 8))
+  call cpp_vec_d_resize_ul(self%coefficients, (12_8 * cpp_vec_d_size(self%y)))
+  k_ = 0
+  do
+    if (.not. ((k_ < self%n))) exit
+    a_ = 0
+    do
+      if (.not. ((a_ < self%lanes))) exit
+      zz25 => h_uas_richards_column(self%columns%a%a(int(a_, 8))%p)
+      zz26 => h_uas_richards_cell(zz25%cells%a%a(int(k_, 8))%p)
+      cell_ => zz26
+      i_ = ((k_ * self%lanes) + a_)
+      zz28 => self%y%a%a(int(i_, 8))
+      zz27 => h_uas_richards_column(self%columns%a%a(int(a_, 8))%p)
+      zz28 = zz27%water%a%a(int(k_, 8))
+      self%volume%a%a(int(i_, 8)) = cell_%volume
+      zz29 => cpp_arr_d_new(12_8)
+      zz29%a(0) = cell_%area
+      zz29%a(1) = cell_%z
+      zz29%a(2) = cell_%dz
+      zz29%a(3) = cell_%theta_s
+      zz29%a(4) = cell_%ks
+      zz29%a(5) = cell_%wilting
+      zz29%a(6) = cell_%potential_et
+      zz29%a(7) = cell_%material%theta_r
+      zz29%a(8) = cell_%material%alpha
+      zz29%a(9) = cell_%material%n
+      zz29%a(10) = cell_%material%l
+      zz29%a(11) = cell_%material%specific_storage
+      values_ => zz29
+      p_ = 0
+      do
+        if (.not. ((p_ < 12))) exit
+        zz32 => self%coefficients%a%a(((int(p_, 8) * cpp_vec_d_size(self%y)) + int(i_, 8)))
+        zz30 = cpp_ptr_d_new_ta_l(values_, 0_8)
+        zz31 => cpp_ptr_d_item_i(zz30, p_)
+        zz32 = zz31
+        p_ = (p_ + 1)
+      end do
+      zz34 => self%lower_bound%a%a(int(i_, 8))
+      if ((k_ /= 0)) then
+        zz33 = (cell_%material%theta_r * cell_%volume)
+      else
+        zz33 = 0.0_8
+      end if
+      zz34 = zz33
+      a_ = (a_ + 1)
+    end do
+    k_ = (k_ + 1)
+  end do
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_5bf79367
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_addbbb41
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_5bf79367(o_, c_, r_)
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_addbbb41
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_4e23a137
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3ac14e41(self, p_)
+  if (associated(cpp_exc)) return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_4e23a137
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_669a89d9
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_4e23a137(o_, p_)
+  if (associated(cpp_exc)) return
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_669a89d9
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_441cbaa4
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_9d1e6bb1(self, p_)
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_441cbaa4
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_225a35ca
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_441cbaa4(o_, p_)
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_225a35ca
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_58f1587b
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512(self, cpp_raw_v)
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_58f1587b
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_true__clone
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3ac14e41(o_, self)
+  if (associated(cpp_exc)) return
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_true__clone
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3ac14e41
+    class(cpp_vec_o), pointer :: zz1
+    class(cpp_vec_o), pointer :: zz2
+    class(cpp_vec_d), pointer :: zz3
+    class(cpp_vec_d), pointer :: zz4
+    class(cpp_vec_d), pointer :: zz5
+    class(cpp_vec_d), pointer :: zz6
+    class(cpp_vec_d), pointer :: zz7
+    class(cpp_vec_d), pointer :: zz8
+    class(cpp_vec_o), pointer :: zz9
+    class(cpp_vec_o), pointer :: zz10
+    class(cpp_vec_d), pointer :: zz11
+    class(cpp_vec_d), pointer :: zz12
+    class(cpp_vec_d), pointer :: zz13
+    class(cpp_vec_d), pointer :: zz14
+    class(cpp_vec_d), pointer :: zz15
+    class(cpp_vec_d), pointer :: zz16
+    class(cpp_vec_d), pointer :: zz17
+    class(cpp_vec_d), pointer :: zz18
+    class(cpp_vec_d), pointer :: zz19
+    class(cpp_vec_d), pointer :: zz20
+    class(cpp_vec_d), pointer :: zz21
+    class(cpp_vec_d), pointer :: zz22
+    class(cpp_vec_d), pointer :: zz23
+    class(cpp_vec_d), pointer :: zz24
+    class(cpp_vec_d), pointer :: zz25
+    class(cpp_vec_d), pointer :: zz26
+    class(cpp_vec_d), pointer :: zz27
+    class(cpp_vec_d), pointer :: zz28
+    class(cpp_vec_d), pointer :: zz29
+    class(cpp_vec_d), pointer :: zz30
+    class(cpp_vec_d), pointer :: zz31
+    class(cpp_vec_d), pointer :: zz32
+    class(cpp_vec_b), pointer :: zz33
+    class(cpp_vec_b), pointer :: zz34
+    class(cpp_vec_d), pointer :: zz35
+    class(cpp_vec_d), pointer :: zz36
+  self%n = s_%n
+  self%lanes = s_%lanes
+  zz1 => null()
+  if (associated(s_%columns)) then
+    zz2 => cpp_vec_o_clone(s_%columns)
+    if (associated(cpp_exc)) return
+    zz1 => zz2
+  end if
+  self%columns => zz1
+  zz3 => null()
+  if (associated(s_%y)) then
+    zz4 => cpp_vec_d_clone(s_%y)
+    if (associated(cpp_exc)) return
+    zz3 => zz4
+  end if
+  self%y => zz3
+  zz5 => null()
+  if (associated(s_%volume)) then
+    zz6 => cpp_vec_d_clone(s_%volume)
+    if (associated(cpp_exc)) return
+    zz5 => zz6
+  end if
+  self%volume => zz5
+  zz7 => null()
+  if (associated(s_%lower_bound)) then
+    zz8 => cpp_vec_d_clone(s_%lower_bound)
+    if (associated(cpp_exc)) return
+    zz7 => zz8
+  end if
+  self%lower_bound => zz7
+  zz9 => null()
+  if (associated(s_%reports)) then
+    zz10 => cpp_vec_o_clone(s_%reports)
+    if (associated(cpp_exc)) return
+    zz9 => zz10
+  end if
+  self%reports => zz9
+  zz11 => null()
+  if (associated(s_%head)) then
+    zz12 => cpp_vec_d_clone(s_%head)
+    if (associated(cpp_exc)) return
+    zz11 => zz12
+  end if
+  self%head => zz11
+  zz13 => null()
+  if (associated(s_%k)) then
+    zz14 => cpp_vec_d_clone(s_%k)
+    if (associated(cpp_exc)) return
+    zz13 => zz14
+  end if
+  self%k => zz13
+  zz15 => null()
+  if (associated(s_%f)) then
+    zz16 => cpp_vec_d_clone(s_%f)
+    if (associated(cpp_exc)) return
+    zz15 => zz16
+  end if
+  self%f => zz15
+  zz17 => null()
+  if (associated(s_%fp)) then
+    zz18 => cpp_vec_d_clone(s_%fp)
+    if (associated(cpp_exc)) return
+    zz17 => zz18
+  end if
+  self%fp => zz17
+  zz19 => null()
+  if (associated(s_%residual)) then
+    zz20 => cpp_vec_d_clone(s_%residual)
+    if (associated(cpp_exc)) return
+    zz19 => zz20
+  end if
+  self%residual => zz19
+  zz21 => null()
+  if (associated(s_%lo)) then
+    zz22 => cpp_vec_d_clone(s_%lo)
+    if (associated(cpp_exc)) return
+    zz21 => zz22
+  end if
+  self%lo => zz21
+  zz23 => null()
+  if (associated(s_%di)) then
+    zz24 => cpp_vec_d_clone(s_%di)
+    if (associated(cpp_exc)) return
+    zz23 => zz24
+  end if
+  self%di => zz23
+  zz25 => null()
+  if (associated(s_%up)) then
+    zz26 => cpp_vec_d_clone(s_%up)
+    if (associated(cpp_exc)) return
+    zz25 => zz26
+  end if
+  self%up => zz25
+  zz27 => null()
+  if (associated(s_%delta)) then
+    zz28 => cpp_vec_d_clone(s_%delta)
+    if (associated(cpp_exc)) return
+    zz27 => zz28
+  end if
+  self%delta => zz27
+  zz29 => null()
+  if (associated(s_%perturbed)) then
+    zz30 => cpp_vec_d_clone(s_%perturbed)
+    if (associated(cpp_exc)) return
+    zz29 => zz30
+  end if
+  self%perturbed => zz29
+  zz31 => null()
+  if (associated(s_%epsilon)) then
+    zz32 => cpp_vec_d_clone(s_%epsilon)
+    if (associated(cpp_exc)) return
+    zz31 => zz32
+  end if
+  self%epsilon => zz31
+  zz33 => null()
+  if (associated(s_%done)) then
+    zz34 => cpp_vec_b_clone(s_%done)
+    if (associated(cpp_exc)) return
+    zz33 => zz34
+  end if
+  self%done => zz33
+  zz35 => null()
+  if (associated(s_%coefficients)) then
+    zz36 => cpp_vec_d_clone(s_%coefficients)
+    if (associated(cpp_exc)) return
+    zz35 => zz36
+  end if
+  self%coefficients => zz35
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3ac14e41
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_c82270a5
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%n = s_%n
+  self%lanes = s_%lanes
+  call cpp_vec_o_assign_vect(self%columns, s_%columns)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%y, s_%y)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%volume, s_%volume)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%lower_bound, s_%lower_bound)
+  if (associated(cpp_exc)) return
+  call cpp_vec_o_assign_vect(self%reports, s_%reports)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%head, s_%head)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%k, s_%k)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%f, s_%f)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%fp, s_%fp)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%residual, s_%residual)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%lo, s_%lo)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%di, s_%di)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%up, s_%up)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%delta, s_%delta)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%perturbed, s_%perturbed)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%epsilon, s_%epsilon)
+  if (associated(cpp_exc)) return
+  call cpp_vec_b_assign_vect(self%done, s_%done)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%coefficients, s_%coefficients)
+  if (associated(cpp_exc)) return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_c82270a5
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_9d1e6bb1
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+    class(cpp_vec_o), pointer :: zz2
+    class(cpp_vec_d), pointer :: zz3
+    class(cpp_vec_d), pointer :: zz4
+    class(cpp_vec_d), pointer :: zz5
+    class(cpp_vec_o), pointer :: zz6
+    class(cpp_vec_d), pointer :: zz7
+    class(cpp_vec_d), pointer :: zz8
+    class(cpp_vec_d), pointer :: zz9
+    class(cpp_vec_d), pointer :: zz10
+    class(cpp_vec_d), pointer :: zz11
+    class(cpp_vec_d), pointer :: zz12
+    class(cpp_vec_d), pointer :: zz13
+    class(cpp_vec_d), pointer :: zz14
+    class(cpp_vec_d), pointer :: zz15
+    class(cpp_vec_d), pointer :: zz16
+    class(cpp_vec_d), pointer :: zz17
+    class(cpp_vec_b), pointer :: zz18
+    class(cpp_vec_d), pointer :: zz19
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%n = s_%n
+  self%lanes = s_%lanes
+  self%columns => s_%columns
+  zz2 => cpp_vec_o_new_0(h_mk_richards_column, 2)
+  s_%columns => zz2
+  self%y => s_%y
+  zz3 => cpp_vec_d_new_0()
+  s_%y => zz3
+  self%volume => s_%volume
+  zz4 => cpp_vec_d_new_0()
+  s_%volume => zz4
+  self%lower_bound => s_%lower_bound
+  zz5 => cpp_vec_d_new_0()
+  s_%lower_bound => zz5
+  self%reports => s_%reports
+  zz6 => cpp_vec_o_new_0(h_mk_richards_report, 2)
+  s_%reports => zz6
+  self%head => s_%head
+  zz7 => cpp_vec_d_new_0()
+  s_%head => zz7
+  self%k => s_%k
+  zz8 => cpp_vec_d_new_0()
+  s_%k => zz8
+  self%f => s_%f
+  zz9 => cpp_vec_d_new_0()
+  s_%f => zz9
+  self%fp => s_%fp
+  zz10 => cpp_vec_d_new_0()
+  s_%fp => zz10
+  self%residual => s_%residual
+  zz11 => cpp_vec_d_new_0()
+  s_%residual => zz11
+  self%lo => s_%lo
+  zz12 => cpp_vec_d_new_0()
+  s_%lo => zz12
+  self%di => s_%di
+  zz13 => cpp_vec_d_new_0()
+  s_%di => zz13
+  self%up => s_%up
+  zz14 => cpp_vec_d_new_0()
+  s_%up => zz14
+  self%delta => s_%delta
+  zz15 => cpp_vec_d_new_0()
+  s_%delta => zz15
+  self%perturbed => s_%perturbed
+  zz16 => cpp_vec_d_new_0()
+  s_%perturbed => zz16
+  self%epsilon => s_%epsilon
+  zz17 => cpp_vec_d_new_0()
+  s_%epsilon => zz17
+  self%done => s_%done
+  zz18 => cpp_vec_b_new_0()
+  s_%done => zz18
+  self%coefficients => s_%coefficients
+  zz19 => cpp_vec_d_new_0()
+  s_%coefficients => zz19
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_9d1e6bb1
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_74d6460d
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: o_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_99c0a512(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_9d1e6bb1(o_, s_)
+  zres => o_
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_74d6460d
+
+  module procedure p_lam459
+  zres = self%c_this%coefficients%a%a(((int(a1, 8) * cpp_vec_d_size(self%c_this%y)) + self%c_i))
+  return
+  end procedure p_lam459
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12
+    integer(8) :: i_
+    class(t_fn228), pointer :: field_
+    class(t_lam459), pointer :: zz1
+    class(t_richards_cell), pointer :: zz2
+    real(8) :: zz3
+    real(8), pointer :: zz4
+    real(8) :: zz5
+    real(8), pointer :: zz6
+    real(8) :: zz7
+    real(8), pointer :: zz8
+    real(8) :: zz9
+    real(8), pointer :: zz10
+    real(8) :: zz11
+    real(8), pointer :: zz12
+    real(8) :: zz13
+    real(8), pointer :: zz14
+    real(8) :: zz15
+    real(8), pointer :: zz16
+    class(t_richards_material), pointer :: zz17
+    real(8) :: zz18
+    real(8), pointer :: zz19
+    real(8) :: zz20
+    real(8), pointer :: zz21
+    real(8) :: zz22
+    real(8), pointer :: zz23
+    real(8) :: zz24
+    real(8), pointer :: zz25
+    real(8) :: zz26
+    real(8), pointer :: zz27
+  zres => null()
+  i_ = int(((k_ * self%lanes) + a_), 8)
+  allocate(zz1)
+  zz1%c_this => self
+  zz1%c_i = i_
+  field_ => zz1
+  allocate(zz2)
+  call p_richards_cell__ctor_x(zz2)
+  zz2%volume = self%volume%a%a(i_)
+  zz4 => zz2%area
+  zz3 = field_%invoke(0)
+  zz4 = zz3
+  zz6 => zz2%z
+  zz5 = field_%invoke(1)
+  zz6 = zz5
+  zz8 => zz2%dz
+  zz7 = field_%invoke(2)
+  zz8 = zz7
+  zz10 => zz2%theta_s
+  zz9 = field_%invoke(3)
+  zz10 = zz9
+  zz12 => zz2%ks
+  zz11 = field_%invoke(4)
+  zz12 = zz11
+  zz14 => zz2%wilting
+  zz13 = field_%invoke(5)
+  zz14 = zz13
+  zz16 => zz2%potential_et
+  zz15 = field_%invoke(6)
+  zz16 = zz15
+  allocate(zz17)
+  call p_richards_material__ctor_x(zz17)
+  zz19 => zz17%theta_r
+  zz18 = field_%invoke(7)
+  zz19 = zz18
+  zz21 => zz17%alpha
+  zz20 = field_%invoke(8)
+  zz21 = zz20
+  zz23 => zz17%n
+  zz22 = field_%invoke(9)
+  zz23 = zz22
+  zz25 => zz17%l
+  zz24 = field_%invoke(10)
+  zz25 = zz24
+  zz27 => zz17%specific_storage
+  zz26 = field_%invoke(11)
+  zz27 = zz26
+  zz2%material => zz17
+  zres => zz2
+  return
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs
+    integer(4) :: a_
+    logical :: zz1
+    integer(4), target :: zz2
+    class(t_richards_report), pointer :: zz3
+    integer(4) :: zz4
+    integer(4) :: a_2_
+    logical :: zz5
+    class(t_richards_column), pointer :: zz6
+    logical :: zz7
+    class(t_richards_column), pointer :: zz8
+    real(8), pointer :: zz9
+    real(8) :: zz10
+    integer(4) :: k_
+    integer(4) :: a_3_
+    logical :: zz11
+    integer(4) :: i_
+    class(t_richards_cell), pointer :: c_
+    class(t_richards_cell), pointer :: zz12
+    real(8) :: zz13
+    real(8) :: zz14
+    real(8), pointer :: zz15
+    real(8) :: zz16
+    real(8), pointer :: zz17
+    real(8) :: stress_
+    real(8) :: zz18
+    real(8) :: e_
+    real(8) :: zz19
+    real(8), target :: zz20
+    real(8) :: zz21
+    integer(4) :: k_2_
+    integer(4) :: a_4_
+    logical :: zz22
+    integer(4) :: i_2_
+    integer(4) :: j_
+    class(t_richards_cell), pointer :: c_2_
+    class(t_richards_cell), pointer :: zz23
+    class(t_richards_cell), pointer :: d_
+    class(t_richards_cell), pointer :: zz24
+    real(8) :: area_
+    real(8) :: conductance_
+    logical :: zz25
+    logical :: zz26
+    logical :: zz27
+    logical :: zz28
+    logical :: zz29
+    logical :: zz30
+    logical :: zz31
+    logical :: zz32
+    logical :: zz33
+    logical :: zz34
+    real(8) :: q_
+    real(8) :: zz35
+    real(8) :: zz36
+    real(8) :: zz37
+    real(8), target :: zz38
+    real(8) :: zz39
+    integer(4) :: a_5_
+    logical :: zz40
+    integer(4) :: i_3_
+    class(t_richards_column), pointer :: col_
+    class(t_richards_column), pointer :: zz41
+    class(t_richards_cell), pointer :: c_3_
+    class(t_richards_cell), pointer :: zz42
+    real(8) :: area_2_
+    real(8), pointer :: zz43
+    real(8) :: q_2_
+    logical :: zz44
+    logical :: zz45
+    logical :: zz46
+    logical :: zz47
+    real(8) :: resistance_
+    real(8) :: zz48
+    integer(4), target :: zz49
+    integer(4) :: zz50
+    integer(4), target :: zz51
+    integer(4) :: zz52
+    real(8) :: zz53
+    real(8), target :: zz54
+    real(8) :: zz55
+  call cpp_vec_d_assign_ul_t(f_, cpp_vec_d_size(w_), 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(self%head, cpp_vec_d_size(w_), 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(self%k, cpp_vec_d_size(w_), 0.0_8)
+  if (associated(cpp_exc)) return
+  if ((.not. (.not. associated(faces_)))) then
+    call cpp_vec_d_assign_ul_t(faces_, int((self%n * self%lanes), 8), 0.0_8)
+    if (associated(cpp_exc)) return
+  end if
+  if ((.not. (.not. associated(et_)))) then
+    call cpp_vec_d_assign_ul_t(et_, cpp_vec_d_size(w_), 0.0_8)
+    if (associated(cpp_exc)) return
+  end if
+  if ((.not. (.not. associated(limited_)))) then
+    call cpp_vec_i_assign_ul_t(limited_, int(self%lanes, 8), 0)
+    if (associated(cpp_exc)) return
+  end if
+  a_ = 0
+  do
+    if (.not. ((a_ < self%lanes))) exit
+    zz1 = (.not. (.not. (.not. associated(inactive_))))
+    if (.not. zz1) then
+      zz1 = (.not. (iand(int(inactive_%a%a(int(a_, 8)), 4), 255_4) /= 0))
+    end if
+    if (zz1) then
+      zz3 => h_uas_richards_report(self%reports%a%a(int(a_, 8))%p)
+      zz4 = (zz3%rhs + 1)
+      zz3%rhs = zz4
+      zz2 = zz4
+    end if
+    a_ = (a_ + 1)
+  end do
+  a_2_ = 0
+  do
+    if (.not. ((a_2_ < self%lanes))) exit
+    zz5 = (.not. (.not. (.not. associated(inactive_))))
+    if (.not. zz5) then
+      zz5 = (.not. (iand(int(inactive_%a%a(int(a_2_, 8)), 4), 255_4) /= 0))
+    end if
+    zz7 = zz5
+    if (zz7) then
+      zz6 => h_uas_richards_column(self%columns%a%a(int(a_2_, 8))%p)
+      zz7 = (zz6%inflow > 0.0_8)
+    end if
+    if (zz7) then
+      zz9 => f_%a%a(int(a_2_, 8))
+      zz8 => h_uas_richards_column(self%columns%a%a(int(a_2_, 8))%p)
+      zz10 = (zz9 + zz8%inflow)
+      zz9 = zz10
+    end if
+    a_2_ = (a_2_ + 1)
+  end do
+  k_ = 0
+  do
+    if (.not. ((k_ < self%n))) exit
+    a_3_ = 0
+    do
+      if (.not. ((a_3_ < self%lanes))) exit
+      zz11 = (.not. (.not. associated(inactive_)))
+      if (zz11) then
+        zz11 = (iand(int(inactive_%a%a(int(a_3_, 8)), 4), 255_4) /= 0)
+      end if
+      if (zz11) then
+        goto 108
+      end if
+      i_ = ((k_ * self%lanes) + a_3_)
+      zz12 => p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12(self, k_, a_3_)
+      c_ => zz12
+      zz15 => self%head%a%a(int(i_, 8))
+      zz14 = c_%z
+      if ((k_ /= 0)) then
+        zz13 = p_richards__f__pressure(c_%material, c_%theta_s, (w_%a%a(int(i_, 8)) / c_%volume))
+      else
+        zz13 = (cpp_m_max_d_d(0.0_8, w_%a%a(int(i_, 8))) / (c_%area * c_%theta_s))
+      end if
+      zz15 = (zz14 + zz13)
+      zz17 => self%k%a%a(int(i_, 8))
+      if ((k_ /= 0)) then
+        zz16 = p_richards__f__conductivity(c_%material, c_%ks, (self%head%a%a(int(i_, 8)) - c_%z))
+      else
+        zz16 = 0.0_8
+      end if
+      zz17 = zz16
+      if ((k_ /= 0)) then
+        zz18 = cpp_m_clamp_d_d_d((((w_%a%a(int(i_, 8)) / c_%volume) - c_%wilting) / cpp_m_max_d_d((c_%theta_s - c_%wilting), 1E-12_8)), 0.0_8, 1.0_8)
+      else
+        zz18 = cpp_m_clamp_d_d_d((w_%a%a(int(i_, 8)) / ((c_%area * c_%theta_s) * 1E-06_8)), 0.0_8, 1.0_8)
+      end if
+      stress_ = zz18
+      e_ = (c_%potential_et * stress_)
+      zz19 = (f_%a%a(int(i_, 8)) - e_)
+      f_%a%a(int(i_, 8)) = zz19
+      if ((.not. (.not. associated(et_)))) then
+        zz21 = e_
+        et_%a%a(int(i_, 8)) = zz21
+        zz20 = zz21
+      end if
+      108 continue
+      a_3_ = (a_3_ + 1)
+    end do
+    k_ = (k_ + 1)
+  end do
+  k_2_ = 0
+  do
+    if (.not. ((k_2_ < (self%n - 1)))) exit
+    a_4_ = 0
+    do
+      if (.not. ((a_4_ < self%lanes))) exit
+      zz22 = (.not. (.not. associated(inactive_)))
+      if (zz22) then
+        zz22 = (iand(int(inactive_%a%a(int(a_4_, 8)), 4), 255_4) /= 0)
+      end if
+      if (zz22) then
+        goto 112
+      end if
+      i_2_ = ((k_2_ * self%lanes) + a_4_)
+      j_ = (i_2_ + self%lanes)
+      zz23 => p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12(self, k_2_, a_4_)
+      c_2_ => zz23
+      zz24 => p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12(self, (k_2_ + 1), a_4_)
+      d_ => zz24
+      area_ = cpp_m_min_d_d(c_2_%area, d_%area)
+      conductance_ = 0.0_8
+      if ((k_2_ == 0)) then
+        conductance_ = ((area_ * (d_%ks + self%k%a%a(int(j_, 8)))) / d_%dz)
+      else
+        zz29 = (c_2_%material%alpha == d_%material%alpha)
+        if (zz29) then
+          zz29 = (c_2_%material%n == d_%material%n)
+        end if
+        zz30 = zz29
+        if (zz30) then
+          zz30 = (c_2_%material%theta_r == d_%material%theta_r)
+        end if
+        zz31 = zz30
+        if (zz31) then
+          zz31 = (c_2_%material%l == d_%material%l)
+        end if
+        zz32 = zz31
+        if (zz32) then
+          zz32 = (c_2_%ks == d_%ks)
+        end if
+        if (zz32) then
+          conductance_ = (((area_ * ((c_2_%dz * self%k%a%a(int(j_, 8))) + (d_%dz * self%k%a%a(int(i_2_, 8))))) / (c_2_%dz + d_%dz)) / (0.5_8 * (c_2_%dz + d_%dz)))
+        else
+          zz34 = (self%k%a%a(int(i_2_, 8)) > 0.0_8)
+          if (zz34) then
+            zz34 = (self%k%a%a(int(j_, 8)) > 0.0_8)
+          end if
+          if (zz34) then
+            conductance_ = (area_ / (((0.5_8 * c_2_%dz) / self%k%a%a(int(i_2_, 8))) + ((0.5_8 * d_%dz) / self%k%a%a(int(j_, 8)))))
+          end if
+        end if
+      end if
+      q_ = (conductance_ * (self%head%a%a(int(i_2_, 8)) - self%head%a%a(int(j_, 8))))
+      if (((k_2_ == 0) .and. (q_ > 0.0_8))) then
+        zz35 = (q_ * cpp_m_clamp_d_d_d((w_%a%a(int(i_2_, 8)) / ((c_2_%area * c_2_%theta_s) * 1E-06_8)), 0.0_8, 1.0_8))
+        q_ = zz35
+      end if
+      zz36 = (f_%a%a(int(i_2_, 8)) - q_)
+      f_%a%a(int(i_2_, 8)) = zz36
+      zz37 = (f_%a%a(int(j_, 8)) + q_)
+      f_%a%a(int(j_, 8)) = zz37
+      if ((.not. (.not. associated(faces_)))) then
+        zz39 = q_
+        faces_%a%a(int(i_2_, 8)) = zz39
+        zz38 = zz39
+      end if
+      112 continue
+      a_4_ = (a_4_ + 1)
+    end do
+    k_2_ = (k_2_ + 1)
+  end do
+  a_5_ = 0
+  do
+    if (.not. ((a_5_ < self%lanes))) exit
+    zz40 = (.not. (.not. associated(inactive_)))
+    if (zz40) then
+      zz40 = (iand(int(inactive_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
+    end if
+    if (zz40) then
+      goto 114
+    end if
+    i_3_ = (((self%n - 1) * self%lanes) + a_5_)
+    zz41 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
+    col_ => zz41
+    zz42 => p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12(self, (self%n - 1), a_5_)
+    c_3_ => zz42
+    if ((col_%bottom_area > 0.0_8)) then
+      zz43 => col_%bottom_area
+    else
+      zz43 => c_3_%area
+    end if
+    area_2_ = zz43
+    q_2_ = 0.0_8
+    if ((col_%bottom == 1)) then
+      q_2_ = (cpp_m_min_d_d(self%k%a%a(int(i_3_, 8)), col_%bottom_k) * area_2_)
+    else
+      zz46 = (col_%bottom == 2)
+      if (zz46) then
+        zz46 = (self%k%a%a(int(i_3_, 8)) > 0.0_8)
+      end if
+      zz47 = zz46
+      if (zz47) then
+        zz47 = (col_%bottom_k > 0.0_8)
+      end if
+      if (zz47) then
+        resistance_ = (((0.5_8 * c_3_%dz) / self%k%a%a(int(i_3_, 8))) + (col_%bottom_distance / col_%bottom_k))
+        q_2_ = ((area_2_ * (self%head%a%a(int(i_3_, 8)) - col_%bottom_head)) / resistance_)
+      end if
+    end if
+    zz48 = (q_2_ * col_%bottom_factor)
+    q_2_ = zz48
+    if ((.not. (.not. associated(rates_)))) then
+      if ((q_2_ > rates_%out%a%a(int(a_5_, 8)))) then
+        q_2_ = rates_%out%a%a(int(a_5_, 8))
+        if ((.not. (.not. associated(limited_)))) then
+          zz50 = 1
+          limited_%a%a(int(a_5_, 8)) = zz50
+          zz49 = zz50
+        end if
+      else if ((q_2_ < (-rates_%in%a%a(int(a_5_, 8))))) then
+        q_2_ = (-rates_%in%a%a(int(a_5_, 8)))
+        if ((.not. (.not. associated(limited_)))) then
+          zz52 = (-1)
+          limited_%a%a(int(a_5_, 8)) = zz52
+          zz51 = zz52
+        end if
+      end if
+    end if
+    zz53 = (f_%a%a(int(i_3_, 8)) - q_2_)
+    f_%a%a(int(i_3_, 8)) = zz53
+    if ((.not. (.not. associated(faces_)))) then
+      zz55 = q_2_
+      faces_%a%a(int(i_3_, 8)) = zz55
+      zz54 = zz55
+    end if
+    114 continue
+    a_5_ = (a_5_ + 1)
+  end do
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3231c7c4
+    integer(4) :: a_
+    integer(1) :: zz1
+    integer(1), pointer :: zz2
+    integer(4) :: it_
+    logical :: all_
+    integer(4) :: a_2_
+    integer(4), target :: zz3
+    class(t_richards_report), pointer :: zz4
+    integer(4) :: zz5
+    real(8) :: norm_
+    integer(4) :: k_
+    integer(4) :: i_
+    class(t_richards_column), pointer :: zz6
+    real(8) :: zz7
+    logical :: zz8
+    integer(1) :: zz9
+    integer(1), pointer :: zz10
+    integer(4) :: color_
+    integer(4) :: k_2_
+    integer(4) :: a_3_
+    integer(4) :: i_2_
+    real(8) :: wet_distance_
+    class(t_richards_cell), pointer :: zz11
+    real(8) :: zz12
+    real(8) :: zz13
+    real(8), pointer :: zz14
+    real(8) :: zz15
+    integer(4) :: zz16
+    integer(4) :: k_3_
+    integer(4) :: a_4_
+    integer(4) :: j_
+    integer(4) :: row_
+    integer(4) :: i_3_
+    real(8) :: value_
+    real(8) :: zz17
+    integer(4) :: zz18
+    integer(4) :: k_4_
+    integer(4) :: a_5_
+    integer(4) :: i_4_
+    real(8) :: zz19
+    real(8), pointer :: zz20
+    real(8) :: factor_
+    real(8) :: zz21
+    real(8) :: zz22
+    integer(4) :: k_5_
+    integer(4) :: a_6_
+    integer(4) :: i_5_
+    real(8) :: zz23
+    real(8) :: zz24
+    integer(4) :: a_7_
+    real(8) :: damping_
+    integer(4) :: k_6_
+    integer(4) :: i_6_
+    integer(4) :: k_7_
+    real(8) :: zz25
+  call cpp_vec_d_assign_vect(out_, start_)
+  if (associated(cpp_exc)) return
+  call cpp_vec_b_assign_ul_t(self%done, int(self%lanes, 8), 0_1)
+  if (associated(cpp_exc)) return
+  call cpp_vec_b_assign_ul_t(success_, int(self%lanes, 8), 0_1)
+  if (associated(cpp_exc)) return
+  call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%residual), cpp_vec_d_end(self%residual), 0.0_8)
+  if (associated(cpp_exc)) return
+  a_ = 0
+  do
+    if (.not. ((a_ < self%lanes))) exit
+    if ((steps_%a%a(int(a_, 8)) == 0.0_8)) then
+      zz2 => self%done%a%a(int(a_, 8))
+      zz1 = 1_1
+      success_%a%a(int(a_, 8)) = zz1
+      zz2 = zz1
+    end if
+    a_ = (a_ + 1)
+  end do
+  it_ = 0
+  do
+    if (.not. ((it_ < 35))) exit
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs(self, out_, self%f, null(), null(), self%done, rates_, null())
+    if (associated(cpp_exc)) return
+    all_ = .true.
+    a_2_ = 0
+    do
+      if (.not. ((a_2_ < self%lanes))) exit
+      if ((.not. (iand(int(self%done%a%a(int(a_2_, 8)), 4), 255_4) /= 0))) then
+        zz4 => h_uas_richards_report(self%reports%a%a(int(a_2_, 8))%p)
+        zz5 = (zz4%newton + 1)
+        zz4%newton = zz5
+        zz3 = zz5
+        norm_ = 0.0_8
+        k_ = 0
+        do
+          if (.not. ((k_ < self%n))) exit
+          i_ = ((k_ * self%lanes) + a_2_)
+          self%residual%a%a(int(i_, 8)) = ((out_%a%a(int(i_, 8)) - start_%a%a(int(i_, 8))) - (steps_%a%a(int(a_2_, 8)) * self%f%a%a(int(i_, 8))))
+          if ((.not. cpp_double_isfinite(self%residual%a%a(int(i_, 8))))) then
+            norm_ = transfer(9218868437227405312_8, 0.0_8)
+            goto 107
+          end if
+          norm_ = cpp_m_max_d_d(norm_, (abs(self%residual%a%a(int(i_, 8))) / self%volume%a%a(int(i_, 8))))
+          k_ = (k_ + 1)
+        end do
+        107 continue
+        zz8 = cpp_double_isfinite(norm_)
+        if (zz8) then
+          zz7 = norm_
+          zz6 => h_uas_richards_column(self%columns%a%a(int(a_2_, 8))%p)
+          zz8 = (zz7 <= cpp_m_min_d_d(1E-11_8, (zz6%options%atol * 0.001_8)))
+        end if
+        if (zz8) then
+          zz10 => self%done%a%a(int(a_2_, 8))
+          zz9 = 1_1
+          success_%a%a(int(a_2_, 8)) = zz9
+          zz10 = zz9
+        else
+          all_ = .false.
+        end if
+      end if
+      a_2_ = (a_2_ + 1)
+    end do
+    if (all_) then
+      goto 103
+    end if
+    call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%lo), cpp_vec_d_end(self%lo), 0.0_8)
+    if (associated(cpp_exc)) return
+    call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%up), cpp_vec_d_end(self%up), 0.0_8)
+    if (associated(cpp_exc)) return
+    call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%di), cpp_vec_d_end(self%di), 1.0_8)
+    if (associated(cpp_exc)) return
+    color_ = 0
+    do
+      if (.not. ((color_ < 3))) exit
+      call cpp_vec_d_assign_vect(self%perturbed, out_)
+      if (associated(cpp_exc)) return
+      k_2_ = color_
+      do
+        if (.not. ((k_2_ < self%n))) exit
+        a_3_ = 0
+        do
+          if (.not. ((a_3_ < self%lanes))) exit
+          if ((.not. (iand(int(self%done%a%a(int(a_3_, 8)), 4), 255_4) /= 0))) then
+            i_2_ = ((k_2_ * self%lanes) + a_3_)
+            zz12 = out_%a%a(int(i_2_, 8))
+            zz11 => p_richards__anon_hydrology_richardscolumn_cpp_batch_t_ed266c12(self, k_2_, a_3_)
+            wet_distance_ = abs((zz12 - (zz11%theta_s * self%volume%a%a(int(i_2_, 8)))))
+            zz14 => self%epsilon%a%a(int(i_2_, 8))
+            if ((k_2_ /= 0)) then
+              zz13 = cpp_m_max_d_d(wet_distance_, (0.0001_8 * self%volume%a%a(int(i_2_, 8))))
+            else
+              zz13 = self%volume%a%a(int(i_2_, 8))
+            end if
+            zz14 = (1E-08_8 * zz13)
+            zz15 = (self%perturbed%a%a(int(i_2_, 8)) + self%epsilon%a%a(int(i_2_, 8)))
+            self%perturbed%a%a(int(i_2_, 8)) = zz15
+          end if
+          a_3_ = (a_3_ + 1)
+        end do
+        zz16 = (k_2_ + 3)
+        k_2_ = zz16
+      end do
+      call p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs(self, self%perturbed, self%fp, null(), null(), self%done, rates_, null())
+      if (associated(cpp_exc)) return
+      k_3_ = color_
+      do
+        if (.not. ((k_3_ < self%n))) exit
+        a_4_ = 0
+        do
+          if (.not. ((a_4_ < self%lanes))) exit
+          if ((.not. (iand(int(self%done%a%a(int(a_4_, 8)), 4), 255_4) /= 0))) then
+            j_ = ((k_3_ * self%lanes) + a_4_)
+            row_ = cpp_m_max_i_i(0, (k_3_ - 1))
+            do
+              if (.not. ((row_ <= cpp_m_min_i_i((self%n - 1), (k_3_ + 1))))) exit
+              i_3_ = ((row_ * self%lanes) + a_4_)
+              value_ = (((-steps_%a%a(int(a_4_, 8))) * (self%fp%a%a(int(i_3_, 8)) - self%f%a%a(int(i_3_, 8)))) / self%epsilon%a%a(int(j_, 8)))
+              if ((row_ == k_3_)) then
+                zz17 = (self%di%a%a(int(i_3_, 8)) + value_)
+                self%di%a%a(int(i_3_, 8)) = zz17
+              else if ((row_ < k_3_)) then
+                self%up%a%a(int(i_3_, 8)) = value_
+              else
+                self%lo%a%a(int(i_3_, 8)) = value_
+              end if
+              row_ = (row_ + 1)
+            end do
+          end if
+          a_4_ = (a_4_ + 1)
+        end do
+        zz18 = (k_3_ + 3)
+        k_3_ = zz18
+      end do
+      color_ = (color_ + 1)
+    end do
+    k_4_ = 0
+    do
+      if (.not. ((k_4_ < self%n))) exit
+      a_5_ = 0
+      do
+        if (.not. ((a_5_ < self%lanes))) exit
+        i_4_ = ((k_4_ * self%lanes) + a_5_)
+        zz20 => self%delta%a%a(int(i_4_, 8))
+        if ((iand(int(self%done%a%a(int(a_5_, 8)), 4), 255_4) /= 0)) then
+          zz19 = 0.0_8
+        else
+          zz19 = (-self%residual%a%a(int(i_4_, 8)))
+        end if
+        zz20 = zz19
+        if ((k_4_ /= 0)) then
+          factor_ = (self%lo%a%a(int(i_4_, 8)) / self%di%a%a(int((i_4_ - self%lanes), 8)))
+          zz21 = (self%di%a%a(int(i_4_, 8)) - (factor_ * self%up%a%a(int((i_4_ - self%lanes), 8))))
+          self%di%a%a(int(i_4_, 8)) = zz21
+          zz22 = (self%delta%a%a(int(i_4_, 8)) - (factor_ * self%delta%a%a(int((i_4_ - self%lanes), 8))))
+          self%delta%a%a(int(i_4_, 8)) = zz22
+        end if
+        a_5_ = (a_5_ + 1)
+      end do
+      k_4_ = (k_4_ + 1)
+    end do
+    k_5_ = (self%n - 1)
+    do
+      if (.not. ((k_5_ >= 0))) exit
+      a_6_ = 0
+      do
+        if (.not. ((a_6_ < self%lanes))) exit
+        i_5_ = ((k_5_ * self%lanes) + a_6_)
+        if (((k_5_ + 1) < self%n)) then
+          zz23 = (self%delta%a%a(int(i_5_, 8)) - (self%up%a%a(int(i_5_, 8)) * self%delta%a%a(int((i_5_ + self%lanes), 8))))
+          self%delta%a%a(int(i_5_, 8)) = zz23
+        end if
+        zz24 = (self%delta%a%a(int(i_5_, 8)) / self%di%a%a(int(i_5_, 8)))
+        self%delta%a%a(int(i_5_, 8)) = zz24
+        a_6_ = (a_6_ + 1)
+      end do
+      k_5_ = (k_5_ - 1)
+    end do
+    a_7_ = 0
+    do
+      if (.not. ((a_7_ < self%lanes))) exit
+      if ((.not. (iand(int(self%done%a%a(int(a_7_, 8)), 4), 255_4) /= 0))) then
+        damping_ = 1.0_8
+        k_6_ = 0
+        do
+          if (.not. ((k_6_ < self%n))) exit
+          i_6_ = ((k_6_ * self%lanes) + a_7_)
+          if ((.not. cpp_double_isfinite(self%delta%a%a(int(i_6_, 8))))) then
+            self%done%a%a(int(a_7_, 8)) = 1_1
+            damping_ = 0.0_8
+            goto 131
+          end if
+          if ((self%delta%a%a(int(i_6_, 8)) < 0.0_8)) then
+            damping_ = cpp_m_min_d_d(damping_, ((0.9_8 * (out_%a%a(int(i_6_, 8)) - self%lower_bound%a%a(int(i_6_, 8)))) / (-self%delta%a%a(int(i_6_, 8)))))
+          end if
+          k_6_ = (k_6_ + 1)
+        end do
+        131 continue
+        if ((damping_ <= 1E-10_8)) then
+          self%done%a%a(int(a_7_, 8)) = 1_1
+          goto 130
+        end if
+        k_7_ = 0
+        do
+          if (.not. ((k_7_ < self%n))) exit
+          zz25 = (out_%a%a(int(((k_7_ * self%lanes) + a_7_), 8)) + (damping_ * self%delta%a%a(int(((k_7_ * self%lanes) + a_7_), 8))))
+          out_%a%a(int(((k_7_ * self%lanes) + a_7_), 8)) = zz25
+          k_7_ = (k_7_ + 1)
+        end do
+      end if
+      130 continue
+      a_7_ = (a_7_ + 1)
+    end do
+    it_ = (it_ + 1)
+  end do
+  103 continue
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3231c7c4
+
+  module procedure p_lam460
+    class(t_richards_column), pointer :: c_
+    class(t_richards_column), pointer :: zz1
+    logical :: zz2
+  zz1 => h_uas_richards_column(a1)
+  c_ => zz1
+  zz2 = cpp_double_isfinite(c_%bottom_out_limit)
+  if (.not. zz2) then
+    zz2 = cpp_double_isfinite(c_%bottom_in_limit)
+  end if
+  zres = zz2
+  return
+  end procedure p_lam460
+
+  module procedure p_lam461
+    integer(4) :: a_2_
+    real(8) :: first_
+    real(8) :: zz1
+    class(t_richards_column), pointer :: zz2
+    class(t_richards_report), pointer :: zz3
+    real(8) :: zz4
+    real(8), pointer :: zz5
+    class(t_richards_column), pointer :: zz6
+    class(t_richards_report), pointer :: zz7
+    real(8) :: zz8
+    real(8), pointer :: zz9
+  call cpp_vec_d_resize_ul(a1%out, int(self%c_this%lanes, 8))
+  call cpp_vec_d_resize_ul(a1%in, int(self%c_this%lanes, 8))
+  a_2_ = 0
+  do
+    if (.not. ((a_2_ < self%c_this%lanes))) exit
+    if ((.not. (.not. associated(a3)))) then
+      zz1 = (a2%a%a(int(a_2_, 8)) * a3%a%a(int((((self%c_this%n - 1) * self%c_this%lanes) + a_2_), 8)))
+    else
+      zz1 = 0.0_8
+    end if
+    first_ = zz1
+    zz5 => a1%out%a%a(int(a_2_, 8))
+    zz2 => h_uas_richards_column(self%c_this%columns%a%a(int(a_2_, 8))%p)
+    zz4 = zz2%bottom_out_limit
+    zz3 => h_uas_richards_report(self%c_this%reports%a%a(int(a_2_, 8))%p)
+    zz5 = p_richards__anon_hydrology_richardscolumn_cpp__f__res_821a95c7(zz4, (zz3%bottom_outflow + cpp_m_max_d_d(0.0_8, first_)), a2%a%a(int(a_2_, 8)))
+    zz9 => a1%in%a%a(int(a_2_, 8))
+    zz6 => h_uas_richards_column(self%c_this%columns%a%a(int(a_2_, 8))%p)
+    zz8 = zz6%bottom_in_limit
+    zz7 => h_uas_richards_report(self%c_this%reports%a%a(int(a_2_, 8))%p)
+    zz9 = p_richards__anon_hydrology_richardscolumn_cpp__f__res_821a95c7(zz8, (zz7%bottom_inflow + cpp_m_max_d_d(0.0_8, (-first_))), a2%a%a(int(a_2_, 8)))
+    a_2_ = (a_2_ + 1)
+  end do
+  return
+  end procedure p_lam461
+
+  module procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_true__run
+    class(cpp_vec_d), pointer :: time_
+    class(cpp_vec_d), pointer :: zz1
+    class(cpp_vec_d), pointer :: step_
+    class(cpp_vec_d), pointer :: zz2
+    class(cpp_vec_d), pointer :: full_
+    class(cpp_vec_d), pointer :: zz3
+    class(cpp_vec_d), pointer :: half_
+    class(cpp_vec_d), pointer :: zz4
+    class(cpp_vec_d), pointer :: two_
+    class(cpp_vec_d), pointer :: zz5
+    class(cpp_vec_d), pointer :: f_
+    class(cpp_vec_d), pointer :: zz6
+    class(cpp_vec_d), pointer :: faces1_
+    class(cpp_vec_d), pointer :: zz7
+    class(cpp_vec_d), pointer :: faces2_
+    class(cpp_vec_d), pointer :: zz8
+    class(cpp_vec_d), pointer :: et1_
+    class(cpp_vec_d), pointer :: zz9
+    class(cpp_vec_d), pointer :: et2_
+    class(cpp_vec_d), pointer :: zz10
+    class(cpp_vec_d), pointer :: h_
+    class(cpp_vec_d), pointer :: zz11
+    class(cpp_vec_b), pointer :: good_
+    class(cpp_vec_b), pointer :: zz12
+    class(cpp_vec_b), pointer :: good1_
+    class(cpp_vec_b), pointer :: zz13
+    class(cpp_vec_b), pointer :: good2_
+    class(cpp_vec_b), pointer :: zz14
+    class(cpp_vec_b), pointer :: inactive_
+    class(cpp_vec_b), pointer :: zz15
+    class(cpp_vec_i), pointer :: limited1_
+    class(cpp_vec_i), pointer :: zz16
+    class(cpp_vec_i), pointer :: limited2_
+    class(cpp_vec_i), pointer :: zz17
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: full_rates_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz18
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: half_rates_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz19
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: second_rates_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz20
+    integer(4) :: a_
+    class(t_richards_column), pointer :: zz21
+    real(8), pointer :: zz22
+    logical :: bounded_
+    class(t_lam460), pointer :: zz23
+    type(cpp_iter_o) :: zz24
+    type(cpp_iter_o) :: zz25
+    logical :: zz26
+    class(t_fn230), pointer :: rates_
+    class(t_lam461), pointer :: zz27
+    integer(4) :: attempts_
+    type(cpp_iter_d) :: zz28
+    real(8), pointer :: zz29
+    integer(4) :: zz30
+    class(cpp_vec_o), pointer :: x__r1_
+    integer(8) :: x__i2_
+    integer(8) :: x__i2_n_
+    class(t_richards_report), pointer :: r_
+    class(t_richards_report), pointer :: zz31
+    type(cpp_cptr) :: zz32
+    class(cpp_str), pointer :: zz33
+    integer(4) :: a_3_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz34
+    class(cpp_vec_d), pointer :: zz35
+    class(cpp_vec_d), pointer :: x__r3_
+    integer(8) :: x__i4_
+    integer(8) :: x__i4_n_
+    real(8), pointer :: v_
+    real(8) :: zz36
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz37
+    class(cpp_vec_d), pointer :: zz38
+    integer(4) :: a_4_
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz39
+    class(t_richards__anon_hydrology_richardscolumn_cpp_boundaryrates), pointer :: zz40
+    class(cpp_vec_i), pointer :: zz41
+    integer(4) :: a_5_
+    class(t_richards_report), pointer :: report_
+    class(t_richards_report), pointer :: zz42
+    class(t_richards_options), pointer :: opt_
+    class(t_richards_column), pointer :: zz43
+    real(8) :: error_
+    integer(4) :: k_
+    integer(4) :: i_
+    real(8) :: scale_
+    logical :: zz44
+    logical :: zz45
+    logical :: zz46
+    real(8) :: zz47
+    real(8), pointer :: zz48
+    integer(4) :: stage_
+    integer(4) :: k_2_
+    class(t_richards_column), pointer :: zz49
+    logical :: zz50
+    real(8) :: received_
+    class(t_richards_column), pointer :: zz51
+    real(8) :: zz52
+    class(t_richards_transfer), pointer :: zz53
+    class(*), pointer :: zz54
+    class(cpp_vec_o), pointer :: zz55
+    integer(4) :: i_2_
+    real(8) :: v_2_
+    real(8), pointer :: zz56
+    real(8) :: zz57
+    class(t_richards_transfer), pointer :: zz58
+    class(*), pointer :: zz59
+    class(cpp_vec_o), pointer :: zz60
+    class(t_richards_transfer), pointer :: zz61
+    class(*), pointer :: zz62
+    class(cpp_vec_o), pointer :: zz63
+    real(8) :: zz64
+    real(8) :: zz65
+    real(8) :: zz66
+    class(t_richards_transfer), pointer :: zz67
+    class(*), pointer :: zz68
+    class(cpp_vec_o), pointer :: zz69
+    class(t_richards_transfer), pointer :: zz70
+    class(*), pointer :: zz71
+    class(cpp_vec_o), pointer :: zz72
+    real(8) :: e_
+    real(8), pointer :: zz73
+    real(8) :: zz74
+    real(8) :: zz75
+    class(t_richards_transfer), pointer :: zz76
+    class(*), pointer :: zz77
+    class(cpp_vec_o), pointer :: zz78
+    class(cpp_arr_i), pointer :: x__r5_
+    class(cpp_arr_i), pointer :: zz79
+    integer(8) :: x__i6_
+    integer(8) :: x__i6_n_
+    integer(4) :: limited_
+    integer(4) :: zz80
+    integer(4) :: zz81
+    integer(4) :: k_3_
+    real(8) :: zz82
+    real(8), pointer :: zz83
+    real(8) :: zz84
+    type(cpp_cptr) :: zz85
+    class(cpp_str), pointer :: zz86
+    integer(4) :: a_6_
+    class(t_richards_column), pointer :: col_
+    class(t_richards_column), pointer :: zz87
+    class(t_richards_report), pointer :: report_2_
+    class(t_richards_report), pointer :: zz88
+    real(8) :: initial_
+    real(8) :: final_
+    integer(4) :: k_4_
+    real(8) :: zz89
+    real(8) :: zz90
+  zz1 => cpp_vec_d_new_ul_t(int(self%lanes, 8), 0.0_8)
+  if (associated(cpp_exc)) return
+  time_ => zz1
+  zz2 => cpp_vec_d_new_ul(int(self%lanes, 8))
+  step_ => zz2
+  zz3 => cpp_vec_d_new_0()
+  full_ => zz3
+  zz4 => cpp_vec_d_new_0()
+  half_ => zz4
+  zz5 => cpp_vec_d_new_0()
+  two_ => zz5
+  zz6 => cpp_vec_d_new_0()
+  f_ => zz6
+  zz7 => cpp_vec_d_new_0()
+  faces1_ => zz7
+  zz8 => cpp_vec_d_new_0()
+  faces2_ => zz8
+  zz9 => cpp_vec_d_new_0()
+  et1_ => zz9
+  zz10 => cpp_vec_d_new_0()
+  et2_ => zz10
+  zz11 => cpp_vec_d_new_0()
+  h_ => zz11
+  zz12 => cpp_vec_b_new_ul(int(self%lanes, 8))
+  good_ => zz12
+  zz13 => cpp_vec_b_new_ul(int(self%lanes, 8))
+  good1_ => zz13
+  zz14 => cpp_vec_b_new_ul(int(self%lanes, 8))
+  good2_ => zz14
+  zz15 => cpp_vec_b_new_ul(int(self%lanes, 8))
+  inactive_ => zz15
+  zz16 => cpp_vec_i_new_0()
+  limited1_ => zz16
+  zz17 => cpp_vec_i_new_0()
+  limited2_ => zz17
+  allocate(zz18)
+  call p_richards__anon_hydrology_richardscolumn_cpp_boundar_9cc751bd(zz18)
+  full_rates_ => zz18
+  allocate(zz19)
+  call p_richards__anon_hydrology_richardscolumn_cpp_boundar_9cc751bd(zz19)
+  half_rates_ => zz19
+  allocate(zz20)
+  call p_richards__anon_hydrology_richardscolumn_cpp_boundar_9cc751bd(zz20)
+  second_rates_ => zz20
+  a_ = 0
+  do
+    if (.not. ((a_ < self%lanes))) exit
+    zz22 => step_%a%a(int(a_, 8))
+    zz21 => h_uas_richards_column(self%columns%a%a(int(a_, 8))%p)
+    zz22 = cpp_m_min_d_d(dt_, zz21%options%max_step)
+    a_ = (a_ + 1)
+  end do
+  zz24 = cpp_vec_o_begin(self%columns)
+  zz25 = cpp_vec_o_end(self%columns)
+  allocate(zz23)
+  zz26 = cpp_algo_any_of__o(zz24, zz25, zz23, h_mk_richards_column, 2)
+  bounded_ = zz26
+  allocate(zz27)
+  zz27%c_this => self
+  rates_ => zz27
+  attempts_ = 0
+  do
+    zz28 = cpp_algo_min_element_itert_itert__d(cpp_vec_d_begin(time_), cpp_vec_d_end(time_))
+    zz29 => cpp_iter_d_deref(zz28)
+    if (.not. ((zz29 < dt_))) exit
+    zz30 = (attempts_ + 1)
+    attempts_ = zz30
+    if ((zz30 > 200000)) then
+      x__r1_ => self%reports
+      x__i2_ = 0_8
+      x__i2_n_ = int(x__r1_%n, 8)
+      do
+        if (.not. ((x__i2_ < x__i2_n_))) exit
+        zz31 => h_uas_richards_report(x__r1_%a%a(x__i2_)%p)
+        r_ => zz31
+        r_%ok = .false.
+        zz33 => r_%error
+        zz32 = cpp_r_lit("Richards adaptive-step limit exceeded")
+        call cpp_str_assign_cptr(zz33, zz32)
+        x__i2_ = (x__i2_ + 1_8)
+      end do
+      return
+    end if
+    a_3_ = 0
+    do
+      if (.not. ((a_3_ < self%lanes))) exit
+      step_%a%a(int(a_3_, 8)) = cpp_m_min_d_d(step_%a%a(int(a_3_, 8)), cpp_m_max_d_d(0.0_8, (dt_ - time_%a%a(int(a_3_, 8)))))
+      a_3_ = (a_3_ + 1)
+    end do
+    if (bounded_) then
+      call rates_%invoke(full_rates_, step_, null())
+    end if
+    zz35 => self%y
+    if (bounded_) then
+      zz34 => full_rates_
+    else
+      zz34 => null()
+    end if
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3231c7c4(self, zz35, step_, full_, good_, zz34)
+    if (associated(cpp_exc)) return
+    call cpp_vec_d_assign_vect(h_, step_)
+    if (associated(cpp_exc)) return
+    x__r3_ => h_
+    x__i4_ = 0_8
+    x__i4_n_ = int(x__r3_%n, 8)
+    do
+      if (.not. ((x__i4_ < x__i4_n_))) exit
+      v_ => x__r3_%a%a(x__i4_)
+      zz36 = (v_ * 0.5_8)
+      v_ = zz36
+      x__i4_ = (x__i4_ + 1_8)
+    end do
+    if (bounded_) then
+      call rates_%invoke(half_rates_, h_, null())
+    end if
+    zz38 => self%y
+    if (bounded_) then
+      zz37 => half_rates_
+    else
+      zz37 => null()
+    end if
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3231c7c4(self, zz38, h_, half_, good1_, zz37)
+    if (associated(cpp_exc)) return
+    a_4_ = 0
+    do
+      if (.not. ((a_4_ < self%lanes))) exit
+      inactive_%a%a(int(a_4_, 8)) = int(merge(1, 0, (step_%a%a(int(a_4_, 8)) == 0.0_8)), 1)
+      a_4_ = (a_4_ + 1)
+    end do
+    if (bounded_) then
+      call p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs(self, half_, f_, faces1_, et1_, inactive_, half_rates_, limited1_)
+      if (associated(cpp_exc)) return
+      call rates_%invoke(second_rates_, h_, faces1_)
+    end if
+    if (bounded_) then
+      zz39 => second_rates_
+    else
+      zz39 => null()
+    end if
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_3231c7c4(self, half_, h_, two_, good2_, zz39)
+    if (associated(cpp_exc)) return
+    if ((.not. bounded_)) then
+      call p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs(self, half_, f_, faces1_, et1_, inactive_, null(), null())
+      if (associated(cpp_exc)) return
+    end if
+    if (bounded_) then
+      zz40 => second_rates_
+    else
+      zz40 => null()
+    end if
+    if (bounded_) then
+      zz41 => limited2_
+    else
+      zz41 => null()
+    end if
+    call p_richards__anon_hydrology_richardscolumn_cpp_batch_true__rhs(self, two_, f_, faces2_, et2_, inactive_, zz40, zz41)
+    if (associated(cpp_exc)) return
+    a_5_ = 0
+    do
+      if (.not. ((a_5_ < self%lanes))) exit
+      if ((step_%a%a(int(a_5_, 8)) == 0.0_8)) then
+        goto 114
+      end if
+      zz42 => h_uas_richards_report(self%reports%a%a(int(a_5_, 8))%p)
+      report_ => zz42
+      zz43 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
+      opt_ => zz43%options
+      error_ = 0.0_8
+      k_ = 0
+      do
+        if (.not. ((k_ < self%n))) exit
+        i_ = ((k_ * self%lanes) + a_5_)
+        scale_ = ((opt_%atol * self%volume%a%a(int(i_, 8))) + (opt_%rtol * cpp_m_max_d_d(abs(two_%a%a(int(i_, 8))), abs(self%y%a%a(int(i_, 8))))))
+        error_ = cpp_m_max_d_d(error_, (abs((two_%a%a(int(i_, 8)) - full_%a%a(int(i_, 8)))) / scale_))
+        k_ = (k_ + 1)
+      end do
+      zz44 = (iand(int(good_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
+      if (zz44) then
+        zz44 = (iand(int(good1_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
+      end if
+      zz45 = zz44
+      if (zz45) then
+        zz45 = (iand(int(good2_%a%a(int(a_5_, 8)), 4), 255_4) /= 0)
+      end if
+      zz46 = zz45
+      if (zz46) then
+        zz46 = cpp_double_isfinite(error_)
+      end if
+      if ((zz46 .and. (error_ <= 1.0_8))) then
+        report_%accepted = (report_%accepted + 1)
+        zz48 => report_%min_step
+        if ((report_%min_step > 0.0_8)) then
+          zz47 = cpp_m_min_d_d(report_%min_step, step_%a%a(int(a_5_, 8)))
+        else
+          zz47 = step_%a%a(int(a_5_, 8))
+        end if
+        zz48 = zz47
+        stage_ = 0
+        do
+          if (.not. ((stage_ < 2))) exit
+          k_2_ = 0
+          do
+            if (.not. ((k_2_ < self%n))) exit
+            zz50 = (k_2_ == 0)
+            if (zz50) then
+              zz49 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
+              zz50 = (zz49%inflow > 0.0_8)
+            end if
+            if (zz50) then
+              zz51 => h_uas_richards_column(self%columns%a%a(int(a_5_, 8))%p)
+              received_ = (zz51%inflow * h_%a%a(int(a_5_, 8)))
+              zz52 = (report_%inflow + received_)
+              report_%inflow = zz52
+              zz55 => report_%transfers
+              allocate(zz53)
+              call p_richards_transfer__ctor_x(zz53)
+              zz53%from = (-2)
+              zz53%to = 0
+              zz53%volume = received_
+              zz54 => zz53
+              call cpp_vec_o_push_back(zz55, zz54)
+            end if
+            i_2_ = ((k_2_ * self%lanes) + a_5_)
+            zz57 = h_%a%a(int(a_5_, 8))
+            if ((stage_ /= 0)) then
+              zz56 => faces2_%a%a(int(i_2_, 8))
+            else
+              zz56 => faces1_%a%a(int(i_2_, 8))
+            end if
+            v_2_ = (zz57 * zz56)
+            if (((k_2_ + 1) < self%n)) then
+              if ((v_2_ > 0.0_8)) then
+                zz60 => report_%transfers
+                allocate(zz58)
+                call p_richards_transfer__ctor_x(zz58)
+                zz58%from = k_2_
+                zz58%to = (k_2_ + 1)
+                zz58%volume = v_2_
+                zz59 => zz58
+                call cpp_vec_o_push_back(zz60, zz59)
+              else if ((v_2_ < 0.0_8)) then
+                zz63 => report_%transfers
+                allocate(zz61)
+                call p_richards_transfer__ctor_x(zz61)
+                zz61%from = (k_2_ + 1)
+                zz61%to = k_2_
+                zz61%volume = (-v_2_)
+                zz62 => zz61
+                call cpp_vec_o_push_back(zz63, zz62)
+              end if
+            else
+              zz64 = (report_%bottom_volume + v_2_)
+              report_%bottom_volume = zz64
+              if ((v_2_ > 0.0_8)) then
+                zz65 = (report_%bottom_outflow + v_2_)
+                report_%bottom_outflow = zz65
+              else if ((v_2_ < 0.0_8)) then
+                zz66 = (report_%bottom_inflow - v_2_)
+                report_%bottom_inflow = zz66
+              end if
+              if ((v_2_ > 0.0_8)) then
+                zz69 => report_%transfers
+                allocate(zz67)
+                call p_richards_transfer__ctor_x(zz67)
+                zz67%from = k_2_
+                zz67%to = (-4)
+                zz67%volume = v_2_
+                zz68 => zz67
+                call cpp_vec_o_push_back(zz69, zz68)
+              else if ((v_2_ < 0.0_8)) then
+                zz72 => report_%transfers
+                allocate(zz70)
+                call p_richards_transfer__ctor_x(zz70)
+                zz70%from = (-5)
+                zz70%to = k_2_
+                zz70%volume = (-v_2_)
+                zz71 => zz70
+                call cpp_vec_o_push_back(zz72, zz71)
+              end if
+            end if
+            zz74 = h_%a%a(int(a_5_, 8))
+            if ((stage_ /= 0)) then
+              zz73 => et2_%a%a(int(i_2_, 8))
+            else
+              zz73 => et1_%a%a(int(i_2_, 8))
+            end if
+            e_ = (zz74 * zz73)
+            zz75 = (report_%evaporation + e_)
+            report_%evaporation = zz75
+            if ((e_ > 0.0_8)) then
+              zz78 => report_%transfers
+              allocate(zz76)
+              call p_richards_transfer__ctor_x(zz76)
+              zz76%from = k_2_
+              zz76%to = (-3)
+              zz76%volume = e_
+              zz77 => zz76
+              call cpp_vec_o_push_back(zz78, zz77)
+            end if
+            k_2_ = (k_2_ + 1)
+          end do
+          stage_ = (stage_ + 1)
+        end do
+        if (bounded_) then
+          zz79 => cpp_arr_i_new(2_8)
+          zz79%a(0) = limited1_%a%a(int(a_5_, 8))
+          zz79%a(1) = limited2_%a%a(int(a_5_, 8))
+          x__r5_ => zz79
+          x__i6_ = 0_8
+          x__i6_n_ = int(size(x__r5_%a), 8)
+          do
+            if (.not. ((x__i6_ < x__i6_n_))) exit
+            limited_ = x__r5_%a(x__i6_)
+            zz80 = (report_%bottom_out_limited + merge(1, 0, (limited_ == 1)))
+            report_%bottom_out_limited = zz80
+            zz81 = (report_%bottom_in_limited + merge(1, 0, (limited_ == (-1))))
+            report_%bottom_in_limited = zz81
+            x__i6_ = (x__i6_ + 1_8)
+          end do
+        end if
+        k_3_ = 0
+        do
+          if (.not. ((k_3_ < self%n))) exit
+          self%y%a%a(int(((k_3_ * self%lanes) + a_5_), 8)) = two_%a%a(int(((k_3_ * self%lanes) + a_5_), 8))
+          k_3_ = (k_3_ + 1)
+        end do
+        time_%a%a(int(a_5_, 8)) = cpp_m_min_d_d(dt_, (time_%a%a(int(a_5_, 8)) + step_%a%a(int(a_5_, 8))))
+        step_%a%a(int(a_5_, 8)) = cpp_m_min_d_d(opt_%max_step, (step_%a%a(int(a_5_, 8)) * cpp_m_clamp_d_d_d((0.8_8 / sqrt(cpp_m_max_d_d(error_, 1E-08_8))), 0.5_8, 2.0_8)))
+      else
+        report_%rejected = (report_%rejected + 1)
+        zz83 => step_%a%a(int(a_5_, 8))
+        if ((cpp_double_isfinite(error_) .and. (error_ > 1.0_8))) then
+          zz82 = cpp_m_clamp_d_d_d((0.8_8 / sqrt(error_)), 0.1_8, 0.5_8)
+        else
+          zz82 = 0.5_8
+        end if
+        zz84 = (zz83 * zz82)
+        zz83 = zz84
+        if ((step_%a%a(int(a_5_, 8)) < (1E-09_8 * cpp_m_max_d_d(1.0_8, dt_)))) then
+          report_%ok = .false.
+          zz86 => report_%error
+          zz85 = cpp_r_lit("Richards step underflow / Newton failure")
+          call cpp_str_assign_cptr(zz86, zz85)
+          return
+        end if
+      end if
+      114 continue
+      a_5_ = (a_5_ + 1)
+    end do
+  end do
+  a_6_ = 0
+  do
+    if (.not. ((a_6_ < self%lanes))) exit
+    zz87 => h_uas_richards_column(self%columns%a%a(int(a_6_, 8))%p)
+    col_ => zz87
+    zz88 => h_uas_richards_report(self%reports%a%a(int(a_6_, 8))%p)
+    report_2_ => zz88
+    initial_ = cpp_algo_accumulate_iterd_iterd_d(cpp_vec_d_begin(col_%water), cpp_vec_d_end(col_%water), 0.0_8)
+    final_ = 0.0_8
+    k_4_ = 0
+    do
+      if (.not. ((k_4_ < self%n))) exit
+      col_%water%a%a(int(k_4_, 8)) = self%y%a%a(int(((k_4_ * self%lanes) + a_6_), 8))
+      zz89 = (final_ + col_%water%a%a(int(k_4_, 8)))
+      final_ = zz89
+      k_4_ = (k_4_ + 1)
+    end do
+    report_2_%balance = (((final_ - initial_) + report_2_%bottom_volume) + report_2_%evaporation)
+    if ((col_%inflow > 0.0_8)) then
+      zz90 = (report_2_%balance - report_2_%inflow)
+      report_2_%balance = zz90
+    end if
+    a_6_ = (a_6_ + 1)
+  end do
+  end procedure p_richards__anon_hydrology_richardscolumn_cpp_batch_true__run
 
   module procedure p_richards__anon_hydrology_richardscolumn_cpp_boundar_40ec5b8c
   end procedure p_richards__anon_hydrology_richardscolumn_cpp_boundar_40ec5b8c
@@ -5722,7 +5821,7 @@ contains
   end do
   end procedure p_runoff_runoffsolver__init
 
-  module procedure p_lam460
+  module procedure p_lam464
     integer(4), target :: slot_t_
     integer(4), pointer :: zz1
     class(t_runoff_runoffsourceforcing), pointer :: zz2
@@ -5735,9 +5834,9 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam460
+  end procedure p_lam464
 
-  module procedure p_lam462
+  module procedure p_lam466
     real(8) :: subarea_area_
     real(8) :: initial_depth_
     real(8) :: surfmoisture_
@@ -5983,9 +6082,9 @@ contains
   end if
   zres = runoff_rate_
   return
-  end procedure p_lam462
+  end procedure p_lam466
 
-  module procedure p_lam463
+  module procedure p_lam467
     integer(4) :: pi_2_
     integer(8) :: upi_
     logical :: zz1
@@ -6018,9 +6117,9 @@ contains
   a2 = facs_2_%a%a(self%c_umon_2)
   zres = .true.
   return
-  end procedure p_lam463
+  end procedure p_lam467
 
-  module procedure p_lam461
+  module procedure p_lam465
     integer(4) :: i_3_
     integer(4) :: zz1
     logical :: zz2
@@ -6060,7 +6159,7 @@ contains
     real(8), pointer :: vinfil_
     real(8), pointer :: voutflow_
     class(t_fn72), pointer :: processsubarea_
-    class(t_lam462), pointer :: zz17
+    class(t_lam466), pointer :: zz17
     integer(4) :: route_mode_2_
     real(8) :: pct_2_
     real(8) :: f_outlet_
@@ -6101,7 +6200,7 @@ contains
     real(8) :: ds_perv_adj_
     integer(8) :: umon_2_
     class(t_fn73), pointer :: monthly_
-    class(t_lam463), pointer :: zz33
+    class(t_lam467), pointer :: zz33
     real(8), target :: f_2_
     logical :: zz34
     real(8) :: zz35
@@ -6446,6 +6545,6 @@ contains
   zz58 = (self%c_ctx%subcatches%stat_perv_vol%a%a(ui_3_) + ((runoff_p_ * area_pv_) * self%c_dt))
   self%c_ctx%subcatches%stat_perv_vol%a%a(ui_3_) = zz58
   return
-  end procedure p_lam461
+  end procedure p_lam465
 
 end submodule swmm6_engine_036

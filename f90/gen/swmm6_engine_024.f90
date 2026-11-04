@@ -4,6 +4,281 @@ submodule (swmm6_engine) swmm6_engine_024
   implicit none
 contains
 
+  module procedure p_lam272
+  zres = (self%c_nn + int(self%c_this%fv_mesh_%conduit_link%a%a(int(self%c_this%fv_mesh_%cell_conduit%a%a(int(a1, 8)), 8)), 8))
+  return
+  end procedure p_lam272
+
+  module procedure p_router__acceptedqualitywater
+    class(t_fv_explicitfvsolver), pointer :: native_
+    class(t_fv_explicitfvsolver), pointer :: zz1
+    class(t_fv_acceptedwatervolumes), pointer :: zz2
+    logical :: zz3
+    integer(8) :: nn_
+    integer(8) :: nl_
+    integer(8) :: n_
+    class(t_quality_mixingwater), pointer :: w_
+    class(t_fv_acceptedwatervolumes), pointer :: r_
+    class(t_fv_acceptedwatervolumes), pointer :: zz4
+    integer(8) :: i_
+    integer(4) :: row_
+    class(t_storagedata), pointer :: st_
+    class(cpp_vec_d), pointer :: zz5
+    real(8), pointer :: zz6
+    class(cpp_vec_d), pointer :: zz7
+    real(8), pointer :: zz8
+    logical :: zz9
+    class(t_quality_boundarywaterimport), pointer :: zz10
+    class(*), pointer :: zz11
+    class(cpp_vec_o), pointer :: zz12
+    real(8) :: zz13
+    integer(8) :: j_
+    logical :: zz14
+    integer(4) :: cr_
+    class(t_conduitdata), pointer :: cd_
+    class(t_fn111), pointer :: transfer_
+    class(t_lam271), pointer :: zz15
+    class(t_fn112), pointer :: cellcv_
+    class(t_lam272), pointer :: zz16
+    integer(4) :: f_
+    integer(4), target :: cl_
+    integer(4), target :: cr_2_
+    integer(4) :: nd_
+    integer(4) :: vj_
+    logical :: zz17
+    integer(8) :: zz18
+    integer(8) :: zz19
+    integer(8) :: zz20
+    integer(8) :: zz21
+    integer(8) :: left_
+    integer(8) :: zz22
+    integer(8) :: zz23
+    integer(8) :: right_
+    integer(8) :: zz24
+    integer(8) :: zz25
+    integer(4) :: side_
+    integer(4) :: c_2_
+    integer(4), pointer :: zz26
+    real(8) :: v_2_
+    real(8), pointer :: zz27
+    integer(8) :: zz28
+    integer(8) :: zz29
+    integer(8) :: zz30
+    integer(4), pointer :: zz31
+    integer(8) :: zz32
+    integer(8) :: i_2_
+  out_%ready = .false.
+  zz1 => h_as_fv_explicitfvsolver(self%fv_solver_)
+  native_ => zz1
+  zz3 = ((.not. (.not. (.not. associated(native_)))) .or. (dt_ <= 0.0_8))
+  if (.not. zz3) then
+    zz2 => p_fv_explicitfvsolver__acceptedwater(native_)
+    zz3 = cpp_vec_d_empty(zz2%face_forward)
+  end if
+  if (zz3) then
+    return
+  end if
+  nn_ = int(p_simulationcontext__n_nodes(ctx_), 8)
+  nl_ = int(p_simulationcontext__n_links(ctx_), 8)
+  n_ = (nn_ + nl_)
+  w_ => out_%water
+  zz4 => p_fv_explicitfvsolver__acceptedwater(native_)
+  r_ => zz4
+  call cpp_vec_d_assign_ul_t(w_%old_volume, n_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(w_%new_volume, n_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(w_%source_volume, n_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(w_%exported, n_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(w_%seeped, n_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(w_%evaporated, n_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_o_clear(w_%transfers)
+  call cpp_vec_o_clear(out_%boundary_imports)
+  call cpp_vec_d_assign_ul_t(out_%withdrawal, nn_, 0.0_8)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_ul_t(out_%flooding, nn_, 0.0_8)
+  if (associated(cpp_exc)) return
+  i_ = 0_8
+  do
+    if (.not. ((ieor(i_, (-9223372036854775807_8 - 1_8)) < ieor(nn_, (-9223372036854775807_8 - 1_8))))) exit
+    if ((ctx_%nodes%type%a%a(i_) /= 1_1)) then
+      w_%old_volume%a%a(i_) = ctx_%nodes%old_volume%a%a(i_)
+      w_%new_volume%a%a(i_) = ctx_%nodes%volume%a%a(i_)
+    end if
+    row_ = p_nodesubtypes__storage_row(ctx_%node_subtypes, int(i_, 4))
+    if ((row_ >= 0)) then
+      st_ => ctx_%node_subtypes%storages
+      w_%seeped%a%a(i_) = st_%exfil_loss%a%a(int(row_, 8))
+      w_%evaporated%a%a(i_) = st_%evap_loss%a%a(int(row_, 8))
+    end if
+    if ((.not. (iand(int(self%fv_mesh_%node_can_pond%a%a(i_), 4), 255_4) /= 0))) then
+      zz6 => out_%flooding%a%a(i_)
+      zz5 => p_fv_explicitfvsolver__node_flood_volume(native_)
+      zz6 = zz5%a%a(i_)
+    end if
+    zz8 => out_%withdrawal%a%a(i_)
+    zz7 => p_fv_explicitfvsolver__withdrawalrates__v_t2(native_)
+    zz8 = (zz7%a%a(i_) * dt_)
+    zz9 = (ctx_%nodes%type%a%a(i_) == 1_1)
+    if (zz9) then
+      zz9 = (out_%withdrawal%a%a(i_) > 0.0_8)
+    end if
+    if (zz9) then
+      zz12 => out_%boundary_imports
+      allocate(zz10)
+      call p_quality_boundarywaterimport__ctor_x(zz10)
+      zz10%node = i_
+      zz10%receiver = i_
+      zz10%volume = out_%withdrawal%a%a(i_)
+      zz11 => zz10
+      call cpp_vec_o_push_back(zz12, zz11)
+      zz13 = (w_%source_volume%a%a(i_) + out_%withdrawal%a%a(i_))
+      w_%source_volume%a%a(i_) = zz13
+    end if
+    w_%exported%a%a(i_) = (out_%withdrawal%a%a(i_) + out_%flooding%a%a(i_))
+    i_ = (i_ + 1_8)
+  end do
+  j_ = 0_8
+  do
+    if (.not. ((ieor(j_, (-9223372036854775807_8 - 1_8)) < ieor(nl_, (-9223372036854775807_8 - 1_8))))) exit
+    zz14 = (ctx_%links%type%a%a(j_) /= 0_1)
+    if (.not. zz14) then
+      zz14 = (ctx_%links%xsect_shape%a%a(j_) == 25_2)
+    end if
+    if (zz14) then
+      goto 104
+    end if
+    w_%old_volume%a%a((nn_ + j_)) = ctx_%links%old_volume%a%a(j_)
+    w_%new_volume%a%a((nn_ + j_)) = ctx_%links%volume%a%a(j_)
+    cr_ = p_linksubtypes__conduit_row(ctx_%link_subtypes, int(j_, 4))
+    if ((cr_ >= 0)) then
+      cd_ => ctx_%link_subtypes%conduits
+      w_%seeped%a%a((nn_ + j_)) = ((cpp_m_max_d_d(0.0_8, cd_%seep_loss_rate%a%a(int(cr_, 8))) * real(cpp_m_max_i_i(1, cd_%barrels%a%a(int(cr_, 8))), 8)) * dt_)
+      w_%evaporated%a%a((nn_ + j_)) = ((cpp_m_max_d_d(0.0_8, cd_%evap_loss_rate%a%a(int(cr_, 8))) * real(cpp_m_max_i_i(1, cd_%barrels%a%a(int(cr_, 8))), 8)) * dt_)
+    end if
+    104 continue
+    j_ = (j_ + 1_8)
+  end do
+  allocate(zz15)
+  zz15%c_nn = nn_
+  zz15%c_ctx => ctx_
+  zz15%c_out => out_
+  zz15%c_w => w_
+  transfer_ => zz15
+  allocate(zz16)
+  zz16%c_nn = nn_
+  zz16%c_this => self
+  cellcv_ => zz16
+  f_ = 0
+  do
+    if (.not. ((f_ < p_fv_networkmeshdata__n_faces(self%fv_mesh_)))) exit
+    cl_ = self%fv_mesh_%face_cl%a%a(int(f_, 8))
+    cr_2_ = self%fv_mesh_%face_cr%a%a(int(f_, 8))
+    nd_ = self%fv_mesh_%face_node%a%a(int(f_, 8))
+    vj_ = self%fv_mesh_%face_vj_node%a%a(int(f_, 8))
+    zz17 = ((cl_ >= 0) .and. (cr_2_ >= 0))
+    if (zz17) then
+      zz17 = (self%fv_mesh_%cell_conduit%a%a(int(cl_, 8)) == self%fv_mesh_%cell_conduit%a%a(int(cr_2_, 8)))
+    end if
+    if (zz17) then
+      goto 106
+    end if
+    if ((vj_ >= 0)) then
+      zz18 = cellcv_%invoke(cl_)
+      call transfer_%invoke(zz18, int(vj_, 8), r_%face_forward%a%a(int(f_, 8)))
+      if (associated(cpp_exc)) return
+      zz19 = cellcv_%invoke(cr_2_)
+      call transfer_%invoke(int(vj_, 8), zz19, r_%face_forward%a%a(int(f_, 8)))
+      if (associated(cpp_exc)) return
+      zz20 = cellcv_%invoke(cr_2_)
+      call transfer_%invoke(zz20, int(vj_, 8), r_%face_reverse%a%a(int(f_, 8)))
+      if (associated(cpp_exc)) return
+      zz21 = cellcv_%invoke(cl_)
+      call transfer_%invoke(int(vj_, 8), zz21, r_%face_reverse%a%a(int(f_, 8)))
+      if (associated(cpp_exc)) return
+      nd_ = vj_
+    else if ((nd_ >= 0)) then
+      if ((cl_ >= 0)) then
+        zz22 = cellcv_%invoke(cl_)
+        zz23 = zz22
+      else
+        zz23 = int(nd_, 8)
+      end if
+      left_ = zz23
+      if ((cr_2_ >= 0)) then
+        zz24 = cellcv_%invoke(cr_2_)
+        zz25 = zz24
+      else
+        zz25 = int(nd_, 8)
+      end if
+      right_ = zz25
+      call transfer_%invoke(left_, right_, r_%face_forward%a%a(int(f_, 8)))
+      if (associated(cpp_exc)) return
+      call transfer_%invoke(right_, left_, r_%face_reverse%a%a(int(f_, 8)))
+      if (associated(cpp_exc)) return
+    end if
+    if ((nd_ >= 0)) then
+      side_ = 0
+      do
+        if (.not. ((side_ < 2))) exit
+        if ((side_ /= 0)) then
+          zz26 => cr_2_
+        else
+          zz26 => cl_
+        end if
+        c_2_ = zz26
+        if ((c_2_ < 0)) then
+          goto 108
+        end if
+        if ((side_ /= 0)) then
+          zz27 => r_%face_lateral_right%a%a(int(f_, 8))
+        else
+          zz27 => r_%face_lateral_left%a%a(int(f_, 8))
+        end if
+        v_2_ = zz27
+        if ((v_2_ >= 0.0_8)) then
+          zz29 = int(nd_, 8)
+          zz28 = cellcv_%invoke(c_2_)
+          call transfer_%invoke(zz29, zz28, v_2_)
+          if (associated(cpp_exc)) return
+        else
+          zz30 = cellcv_%invoke(c_2_)
+          call transfer_%invoke(zz30, int(nd_, 8), (-v_2_))
+          if (associated(cpp_exc)) return
+        end if
+        108 continue
+        side_ = (side_ + 1)
+      end do
+      if ((r_%face_spill%a%a(int(f_, 8)) > 0.0_8)) then
+        if ((cl_ >= 0)) then
+          zz31 => cl_
+        else
+          zz31 => cr_2_
+        end if
+        zz32 = cellcv_%invoke(zz31)
+        call transfer_%invoke(zz32, int(nd_, 8), r_%face_spill%a%a(int(f_, 8)))
+        if (associated(cpp_exc)) return
+      end if
+    end if
+    106 continue
+    f_ = (f_ + 1)
+  end do
+  i_2_ = 0_8
+  do
+    if (.not. ((ieor(i_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(self%fv_mesh_%struct_link), (-9223372036854775807_8 - 1_8))))) exit
+    call transfer_%invoke(int(self%fv_mesh_%struct_n1%a%a(i_2_), 8), int(self%fv_mesh_%struct_n2%a%a(i_2_), 8), r_%structure_forward%a%a(i_2_))
+    if (associated(cpp_exc)) return
+    call transfer_%invoke(int(self%fv_mesh_%struct_n2%a%a(i_2_), 8), int(self%fv_mesh_%struct_n1%a%a(i_2_), 8), r_%structure_reverse%a%a(i_2_))
+    if (associated(cpp_exc)) return
+    i_2_ = (i_2_ + 1_8)
+  end do
+  out_%ready = .true.
+  end procedure p_router__acceptedqualitywater
+
   module procedure p_router__step__rsimulationcontext_d_d_fn
     class(t_fn102), pointer :: non_conduit_fn_l_
     class(t_fn102), pointer :: zz1
@@ -1049,14 +1324,24 @@ contains
   end procedure p_lam278
 
   module procedure p_lam279
-    class(*), pointer :: zz1
-  zz1 => self%c_os
-  call cpp_dtor_run(zz1)
+    class(t_router_refreshctx_src_engine_hydraulics_routing_cpp_1705), pointer :: r_2_
+    class(t_router_refreshctx_src_engine_hydraulics_routing_cpp_1705), pointer :: zz1
+  zz1 => h_uas_router_refreshctx_src_engine_hydraulics_routing_cpp_1705(a1)
+  r_2_ => zz1
+  call p_router__refreshfvboundaryflows(r_2_%self, r_2_%ctx, a2, r_2_%eval)
   if (associated(cpp_exc)) return
   return
   end procedure p_lam279
 
   module procedure p_lam280
+    class(*), pointer :: zz1
+  zz1 => self%c_os
+  call cpp_dtor_run(zz1)
+  if (associated(cpp_exc)) return
+  return
+  end procedure p_lam280
+
+  module procedure p_lam281
     real(8) :: accepted_refund_
     real(8) :: zz1
     real(8) :: zz2
@@ -1069,7 +1354,7 @@ contains
   zz2 = (a2 + (a3 * accepted_refund_))
   a2 = zz2
   return
-  end procedure p_lam280
+  end procedure p_lam281
 
   module procedure p_router__stepfv
     integer(4) :: nn_
@@ -1108,150 +1393,162 @@ contains
     logical :: zz15
     class(t_fv_fvstepforcing), pointer :: forcing_
     class(t_fv_fvstepforcing), pointer :: zz16
-    class(cpp_vec_d), pointer :: zz17
-    type(cpp_ptr_d) :: zz18
-    type(cpp_ptr_d), pointer :: zz19
+    type(cpp_ptr_d) :: zz17
+    type(cpp_ptr_d), pointer :: zz18
+    class(cpp_vec_d), pointer :: zz19
     type(cpp_ptr_d) :: zz20
-    type(cpp_ptr_d), pointer :: zz21
+    type(cpp_ptr_d) :: zz21
+    type(cpp_ptr_d), pointer :: zz22
+    type(cpp_ptr_d) :: zz23
+    type(cpp_ptr_d), pointer :: zz24
+    type(cpp_ptr_d) :: zz25
+    type(cpp_ptr_d) :: zz26
+    type(cpp_ptr_d), pointer :: zz27
+    type(cpp_ptr_d) :: zz28
+    type(cpp_ptr_d), pointer :: zz29
+    type(cpp_ptr_d) :: zz30
+    type(cpp_ptr_d), pointer :: zz31
+    type(cpp_ptr_d) :: zz32
+    type(cpp_ptr_d), pointer :: zz33
     class(t_fn3), pointer :: eval_fn_
     class(t_router_refreshctx_src_engine_hydraulics_routing_cpp_1705), pointer :: rctx_
-    class(t_router_refreshctx_src_engine_hydraulics_routing_cpp_1705), pointer :: zz22
-    class(*), pointer :: zz23
-    class(cpp_sysexception), pointer :: zz24
-    class(cpp_vec_d), pointer :: trace_start_cells_
-    class(cpp_vec_d), pointer :: zz25
-    class(cpp_vec_d), pointer :: trace_start_nodes_
-    class(cpp_vec_d), pointer :: zz26
-    class(cpp_vec_d), pointer :: trace_start_carry_
-    class(cpp_vec_d), pointer :: zz27
-    class(t_fv_explicitfvsolver), pointer :: trace_native_
-    class(t_fv_explicitfvsolver), pointer :: zz28
-    type(cpp_cptr) :: trace_path_
-    type(cpp_cptr) :: zz29
-    type(cpp_cptr) :: zz30
-    logical :: zz31
-    class(cpp_vec_d), pointer :: zz32
-    real(8) :: zz33
-    logical :: zz34
-    class(cpp_ofstream), pointer :: os_
-    class(cpp_ofstream), pointer :: zz35
-    class(cpp_defer), pointer :: x__dtor3_
+    class(t_router_refreshctx_src_engine_hydraulics_routing_cpp_1705), pointer :: zz34
+    class(*), pointer :: zz35
     class(t_lam279), pointer :: zz36
-    class(cpp_defer), pointer :: zz37
-    integer(4) :: zz38
-    class(cpp_ostream), pointer :: zz39
+    class(cpp_vec_d), pointer :: trace_start_cells_
+    class(cpp_vec_d), pointer :: zz37
+    class(cpp_vec_d), pointer :: trace_start_nodes_
+    class(cpp_vec_d), pointer :: zz38
+    class(cpp_vec_d), pointer :: trace_start_carry_
+    class(cpp_vec_d), pointer :: zz39
+    class(t_fv_explicitfvsolver), pointer :: trace_native_
+    class(t_fv_explicitfvsolver), pointer :: zz40
+    type(cpp_cptr) :: trace_path_
+    type(cpp_cptr) :: zz41
+    type(cpp_cptr) :: zz42
+    logical :: zz43
+    class(cpp_vec_d), pointer :: zz44
+    real(8) :: zz45
+    logical :: zz46
+    class(cpp_ofstream), pointer :: os_
+    class(cpp_ofstream), pointer :: zz47
+    class(cpp_defer), pointer :: x__dtor3_
+    class(t_lam280), pointer :: zz48
+    class(cpp_defer), pointer :: zz49
+    integer(4) :: zz50
+    class(cpp_ostream), pointer :: zz51
     class(t_fv_acceptedwatervolumes), pointer :: water_
-    class(t_fv_acceptedwatervolumes), pointer :: zz40
+    class(t_fv_acceptedwatervolumes), pointer :: zz52
     integer(4) :: c_
     real(8) :: net_
     integer(4) :: side_
     integer(4) :: f_
-    integer(4), pointer :: zz41
+    integer(4), pointer :: zz53
     integer(4) :: owns_
-    integer(1), pointer :: zz42
-    real(8) :: zz43
+    integer(1), pointer :: zz54
+    real(8) :: zz55
     real(8) :: oldv_
     real(8) :: newv_
-    class(cpp_ostream), pointer :: zz44
-    type(cpp_cptr) :: zz45
-    class(cpp_ostream), pointer :: zz46
-    class(cpp_ostream), pointer :: zz47
-    class(cpp_ostream), pointer :: zz48
-    class(cpp_ostream), pointer :: zz49
-    class(cpp_ostream), pointer :: zz50
-    class(cpp_ostream), pointer :: zz51
-    class(cpp_ostream), pointer :: zz52
-    class(cpp_ostream), pointer :: zz53
-    class(cpp_ostream), pointer :: zz54
-    class(cpp_ostream), pointer :: zz55
-    type(cpp_cptr) :: zz56
-    class(cpp_ostream), pointer :: zz57
+    class(cpp_ostream), pointer :: zz56
+    type(cpp_cptr) :: zz57
     class(cpp_ostream), pointer :: zz58
     class(cpp_ostream), pointer :: zz59
     class(cpp_ostream), pointer :: zz60
-    type(cpp_cptr) :: zz61
+    class(cpp_ostream), pointer :: zz61
     class(cpp_ostream), pointer :: zz62
+    class(cpp_ostream), pointer :: zz63
+    class(cpp_ostream), pointer :: zz64
+    class(cpp_ostream), pointer :: zz65
+    class(cpp_ostream), pointer :: zz66
+    class(cpp_ostream), pointer :: zz67
+    type(cpp_cptr) :: zz68
+    class(cpp_ostream), pointer :: zz69
+    class(cpp_ostream), pointer :: zz70
+    class(cpp_ostream), pointer :: zz71
+    class(cpp_ostream), pointer :: zz72
+    type(cpp_cptr) :: zz73
+    class(cpp_ostream), pointer :: zz74
     integer(4) :: n_3_
     real(8) :: net_2_
     integer(4) :: pp_
     integer(4) :: f_2_
-    real(8) :: zz63
+    real(8) :: zz75
     integer(8) :: s_
     real(8) :: volume_
-    real(8) :: zz64
-    real(8) :: zz65
-    class(cpp_vec_d), pointer :: zz66
-    real(8) :: zz67
-    real(8) :: zz68
+    real(8) :: zz76
+    real(8) :: zz77
+    class(cpp_vec_d), pointer :: zz78
+    real(8) :: zz79
+    real(8) :: zz80
     real(8) :: oldv_2_
     real(8) :: newv_2_
-    class(cpp_ostream), pointer :: zz69
-    type(cpp_cptr) :: zz70
-    class(cpp_ostream), pointer :: zz71
-    class(cpp_ostream), pointer :: zz72
-    class(cpp_ostream), pointer :: zz73
-    class(cpp_ostream), pointer :: zz74
-    class(cpp_ostream), pointer :: zz75
-    class(cpp_ostream), pointer :: zz76
-    class(cpp_ostream), pointer :: zz77
-    class(cpp_ostream), pointer :: zz78
-    class(cpp_ostream), pointer :: zz79
-    class(cpp_ostream), pointer :: zz80
     class(cpp_ostream), pointer :: zz81
-    class(cpp_ostream), pointer :: zz82
+    type(cpp_cptr) :: zz82
     class(cpp_ostream), pointer :: zz83
-    class(cpp_vec_d), pointer :: zz84
+    class(cpp_ostream), pointer :: zz84
     class(cpp_ostream), pointer :: zz85
     class(cpp_ostream), pointer :: zz86
     class(cpp_ostream), pointer :: zz87
     class(cpp_ostream), pointer :: zz88
     class(cpp_ostream), pointer :: zz89
-    type(cpp_cptr) :: zz90
+    class(cpp_ostream), pointer :: zz90
     class(cpp_ostream), pointer :: zz91
-    class(cpp_object), pointer :: zz92
-    class(cpp_vec_d), pointer :: refused_
-    class(cpp_vec_d), pointer :: zz93
-    class(cpp_vec_d), pointer :: zz94
-    class(t_fv_acceptedwatervolumes), pointer :: water_2_
-    class(t_fv_acceptedwatervolumes), pointer :: zz95
-    class(cpp_vec_d), pointer :: source_port_
+    class(cpp_ostream), pointer :: zz92
+    class(cpp_ostream), pointer :: zz93
+    class(cpp_ostream), pointer :: zz94
+    class(cpp_ostream), pointer :: zz95
     class(cpp_vec_d), pointer :: zz96
+    class(cpp_ostream), pointer :: zz97
+    class(cpp_ostream), pointer :: zz98
+    class(cpp_ostream), pointer :: zz99
+    class(cpp_ostream), pointer :: zz100
+    class(cpp_ostream), pointer :: zz101
+    type(cpp_cptr) :: zz102
+    class(cpp_ostream), pointer :: zz103
+    class(cpp_object), pointer :: zz104
+    class(cpp_vec_d), pointer :: refused_
+    class(cpp_vec_d), pointer :: zz105
+    class(cpp_vec_d), pointer :: zz106
+    class(t_fv_acceptedwatervolumes), pointer :: water_2_
+    class(t_fv_acceptedwatervolumes), pointer :: zz107
+    class(cpp_vec_d), pointer :: source_port_
+    class(cpp_vec_d), pointer :: zz108
     integer(4) :: f_3_
     integer(4) :: n_4_
-    real(8) :: zz97
+    real(8) :: zz109
     integer(4) :: n_5_
-    logical :: zz98
-    real(8) :: zz99
+    logical :: zz110
+    real(8) :: zz111
     integer(4) :: n_6_
     integer(8) :: un_2_
     real(8) :: requested_
-    class(cpp_vec_d), pointer :: zz100
+    class(cpp_vec_d), pointer :: zz112
     real(8) :: refund_
     real(8) :: fraction_
-    real(8) :: zz101
+    real(8) :: zz113
     real(8) :: accepted_user_
-    real(8) :: zz102
-    real(8) :: zz103
-    class(cpp_vec_d), pointer :: zz104
+    real(8) :: zz114
+    real(8) :: zz115
+    class(cpp_vec_d), pointer :: zz116
     class(t_fn120), pointer :: reduce_
-    class(t_lam280), pointer :: zz105
-    real(8) :: zz106
-    class(t_fv_acceptedwatervolumes), pointer :: zz107
-    logical :: zz108
+    class(t_lam281), pointer :: zz117
+    real(8) :: zz118
+    class(t_fv_acceptedwatervolumes), pointer :: zz119
+    logical :: zz120
     class(t_conduitdata), pointer :: cd_2_
     class(t_fv_acceptedwatervolumes), pointer :: accepted_
-    class(t_fv_acceptedwatervolumes), pointer :: zz109
+    class(t_fv_acceptedwatervolumes), pointer :: zz121
     integer(4) :: row_
     integer(4) :: begin_2_
     integer(4) :: count_
     real(8) :: requested_2_
     real(8) :: actual_
     integer(4) :: c_2_
-    real(8) :: zz110
+    real(8) :: zz122
     real(8) :: ratio_
-    real(8) :: zz111
-    real(8) :: zz112
-    integer(8) :: zz113
+    real(8) :: zz123
+    real(8) :: zz124
+    integer(8) :: zz125
   if ((.not. (.not. (.not. associated(self%fv_solver_))))) then
     zres = 0
     return
@@ -1357,84 +1654,95 @@ contains
   allocate(zz16)
   call p_fv_fvstepforcing__ctor_x(zz16)
   forcing_ => zz16
-  forcing_%node_lateral = cpp_vec_d_data(self%fv_lateral_)
-  zz19 => forcing_%node_withdrawal
+  zz18 => forcing_%node_lateral
+  zz17 = cpp_vec_d_data(self%fv_lateral_)
+  zz18 = zz17
+  zz22 => forcing_%node_withdrawal
   if (((.not. (.not. associated(native_))) .and. has_withdrawals_)) then
-    zz17 => p_fv_explicitfvsolver__withdrawalrates__v(native_)
-    zz18 = cpp_vec_d_data(zz17)
+    zz19 => p_fv_explicitfvsolver__withdrawalrates__v(native_)
+    zz20 = cpp_vec_d_data(zz19)
+    zz21 = zz20
   else
-    zz18 = cpp_ptr_d()
+    zz21 = cpp_ptr_d()
   end if
-  zz19 = zz18
-  forcing_%node_fixed_head = cpp_vec_d_data(self%fv_fixed_head_)
-  zz21 => forcing_%node_source_max
+  zz22 = zz21
+  zz24 => forcing_%node_fixed_head
+  zz23 = cpp_vec_d_data(self%fv_fixed_head_)
+  zz24 = zz23
+  zz27 => forcing_%node_source_max
   if (cpp_vec_d_empty(ctx_%surface_outfall_link_limit)) then
-    zz20 = cpp_ptr_d()
+    zz26 = cpp_ptr_d()
   else
-    zz20 = cpp_vec_d_data(ctx_%surface_outfall_link_limit)
+    zz25 = cpp_vec_d_data(ctx_%surface_outfall_link_limit)
+    zz26 = zz25
   end if
-  zz21 = zz20
-  forcing_%structure_flow = cpp_vec_d_data(self%fv_struct_flow_)
-  forcing_%link_q_cap = cpp_vec_d_data(self%fv_link_q_cap_)
-  forcing_%conduit_loss = cpp_vec_d_data(self%fv_cond_loss_)
+  zz27 = zz26
+  zz29 => forcing_%structure_flow
+  zz28 = cpp_vec_d_data(self%fv_struct_flow_)
+  zz29 = zz28
+  zz31 => forcing_%link_q_cap
+  zz30 = cpp_vec_d_data(self%fv_link_q_cap_)
+  zz31 = zz30
+  zz33 => forcing_%conduit_loss
+  zz32 = cpp_vec_d_data(self%fv_cond_loss_)
+  zz33 = zz32
   forcing_%n_nodes = nn_
   forcing_%n_links = nl_
   eval_fn_ => evaluate_structures_
-  allocate(zz22)
-  call p_router_refreshctx_src_engine_hydraulics_routing_cpp_92e77b97(zz22)
-  zz22%self => self
-  zz22%ctx => ctx_
-  zz22%eval => eval_fn_
-  rctx_ => zz22
+  allocate(zz34)
+  call p_router_refreshctx_src_engine_hydraulics_routing_cpp_92e77b97(zz34)
+  zz34%self => self
+  zz34%ctx => ctx_
+  zz34%eval => eval_fn_
+  rctx_ => zz34
   if ((self%fv_opts_%structure_coupling == 0)) then
-    zz23 => rctx_
-    forcing_%refresh_user => zz23
-    zz24 => cpp_sysexception_new("NotImplementedException", "TODO method const (lambda at /tmp/claude-0/-home-claude/9f3dde4c-f353-52c4-b476-e410dd8d4e21/scratchpad/swmm6/eng/src/engine/hydraulics/Routing.cpp:1714:27)::operator void (*)(void *, double)")
-    cpp_exc => zz24
-    return
+    zz35 => rctx_
+    forcing_%refresh_user => zz35
+    allocate(zz36)
+    forcing_%refresh => zz36
   end if
-  zz25 => cpp_vec_d_new_0()
-  trace_start_cells_ => zz25
-  zz26 => cpp_vec_d_new_0()
-  trace_start_nodes_ => zz26
-  zz27 => cpp_vec_d_new_0()
-  trace_start_carry_ => zz27
-  zz28 => h_as_fv_explicitfvsolver(self%fv_solver_)
-  trace_native_ => zz28
-  zz29 = cpp_r_lit("OPENSWMM_FV_RECEIPT_TRACE")
-  zz30 = cpp_r_getenv(zz29)
-  trace_path_ = zz30
-  zz31 = (.not. cpp_cptr_isnull(trace_path_))
-  if (zz31) then
-    zz31 = (.not. (.not. associated(trace_native_)))
+  zz37 => cpp_vec_d_new_0()
+  trace_start_cells_ => zz37
+  zz38 => cpp_vec_d_new_0()
+  trace_start_nodes_ => zz38
+  zz39 => cpp_vec_d_new_0()
+  trace_start_carry_ => zz39
+  zz40 => h_as_fv_explicitfvsolver(self%fv_solver_)
+  trace_native_ => zz40
+  zz41 = cpp_r_lit("OPENSWMM_FV_RECEIPT_TRACE")
+  zz42 = cpp_r_getenv(zz41)
+  trace_path_ = zz42
+  zz43 = (.not. cpp_cptr_isnull(trace_path_))
+  if (zz43) then
+    zz43 = (.not. (.not. associated(trace_native_)))
   end if
-  if (zz31) then
+  if (zz43) then
     call cpp_vec_d_assign_vect(trace_start_cells_, self%fv_state_%cell_a)
     if (associated(cpp_exc)) return
     call cpp_vec_d_assign_vect(trace_start_nodes_, self%fv_state_%node_volume)
     if (associated(cpp_exc)) return
-    zz32 => p_fv_explicitfvsolver__node_continuity_carry(trace_native_)
-    call cpp_vec_d_assign_vect(trace_start_carry_, zz32)
+    zz44 => p_fv_explicitfvsolver__node_continuity_carry(trace_native_)
+    call cpp_vec_d_assign_vect(trace_start_carry_, zz44)
     if (associated(cpp_exc)) return
   end if
-  zz33 = p_fv__f__advancenetworkchecked(self%fv_solver_, 0.0_8, dt_, forcing_)
+  zz45 = p_fv__f__advancenetworkchecked(self%fv_solver_, 0.0_8, dt_, forcing_)
   if (associated(cpp_exc)) return
-  zz34 = (.not. cpp_cptr_isnull(trace_path_))
-  if (zz34) then
-    zz34 = (.not. (.not. associated(trace_native_)))
+  zz46 = (.not. cpp_cptr_isnull(trace_path_))
+  if (zz46) then
+    zz46 = (.not. (.not. associated(trace_native_)))
   end if
-  if (zz34) then
-    zz35 => cpp_ofstream_new_cptr_i(trace_path_, 1)
+  if (zz46) then
+    zz47 => cpp_ofstream_new_cptr_i(trace_path_, 1)
     if (associated(cpp_exc)) return
-    os_ => zz35
-    allocate(zz36)
-    zz36%c_os => os_
-    zz37 => cpp_defer_new(zz36)
-    x__dtor3_ => zz37
-    zz38 = 0
-    zz39 => cpp_ostream_manip_setprecision(os_, 17_8)
-    zz40 => p_fv_explicitfvsolver__acceptedwater(trace_native_)
-    water_ => zz40
+    os_ => zz47
+    allocate(zz48)
+    zz48%c_os => os_
+    zz49 => cpp_defer_new(zz48)
+    x__dtor3_ => zz49
+    zz50 = 0
+    zz51 => cpp_ostream_manip_setprecision(os_, 17_8)
+    zz52 => p_fv_explicitfvsolver__acceptedwater(trace_native_)
+    water_ => zz52
     c_ = 0
     do
       if (.not. ((c_ < p_fv_networkmeshdata__n_cells(self%fv_mesh_)))) exit
@@ -1443,57 +1751,57 @@ contains
       do
         if (.not. ((side_ < 2))) exit
         if ((side_ /= 0)) then
-          zz41 => self%fv_mesh_%cell_face1%a%a(int(c_, 8))
+          zz53 => self%fv_mesh_%cell_face1%a%a(int(c_, 8))
         else
-          zz41 => self%fv_mesh_%cell_face0%a%a(int(c_, 8))
+          zz53 => self%fv_mesh_%cell_face0%a%a(int(c_, 8))
         end if
-        f_ = zz41
+        f_ = zz53
         if ((side_ /= 0)) then
-          zz42 => self%fv_mesh_%cell_side1%a%a(int(c_, 8))
+          zz54 => self%fv_mesh_%cell_side1%a%a(int(c_, 8))
         else
-          zz42 => self%fv_mesh_%cell_side0%a%a(int(c_, 8))
+          zz54 => self%fv_mesh_%cell_side0%a%a(int(c_, 8))
         end if
-        owns_ = int(zz42, 4)
-        zz43 = (net_ + (merge(1.0_8, (-1.0_8), (owns_ /= 0)) * (water_%face_forward%a%a(int(f_, 8)) - water_%face_reverse%a%a(int(f_, 8)))))
-        net_ = zz43
+        owns_ = int(zz54, 4)
+        zz55 = (net_ + (merge(1.0_8, (-1.0_8), (owns_ /= 0)) * (water_%face_forward%a%a(int(f_, 8)) - water_%face_reverse%a%a(int(f_, 8)))))
+        net_ = zz55
         side_ = (side_ + 1)
       end do
       oldv_ = (trace_start_cells_%a%a(int(c_, 8)) * self%fv_mesh_%cell_dx%a%a(int(c_, 8)))
       newv_ = (self%fv_state_%cell_a%a%a(int(c_, 8)) * self%fv_mesh_%cell_dx%a%a(int(c_, 8)))
-      zz44 => cpp_ostream_put_d(os_, ctx_%current_time)
+      zz56 => cpp_ostream_put_d(os_, ctx_%current_time)
       if (associated(cpp_exc)) goto 107
-      zz45 = cpp_r_lit(",cell,")
-      zz46 => cpp_ostream_put_cptr(zz44, zz45)
+      zz57 = cpp_r_lit(",cell,")
+      zz58 => cpp_ostream_put_cptr(zz56, zz57)
       if (associated(cpp_exc)) goto 107
-      zz47 => cpp_ostream_put_i(zz46, c_)
+      zz59 => cpp_ostream_put_i(zz58, c_)
       if (associated(cpp_exc)) goto 107
-      zz48 => cpp_ostream_put_c(zz47, 44_1)
+      zz60 => cpp_ostream_put_c(zz59, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz49 => cpp_ostream_put_d(zz48, oldv_)
+      zz61 => cpp_ostream_put_d(zz60, oldv_)
       if (associated(cpp_exc)) goto 107
-      zz50 => cpp_ostream_put_c(zz49, 44_1)
+      zz62 => cpp_ostream_put_c(zz61, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz51 => cpp_ostream_put_d(zz50, newv_)
+      zz63 => cpp_ostream_put_d(zz62, newv_)
       if (associated(cpp_exc)) goto 107
-      zz52 => cpp_ostream_put_c(zz51, 44_1)
+      zz64 => cpp_ostream_put_c(zz63, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz53 => cpp_ostream_put_d(zz52, net_)
+      zz65 => cpp_ostream_put_d(zz64, net_)
       if (associated(cpp_exc)) goto 107
-      zz54 => cpp_ostream_put_c(zz53, 44_1)
+      zz66 => cpp_ostream_put_c(zz65, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz55 => cpp_ostream_put_d(zz54, ((newv_ - oldv_) - net_))
+      zz67 => cpp_ostream_put_d(zz66, ((newv_ - oldv_) - net_))
       if (associated(cpp_exc)) goto 107
-      zz56 = cpp_r_lit(",0,0,")
-      zz57 => cpp_ostream_put_cptr(zz55, zz56)
+      zz68 = cpp_r_lit(",0,0,")
+      zz69 => cpp_ostream_put_cptr(zz67, zz68)
       if (associated(cpp_exc)) goto 107
-      zz58 => cpp_ostream_put_d(zz57, water_%cell_lateral%a%a(int(c_, 8)))
+      zz70 => cpp_ostream_put_d(zz69, water_%cell_lateral%a%a(int(c_, 8)))
       if (associated(cpp_exc)) goto 107
-      zz59 => cpp_ostream_put_c(zz58, 44_1)
+      zz71 => cpp_ostream_put_c(zz70, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz60 => cpp_ostream_put_d(zz59, water_%cell_loss%a%a(int(c_, 8)))
+      zz72 => cpp_ostream_put_d(zz71, water_%cell_loss%a%a(int(c_, 8)))
       if (associated(cpp_exc)) goto 107
-      zz61 = cpp_r_lit(achar(10))
-      zz62 => cpp_ostream_put_cptr(zz60, zz61)
+      zz73 = cpp_r_lit(achar(10))
+      zz74 => cpp_ostream_put_cptr(zz72, zz73)
       if (associated(cpp_exc)) goto 107
       c_ = (c_ + 1)
     end do
@@ -1505,8 +1813,8 @@ contains
       do
         if (.not. ((pp_ < self%fv_mesh_%node_face_ptr%a%a(int((n_3_ + 1), 8))))) exit
         f_2_ = self%fv_mesh_%node_face_idx%a%a(int(pp_, 8))
-        zz63 = (net_2_ + (self%fv_mesh_%node_face_sign%a%a(int(pp_, 8)) * (water_%face_forward%a%a(int(f_2_, 8)) - water_%face_reverse%a%a(int(f_2_, 8)))))
-        net_2_ = zz63
+        zz75 = (net_2_ + (self%fv_mesh_%node_face_sign%a%a(int(pp_, 8)) * (water_%face_forward%a%a(int(f_2_, 8)) - water_%face_reverse%a%a(int(f_2_, 8)))))
+        net_2_ = zz75
         pp_ = (pp_ + 1)
       end do
       s_ = 0_8
@@ -1514,89 +1822,89 @@ contains
         if (.not. ((ieor(s_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(self%fv_mesh_%struct_link), (-9223372036854775807_8 - 1_8))))) exit
         volume_ = (water_%structure_forward%a%a(s_) - water_%structure_reverse%a%a(s_))
         if ((self%fv_mesh_%struct_n1%a%a(s_) == n_3_)) then
-          zz64 = (net_2_ - volume_)
-          net_2_ = zz64
+          zz76 = (net_2_ - volume_)
+          net_2_ = zz76
         end if
         if ((self%fv_mesh_%struct_n2%a%a(s_) == n_3_)) then
-          zz65 = (net_2_ + volume_)
-          net_2_ = zz65
+          zz77 = (net_2_ + volume_)
+          net_2_ = zz77
         end if
         s_ = (s_ + 1_8)
       end do
-      zz67 = (self%fv_lateral_%a%a(int(n_3_, 8)) * dt_)
-      zz66 => p_fv_explicitfvsolver__node_flood_volume(trace_native_)
-      zz68 = (net_2_ + (zz67 - zz66%a%a(int(n_3_, 8))))
-      net_2_ = zz68
+      zz79 = (self%fv_lateral_%a%a(int(n_3_, 8)) * dt_)
+      zz78 => p_fv_explicitfvsolver__node_flood_volume(trace_native_)
+      zz80 = (net_2_ + (zz79 - zz78%a%a(int(n_3_, 8))))
+      net_2_ = zz80
       oldv_2_ = trace_start_nodes_%a%a(int(n_3_, 8))
       newv_2_ = self%fv_state_%node_volume%a%a(int(n_3_, 8))
-      zz69 => cpp_ostream_put_d(os_, ctx_%current_time)
+      zz81 => cpp_ostream_put_d(os_, ctx_%current_time)
       if (associated(cpp_exc)) goto 107
-      zz70 = cpp_r_lit(",node,")
-      zz71 => cpp_ostream_put_cptr(zz69, zz70)
+      zz82 = cpp_r_lit(",node,")
+      zz83 => cpp_ostream_put_cptr(zz81, zz82)
       if (associated(cpp_exc)) goto 107
-      zz72 => cpp_ostream_put_i(zz71, n_3_)
+      zz84 => cpp_ostream_put_i(zz83, n_3_)
       if (associated(cpp_exc)) goto 107
-      zz73 => cpp_ostream_put_c(zz72, 44_1)
+      zz85 => cpp_ostream_put_c(zz84, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz74 => cpp_ostream_put_d(zz73, oldv_2_)
+      zz86 => cpp_ostream_put_d(zz85, oldv_2_)
       if (associated(cpp_exc)) goto 107
-      zz75 => cpp_ostream_put_c(zz74, 44_1)
+      zz87 => cpp_ostream_put_c(zz86, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz76 => cpp_ostream_put_d(zz75, newv_2_)
+      zz88 => cpp_ostream_put_d(zz87, newv_2_)
       if (associated(cpp_exc)) goto 107
-      zz77 => cpp_ostream_put_c(zz76, 44_1)
+      zz89 => cpp_ostream_put_c(zz88, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz78 => cpp_ostream_put_d(zz77, net_2_)
+      zz90 => cpp_ostream_put_d(zz89, net_2_)
       if (associated(cpp_exc)) goto 107
-      zz79 => cpp_ostream_put_c(zz78, 44_1)
+      zz91 => cpp_ostream_put_c(zz90, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz80 => cpp_ostream_put_d(zz79, ((newv_2_ - oldv_2_) - net_2_))
+      zz92 => cpp_ostream_put_d(zz91, ((newv_2_ - oldv_2_) - net_2_))
       if (associated(cpp_exc)) goto 107
-      zz81 => cpp_ostream_put_c(zz80, 44_1)
+      zz93 => cpp_ostream_put_c(zz92, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz82 => cpp_ostream_put_d(zz81, trace_start_carry_%a%a(int(n_3_, 8)))
+      zz94 => cpp_ostream_put_d(zz93, trace_start_carry_%a%a(int(n_3_, 8)))
       if (associated(cpp_exc)) goto 107
-      zz83 => cpp_ostream_put_c(zz82, 44_1)
+      zz95 => cpp_ostream_put_c(zz94, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz84 => p_fv_explicitfvsolver__node_continuity_carry(trace_native_)
-      zz85 => cpp_ostream_put_d(zz83, zz84%a%a(int(n_3_, 8)))
+      zz96 => p_fv_explicitfvsolver__node_continuity_carry(trace_native_)
+      zz97 => cpp_ostream_put_d(zz95, zz96%a%a(int(n_3_, 8)))
       if (associated(cpp_exc)) goto 107
-      zz86 => cpp_ostream_put_c(zz85, 44_1)
+      zz98 => cpp_ostream_put_c(zz97, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz87 => cpp_ostream_put_d(zz86, (self%fv_lateral_%a%a(int(n_3_, 8)) * dt_))
+      zz99 => cpp_ostream_put_d(zz98, (self%fv_lateral_%a%a(int(n_3_, 8)) * dt_))
       if (associated(cpp_exc)) goto 107
-      zz88 => cpp_ostream_put_c(zz87, 44_1)
+      zz100 => cpp_ostream_put_c(zz99, 44_1)
       if (associated(cpp_exc)) goto 107
-      zz89 => cpp_ostream_put_d(zz88, water_%node_deficit%a%a(int(n_3_, 8)))
+      zz101 => cpp_ostream_put_d(zz100, water_%node_deficit%a%a(int(n_3_, 8)))
       if (associated(cpp_exc)) goto 107
-      zz90 = cpp_r_lit(achar(10))
-      zz91 => cpp_ostream_put_cptr(zz89, zz90)
+      zz102 = cpp_r_lit(achar(10))
+      zz103 => cpp_ostream_put_cptr(zz101, zz102)
       if (associated(cpp_exc)) goto 107
       n_3_ = (n_3_ + 1)
     end do
     107 continue
-    zz92 => cpp_exc
+    zz104 => cpp_exc
     cpp_exc => null()
     if (associated(x__dtor3_)) then
       call x__dtor3_%dispose()
       if (associated(cpp_exc)) return
     end if
-    if (associated(zz92)) then
-      cpp_exc => zz92
+    if (associated(zz104)) then
+      cpp_exc => zz104
       return
     end if
   end if
   if ((((.not. (.not. associated(native_))) .and. has_withdrawals_) .and. (dt_ > 0.0_8))) then
-    zz93 => p_fv_explicitfvsolver__unmetwithdrawalvolumes(native_)
-    zz94 => cpp_vec_d_clone(zz93)
+    zz105 => p_fv_explicitfvsolver__unmetwithdrawalvolumes(native_)
+    zz106 => cpp_vec_d_clone(zz105)
     if (associated(cpp_exc)) return
-    refused_ => zz94
-    zz95 => p_fv_explicitfvsolver__acceptedwater(native_)
-    water_2_ => zz95
+    refused_ => zz106
+    zz107 => p_fv_explicitfvsolver__acceptedwater(native_)
+    water_2_ => zz107
     if ((.not. cpp_vec_d_empty(water_2_%face_forward))) then
-      zz96 => cpp_vec_d_new_ul_t(int(p_simulationcontext__n_nodes(ctx_), 8), 0.0_8)
+      zz108 => cpp_vec_d_new_ul_t(int(p_simulationcontext__n_nodes(ctx_), 8), 0.0_8)
       if (associated(cpp_exc)) return
-      source_port_ => zz96
+      source_port_ => zz108
       f_3_ = 0
       do
         if (.not. ((f_3_ < p_fv_networkmeshdata__n_faces(self%fv_mesh_)))) exit
@@ -1605,21 +1913,21 @@ contains
           n_4_ = self%fv_mesh_%face_vj_node%a%a(int(f_3_, 8))
         end if
         if ((n_4_ >= 0)) then
-          zz97 = (source_port_%a%a(int(n_4_, 8)) + (water_2_%face_lateral_left%a%a(int(f_3_, 8)) + water_2_%face_lateral_right%a%a(int(f_3_, 8))))
-          source_port_%a%a(int(n_4_, 8)) = zz97
+          zz109 = (source_port_%a%a(int(n_4_, 8)) + (water_2_%face_lateral_left%a%a(int(f_3_, 8)) + water_2_%face_lateral_right%a%a(int(f_3_, 8))))
+          source_port_%a%a(int(n_4_, 8)) = zz109
         end if
         f_3_ = (f_3_ + 1)
       end do
       n_5_ = 0
       do
         if (.not. ((n_5_ < p_simulationcontext__n_nodes(ctx_)))) exit
-        zz98 = (iand(int(self%fv_mesh_%node_kind%a%a(int(n_5_, 8)), 4), 255_4) == 1)
-        if (zz98) then
-          zz98 = (self%fv_lateral_%a%a(int(n_5_, 8)) < 0.0_8)
+        zz110 = (iand(int(self%fv_mesh_%node_kind%a%a(int(n_5_, 8)), 4), 255_4) == 1)
+        if (zz110) then
+          zz110 = (self%fv_lateral_%a%a(int(n_5_, 8)) < 0.0_8)
         end if
-        if (zz98) then
-          zz99 = (refused_%a%a(int(n_5_, 8)) + cpp_m_max_d_d(0.0_8, (((-self%fv_lateral_%a%a(int(n_5_, 8))) * dt_) + source_port_%a%a(int(n_5_, 8)))))
-          refused_%a%a(int(n_5_, 8)) = zz99
+        if (zz110) then
+          zz111 = (refused_%a%a(int(n_5_, 8)) + cpp_m_max_d_d(0.0_8, (((-self%fv_lateral_%a%a(int(n_5_, 8))) * dt_) + source_port_%a%a(int(n_5_, 8)))))
+          refused_%a%a(int(n_5_, 8)) = zz111
         end if
         n_5_ = (n_5_ + 1)
       end do
@@ -1628,47 +1936,47 @@ contains
     do
       if (.not. ((n_6_ < p_simulationcontext__n_nodes(ctx_)))) exit
       un_2_ = int(n_6_, 8)
-      zz100 => p_fv_explicitfvsolver__withdrawalrates__v(native_)
-      requested_ = zz100%a%a(un_2_)
+      zz112 => p_fv_explicitfvsolver__withdrawalrates__v(native_)
+      requested_ = zz112%a%a(un_2_)
       refund_ = cpp_m_min_d_d(requested_, cpp_m_max_d_d(0.0_8, (refused_%a%a(un_2_) / dt_)))
       if ((requested_ > 0.0_8)) then
-        zz101 = (refund_ / requested_)
+        zz113 = (refund_ / requested_)
       else
-        zz101 = 0.0_8
+        zz113 = 0.0_8
       end if
-      fraction_ = zz101
-      zz102 = user_rate_%invoke(un_2_)
-      accepted_user_ = (cpp_m_max_d_d(0.0_8, (-zz102)) * (1.0_8 - fraction_))
-      zz103 = (ctx_%mass_balance%step_ext_withdrawal + accepted_user_)
-      ctx_%mass_balance%step_ext_withdrawal = zz103
-      zz104 => p_fv_explicitfvsolver__withdrawalrates__v(native_)
-      zz104%a%a(un_2_) = cpp_m_max_d_d(0.0_8, (requested_ - refund_))
+      fraction_ = zz113
+      zz114 = user_rate_%invoke(un_2_)
+      accepted_user_ = (cpp_m_max_d_d(0.0_8, (-zz114)) * (1.0_8 - fraction_))
+      zz115 = (ctx_%mass_balance%step_ext_withdrawal + accepted_user_)
+      ctx_%mass_balance%step_ext_withdrawal = zz115
+      zz116 => p_fv_explicitfvsolver__withdrawalrates__v(native_)
+      zz116%a%a(un_2_) = cpp_m_max_d_d(0.0_8, (requested_ - refund_))
       if ((refund_ <= 0.0_8)) then
         goto 123
       end if
-      allocate(zz105)
-      zz105%c_fraction = fraction_
-      reduce_ => zz105
+      allocate(zz117)
+      zz117%c_fraction = fraction_
+      reduce_ => zz117
       call reduce_%invoke(ctx_%nodes%ext_inflow%a%a(un_2_), ctx_%mass_balance%step_ext_withdrawal, (-1.0_8))
       call reduce_%invoke(ctx_%nodes%dwf_inflow%a%a(un_2_), ctx_%mass_balance%step_dw_inflow, 1.0_8)
       call reduce_%invoke(ctx_%nodes%gw_inflow%a%a(un_2_), ctx_%mass_balance%step_gw_inflow, 1.0_8)
       call reduce_%invoke(ctx_%nodes%rdii_inflow%a%a(un_2_), ctx_%mass_balance%step_rdii_inflow, 1.0_8)
       call reduce_%invoke(ctx_%nodes%iface_inflow%a%a(un_2_), ctx_%mass_balance%step_ext_inflow, 1.0_8)
-      zz106 = (ctx_%nodes%lat_flow%a%a(un_2_) + refund_)
-      ctx_%nodes%lat_flow%a%a(un_2_) = zz106
+      zz118 = (ctx_%nodes%lat_flow%a%a(un_2_) + refund_)
+      ctx_%nodes%lat_flow%a%a(un_2_) = zz118
       123 continue
       n_6_ = (n_6_ + 1)
     end do
   end if
-  zz108 = ((.not. (.not. associated(native_))) .and. (dt_ > 0.0_8))
-  if (zz108) then
-    zz107 => p_fv_explicitfvsolver__acceptedwater(native_)
-    zz108 = (.not. cpp_vec_d_empty(zz107%face_forward))
+  zz120 = ((.not. (.not. associated(native_))) .and. (dt_ > 0.0_8))
+  if (zz120) then
+    zz119 => p_fv_explicitfvsolver__acceptedwater(native_)
+    zz120 = (.not. cpp_vec_d_empty(zz119%face_forward))
   end if
-  if (zz108) then
+  if (zz120) then
     cd_2_ => ctx_%link_subtypes%conduits
-    zz109 => p_fv_explicitfvsolver__acceptedwater(native_)
-    accepted_ => zz109
+    zz121 => p_fv_explicitfvsolver__acceptedwater(native_)
+    accepted_ => zz121
     row_ = 0
     do
       if (.not. ((row_ < p_fv_networkmeshdata__n_conduits(self%fv_mesh_)))) exit
@@ -1682,24 +1990,24 @@ contains
       c_2_ = begin_2_
       do
         if (.not. ((c_2_ < (begin_2_ + count_)))) exit
-        zz110 = (actual_ + accepted_%cell_loss%a%a(int(c_2_, 8)))
-        actual_ = zz110
+        zz122 = (actual_ + accepted_%cell_loss%a%a(int(c_2_, 8)))
+        actual_ = zz122
         c_2_ = (c_2_ + 1)
       end do
       if ((requested_2_ /= 0.0_8)) then
         ratio_ = (actual_ / requested_2_)
-        zz111 = (cd_2_%seep_loss_rate%a%a(int(row_, 8)) * ratio_)
-        cd_2_%seep_loss_rate%a%a(int(row_, 8)) = zz111
-        zz112 = (cd_2_%evap_loss_rate%a%a(int(row_, 8)) * ratio_)
-        cd_2_%evap_loss_rate%a%a(int(row_, 8)) = zz112
+        zz123 = (cd_2_%seep_loss_rate%a%a(int(row_, 8)) * ratio_)
+        cd_2_%seep_loss_rate%a%a(int(row_, 8)) = zz123
+        zz124 = (cd_2_%evap_loss_rate%a%a(int(row_, 8)) * ratio_)
+        cd_2_%evap_loss_rate%a%a(int(row_, 8)) = zz124
       end if
       125 continue
       row_ = (row_ + 1)
     end do
   end if
   call p_router__publishfv(self, ctx_, dt_)
-  zz113 = self%fv_solver_%v_last_num_steps()
-  zres = int(zz113, 4)
+  zz125 = self%fv_solver_%v_last_num_steps()
+  zres = int(zz125, 4)
   return
   end procedure p_router__stepfv
 
@@ -2587,11 +2895,17 @@ contains
 
   module procedure p_router__updatelinkstates
     class(t_linkdata), pointer :: links_
+    type(cpp_ptr_d) :: zz1
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d) :: zz3
   links_ => ctx_%links
-  call p_node__f__computeheads(cpp_vec_d_data(ctx_%nodes%invert_elev), cpp_vec_d_data(ctx_%nodes%depth), cpp_vec_d_data(ctx_%nodes%head), p_simulationcontext__n_nodes(ctx_))
+  zz1 = cpp_vec_d_data(ctx_%nodes%invert_elev)
+  zz2 = cpp_vec_d_data(ctx_%nodes%depth)
+  zz3 = cpp_vec_d_data(ctx_%nodes%head)
+  call p_node__f__computeheads(zz1, zz2, zz3, p_simulationcontext__n_nodes(ctx_))
   end procedure p_router__updatelinkstates
 
-  module procedure p_lam281
+  module procedure p_lam282
     class(cpp_vec_i), pointer :: zz1
     integer(4) :: nl_
     integer(4) :: j_
@@ -2611,13 +2925,13 @@ contains
   end do
   zres => s_router__s_fallback_37
   return
-  end procedure p_lam281
+  end procedure p_lam282
 
   module procedure p_router__executesteadyflow
     class(t_linkdata), pointer :: links_
     class(t_nodedata), pointer :: nodes_
     class(cpp_vec_i), pointer :: order_
-    class(t_lam281), pointer :: zz1
+    class(t_lam282), pointer :: zz1
     class(cpp_vec_i), pointer :: zz2
     class(cpp_vec_i), pointer :: zz3
     integer(4) :: idx_
@@ -4151,16 +4465,16 @@ contains
   call p_router_restartstate__install(s_, self, c_)
   end procedure p_router__installcheckpoint
 
-  module procedure p_lam283
+  module procedure p_lam284
   call p_detail_completedsourcearchive__op_call__rstr_rd_rd_rstr(self%c_a, a1%pollutant, a1%removal, a1%decay, a1%expression)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam283
+  end procedure p_lam284
 
-  module procedure p_lam282
+  module procedure p_lam283
     class(t_richards_material), pointer :: m_
     class(t_richards_options), pointer :: f_
-    class(t_lam283), pointer :: zz1
+    class(t_lam284), pointer :: zz1
     class(*), pointer :: zz2
     class(t_detail_completedsourcearchive), pointer :: zz3
     class(cpp_vec_o), pointer :: zz4
@@ -4176,19 +4490,19 @@ contains
   call p_detail_completedsourcearchive__sequence__rvec_lidla_817f1a5d(zz3, zz4, zz2, .false.)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam282
+  end procedure p_lam283
 
-  module procedure p_lam284
+  module procedure p_lam285
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_8ad75de8(self%c_a, a1%bottom, a1%top, a1%geometric_volume, a1%area, a1%porosity, a1%field_capacity, a1%wilting_point, a1%conductivity, a1%conductivity_slope, a1%suction, a1%kind, a1%layer)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam284
+  end procedure p_lam285
 
-  module procedure p_lam285
+  module procedure p_lam286
   call p_detail_completedsourcearchive__op_call__ri_ri_rb(self%c_a, a1%link, a1%layer, a1%top)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam285
+  end procedure p_lam286
 
   module procedure p_router__checkpointmodel
     class(t_detail_completedsourcearchive), pointer :: a_
@@ -4231,15 +4545,15 @@ contains
     class(cpp_vec_o), pointer :: layers_
     class(t_lidnodeconfig), pointer :: zz22
     class(cpp_vec_o), pointer :: zz23
-    class(t_lam282), pointer :: zz24
+    class(t_lam283), pointer :: zz24
     class(*), pointer :: zz25
     class(t_lidnodestate), pointer :: zz26
-    class(t_lam284), pointer :: zz27
+    class(t_lam285), pointer :: zz27
     class(*), pointer :: zz28
     class(cpp_vec_o), pointer :: zz29
     class(cpp_vec_o), pointer :: outlets_
     class(cpp_vec_o), pointer :: zz30
-    class(t_lam285), pointer :: zz31
+    class(t_lam286), pointer :: zz31
     class(*), pointer :: zz32
     class(t_dynwave_dwsolver), pointer :: d_
     class(t_dynwave_dwsolver), pointer :: zz33
@@ -5287,7 +5601,7 @@ contains
   return
   end procedure p_router_restartstate__movenew
 
-  module procedure p_lam286
+  module procedure p_lam287
     integer(8) :: zz1
     class(t_lidnodeconfig), pointer :: zz2
     class(t_detail_completedsourcearchive), pointer :: zz3
@@ -5298,11 +5612,11 @@ contains
   call p__anon_hydraulics_routingcheckpoint_cpp__f__lidstate_7f73e89a(zz3, a1, (zz2%bottom == 2), self%c_thermal_lid_state, self%c_thermal_lid_contact_receipts)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam286
+  end procedure p_lam287
 
   module procedure p_router_restartstate__archive
     integer(8), pointer :: lid_row_
-    class(t_lam286), pointer :: zz1
+    class(t_lam287), pointer :: zz1
     class(*), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
     class(t_dynwave_dwnodearrays), pointer :: x_
@@ -5601,17 +5915,17 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_router_restartstate__archive
 
-  module procedure p_lam287
-  zres = (a1 == 0.0_8)
-  return
-  end procedure p_lam287
-
   module procedure p_lam288
   zres = (a1 == 0.0_8)
   return
   end procedure p_lam288
 
   module procedure p_lam289
+  zres = (a1 == 0.0_8)
+  return
+  end procedure p_lam289
+
+  module procedure p_lam290
     logical :: zz1
   zz1 = (a1 >= (-5))
   if (zz1) then
@@ -5619,7 +5933,7 @@ contains
   end if
   zres = zz1
   return
-  end procedure p_lam289
+  end procedure p_lam290
 
   module procedure p_router_restartstate__validate
     class(cpp_arr_d), pointer :: x__r1_
@@ -5663,12 +5977,12 @@ contains
     logical :: zz32
     logical :: zz33
     type(cpp_cptr) :: zz34
-    class(t_lam287), pointer :: zz35
+    class(t_lam288), pointer :: zz35
     type(cpp_iter_d) :: zz36
     type(cpp_iter_d) :: zz37
     logical :: zz38
     logical :: zz39
-    class(t_lam288), pointer :: zz40
+    class(t_lam289), pointer :: zz40
     type(cpp_iter_d) :: zz41
     type(cpp_iter_d) :: zz42
     logical :: zz43
@@ -5828,7 +6142,7 @@ contains
     logical :: zz137
     type(cpp_cptr) :: zz138
     class(t_fn4), pointer :: validcell_
-    class(t_lam289), pointer :: zz139
+    class(t_lam290), pointer :: zz139
     class(cpp_vec_o), pointer :: x__r27_
     integer(8) :: x__i28_
     integer(8) :: x__i28_n_

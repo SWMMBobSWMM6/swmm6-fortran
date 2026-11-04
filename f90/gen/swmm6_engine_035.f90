@@ -380,7 +380,7 @@ contains
   return
   end procedure p_lidnode__f__validtreatment
 
-  module procedure p_lam433
+  module procedure p_lam436
     class(t_lidlayertreatment), pointer :: r_
     class(t_lidlayertreatment), pointer :: zz1
     class(cpp_str), pointer :: zz2
@@ -399,7 +399,7 @@ contains
   zz7 = p_nameindex__find(zz6, zz5)
   zres = (zz4 == zz7)
   return
-  end procedure p_lam433
+  end procedure p_lam436
 
   module procedure p_lidnode__f__readtreatment
     class(cpp_vec_o), pointer :: x__r1_
@@ -479,7 +479,7 @@ contains
     class(cpp_str), pointer :: zz60
     class(*), pointer :: zz61
     class(cpp_vec_o), pointer :: zz62
-    class(t_lam433), pointer :: zz63
+    class(t_lam436), pointer :: zz63
     type(cpp_iter_o) :: zz64
     type(cpp_iter_o) :: zz65
     logical :: zz66
@@ -643,7 +643,7 @@ contains
   end do
   end procedure p_lidnode__f__readtreatment
 
-  module procedure p_lam434
+  module procedure p_lam437
     class(t_lidlayertreatment), pointer :: value_
     class(t_lidlayertreatment), pointer :: zz1
     class(cpp_str), pointer :: zz2
@@ -656,7 +656,7 @@ contains
   zz4 = p_nameindex__find(zz3, zz2)
   zres = (zz4 == self%c_p_7)
   return
-  end procedure p_lam434
+  end procedure p_lam437
 
   module procedure p_lidnode__f__preparequality
     integer(4) :: np_
@@ -773,7 +773,7 @@ contains
     class(t_lidnodecell), pointer :: zz65
     class(t_lidnodelayer), pointer :: zz66
     type(cpp_iter_o) :: rule_
-    class(t_lam434), pointer :: zz67
+    class(t_lam437), pointer :: zz67
     type(cpp_iter_o) :: zz68
     type(cpp_iter_o) :: zz69
     type(cpp_iter_o) :: zz70
@@ -1209,7 +1209,7 @@ contains
   end do
   end procedure p_lidnode__f__preparequality
 
-  module procedure p_lam435
+  module procedure p_lam438
     class(t_lidporttransfer), pointer :: port_
     class(t_lidporttransfer), pointer :: zz1
     logical :: zz2
@@ -1221,7 +1221,7 @@ contains
   end if
   zres = zz2
   return
-  end procedure p_lam435
+  end procedure p_lam438
 
   module procedure p_lidnode__f__prepareoutletquality
     integer(4) :: np_
@@ -1250,7 +1250,7 @@ contains
     real(8) :: q_
     integer(4) :: source_
     integer(4), pointer :: zz8
-    class(t_lam435), pointer :: zz9
+    class(t_lam438), pointer :: zz9
     type(cpp_iter_o) :: zz10
     type(cpp_iter_o) :: zz11
     logical :: zz12
@@ -1510,7 +1510,7 @@ contains
   return
   end procedure p_lidnode__anon_hydrology_lidnodetreatment_cpp__f__la_8937c65b
 
-  module procedure p_lam439
+  module procedure p_lam442
     class(t_lidlayertreatment), pointer :: rule_
     class(t_lidlayertreatment), pointer :: zz1
     class(cpp_str), pointer :: zz2
@@ -1523,12 +1523,12 @@ contains
   zz4 = p_nameindex__find(zz3, zz2)
   zres = (zz4 == self%c_pollutant)
   return
-  end procedure p_lam439
+  end procedure p_lam442
 
-  module procedure p_lam438
+  module procedure p_lam441
     real(8) :: zz1
     type(cpp_iter_o) :: it_
-    class(t_lam439), pointer :: zz2
+    class(t_lam442), pointer :: zz2
     type(cpp_iter_o) :: zz3
     type(cpp_iter_o) :: zz4
     type(cpp_iter_o) :: zz5
@@ -1572,11 +1572,16 @@ contains
     real(8) :: zz29
     real(8) :: zz30
     real(8) :: zz31
-    real(8) :: zz32
+    type(cpp_ptr_d) :: zz32
+    type(cpp_ptr_d) :: zz33
+    type(cpp_ptr_d) :: zz34
+    integer(4) :: zz35
+    real(8) :: zz36
+    real(8) :: zz37
     real(8) :: out_
-    real(8) :: zz33
-    real(8) :: zz34
-    real(8) :: zz35
+    real(8) :: zz38
+    real(8) :: zz39
+    real(8) :: zz40
   if ((self%c_removals%a%a(int(a1, 8)) >= 0.0_8)) then
     if ((self%c_removals%a%a(int(a1, 8)) <= 1.0_8)) then
       zz1 = self%c_removals%a%a(int(a1, 8))
@@ -1667,36 +1672,41 @@ contains
       zz31 = self%c_volume
       zz30 = self%c_layer%params%a(0_8)
       zz29 = p_ucf__f__ucf(1, self%c_ctx%options)
-      zz32 = p_treatment__f__evaluate(expr_, c_, zz26, zz25, (zz28 * zz27), zz31, ((zz30 / zz29) * length_), cpp_vec_d_data(self%c_concentrations), cpp_vec_d_data(safe_), self%c_np, ((self%c_cell%area * length_) * length_), cpp_vec_d_data(self%c_concentrations))
-      result_ = zz32
+      zz32 = cpp_vec_d_data(self%c_concentrations)
+      zz33 = cpp_vec_d_data(safe_)
+      zz35 = self%c_np
+      zz36 = ((self%c_cell%area * length_) * length_)
+      zz34 = cpp_vec_d_data(self%c_concentrations)
+      zz37 = p_treatment__f__evaluate(expr_, c_, zz26, zz25, (zz28 * zz27), zz31, ((zz30 / zz29) * length_), zz32, zz33, zz35, zz36, zz34)
+      result_ = zz37
       if (cpp_double_isfinite(result_)) then
         if (expr_%is_removal) then
-          zz33 = (c_ * (1.0_8 - cpp_m_clamp_d_d_d(result_, 0.0_8, 1.0_8)))
+          zz38 = (c_ * (1.0_8 - cpp_m_clamp_d_d_d(result_, 0.0_8, 1.0_8)))
         else
-          zz33 = cpp_m_clamp_d_d_d(result_, 0.0_8, c_)
+          zz38 = cpp_m_clamp_d_d_d(result_, 0.0_8, c_)
         end if
-        out_ = zz33
+        out_ = zz38
         if ((self%c_concentrations%a%a(int(a1, 8)) > 0.0_8)) then
-          zz34 = (1.0_8 - (out_ / self%c_concentrations%a%a(int(a1, 8))))
+          zz39 = (1.0_8 - (out_ / self%c_concentrations%a%a(int(a1, 8))))
         else
-          zz34 = 0.0_8
+          zz39 = 0.0_8
         end if
-        r_ = zz34
+        r_ = zz39
       end if
     end if
   end if
-  zz35 = r_
-  self%c_removals%a%a(int(a1, 8)) = zz35
-  zres = zz35
+  zz40 = r_
+  self%c_removals%a%a(int(a1, 8)) = zz40
+  zres = zz40
   return
-  end procedure p_lam438
+  end procedure p_lam441
 
   module procedure p_lidnode__anon_hydrology_lidnodetreatment_cpp__f__tr_620e2611
     integer(4) :: np_
     class(cpp_vec_d), pointer :: removals_
     class(cpp_vec_d), pointer :: zz1
     class(t_fn127), pointer :: evaluate_
-    class(t_lam438), pointer :: zz2
+    class(t_lam441), pointer :: zz2
     class(*), pointer :: zz3
     real(8) :: zz4
   np_ = p_simulationcontext__n_pollutants(ctx_)
@@ -1916,7 +1926,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_rdii_rdiigroupsoa__resize
 
-  module procedure p_lam441
+  module procedure p_lam444
     class(cpp_arr_z), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -1924,10 +1934,10 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam441
+  end procedure p_lam444
 
-  module procedure p_lam440
-    class(t_lam441), pointer :: zz1
+  module procedure p_lam443
+    class(t_lam444), pointer :: zz1
     class(cpp_arr_o), pointer :: zz2
     class(*), pointer :: zz3
   zres => null()
@@ -1936,11 +1946,11 @@ contains
   zz3 => zz2
   zres => zz3
   return
-  end procedure p_lam440
+  end procedure p_lam443
 
   module procedure p_rdii_rdiisolver__init
     class(cpp_umap), pointer :: params_seen_
-    class(t_lam440), pointer :: zz1
+    class(t_lam443), pointer :: zz1
     class(cpp_umap), pointer :: zz2
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
@@ -2533,11 +2543,12 @@ contains
     integer(8) :: row_
     integer(8) :: ncol_
     type(cpp_ptr_f) :: flows_
+    type(cpp_ptr_f) :: zz2
     integer(8) :: col_
     real(8) :: q_
-    real(4), pointer :: zz2
+    real(4), pointer :: zz3
     integer(8) :: un_
-    real(8) :: zz3
+    real(8) :: zz4
   zz1 = (self%grid_step_ <= 0.0_8)
   if (.not. zz1) then
     zz1 = cpp_vec_i_empty(self%grid_node_)
@@ -2553,19 +2564,20 @@ contains
   if ((ieor(((row_ + 1_8) * ncol_), (-9223372036854775807_8 - 1_8)) > ieor(cpp_vec_f_size(self%grid_flows_), (-9223372036854775807_8 - 1_8)))) then
     return
   end if
-  flows_ = cpp_ptr_f_op_add_ptrt_l(cpp_vec_f_data(self%grid_flows_), (row_ * ncol_))
+  zz2 = cpp_vec_f_data(self%grid_flows_)
+  flows_ = cpp_ptr_f_op_add_ptrt_l(zz2, (row_ * ncol_))
   col_ = 0_8
   do
     if (.not. ((ieor(col_, (-9223372036854775807_8 - 1_8)) < ieor(ncol_, (-9223372036854775807_8 - 1_8))))) exit
-    zz2 => cpp_ptr_f_item_ul(flows_, col_)
-    q_ = real(zz2, 8)
+    zz3 => cpp_ptr_f_item_ul(flows_, col_)
+    q_ = real(zz3, 8)
     if ((abs(q_) < s_constants__f__flow_tol)) then
       goto 102
     end if
     un_ = int(self%grid_node_%a%a(col_), 8)
     if ((ieor(un_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%nodes%rdii_inflow), (-9223372036854775807_8 - 1_8)))) then
-      zz3 = (ctx_%nodes%rdii_inflow%a%a(un_) + q_)
-      ctx_%nodes%rdii_inflow%a%a(un_) = zz3
+      zz4 = (ctx_%nodes%rdii_inflow%a%a(un_) + q_)
+      ctx_%nodes%rdii_inflow%a%a(un_) = zz4
     end if
     102 continue
     col_ = (col_ + 1_8)
@@ -3576,7 +3588,7 @@ contains
   return
   end procedure p_rdii_rdiisolver__new_mrdiisolver
 
-  module procedure p_lam442
+  module procedure p_lam445
     class(cpp_arr_o), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -3584,11 +3596,11 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam442
+  end procedure p_lam445
 
   module procedure p_rdii_rdiisolver__init_d
     class(cpp_vec_o), pointer :: zz1
-    class(t_lam442), pointer :: zz2
+    class(t_lam445), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
     class(t_rdii_rdiigroupsoa), pointer :: zz4
     class(cpp_umapc), pointer :: zz5
@@ -3740,7 +3752,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_rdii_rdiisolver__assign
 
-  module procedure p_lam443
+  module procedure p_lam446
     class(cpp_arr_o), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -3748,12 +3760,12 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam443
+  end procedure p_lam446
 
   module procedure p_rdii_rdiisolver__movefrom
     class(t_rdii_rdiisolver), pointer :: zz1
     class(cpp_vec_o), pointer :: zz2
-    class(t_lam443), pointer :: zz3
+    class(t_lam446), pointer :: zz3
     class(cpp_vec_o), pointer :: zz4
     class(t_rdii_rdiigroupsoa), pointer :: zz5
     class(cpp_umapc), pointer :: zz6
@@ -5341,7 +5353,8 @@ contains
     integer(8) :: zz5
     class(cpp_vec_i), pointer :: idx_
     class(cpp_vec_i), pointer :: zz6
-    integer(8) :: zz7
+    type(cpp_ptr_i) :: zz7
+    integer(8) :: zz8
   call p_rdii_iface_rdiiinterfacefile__close(self)
   if (associated(cpp_exc)) return
   if (cpp_vec_i_empty(node_idx_)) then
@@ -5374,7 +5387,8 @@ contains
   zz6 => cpp_algo_vecfrom__i(cpp_vec_i_begin(self%node_idx_), cpp_vec_i_end(self%node_idx_))
   if (associated(cpp_exc)) return
   idx_ => zz6
-  zz7 = cpp_mem_fwrite_ptrt_ul_ul_cfile__i(cpp_vec_i_data(idx_), 4_8, cpp_vec_i_size(idx_), self%fp_)
+  zz7 = cpp_vec_i_data(idx_)
+  zz8 = cpp_mem_fwrite_ptrt_ul_ul_cfile__i(zz7, 4_8, cpp_vec_i_size(idx_), self%fp_)
   if (associated(cpp_exc)) return
   zres = 0
   return
@@ -5433,7 +5447,8 @@ contains
     real(4) :: zz1
     real(4), pointer :: zz2
     integer(8) :: zz3
-    integer(8) :: zz4
+    type(cpp_ptr_f) :: zz4
+    integer(8) :: zz5
   if (((.not. (.not. (.not. associated(self%fp_)))) .or. (.not. self%writing_))) then
     return
   end if
@@ -5452,7 +5467,8 @@ contains
   end do
   zz3 = cpp_r_fwrited1(current_date_, self%fp_)
   if (associated(cpp_exc)) return
-  zz4 = cpp_mem_fwrite_ptrt_ul_ul_cfile__f(cpp_vec_f_data(self%flows_), 4_8, cpp_vec_f_size(self%flows_), self%fp_)
+  zz4 = cpp_vec_f_data(self%flows_)
+  zz5 = cpp_mem_fwrite_ptrt_ul_ul_cfile__f(zz4, 4_8, cpp_vec_f_size(self%flows_), self%fp_)
   if (associated(cpp_exc)) return
   end procedure p_rdii_iface_rdiiinterfacefile__saveflows
 
@@ -5474,10 +5490,11 @@ contains
     integer(8) :: zz2
     class(cpp_vec_i), pointer :: idx_
     class(cpp_vec_i), pointer :: zz3
-    integer(8) :: zz4
+    type(cpp_ptr_i) :: zz4
+    integer(8) :: zz5
     integer(8) :: i_
     integer(4) :: j_
-    logical :: zz5
+    logical :: zz6
   step_ = 0
   n_nodes_ = 0
   zz1 = cpp_r_freadi1(step_, self%fp_)
@@ -5499,9 +5516,10 @@ contains
   if (associated(cpp_exc)) return
   zz3 => cpp_vec_i_new_ul(int(n_nodes_, 8))
   idx_ => zz3
-  zz4 = cpp_mem_fread_ptrt_ul_ul_cfile__i(cpp_vec_i_data(idx_), 4_8, int(n_nodes_, 8), self%fp_)
+  zz4 = cpp_vec_i_data(idx_)
+  zz5 = cpp_mem_fread_ptrt_ul_ul_cfile__i(zz4, 4_8, int(n_nodes_, 8), self%fp_)
   if (associated(cpp_exc)) return
-  if ((zz4 /= int(n_nodes_, 8))) then
+  if ((zz5 /= int(n_nodes_, 8))) then
     zres = (-2)
     return
   end if
@@ -5509,11 +5527,11 @@ contains
   do
     if (.not. ((ieor(i_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(idx_), (-9223372036854775807_8 - 1_8))))) exit
     j_ = idx_%a%a(i_)
-    zz5 = (j_ < 0)
-    if (.not. zz5) then
-      zz5 = (j_ >= p_simulationcontext__n_nodes(ctx_))
+    zz6 = (j_ < 0)
+    if (.not. zz6) then
+      zz6 = (j_ >= p_simulationcontext__n_nodes(ctx_))
     end if
-    if (zz5) then
+    if (zz6) then
       zres = (-2)
       return
     end if
@@ -5524,15 +5542,15 @@ contains
   return
   end procedure p_rdii_iface_rdiiinterfacefile__readbinaryheader
 
-  module procedure p_lam444
+  module procedure p_lam447
   self%c_this%rdii_step_ = a1
   return
-  end procedure p_lam444
+  end procedure p_lam447
 
-  module procedure p_lam445
+  module procedure p_lam448
   self%c_n_nodes = a1
   return
-  end procedure p_lam445
+  end procedure p_lam448
 
   module procedure p_rdii_iface_rdiiinterfacefile__readtextheader
     type(cpp_cptr) :: line_
@@ -5549,7 +5567,7 @@ contains
     type(cpp_cptr) :: zz9
     type(cpp_cptr) :: zz10
     type(cpp_cptr) :: zz11
-    class(t_lam444), pointer :: zz12
+    class(t_lam447), pointer :: zz12
     class(cpp_refi), pointer :: zz13
     integer(4) :: zz14
     type(cpp_cptr) :: zz15
@@ -5576,7 +5594,7 @@ contains
     integer(4), pointer :: n_nodes_
     type(cpp_cptr) :: zz35
     type(cpp_cptr) :: zz36
-    class(t_lam445), pointer :: zz37
+    class(t_lam448), pointer :: zz37
     class(cpp_refi), pointer :: zz38
     integer(4) :: zz39
     integer(4) :: i_
@@ -5753,49 +5771,50 @@ contains
   return
   end procedure p_rdii_iface_rdiiinterfacefile__readtextheader
 
-  module procedure p_lam446
-  self%c_yr = a1
-  return
-  end procedure p_lam446
-
-  module procedure p_lam447
-  self%c_mon = a1
-  return
-  end procedure p_lam447
-
-  module procedure p_lam448
-  self%c_day = a1
-  return
-  end procedure p_lam448
-
   module procedure p_lam449
-  self%c_hr = a1
+  self%c_yr = a1
   return
   end procedure p_lam449
 
   module procedure p_lam450
-  self%c_mn = a1
+  self%c_mon = a1
   return
   end procedure p_lam450
 
   module procedure p_lam451
-  self%c_sec = a1
+  self%c_day = a1
   return
   end procedure p_lam451
 
   module procedure p_lam452
-  self%c_x = a1
+  self%c_hr = a1
   return
   end procedure p_lam452
+
+  module procedure p_lam453
+  self%c_mn = a1
+  return
+  end procedure p_lam453
+
+  module procedure p_lam454
+  self%c_sec = a1
+  return
+  end procedure p_lam454
+
+  module procedure p_lam455
+  self%c_x = a1
+  return
+  end procedure p_lam455
 
   module procedure p_rdii_iface_rdiiinterfacefile__readnextrecord
     real(8), target :: date_
     integer(8) :: zz1
-    integer(8) :: zz2
+    type(cpp_ptr_f) :: zz2
+    integer(8) :: zz3
     type(cpp_cptr) :: line_
-    type(cpp_cptr) :: zz3
-    type(cpp_cptr) :: s_
     type(cpp_cptr) :: zz4
+    type(cpp_cptr) :: s_
+    type(cpp_cptr) :: zz5
     integer(4), pointer :: yr_
     integer(4), pointer :: mon_
     integer(4), pointer :: day_
@@ -5804,29 +5823,29 @@ contains
     integer(4), pointer :: sec_
     real(8), pointer :: x_
     integer(8) :: i_
-    type(cpp_cptr) :: zz5
     type(cpp_cptr) :: zz6
-    class(t_lam446), pointer :: zz7
-    class(cpp_refi), pointer :: zz8
-    class(t_lam447), pointer :: zz9
-    class(cpp_refi), pointer :: zz10
-    class(t_lam448), pointer :: zz11
-    class(cpp_refi), pointer :: zz12
-    class(t_lam449), pointer :: zz13
-    class(cpp_refi), pointer :: zz14
-    class(t_lam450), pointer :: zz15
-    class(cpp_refi), pointer :: zz16
-    class(t_lam451), pointer :: zz17
-    class(cpp_refi), pointer :: zz18
-    class(t_lam452), pointer :: zz19
-    class(cpp_refd), pointer :: zz20
-    integer(4) :: zz21
-    type(cpp_ptr_d) :: zz22
-    real(8), pointer :: zz23
-    real(8) :: zz24
-    real(4), pointer :: zz25
-    real(8) :: zz26
+    type(cpp_cptr) :: zz7
+    class(t_lam449), pointer :: zz8
+    class(cpp_refi), pointer :: zz9
+    class(t_lam450), pointer :: zz10
+    class(cpp_refi), pointer :: zz11
+    class(t_lam451), pointer :: zz12
+    class(cpp_refi), pointer :: zz13
+    class(t_lam452), pointer :: zz14
+    class(cpp_refi), pointer :: zz15
+    class(t_lam453), pointer :: zz16
+    class(cpp_refi), pointer :: zz17
+    class(t_lam454), pointer :: zz18
+    class(cpp_refi), pointer :: zz19
+    class(t_lam455), pointer :: zz20
+    class(cpp_refd), pointer :: zz21
+    integer(4) :: zz22
+    type(cpp_ptr_d) :: zz23
+    real(8), pointer :: zz24
+    real(8) :: zz25
+    real(4), pointer :: zz26
     real(8) :: zz27
+    real(8) :: zz28
   self%have_record_ = .false.
   self%start_date_ = s_rdii_iface__anon_hydrology_rdiiinterface_cpp__f__no_ab638fd1
   self%end_date_ = s_rdii_iface__anon_hydrology_rdiiinterface_cpp__f__no_ab638fd1
@@ -5842,18 +5861,19 @@ contains
       zres = .false.
       return
     end if
-    zz2 = cpp_mem_fread_ptrt_ul_ul_cfile__f(cpp_vec_f_data(self%flows_), 4_8, cpp_vec_f_size(self%flows_), self%fp_)
+    zz2 = cpp_vec_f_data(self%flows_)
+    zz3 = cpp_mem_fread_ptrt_ul_ul_cfile__f(zz2, 4_8, cpp_vec_f_size(self%flows_), self%fp_)
     if (associated(cpp_exc)) return
-    if ((zz2 /= cpp_vec_f_size(self%flows_))) then
+    if ((zz3 /= cpp_vec_f_size(self%flows_))) then
       zres = .false.
       return
     end if
     self%start_date_ = date_
   else
-    zz3 = cpp_r_buf_i(1025)
-    line_ = zz3
     zz4 = cpp_r_buf_i(1025)
-    s_ = zz4
+    line_ = zz4
+    zz5 = cpp_r_buf_i(1025)
+    s_ = zz5
     allocate(yr_)
     yr_ = 0
     allocate(mon_)
@@ -5871,52 +5891,52 @@ contains
     i_ = 0_8
     do
       if (.not. ((ieor(i_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_f_size(self%flows_), (-9223372036854775807_8 - 1_8))))) exit
-      zz5 = cpp_r_fgets(line_, s_rdii_iface__anon_hydrology_rdiiinterface_cpp__f__ma_5f0a06c9, self%fp_)
+      zz6 = cpp_r_fgets(line_, s_rdii_iface__anon_hydrology_rdiiinterface_cpp__f__ma_5f0a06c9, self%fp_)
       if (associated(cpp_exc)) return
-      if ((.not. (.not. cpp_cptr_isnull(zz5)))) then
+      if ((.not. (.not. cpp_cptr_isnull(zz6)))) then
         zres = .false.
         return
       end if
-      zz6 = cpp_r_lit("%s %d %d %d %d %d %d %lf")
-      allocate(zz7)
-      zz7%c_yr => yr_
-      zz8 => cpp_r_refi(zz7)
-      allocate(zz9)
-      zz9%c_mon => mon_
-      zz10 => cpp_r_refi(zz9)
-      allocate(zz11)
-      zz11%c_day => day_
-      zz12 => cpp_r_refi(zz11)
-      allocate(zz13)
-      zz13%c_hr => hr_
-      zz14 => cpp_r_refi(zz13)
-      allocate(zz15)
-      zz15%c_mn => mn_
-      zz16 => cpp_r_refi(zz15)
-      allocate(zz17)
-      zz17%c_sec => sec_
-      zz18 => cpp_r_refi(zz17)
-      allocate(zz19)
-      zz19%c_x => x_
-      zz20 => cpp_r_refd(zz19)
-      zz21 = cpp_r_sscanf(line_, zz6, s_, zz8, zz10, zz12, zz14, zz16, zz18, zz20)
+      zz7 = cpp_r_lit("%s %d %d %d %d %d %d %lf")
+      allocate(zz8)
+      zz8%c_yr => yr_
+      zz9 => cpp_r_refi(zz8)
+      allocate(zz10)
+      zz10%c_mon => mon_
+      zz11 => cpp_r_refi(zz10)
+      allocate(zz12)
+      zz12%c_day => day_
+      zz13 => cpp_r_refi(zz12)
+      allocate(zz14)
+      zz14%c_hr => hr_
+      zz15 => cpp_r_refi(zz14)
+      allocate(zz16)
+      zz16%c_mn => mn_
+      zz17 => cpp_r_refi(zz16)
+      allocate(zz18)
+      zz18%c_sec => sec_
+      zz19 => cpp_r_refi(zz18)
+      allocate(zz20)
+      zz20%c_x => x_
+      zz21 => cpp_r_refd(zz20)
+      zz22 = cpp_r_sscanf(line_, zz7, s_, zz9, zz11, zz13, zz15, zz17, zz19, zz21)
       if (associated(cpp_exc)) return
-      if ((zz21 < 8)) then
+      if ((zz22 < 8)) then
         zres = .false.
         return
       end if
-      zz25 => self%flows_%a%a(i_)
-      zz24 = x_
-      zz22 = cpp_ptr_d_new_ta_l(s_ucf__f__qcf_unitconversion, 0_8)
-      zz23 => cpp_ptr_d_item_i(zz22, self%flow_units_)
-      zz25 = real((zz24 / zz23), 4)
+      zz26 => self%flows_%a%a(i_)
+      zz25 = x_
+      zz23 = cpp_ptr_d_new_ta_l(s_ucf__f__qcf_unitconversion, 0_8)
+      zz24 => cpp_ptr_d_item_i(zz23, self%flow_units_)
+      zz26 = real((zz25 / zz24), 4)
       i_ = (i_ + 1_8)
     end do
-    zz26 = p_datetime__f__encodedate(yr_, mon_, day_)
-    self%start_date_ = (zz26 + p_datetime__f__encodetime(hr_, mn_, sec_))
+    zz27 = p_datetime__f__encodedate(yr_, mon_, day_)
+    self%start_date_ = (zz27 + p_datetime__f__encodetime(hr_, mn_, sec_))
   end if
-  zz27 = p_datetime__f__addseconds(self%start_date_, real(self%rdii_step_, 8))
-  self%end_date_ = zz27
+  zz28 = p_datetime__f__addseconds(self%start_date_, real(self%rdii_step_, 8))
+  self%end_date_ = zz28
   self%have_record_ = .true.
   zres = .true.
   return
@@ -6182,29 +6202,5 @@ contains
   self%last = s_%last
   self%exception => s_%exception
   end procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_b6b38ff1
-
-  module procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_2c3004b9
-    class(t_richards_job_src_engine_hydrology_richardscolumn_cpp_596), pointer :: zz1
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%ids => s_%ids
-  self%first = s_%first
-  self%last = s_%last
-  self%exception => s_%exception
-  end procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_2c3004b9
-
-  module procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_3dc387ad
-    class(t_richards_job_src_engine_hydrology_richardscolumn_cpp_596), pointer :: o_
-    class(t_richards_job_src_engine_hydrology_richardscolumn_cpp_596), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_richards_job_src_engine_hydrology_richardscolumn_cp_829916f4(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_richards_job_src_engine_hydrology_richardscolumn_cp_2c3004b9(o_, s_)
-  zres => o_
-  return
-  end procedure p_richards_job_src_engine_hydrology_richardscolumn_cp_3dc387ad
 
 end submodule swmm6_engine_035

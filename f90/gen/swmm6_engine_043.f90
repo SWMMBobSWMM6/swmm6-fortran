@@ -2710,7 +2710,7 @@ contains
   return
   end procedure p_input__f__to_int
 
-  module procedure p_lam687
+  module procedure p_lam691
     type(cpp_fromcharsresult) :: x__d1_
     type(cpp_fromcharsresult) :: zz1
     type(cpp_cptr) :: np_
@@ -2726,9 +2726,9 @@ contains
   self%c_p = np_
   zres = .true.
   return
-  end procedure p_lam687
+  end procedure p_lam691
 
-  module procedure p_lam688
+  module procedure p_lam692
     logical :: zz1
     logical :: zz2
   zz2 = cpp_cptr_op_lt(self%c_p, self%c_end)
@@ -2746,7 +2746,7 @@ contains
   end if
   zres = .false.
   return
-  end procedure p_lam688
+  end procedure p_lam692
 
   module procedure p_input__f__parse_date
     integer(4), target :: m_
@@ -2757,9 +2757,9 @@ contains
     type(cpp_cptr) :: end_
     type(cpp_cptr) :: zz2
     class(t_fn191), pointer :: read_uint_
-    class(t_lam687), pointer :: zz3
+    class(t_lam691), pointer :: zz3
     class(t_fn5), pointer :: read_sep_
-    class(t_lam688), pointer :: zz4
+    class(t_lam692), pointer :: zz4
     logical :: zz5
     logical :: zz6
     logical :: zz7
@@ -2814,7 +2814,7 @@ contains
   return
   end procedure p_input__f__parse_date
 
-  module procedure p_lam689
+  module procedure p_lam693
     type(cpp_fromcharsresult) :: x__d2_
     type(cpp_fromcharsresult) :: zz1
     type(cpp_cptr) :: np_
@@ -2830,7 +2830,7 @@ contains
   self%c_p = np_
   zres = .true.
   return
-  end procedure p_lam689
+  end procedure p_lam693
 
   module procedure p_input__f__parse_time_seconds
     real(8), target :: val_
@@ -2850,7 +2850,7 @@ contains
     type(cpp_cptr) :: end_
     type(cpp_cptr) :: zz7
     class(t_fn191), pointer :: read_uint_
-    class(t_lam689), pointer :: zz8
+    class(t_lam693), pointer :: zz8
     logical :: zz9
     logical :: zz10
     logical :: zz11
@@ -2915,7 +2915,7 @@ contains
   return
   end procedure p_input__f__parse_time_seconds
 
-  module procedure p_lam690
+  module procedure p_lam694
     type(cpp_fromcharsresult) :: x__d2_
     type(cpp_fromcharsresult) :: zz1
     type(cpp_cptr) :: np_
@@ -2931,7 +2931,7 @@ contains
   self%c_p = np_
   zres = .true.
   return
-  end procedure p_lam690
+  end procedure p_lam694
 
   module procedure p_input__f__parse_time_day_fraction
     type(cpp_cptr), pointer :: p_
@@ -2948,7 +2948,7 @@ contains
     integer(4), target :: m_
     integer(4), target :: s_
     class(t_fn191), pointer :: read_uint_
-    class(t_lam690), pointer :: zz5
+    class(t_lam694), pointer :: zz5
     logical :: zz6
     logical :: zz7
     logical, target :: zz8
@@ -3076,20 +3076,20 @@ contains
   return
   end procedure p_input__f__add_unique
 
-  module procedure p_lam832
+  module procedure p_lam836
     class(*), pointer :: zz1
   zz1 => self%c_ifs
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam832
+  end procedure p_lam836
 
   module procedure p_input_inputreader__read
     class(cpp_ifstream), pointer :: ifs_
     class(cpp_fspath), pointer :: zz1
     class(cpp_ifstream), pointer :: zz2
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam832), pointer :: zz3
+    class(t_lam836), pointer :: zz3
     class(cpp_defer), pointer :: zz4
     integer(4) :: zz5
     type(cpp_cptr) :: zz6
@@ -3143,7 +3143,7 @@ contains
   end if
   end procedure p_input_inputreader__read
 
-  module procedure p_lam833
+  module procedure p_lam837
     class(t_perf_scopedtimer), pointer :: x_pt_
     class(t_perf_scopedtimer), pointer :: zz1
   if ((.not. cpp_str_empty(self%c_current_tag))) then
@@ -3154,7 +3154,7 @@ contains
     call cpp_vec_o_clear(self%c_section_lines)
   end if
   return
-  end procedure p_lam833
+  end procedure p_lam837
 
   module procedure p_input_inputreader__read_stream
     class(cpp_str), pointer :: current_tag_
@@ -3162,7 +3162,7 @@ contains
     class(cpp_vec_o), pointer :: section_lines_
     class(cpp_vec_o), pointer :: zz2
     class(t_fn3), pointer :: flush_section_
-    class(t_lam833), pointer :: zz3
+    class(t_lam837), pointer :: zz3
     class(cpp_str), pointer :: raw_line_
     class(cpp_str), pointer :: zz4
     class(cpp_istream), pointer :: zz5
@@ -3751,65 +3751,65 @@ contains
   return
   end procedure p_input_inputreader__skipped_sections
 
-  module procedure p_lam691
-  self%c_y = a1
-  return
-  end procedure p_lam691
-
-  module procedure p_lam692
-  self%c_mo = a1
-  return
-  end procedure p_lam692
-
-  module procedure p_lam693
-  self%c_d = a1
-  return
-  end procedure p_lam693
-
-  module procedure p_lam694
-  self%c_h = a1
-  return
-  end procedure p_lam694
-
   module procedure p_lam695
-  self%c_mi = a1
+  self%c_y = a1
   return
   end procedure p_lam695
 
   module procedure p_lam696
-  self%c_s = a1
+  self%c_mo = a1
   return
   end procedure p_lam696
 
   module procedure p_lam697
-  self%c_mo = a1
+  self%c_d = a1
   return
   end procedure p_lam697
 
   module procedure p_lam698
-  self%c_d = a1
+  self%c_h = a1
   return
   end procedure p_lam698
 
   module procedure p_lam699
-  self%c_y = a1
+  self%c_mi = a1
   return
   end procedure p_lam699
 
   module procedure p_lam700
-  self%c_h = a1
+  self%c_s = a1
   return
   end procedure p_lam700
 
   module procedure p_lam701
-  self%c_mi = a1
+  self%c_mo = a1
   return
   end procedure p_lam701
 
   module procedure p_lam702
-  self%c_s = a1
+  self%c_d = a1
   return
   end procedure p_lam702
+
+  module procedure p_lam703
+  self%c_y = a1
+  return
+  end procedure p_lam703
+
+  module procedure p_lam704
+  self%c_h = a1
+  return
+  end procedure p_lam704
+
+  module procedure p_lam705
+  self%c_mi = a1
+  return
+  end procedure p_lam705
+
+  module procedure p_lam706
+  self%c_s = a1
+  return
+  end procedure p_lam706
 
   module procedure p_input__f__parse_series_datetime
     integer(4), pointer :: y_
@@ -3822,34 +3822,34 @@ contains
     type(cpp_cptr) :: zz1
     integer(4) :: n_
     type(cpp_cptr) :: zz2
-    class(t_lam691), pointer :: zz3
+    class(t_lam695), pointer :: zz3
     class(cpp_refi), pointer :: zz4
-    class(t_lam692), pointer :: zz5
+    class(t_lam696), pointer :: zz5
     class(cpp_refi), pointer :: zz6
-    class(t_lam693), pointer :: zz7
+    class(t_lam697), pointer :: zz7
     class(cpp_refi), pointer :: zz8
-    class(t_lam694), pointer :: zz9
+    class(t_lam698), pointer :: zz9
     class(cpp_refi), pointer :: zz10
-    class(t_lam695), pointer :: zz11
+    class(t_lam699), pointer :: zz11
     class(cpp_refi), pointer :: zz12
-    class(t_lam696), pointer :: zz13
+    class(t_lam700), pointer :: zz13
     class(cpp_refi), pointer :: zz14
     integer(4) :: zz15
     integer(4) :: zz16
     integer(4) :: zz17
     real(8) :: zz18
     type(cpp_cptr) :: zz19
-    class(t_lam697), pointer :: zz20
+    class(t_lam701), pointer :: zz20
     class(cpp_refi), pointer :: zz21
-    class(t_lam698), pointer :: zz22
+    class(t_lam702), pointer :: zz22
     class(cpp_refi), pointer :: zz23
-    class(t_lam699), pointer :: zz24
+    class(t_lam703), pointer :: zz24
     class(cpp_refi), pointer :: zz25
-    class(t_lam700), pointer :: zz26
+    class(t_lam704), pointer :: zz26
     class(cpp_refi), pointer :: zz27
-    class(t_lam701), pointer :: zz28
+    class(t_lam705), pointer :: zz28
     class(cpp_refi), pointer :: zz29
-    class(t_lam702), pointer :: zz30
+    class(t_lam706), pointer :: zz30
     class(cpp_refi), pointer :: zz31
     integer(4) :: zz32
     integer(4) :: zz33
@@ -3963,7 +3963,7 @@ contains
   return
   end procedure p_input__f__parse_series_datetime
 
-  module procedure p_lam703
+  module procedure p_lam707
     integer(4), pointer :: zz1
     class(cpp_str), pointer :: zz2
     class(*), pointer :: zz3
@@ -3978,22 +3978,22 @@ contains
   call cpp_vec_o_push_back(zz4, zz3)
   zres = .false.
   return
-  end procedure p_lam703
+  end procedure p_lam707
 
-  module procedure p_lam704
+  module procedure p_lam708
     class(*), pointer :: zz1
   zz1 => self%c_in
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam704
+  end procedure p_lam708
 
-  module procedure p_lam705
+  module procedure p_lam709
   zres = (self%c_out%dates%a%a(a1) < self%c_out%dates%a%a(a2))
   return
-  end procedure p_lam705
+  end procedure p_lam709
 
-  module procedure p_lam706
+  module procedure p_lam710
     class(cpp_vec_d), pointer :: tmp_
     class(cpp_vec_d), pointer :: zz1
     integer(8) :: i_3_
@@ -4007,11 +4007,11 @@ contains
   end do
   call cpp_vec_d_swap(a1, tmp_)
   return
-  end procedure p_lam706
+  end procedure p_lam710
 
   module procedure p_input__f__parse_multicolumn_series_file
     class(t_fn242), pointer :: fail_
-    class(t_lam703), pointer :: zz1
+    class(t_lam707), pointer :: zz1
     class(t_input_parsedseriesfile), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
     class(cpp_vec_d), pointer :: zz4
@@ -4025,7 +4025,7 @@ contains
     class(cpp_fspath), pointer :: zz11
     class(cpp_ifstream), pointer :: zz12
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam704), pointer :: zz13
+    class(t_lam708), pointer :: zz13
     class(cpp_defer), pointer :: zz14
     integer(4) :: zz15
     type(cpp_cptr) :: zz16
@@ -4090,10 +4090,10 @@ contains
     class(cpp_arr_l), pointer :: zz57
     type(cpp_iter_l) :: zz58
     integer(8) :: zz59
-    class(t_lam705), pointer :: zz60
+    class(t_lam709), pointer :: zz60
     integer(8) :: zz61
     class(t_fn42), pointer :: permute_
-    class(t_lam706), pointer :: zz62
+    class(t_lam710), pointer :: zz62
     integer(8) :: i_4_
     class(cpp_vec_d), pointer :: zz63
     integer(4), pointer :: zz64
@@ -4344,20 +4344,20 @@ contains
   end if
   end procedure p_input__f__parse_multicolumn_series_file
 
-  module procedure p_lam707
+  module procedure p_lam711
     class(*), pointer :: zz1
   zz1 => self%c_in
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam707
+  end procedure p_lam711
 
   module procedure p_input__f__looks_like_multicolumn_series_file
     class(cpp_ifstream), pointer :: in_
     class(cpp_fspath), pointer :: zz1
     class(cpp_ifstream), pointer :: zz2
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam707), pointer :: zz3
+    class(t_lam711), pointer :: zz3
     class(cpp_defer), pointer :: zz4
     integer(4) :: zz5
     class(cpp_str), pointer :: line_
@@ -4516,13 +4516,13 @@ contains
   return
   end procedure p_input_parsedseriesfile__find_column
 
-  module procedure p_lam834
+  module procedure p_lam838
     class(t_input_multicolumnfilecache_entry), pointer :: zz1
   zres => null()
   zz1 => h_uas_input_multicolumnfilecache_entry(a1)
   zres => zz1%status
   return
-  end procedure p_lam834
+  end procedure p_lam838
 
   module procedure p_input_multicolumnfilecache__get_or_parse
     type(cpp_mit) :: it_
@@ -4532,7 +4532,7 @@ contains
     class(t_input_multicolumnfilecache_entry), pointer :: entry_
     class(t_input_multicolumnfilecache_entry), pointer :: zz4
     class(*), pointer :: zz5
-    class(t_lam834), pointer :: zz6
+    class(t_lam838), pointer :: zz6
     class(t_input_parsedseriesfile), pointer :: zz7
     logical :: zz8
     class(*), pointer :: zz9
@@ -4596,16 +4596,16 @@ contains
   return
   end procedure p_input_multicolumnfilecache__get_or_parse
 
-  module procedure p_lam835
+  module procedure p_lam839
   zres = ((((int(a1, 4) == 32) .or. (int(a1, 4) == 9)) .or. (int(a1, 4) == 13)) .or. (int(a1, 4) == 10))
   return
-  end procedure p_lam835
+  end procedure p_lam839
 
   module procedure p_input__anon_input_multicolumnseriesfile_cpp__f__cel_bff59664
     integer(8) :: a_
     integer(8) :: b_
     class(t_fn243), pointer :: space_
-    class(t_lam835), pointer :: zz1
+    class(t_lam839), pointer :: zz1
     logical :: zz2
     logical :: zz3
     logical :: zz4
@@ -5401,7 +5401,7 @@ contains
   return
   end procedure p_input_multicolumnfilecache_entry__movenew
 
-  module procedure p_lam708
+  module procedure p_lam712
     class(cpp_map), pointer :: x__r1_
     type(cpp_mit) :: zz1
     type(cpp_mit) :: zz2
@@ -5461,9 +5461,9 @@ contains
     zz1 = cpp_mit_op_inc(zz1)
   end do
   return
-  end procedure p_lam708
+  end procedure p_lam712
 
-  module procedure p_lam709
+  module procedure p_lam713
     class(cpp_map), pointer :: x__r3_
     type(cpp_mit) :: zz1
     type(cpp_mit) :: zz2
@@ -5521,9 +5521,9 @@ contains
     zz1 = cpp_mit_op_inc(zz1)
   end do
   return
-  end procedure p_lam709
+  end procedure p_lam713
 
-  module procedure p_lam710
+  module procedure p_lam714
     integer(4) :: i_4_
     integer(8) :: ui_
     class(cpp_str), pointer :: name_4_
@@ -5566,9 +5566,9 @@ contains
     i_4_ = (i_4_ - 1)
   end do
   return
-  end procedure p_lam710
+  end procedure p_lam714
 
-  module procedure p_lam711
+  module procedure p_lam715
     integer(4) :: i_5_
     integer(8) :: ui_2_
     class(cpp_str), pointer :: name_5_
@@ -5611,9 +5611,9 @@ contains
     i_5_ = (i_5_ - 1)
   end do
   return
-  end procedure p_lam711
+  end procedure p_lam715
 
-  module procedure p_lam712
+  module procedure p_lam716
     integer(4) :: i_6_
     integer(8) :: ui_3_
     class(cpp_str), pointer :: name_6_
@@ -5656,9 +5656,9 @@ contains
     i_6_ = (i_6_ - 1)
   end do
   return
-  end procedure p_lam712
+  end procedure p_lam716
 
-  module procedure p_lam713
+  module procedure p_lam717
     class(*), pointer :: zz1
     class(cpp_umapc), pointer :: zz2
     type(cpp_mit) :: zz3
@@ -5683,17 +5683,17 @@ contains
     call cpp_vec_o_push_back(zz8, zz7)
   end if
   return
-  end procedure p_lam713
+  end procedure p_lam717
 
-  module procedure p_lam714
+  module procedure p_lam718
     class(*), pointer :: zz1
   zz1 => self%c_in
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam714
+  end procedure p_lam718
 
-  module procedure p_lam715
+  module procedure p_lam719
     class(cpp_str), pointer :: zz1
     class(t_nameindex), pointer :: zz2
     integer(4) :: zz3
@@ -5717,9 +5717,9 @@ contains
     call cpp_vec_o_push_back(zz7, zz6)
   end if
   return
-  end procedure p_lam715
+  end procedure p_lam719
 
-  module procedure p_lam716
+  module procedure p_lam720
     integer(4) :: node_
     integer(4) :: link_2_
     real(8) :: dist_
@@ -5790,9 +5790,9 @@ contains
   end do
   zres = .false.
   return
-  end procedure p_lam716
+  end procedure p_lam720
 
-  module procedure p_lam717
+  module procedure p_lam721
     real(8) :: zz1
     real(8) :: zz2
   if ((self%c_ctx%links%xsect_shape%a%a(self%c_uj_15) == 1_2)) then
@@ -5802,9 +5802,9 @@ contains
     self%c_ctx%links%offset2%a%a(self%c_uj_15) = zz2
   end if
   return
-  end procedure p_lam717
+  end procedure p_lam721
 
-  module procedure p_lam718
+  module procedure p_lam722
     integer(8) :: un_2_
     logical :: zz1
   if (((a1 < 0) .or. (a1 >= self%c_n_nodes))) then
@@ -5826,7 +5826,7 @@ contains
   end if
   self%c_ctx%nodes%full_depth%a%a(un_2_) = a2
   return
-  end procedure p_lam718
+  end procedure p_lam722
 
   module procedure p_input__f__resolve_cross_references
     integer(4) :: n_nodes_
@@ -5843,9 +5843,9 @@ contains
     class(cpp_str), pointer :: zz2
     class(cpp_arr_o), pointer :: validate_snow_rows_
     class(cpp_arr_o), pointer :: zz3
-    class(t_lam708), pointer :: zz4
+    class(t_lam712), pointer :: zz4
     class(*), pointer :: zz5
-    class(t_lam709), pointer :: zz6
+    class(t_lam713), pointer :: zz6
     class(*), pointer :: zz7
     class(t_fn78), pointer :: zz8
     class(t_fn79), pointer :: zz9
@@ -6113,11 +6113,11 @@ contains
     real(8) :: zz186
     class(cpp_arr_o), pointer :: resolve_node_rows_
     class(cpp_arr_o), pointer :: zz187
-    class(t_lam710), pointer :: zz188
+    class(t_lam714), pointer :: zz188
     class(*), pointer :: zz189
-    class(t_lam711), pointer :: zz190
+    class(t_lam715), pointer :: zz190
     class(*), pointer :: zz191
-    class(t_lam712), pointer :: zz192
+    class(t_lam716), pointer :: zz192
     class(*), pointer :: zz193
     class(t_fn80), pointer :: zz194
     class(t_fn81), pointer :: zz195
@@ -6130,7 +6130,7 @@ contains
     class(*), pointer :: zz200
     class(cpp_pair), pointer :: zz201
     class(t_fn2), pointer :: check_
-    class(t_lam713), pointer :: zz202
+    class(t_lam717), pointer :: zz202
     class(cpp_vec_o), pointer :: x__r11_
     integer(8) :: x__i12_
     integer(8) :: x__i12_n_
@@ -6153,7 +6153,7 @@ contains
     class(cpp_fspath), pointer :: zz211
     class(cpp_ifstream), pointer :: zz212
     class(cpp_defer), pointer :: x__dtor13_
-    class(t_lam714), pointer :: zz213
+    class(t_lam718), pointer :: zz213
     class(cpp_defer), pointer :: zz214
     integer(4) :: zz215
     type(cpp_cptr) :: zz216
@@ -6349,7 +6349,7 @@ contains
     class(cpp_vec_o), pointer :: zz380
     integer(4) :: x__cap18_
     class(t_fn83), pointer :: resolve_end_
-    class(t_lam715), pointer :: zz381
+    class(t_lam719), pointer :: zz381
     class(cpp_vec_o), pointer :: x__r19_
     integer(8) :: x__i20_
     integer(8) :: x__i20_n_
@@ -6427,7 +6427,7 @@ contains
     integer(8) :: und_
     class(cpp_arr_i), pointer :: zz429
     class(t_fn84), pointer :: walk_
-    class(t_lam716), pointer :: zz430
+    class(t_lam720), pointer :: zz430
     integer(4) :: i_12_
     integer(8) :: ui_7_
     logical :: zz431
@@ -6602,76 +6602,79 @@ contains
     real(8) :: w_max_
     class(t_transect_transectdata), pointer :: ctd_
     class(t_transect_transectdata), pointer :: zz539
-    integer(4) :: custom_idx_
-    class(t_transect_transectdata), pointer :: zz540
+    type(cpp_ptr_d) :: zz540
     class(t_transect_transectdata), pointer :: zz541
-    class(*), pointer :: zz542
-    class(cpp_vec_o), pointer :: zz543
-    class(*), pointer :: zz544
+    type(cpp_ptr_d) :: zz542
+    integer(4) :: custom_idx_
+    class(t_transect_transectdata), pointer :: zz543
+    class(t_transect_transectdata), pointer :: zz544
     class(*), pointer :: zz545
-    class(cpp_pair), pointer :: zz546
+    class(cpp_vec_o), pointer :: zz546
     class(*), pointer :: zz547
     class(*), pointer :: zz548
     class(cpp_pair), pointer :: zz549
-    class(cpp_str), pointer :: zz550
-    class(cpp_str), pointer :: zz551
-    class(*), pointer :: zz552
-    class(cpp_vec_o), pointer :: zz553
+    class(*), pointer :: zz550
+    class(*), pointer :: zz551
+    class(cpp_pair), pointer :: zz552
+    class(cpp_str), pointer :: zz553
+    class(cpp_str), pointer :: zz554
+    class(*), pointer :: zz555
+    class(cpp_vec_o), pointer :: zz556
     integer(4) :: us_8_
     real(8) :: ucf_len_2_
-    type(cpp_ptr_o) :: zz554
-    type(cpp_slot), pointer :: zz555
-    class(cpp_arr_d), pointer :: zz556
-    type(cpp_ptr_d) :: zz557
-    real(8), pointer :: zz558
+    type(cpp_ptr_o) :: zz557
+    type(cpp_slot), pointer :: zz558
+    class(cpp_arr_d), pointer :: zz559
+    type(cpp_ptr_d) :: zz560
+    real(8), pointer :: zz561
     class(cpp_umap), pointer :: street_memo_
-    class(cpp_umap), pointer :: zz559
+    class(cpp_umap), pointer :: zz562
     class(cpp_umapc), pointer :: street_by_name_
-    class(cpp_umapc), pointer :: zz560
+    class(cpp_umapc), pointer :: zz563
     integer(4) :: n_streets_
     integer(4) :: s_4_2_
-    class(cpp_str), pointer :: zz561
-    class(*), pointer :: zz562
-    class(*), pointer :: zz563
-    class(cpp_pair), pointer :: zz564
+    class(cpp_str), pointer :: zz564
+    class(*), pointer :: zz565
+    class(*), pointer :: zz566
+    class(cpp_pair), pointer :: zz567
     integer(4) :: j_13_
     integer(8) :: uj_13_
     class(cpp_str), pointer :: sname_
-    class(cpp_str), pointer :: zz565
+    class(cpp_str), pointer :: zz568
     integer(4) :: si_3_
     type(cpp_mit) :: hit_2_
-    class(*), pointer :: zz566
-    type(cpp_mit) :: zz567
-    class(*), pointer :: zz568
-    class(cpp_pair), pointer :: zz569
-    integer(4), pointer :: zz570
+    class(*), pointer :: zz569
+    type(cpp_mit) :: zz570
+    class(*), pointer :: zz571
+    class(cpp_pair), pointer :: zz572
+    integer(4), pointer :: zz573
     integer(8) :: su_
     type(cpp_mit) :: memo_2_
-    class(*), pointer :: zz571
-    type(cpp_mit) :: zz572
+    class(*), pointer :: zz574
+    type(cpp_mit) :: zz575
     class(t_transect_transectdata), pointer :: shared_2_
-    class(*), pointer :: zz573
-    class(cpp_pair), pointer :: zz574
-    integer(4), pointer :: zz575
-    class(t_transect_transectdata), pointer :: zz576
-    class(*), pointer :: zz577
-    class(cpp_pair), pointer :: zz578
-    integer(4), pointer :: zz579
-    integer(4), pointer :: zz580
+    class(*), pointer :: zz576
+    class(cpp_pair), pointer :: zz577
+    integer(4), pointer :: zz578
+    class(t_transect_transectdata), pointer :: zz579
+    class(*), pointer :: zz580
+    class(cpp_pair), pointer :: zz581
+    integer(4), pointer :: zz582
+    integer(4), pointer :: zz583
     class(t_street_streetparams), pointer :: sp_
-    class(t_street_streetparams), pointer :: zz581
+    class(t_street_streetparams), pointer :: zz584
     class(t_transect_transectdata), pointer :: td_3_
-    class(t_transect_transectdata), pointer :: zz582
+    class(t_transect_transectdata), pointer :: zz585
     integer(4) :: idx_tbl_
-    class(t_transect_transectdata), pointer :: zz583
-    class(t_transect_transectdata), pointer :: zz584
-    class(*), pointer :: zz585
-    class(cpp_vec_o), pointer :: zz586
-    class(*), pointer :: zz587
+    class(t_transect_transectdata), pointer :: zz586
+    class(t_transect_transectdata), pointer :: zz587
     class(*), pointer :: zz588
-    class(cpp_pair), pointer :: zz589
+    class(cpp_vec_o), pointer :: zz589
+    class(*), pointer :: zz590
+    class(*), pointer :: zz591
+    class(cpp_pair), pointer :: zz592
     class(t_transect_transectdata), pointer :: built_
-    class(t_transect_transectdata), pointer :: zz590
+    class(t_transect_transectdata), pointer :: zz593
     integer(4) :: j_14_
     integer(8) :: uj_14_
     integer(1) :: lt_4_
@@ -6684,201 +6687,201 @@ contains
     real(8) :: s_max_
     real(8) :: yw_max_
     integer(4) :: ci_3_
-    logical :: zz591
-    class(t_transect_transectdata), pointer :: td_4_
-    class(t_transect_transectdata), pointer :: zz592
-    class(t_xsectparams), pointer :: xs_
-    class(t_xsectparams), pointer :: zz593
-    integer(4) :: ci_4_
     logical :: zz594
-    class(t_transect_transectdata), pointer :: td_5_
+    class(t_transect_transectdata), pointer :: td_4_
     class(t_transect_transectdata), pointer :: zz595
-    class(t_xsectparams), pointer :: xs_2_
+    class(t_xsectparams), pointer :: xs_
     class(t_xsectparams), pointer :: zz596
+    integer(4) :: ci_4_
+    logical :: zz597
+    class(t_transect_transectdata), pointer :: td_5_
+    class(t_transect_transectdata), pointer :: zz598
+    class(t_xsectparams), pointer :: xs_2_
+    class(t_xsectparams), pointer :: zz599
     real(8) :: p_def_
-    real(8) :: zz597
+    real(8) :: zz600
     integer(4) :: ci_5_
-    logical :: zz598
+    logical :: zz601
     class(t_transect_transectdata), pointer :: td_6_
-    class(t_transect_transectdata), pointer :: zz599
+    class(t_transect_transectdata), pointer :: zz602
     class(t_xsectparams), pointer :: xs_3_
-    class(t_xsectparams), pointer :: zz600
+    class(t_xsectparams), pointer :: zz603
     real(8) :: p_def_2_
-    real(8) :: zz601
+    real(8) :: zz604
     integer(4) :: us_9_
     real(8) :: ucf_len_3_
-    type(cpp_ptr_o) :: zz602
-    type(cpp_slot), pointer :: zz603
-    class(cpp_arr_d), pointer :: zz604
-    type(cpp_ptr_d) :: zz605
-    real(8), pointer :: zz606
+    type(cpp_ptr_o) :: zz605
+    type(cpp_slot), pointer :: zz606
+    class(cpp_arr_d), pointer :: zz607
+    type(cpp_ptr_d) :: zz608
+    real(8), pointer :: zz609
     class(t_xsectparams), pointer :: xs_4_
-    class(t_xsectparams), pointer :: zz607
+    class(t_xsectparams), pointer :: zz610
     class(cpp_arr_d), pointer :: p_
-    class(cpp_arr_d), pointer :: zz608
+    class(cpp_arr_d), pointer :: zz611
     integer(4) :: rc_
-    integer(4) :: zz609
-    logical :: zz610
-    logical :: zz611
-    type(cpp_ptr_o) :: zz612
-    type(cpp_slot), pointer :: zz613
-    class(cpp_arr_d), pointer :: zz614
-    type(cpp_ptr_d) :: zz615
-    real(8), pointer :: zz616
-    real(8), pointer :: zz617
-    real(8) :: zz618
+    integer(4) :: zz612
+    logical :: zz613
+    logical :: zz614
+    type(cpp_ptr_o) :: zz615
+    type(cpp_slot), pointer :: zz616
+    class(cpp_arr_d), pointer :: zz617
+    type(cpp_ptr_d) :: zz618
+    real(8), pointer :: zz619
+    real(8), pointer :: zz620
+    real(8) :: zz621
     type(cpp_cptr) :: geom_
-    type(cpp_cptr) :: zz619
-    type(cpp_cptr) :: zz620
-    type(cpp_ptr_d) :: zz621
-    real(8), pointer :: zz622
-    type(cpp_ptr_d) :: zz623
-    real(8), pointer :: zz624
-    type(cpp_ptr_d) :: zz625
-    real(8), pointer :: zz626
-    type(cpp_ptr_d) :: zz627
-    real(8), pointer :: zz628
-    integer(4) :: zz629
-    type(cpp_cptr) :: zz630
-    class(cpp_str), pointer :: zz631
-    class(cpp_str), pointer :: zz632
-    class(cpp_str), pointer :: zz633
+    type(cpp_cptr) :: zz622
+    type(cpp_cptr) :: zz623
+    type(cpp_ptr_d) :: zz624
+    real(8), pointer :: zz625
+    type(cpp_ptr_d) :: zz626
+    real(8), pointer :: zz627
+    type(cpp_ptr_d) :: zz628
+    real(8), pointer :: zz629
+    type(cpp_ptr_d) :: zz630
+    real(8), pointer :: zz631
+    integer(4) :: zz632
+    type(cpp_cptr) :: zz633
     class(cpp_str), pointer :: zz634
     class(cpp_str), pointer :: zz635
     class(cpp_str), pointer :: zz636
-    class(*), pointer :: zz637
-    class(cpp_vec_o), pointer :: zz638
+    class(cpp_str), pointer :: zz637
+    class(cpp_str), pointer :: zz638
+    class(cpp_str), pointer :: zz639
+    class(*), pointer :: zz640
+    class(cpp_vec_o), pointer :: zz641
     real(8) :: p_def_3_
-    real(8) :: zz639
-    real(8) :: zz640
-    real(8) :: zz641
+    real(8) :: zz642
+    real(8) :: zz643
+    real(8) :: zz644
     integer(4) :: j_15_
     integer(8) :: uj_15_
     class(t_fn3), pointer :: bump_filled_
-    class(t_lam717), pointer :: zz642
+    class(t_lam721), pointer :: zz645
     integer(4) :: n1_4_
     integer(4) :: n2_4_
     integer(4) :: cr_2_
     integer(8) :: ucr_
     real(8) :: length_
-    real(8) :: zz643
-    logical :: zz644
-    class(cpp_str), pointer :: lname_
-    class(cpp_str), pointer :: zz645
     real(8) :: zz646
-    real(8), pointer :: zz647
-    real(8) :: zz648
-    real(8), pointer :: zz649
+    logical :: zz647
+    class(cpp_str), pointer :: lname_
+    class(cpp_str), pointer :: zz648
+    real(8) :: zz649
+    real(8), pointer :: zz650
+    real(8) :: zz651
+    real(8), pointer :: zz652
     real(8) :: elev1_
     real(8) :: elev2_
     real(8) :: delta_2_
-    class(cpp_str), pointer :: zz650
-    class(cpp_str), pointer :: zz651
-    class(cpp_str), pointer :: zz652
-    class(*), pointer :: zz653
-    class(cpp_vec_o), pointer :: zz654
-    real(8) :: slope_
+    class(cpp_str), pointer :: zz653
+    class(cpp_str), pointer :: zz654
     class(cpp_str), pointer :: zz655
-    class(cpp_str), pointer :: zz656
-    class(cpp_str), pointer :: zz657
-    class(*), pointer :: zz658
-    class(cpp_vec_o), pointer :: zz659
+    class(*), pointer :: zz656
+    class(cpp_vec_o), pointer :: zz657
+    real(8) :: slope_
+    class(cpp_str), pointer :: zz658
+    class(cpp_str), pointer :: zz659
+    class(cpp_str), pointer :: zz660
+    class(*), pointer :: zz661
+    class(cpp_vec_o), pointer :: zz662
     real(8) :: min_slope_
     logical :: min_slope_kw_sf_
-    class(cpp_str), pointer :: zz660
-    class(cpp_str), pointer :: zz661
-    class(cpp_str), pointer :: zz662
-    class(*), pointer :: zz663
-    class(cpp_vec_o), pointer :: zz664
-    logical :: zz665
-    logical :: zz666
-    logical :: zz667
-    integer(4) :: zz668
-    real(8) :: zz669
-    integer(4) :: zz670
-    real(8) :: zz671
+    class(cpp_str), pointer :: zz663
+    class(cpp_str), pointer :: zz664
+    class(cpp_str), pointer :: zz665
+    class(*), pointer :: zz666
+    class(cpp_vec_o), pointer :: zz667
+    logical :: zz668
+    logical :: zz669
+    logical :: zz670
+    integer(4) :: zz671
+    real(8) :: zz672
+    integer(4) :: zz673
+    real(8) :: zz674
     integer(4) :: j_16_
     class(cpp_vec_o), pointer :: x__r23_
     integer(8) :: x__i24_
     integer(8) :: x__i24_n_
     class(t_table), pointer :: tbl_3_
-    class(t_table), pointer :: zz672
+    class(t_table), pointer :: zz675
     logical :: is_ts_2_
     integer(8) :: k_3_
-    class(cpp_str), pointer :: zz673
-    class(cpp_str), pointer :: zz674
-    class(*), pointer :: zz675
-    class(cpp_vec_o), pointer :: zz676
+    class(cpp_str), pointer :: zz676
+    class(cpp_str), pointer :: zz677
+    class(*), pointer :: zz678
+    class(cpp_vec_o), pointer :: zz679
     integer(4) :: i_14_
     integer(8) :: ui_8_
     integer(4) :: j_17_
     integer(8) :: uj_16_
-    class(cpp_str), pointer :: zz677
-    class(cpp_str), pointer :: zz678
-    class(cpp_str), pointer :: zz679
     class(cpp_str), pointer :: zz680
-    class(t_filepathpair), pointer :: zz681
+    class(cpp_str), pointer :: zz681
     class(cpp_str), pointer :: zz682
-    class(t_filepathpair), pointer :: zz683
-    class(cpp_str), pointer :: zz684
-    logical :: zz685
-    class(cpp_str), pointer :: zz686
+    class(cpp_str), pointer :: zz683
+    class(t_filepathpair), pointer :: zz684
+    class(cpp_str), pointer :: zz685
+    class(t_filepathpair), pointer :: zz686
     class(cpp_str), pointer :: zz687
-    class(cpp_str), pointer :: zz688
-    class(*), pointer :: zz689
-    class(cpp_vec_o), pointer :: zz690
+    logical :: zz688
+    class(cpp_str), pointer :: zz689
+    class(cpp_str), pointer :: zz690
+    class(cpp_str), pointer :: zz691
+    class(*), pointer :: zz692
+    class(cpp_vec_o), pointer :: zz693
     class(cpp_vec_d), pointer :: authored_full_depth_
-    class(cpp_vec_d), pointer :: zz691
+    class(cpp_vec_d), pointer :: zz694
     class(t_fn85), pointer :: extend_to_crown_
-    class(t_lam718), pointer :: zz692
+    class(t_lam722), pointer :: zz695
     integer(4) :: j_18_
     integer(8) :: uj_17_
     integer(4) :: orr_
-    logical :: zz693
+    logical :: zz696
     real(8) :: y_full_3_
-    logical :: zz694
-    logical :: zz695
+    logical :: zz697
+    logical :: zz698
     real(8) :: off1_
     integer(4) :: wr_4_
     integer(4) :: olr_4_
     integer(4) :: n_3_
     integer(8) :: un_3_
-    logical :: zz696
-    class(cpp_str), pointer :: zz697
-    class(cpp_str), pointer :: zz698
-    class(cpp_str), pointer :: zz699
-    class(*), pointer :: zz700
-    class(cpp_vec_o), pointer :: zz701
+    logical :: zz699
+    class(cpp_str), pointer :: zz700
+    class(cpp_str), pointer :: zz701
+    class(cpp_str), pointer :: zz702
+    class(*), pointer :: zz703
+    class(cpp_vec_o), pointer :: zz704
     class(t_simulationoptions), pointer :: opts_
     class(cpp_vec_o), pointer :: x__r25_
     integer(8) :: x__i26_
     integer(8) :: x__i26_n_
     class(cpp_str), pointer :: name_10_
-    class(cpp_str), pointer :: zz702
+    class(cpp_str), pointer :: zz705
     integer(4) :: idx_6_
-    class(cpp_str), pointer :: zz703
-    class(t_nameindex), pointer :: zz704
-    integer(4) :: zz705
+    class(cpp_str), pointer :: zz706
+    class(t_nameindex), pointer :: zz707
+    integer(4) :: zz708
     class(cpp_vec_o), pointer :: x__r27_
     integer(8) :: x__i28_
     integer(8) :: x__i28_n_
     class(cpp_str), pointer :: name_11_
-    class(cpp_str), pointer :: zz706
+    class(cpp_str), pointer :: zz709
     integer(4) :: idx_7_
-    class(cpp_str), pointer :: zz707
-    class(t_nameindex), pointer :: zz708
-    integer(4) :: zz709
+    class(cpp_str), pointer :: zz710
+    class(t_nameindex), pointer :: zz711
+    integer(4) :: zz712
     class(cpp_vec_o), pointer :: x__r29_
     integer(8) :: x__i30_
     integer(8) :: x__i30_n_
     class(cpp_str), pointer :: name_12_
-    class(cpp_str), pointer :: zz710
+    class(cpp_str), pointer :: zz713
     integer(4) :: idx_8_
-    class(cpp_str), pointer :: zz711
-    class(t_nameindex), pointer :: zz712
-    integer(4) :: zz713
+    class(cpp_str), pointer :: zz714
+    class(t_nameindex), pointer :: zz715
+    integer(4) :: zz716
     class(t_perf_scopedtimer), pointer :: x_pt_
-    class(t_perf_scopedtimer), pointer :: zz714
+    class(t_perf_scopedtimer), pointer :: zz717
   n_nodes_ = p_nameindex__size(ctx_%node_names)
   n_links_ = p_nameindex__size(ctx_%link_names)
   n_subcatch_ = p_nameindex__size(ctx_%subcatch_names)
@@ -8670,58 +8673,61 @@ contains
       ctd_%a_full = 0.0_8
       ctd_%r_full = 0.0_8
       ctd_%w_max = w_max_
-      call p_transect__f__buildcustomtables(ctd_, y_full_, cpp_vec_d_data(tbl_2_%x), cpp_vec_d_data(tbl_2_%y), int(cpp_vec_d_size(tbl_2_%x), 4))
+      zz541 => ctd_
+      zz540 = cpp_vec_d_data(tbl_2_%x)
+      zz542 = cpp_vec_d_data(tbl_2_%y)
+      call p_transect__f__buildcustomtables(zz541, y_full_, zz540, zz542, int(cpp_vec_d_size(tbl_2_%x), 4))
       ctx_%links%xsect_a_full%a%a(uj_12_) = ctd_%a_full
       ctx_%links%xsect_r_full%a%a(uj_12_) = ctd_%r_full
       ctx_%links%xsect_w_max%a%a(uj_12_) = ctd_%w_max
       custom_idx_ = int(cpp_vec_o_size(ctx_%transect_tables), 4)
-      zz543 => ctx_%transect_tables
-      zz540 => ctd_
-      zz541 => h_new_transect_transectdata()
-      ctd_ => zz541
-      zz542 => zz540
-      call cpp_vec_o_push_back(zz543, zz542)
+      zz546 => ctx_%transect_tables
+      zz543 => ctd_
+      zz544 => h_new_transect_transectdata()
+      ctd_ => zz544
+      zz545 => zz543
+      call cpp_vec_o_push_back(zz546, zz545)
       ctx_%links%xsect_curve%a%a(uj_12_) = custom_idx_
-      zz544 => h_box_i(ci_2_)
-      zz545 => h_box_d(y_full_)
-      zz546 => cpp_pair_new_a_b(zz544, zz545, h_mk_i, 0, h_mk_d, 0)
-      zz547 => zz546
-      zz548 => h_box_i(custom_idx_)
-      zz549 => cpp_map_emplace_k_v(custom_memo_, zz547, zz548)
+      zz547 => h_box_i(ci_2_)
+      zz548 => h_box_d(y_full_)
+      zz549 => cpp_pair_new_a_b(zz547, zz548, h_mk_i, 0, h_mk_d, 0)
+      zz550 => zz549
+      zz551 => h_box_i(custom_idx_)
+      zz552 => cpp_map_emplace_k_v(custom_memo_, zz550, zz551)
       if (associated(cpp_exc)) return
     else
-      zz553 => ctx_%errors
-      zz550 => cpp_str_clone(cname_)
-      zz551 => p__f__format_error__i_sv(209, zz550)
+      zz556 => ctx_%errors
+      zz553 => cpp_str_clone(cname_)
+      zz554 => p__f__format_error__i_sv(209, zz553)
       if (associated(cpp_exc)) return
-      zz552 => zz551
-      call cpp_vec_o_push_back(zz553, zz552)
+      zz555 => zz554
+      call cpp_vec_o_push_back(zz556, zz555)
     end if
     183 continue
     j_12_ = (j_12_ + 1)
   end do
   us_8_ = p_ucf__f__getunitsystem(ctx_%options%flow_units)
-  zz554 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-  zz555 => cpp_ptr_o_item_l(zz554, 3_8)
-  zz556 => h_uas_cpp_arr_d(zz555%p)
-  zz557 = cpp_ptr_d_new_ta_l(zz556, 0_8)
-  zz558 => cpp_ptr_d_item_ul(zz557, int(us_8_, 8))
-  ucf_len_2_ = zz558
-  zz559 => cpp_umap_new_funckul_funckkb_funcv(null(), null(), null(), h_mk_i, 0, h_mk_i, 0)
+  zz557 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+  zz558 => cpp_ptr_o_item_l(zz557, 3_8)
+  zz559 => h_uas_cpp_arr_d(zz558%p)
+  zz560 = cpp_ptr_d_new_ta_l(zz559, 0_8)
+  zz561 => cpp_ptr_d_item_ul(zz560, int(us_8_, 8))
+  ucf_len_2_ = zz561
+  zz562 => cpp_umap_new_funckul_funckkb_funcv(null(), null(), null(), h_mk_i, 0, h_mk_i, 0)
   if (associated(cpp_exc)) return
-  street_memo_ => zz559
-  zz560 => cpp_umapc_new_funcv(null(), h_mk_cpp_str, 2, h_mk_i, 0, h_mk_cihash, 2, h_mk_ciequal, 2)
+  street_memo_ => zz562
+  zz563 => cpp_umapc_new_funcv(null(), h_mk_cpp_str, 2, h_mk_i, 0, h_mk_cihash, 2, h_mk_ciequal, 2)
   if (associated(cpp_exc)) return
-  street_by_name_ => zz560
+  street_by_name_ => zz563
   n_streets_ = p_streetstore__count(ctx_%streets)
   call cpp_hashtable_reserve(street_by_name_, int(n_streets_, 8))
   s_4_2_ = 0
   do
     if (.not. ((s_4_2_ < n_streets_))) exit
-    zz561 => h_uas_cpp_str(ctx_%streets%names%a%a(int(s_4_2_, 8))%p)
-    zz562 => zz561
-    zz563 => h_box_i(s_4_2_)
-    zz564 => cpp_umap_emplace_k_v(street_by_name_, zz562, zz563)
+    zz564 => h_uas_cpp_str(ctx_%streets%names%a%a(int(s_4_2_, 8))%p)
+    zz565 => zz564
+    zz566 => h_box_i(s_4_2_)
+    zz567 => cpp_umap_emplace_k_v(street_by_name_, zz565, zz566)
     if (associated(cpp_exc)) return
     s_4_2_ = (s_4_2_ + 1)
   end do
@@ -8732,48 +8738,48 @@ contains
     if ((ctx_%links%xsect_shape%a%a(uj_13_) /= 24_2)) then
       goto 189
     end if
-    zz565 => h_uas_cpp_str(ctx_%links%pump_curve_name%a%a(uj_13_)%p)
-    sname_ => zz565
+    zz568 => h_uas_cpp_str(ctx_%links%pump_curve_name%a%a(uj_13_)%p)
+    sname_ => zz568
     if (cpp_str_empty(sname_)) then
       goto 189
     end if
     si_3_ = (-1)
-    zz566 => sname_
-    zz567 = cpp_hashtable_find(street_by_name_, zz566)
-    hit_2_ = zz567
+    zz569 => sname_
+    zz570 = cpp_hashtable_find(street_by_name_, zz569)
+    hit_2_ = zz570
     if ((.not. cpp_mit_op_eq(hit_2_, cpp_hashtable_end(street_by_name_)))) then
-      zz568 => cpp_mit_deref(hit_2_)
-      zz569 => h_uas_cpp_pair(zz568)
-      zz570 => h_ref_i(zz569%second%p)
-      si_3_ = zz570
+      zz571 => cpp_mit_deref(hit_2_)
+      zz572 => h_uas_cpp_pair(zz571)
+      zz573 => h_ref_i(zz572%second%p)
+      si_3_ = zz573
     end if
     if ((si_3_ < 0)) then
       goto 189
     end if
     su_ = int(si_3_, 8)
-    zz571 => h_box_i(si_3_)
-    zz572 = cpp_hashtable_find(street_memo_, zz571)
-    memo_2_ = zz572
+    zz574 => h_box_i(si_3_)
+    zz575 = cpp_hashtable_find(street_memo_, zz574)
+    memo_2_ = zz575
     if ((.not. cpp_mit_op_eq(memo_2_, cpp_hashtable_end(street_memo_)))) then
-      zz573 => cpp_mit_deref(memo_2_)
-      zz574 => h_uas_cpp_pair(zz573)
-      zz575 => h_ref_i(zz574%second%p)
-      zz576 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(zz575, 8))%p)
-      shared_2_ => zz576
-      zz580 => ctx_%links%xsect_curve%a%a(uj_13_)
-      zz577 => cpp_mit_deref(memo_2_)
-      zz578 => h_uas_cpp_pair(zz577)
-      zz579 => h_ref_i(zz578%second%p)
-      zz580 = zz579
+      zz576 => cpp_mit_deref(memo_2_)
+      zz577 => h_uas_cpp_pair(zz576)
+      zz578 => h_ref_i(zz577%second%p)
+      zz579 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(zz578, 8))%p)
+      shared_2_ => zz579
+      zz583 => ctx_%links%xsect_curve%a%a(uj_13_)
+      zz580 => cpp_mit_deref(memo_2_)
+      zz581 => h_uas_cpp_pair(zz580)
+      zz582 => h_ref_i(zz581%second%p)
+      zz583 = zz582
       ctx_%links%xsect_y_full%a%a(uj_13_) = shared_2_%y_full
       ctx_%links%xsect_a_full%a%a(uj_13_) = shared_2_%a_full
       ctx_%links%xsect_r_full%a%a(uj_13_) = shared_2_%r_full
       ctx_%links%xsect_w_max%a%a(uj_13_) = shared_2_%w_max
       goto 189
     end if
-    allocate(zz581)
-    call p_street_streetparams__ctor_x(zz581)
-    sp_ => zz581
+    allocate(zz584)
+    call p_street_streetparams__ctor_x(zz584)
+    sp_ => zz584
     sp_%width = (ctx_%streets%ft_crown%a%a(su_) / ucf_len_2_)
     sp_%curb_height = (ctx_%streets%h_curb%a%a(su_) / ucf_len_2_)
     sp_%slope = (ctx_%streets%sx%a%a(su_) / 100.0_8)
@@ -8784,25 +8790,25 @@ contains
     sp_%back_width = (ctx_%streets%back_width%a%a(su_) / ucf_len_2_)
     sp_%back_slope = (ctx_%streets%back_slope%a%a(su_) / 100.0_8)
     sp_%back_roughness = ctx_%streets%back_n%a%a(su_)
-    allocate(zz582)
-    call p_transect_transectdata__ctor_x(zz582)
-    td_3_ => zz582
+    allocate(zz585)
+    call p_transect_transectdata__ctor_x(zz585)
+    td_3_ => zz585
     call cpp_str_assign_str(td_3_%name, sname_)
     call p_street__f__buildtransect(sp_, td_3_)
     if (associated(cpp_exc)) return
     idx_tbl_ = int(cpp_vec_o_size(ctx_%transect_tables), 4)
-    zz586 => ctx_%transect_tables
-    zz583 => td_3_
-    zz584 => h_new_transect_transectdata()
-    td_3_ => zz584
-    zz585 => zz583
-    call cpp_vec_o_push_back(zz586, zz585)
-    zz587 => h_box_i(si_3_)
-    zz588 => h_box_i(idx_tbl_)
-    zz589 => cpp_umap_emplace_k_v(street_memo_, zz587, zz588)
+    zz589 => ctx_%transect_tables
+    zz586 => td_3_
+    zz587 => h_new_transect_transectdata()
+    td_3_ => zz587
+    zz588 => zz586
+    call cpp_vec_o_push_back(zz589, zz588)
+    zz590 => h_box_i(si_3_)
+    zz591 => h_box_i(idx_tbl_)
+    zz592 => cpp_umap_emplace_k_v(street_memo_, zz590, zz591)
     if (associated(cpp_exc)) return
-    zz590 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(idx_tbl_, 8))%p)
-    built_ => zz590
+    zz593 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(idx_tbl_, 8))%p)
+    built_ => zz593
     ctx_%links%xsect_curve%a%a(uj_13_) = idx_tbl_
     ctx_%links%xsect_y_full%a%a(uj_13_) = built_%y_full
     ctx_%links%xsect_a_full%a%a(uj_13_) = built_%a_full
@@ -8836,16 +8842,16 @@ contains
       s_max_ = s_full_
       yw_max_ = y_full_2_
       ci_3_ = ctx_%links%xsect_curve%a%a(uj_14_)
-      zz591 = (ci_3_ >= 0)
-      if (zz591) then
-        zz591 = (ieor(int(ci_3_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(ctx_%transect_tables), (-9223372036854775807_8 - 1_8)))
+      zz594 = (ci_3_ >= 0)
+      if (zz594) then
+        zz594 = (ieor(int(ci_3_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(ctx_%transect_tables), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz591) then
-        zz592 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(ci_3_, 8))%p)
-        td_4_ => zz592
-        allocate(zz593)
-        call p_xsectparams__ctor_x(zz593)
-        xs_ => zz593
+      if (zz594) then
+        zz595 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(ci_3_, 8))%p)
+        td_4_ => zz595
+        allocate(zz596)
+        call p_xsectparams__ctor_x(zz596)
+        xs_ => zz596
         xs_%type = p_link__f__translateshape(shape_)
         call p_link__f__applytabulatedxsectparams(xs_, td_4_, y_full_2_, ci_3_)
         a_full_ = xs_%a_full
@@ -8859,16 +8865,16 @@ contains
       goto 192
     case (21_2)
       ci_4_ = ctx_%links%xsect_curve%a%a(uj_14_)
-      zz594 = (ci_4_ >= 0)
-      if (zz594) then
-        zz594 = (ieor(int(ci_4_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(ctx_%transect_tables), (-9223372036854775807_8 - 1_8)))
+      zz597 = (ci_4_ >= 0)
+      if (zz597) then
+        zz597 = (ieor(int(ci_4_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(ctx_%transect_tables), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz594) then
-        zz595 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(ci_4_, 8))%p)
-        td_5_ => zz595
-        allocate(zz596)
-        call p_xsectparams__ctor_x(zz596)
-        xs_2_ => zz596
+      if (zz597) then
+        zz598 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(ci_4_, 8))%p)
+        td_5_ => zz598
+        allocate(zz599)
+        call p_xsectparams__ctor_x(zz599)
+        xs_2_ => zz599
         xs_2_%type = p_link__f__translateshape(shape_)
         call p_link__f__applytabulatedxsectparams(xs_2_, td_5_, y_full_2_, ci_4_)
         y_full_2_ = xs_2_%y_full
@@ -8883,11 +8889,11 @@ contains
         a_full_ = (w_max_2_ * y_full_2_)
         p_def_ = ((2.0_8 * y_full_2_) + w_max_2_)
         if ((p_def_ > 0.0_8)) then
-          zz597 = (a_full_ / p_def_)
+          zz600 = (a_full_ / p_def_)
         else
-          zz597 = 0.0_8
+          zz600 = 0.0_8
         end if
-        r_full_ = zz597
+        r_full_ = zz600
         s_full_ = (a_full_ * cpp_math_pow_dd(r_full_, 0.6666666666666666_8))
         s_max_ = s_full_
         yw_max_ = y_full_2_
@@ -8895,16 +8901,16 @@ contains
       goto 192
     case (24_2)
       ci_5_ = ctx_%links%xsect_curve%a%a(uj_14_)
-      zz598 = (ci_5_ >= 0)
-      if (zz598) then
-        zz598 = (ieor(int(ci_5_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(ctx_%transect_tables), (-9223372036854775807_8 - 1_8)))
+      zz601 = (ci_5_ >= 0)
+      if (zz601) then
+        zz601 = (ieor(int(ci_5_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(ctx_%transect_tables), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz598) then
-        zz599 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(ci_5_, 8))%p)
-        td_6_ => zz599
-        allocate(zz600)
-        call p_xsectparams__ctor_x(zz600)
-        xs_3_ => zz600
+      if (zz601) then
+        zz602 => h_uas_transect_transectdata(ctx_%transect_tables%a%a(int(ci_5_, 8))%p)
+        td_6_ => zz602
+        allocate(zz603)
+        call p_xsectparams__ctor_x(zz603)
+        xs_3_ => zz603
         xs_3_%type = p_link__f__translateshape(shape_)
         call p_link__f__applytabulatedxsectparams(xs_3_, td_6_, y_full_2_, ci_5_)
         y_full_2_ = xs_3_%y_full
@@ -8918,11 +8924,11 @@ contains
         a_full_ = (w_max_2_ * y_full_2_)
         p_def_2_ = ((2.0_8 * y_full_2_) + w_max_2_)
         if ((p_def_2_ > 0.0_8)) then
-          zz601 = (a_full_ / p_def_2_)
+          zz604 = (a_full_ / p_def_2_)
         else
-          zz601 = 0.0_8
+          zz604 = 0.0_8
         end if
-        r_full_ = zz601
+        r_full_ = zz604
         s_full_ = (a_full_ * cpp_math_pow_dd(r_full_, 0.6666666666666666_8))
         s_max_ = s_full_
         yw_max_ = y_full_2_
@@ -8930,28 +8936,28 @@ contains
       goto 192
     case default
       us_9_ = p_ucf__f__getunitsystem(ctx_%options%flow_units)
-      zz602 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-      zz603 => cpp_ptr_o_item_l(zz602, 3_8)
-      zz604 => h_uas_cpp_arr_d(zz603%p)
-      zz605 = cpp_ptr_d_new_ta_l(zz604, 0_8)
-      zz606 => cpp_ptr_d_item_ul(zz605, int(us_9_, 8))
-      ucf_len_3_ = zz606
-      allocate(zz607)
-      call p_xsectparams__ctor_x(zz607)
-      xs_4_ => zz607
-      zz608 => cpp_arr_d_new(4_8)
-      zz608%a(0) = ctx_%links%xsect_geom1%a%a(uj_14_)
-      zz608%a(1) = ctx_%links%xsect_geom2%a%a(uj_14_)
-      zz608%a(2) = ctx_%links%xsect_geom3%a%a(uj_14_)
-      zz608%a(3) = ctx_%links%xsect_geom4%a%a(uj_14_)
-      p_ => zz608
-      zz609 = p_xsect__f__setparams(xs_4_, p_link__f__translateshape(shape_), cpp_ptr_d_new_ta_l(p_, 0_8), ucf_len_3_)
-      rc_ = zz609
-      zz610 = (rc_ == 0)
-      if (zz610) then
-        zz610 = (xs_4_%a_full > 0.0_8)
+      zz605 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+      zz606 => cpp_ptr_o_item_l(zz605, 3_8)
+      zz607 => h_uas_cpp_arr_d(zz606%p)
+      zz608 = cpp_ptr_d_new_ta_l(zz607, 0_8)
+      zz609 => cpp_ptr_d_item_ul(zz608, int(us_9_, 8))
+      ucf_len_3_ = zz609
+      allocate(zz610)
+      call p_xsectparams__ctor_x(zz610)
+      xs_4_ => zz610
+      zz611 => cpp_arr_d_new(4_8)
+      zz611%a(0) = ctx_%links%xsect_geom1%a%a(uj_14_)
+      zz611%a(1) = ctx_%links%xsect_geom2%a%a(uj_14_)
+      zz611%a(2) = ctx_%links%xsect_geom3%a%a(uj_14_)
+      zz611%a(3) = ctx_%links%xsect_geom4%a%a(uj_14_)
+      p_ => zz611
+      zz612 = p_xsect__f__setparams(xs_4_, p_link__f__translateshape(shape_), cpp_ptr_d_new_ta_l(p_, 0_8), ucf_len_3_)
+      rc_ = zz612
+      zz613 = (rc_ == 0)
+      if (zz613) then
+        zz613 = (xs_4_%a_full > 0.0_8)
       end if
-      if (zz610) then
+      if (zz613) then
         y_full_2_ = xs_4_%y_full
         w_max_2_ = xs_4_%w_max
         yw_max_ = xs_4_%yw_max
@@ -8963,56 +8969,56 @@ contains
         ctx_%links%xsect_a_bot%a%a(uj_14_) = xs_4_%a_bot
         ctx_%links%xsect_s_bot%a%a(uj_14_) = xs_4_%s_bot
         ctx_%links%xsect_r_bot%a%a(uj_14_) = xs_4_%r_bot
-        zz611 = (shape_ == 23_2)
-        if (zz611) then
-          zz611 = (ctx_%options%force_main_eqn == 1)
+        zz614 = (shape_ == 23_2)
+        if (zz614) then
+          zz614 = (ctx_%options%force_main_eqn == 1)
         end if
-        if (zz611) then
-          zz617 => ctx_%links%xsect_r_bot%a%a(uj_14_)
-          zz612 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-          zz613 => cpp_ptr_o_item_l(zz612, 1_8)
-          zz614 => h_uas_cpp_arr_d(zz613%p)
-          zz615 = cpp_ptr_d_new_ta_l(zz614, 0_8)
-          zz616 => cpp_ptr_d_item_ul(zz615, int(us_9_, 8))
-          zz618 = (zz617 / zz616)
-          zz617 = zz618
+        if (zz614) then
+          zz620 => ctx_%links%xsect_r_bot%a%a(uj_14_)
+          zz615 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+          zz616 => cpp_ptr_o_item_l(zz615, 1_8)
+          zz617 => h_uas_cpp_arr_d(zz616%p)
+          zz618 = cpp_ptr_d_new_ta_l(zz617, 0_8)
+          zz619 => cpp_ptr_d_item_ul(zz618, int(us_9_, 8))
+          zz621 = (zz620 / zz619)
+          zz620 = zz621
         end if
       else
         if ((rc_ /= 0)) then
-          zz619 = cpp_r_buf_i(128)
-          geom_ = zz619
-          zz620 = cpp_r_lit("(Geom1-4: %.10g %.10g %.10g %.10g)")
-          zz621 = cpp_ptr_d_new_ta_l(p_, 0_8)
-          zz622 => cpp_ptr_d_item_i(zz621, 0)
-          zz623 = cpp_ptr_d_new_ta_l(p_, 0_8)
-          zz624 => cpp_ptr_d_item_i(zz623, 1)
-          zz625 = cpp_ptr_d_new_ta_l(p_, 0_8)
-          zz626 => cpp_ptr_d_item_i(zz625, 2)
-          zz627 = cpp_ptr_d_new_ta_l(p_, 0_8)
-          zz628 => cpp_ptr_d_item_i(zz627, 3)
-          zz629 = cpp_r_snprintf_cptr_ul_cptr_oa(geom_, 128_8, zz620, zz622, zz624, zz626, zz628)
+          zz622 = cpp_r_buf_i(128)
+          geom_ = zz622
+          zz623 = cpp_r_lit("(Geom1-4: %.10g %.10g %.10g %.10g)")
+          zz624 = cpp_ptr_d_new_ta_l(p_, 0_8)
+          zz625 => cpp_ptr_d_item_i(zz624, 0)
+          zz626 = cpp_ptr_d_new_ta_l(p_, 0_8)
+          zz627 => cpp_ptr_d_item_i(zz626, 1)
+          zz628 = cpp_ptr_d_new_ta_l(p_, 0_8)
+          zz629 => cpp_ptr_d_item_i(zz628, 2)
+          zz630 = cpp_ptr_d_new_ta_l(p_, 0_8)
+          zz631 => cpp_ptr_d_item_i(zz630, 3)
+          zz632 = cpp_r_snprintf_cptr_ul_cptr_oa(geom_, 128_8, zz623, zz625, zz627, zz629, zz631)
           if (associated(cpp_exc)) return
-          zz638 => ctx_%errors
-          zz630 = cpp_r_lit("in the cross-section geometry of link ")
-          zz631 => p_nameindex__name_of(ctx_%link_names, j_14_)
+          zz641 => ctx_%errors
+          zz633 = cpp_r_lit("in the cross-section geometry of link ")
+          zz634 => p_nameindex__name_of(ctx_%link_names, j_14_)
           if (associated(cpp_exc)) return
-          zz632 => cpp_str_clone(zz631)
-          zz633 => cpp_str_cat_cptr_str(zz630, zz632)
-          zz634 => cpp_str_clone(zz633)
-          zz635 => cpp_str_new_cptr(geom_)
-          zz636 => p__f__format_error__i_sv_sv(211, zz634, zz635)
+          zz635 => cpp_str_clone(zz634)
+          zz636 => cpp_str_cat_cptr_str(zz633, zz635)
+          zz637 => cpp_str_clone(zz636)
+          zz638 => cpp_str_new_cptr(geom_)
+          zz639 => p__f__format_error__i_sv_sv(211, zz637, zz638)
           if (associated(cpp_exc)) return
-          zz637 => zz636
-          call cpp_vec_o_push_back(zz638, zz637)
+          zz640 => zz639
+          call cpp_vec_o_push_back(zz641, zz640)
         end if
         a_full_ = (w_max_2_ * y_full_2_)
         p_def_3_ = ((2.0_8 * y_full_2_) + w_max_2_)
         if ((p_def_3_ > 0.0_8)) then
-          zz639 = (a_full_ / p_def_3_)
+          zz642 = (a_full_ / p_def_3_)
         else
-          zz639 = 0.0_8
+          zz642 = 0.0_8
         end if
-        r_full_ = zz639
+        r_full_ = zz642
         s_full_ = (a_full_ * cpp_math_pow_dd(r_full_, 0.6666666666666666_8))
         s_max_ = s_full_
         yw_max_ = y_full_2_
@@ -9030,9 +9036,9 @@ contains
     191 continue
     j_14_ = (j_14_ + 1)
   end do
-  zz640 = p_perf__f__since(cpp_timepoint_clone(x_pt_xsect0_))
-  zz641 = (s_perf__f__sec_res_xsect + zz640)
-  s_perf__f__sec_res_xsect = zz641
+  zz643 = p_perf__f__since(cpp_timepoint_clone(x_pt_xsect0_))
+  zz644 = (s_perf__f__sec_res_xsect + zz643)
+  s_perf__f__sec_res_xsect = zz644
   j_15_ = 0
   do
     if (.not. ((j_15_ < n_links_))) exit
@@ -9040,10 +9046,10 @@ contains
     if ((ctx_%links%type%a%a(uj_15_) /= 0_1)) then
       goto 194
     end if
-    allocate(zz642)
-    zz642%c_ctx => ctx_
-    zz642%c_uj_15 = uj_15_
-    bump_filled_ => zz642
+    allocate(zz645)
+    zz645%c_ctx => ctx_
+    zz645%c_uj_15 = uj_15_
+    bump_filled_ => zz645
     n1_4_ = ctx_%links%node1%a%a(uj_15_)
     n2_4_ = ctx_%links%node2%a%a(uj_15_)
     if (((n1_4_ < 0) .or. (n2_4_ < 0))) then
@@ -9054,11 +9060,11 @@ contains
     cr_2_ = p_linksubtypes__conduit_row(ctx_%link_subtypes, j_15_)
     ucr_ = int(cr_2_, 8)
     if ((cr_2_ >= 0)) then
-      zz643 = ctx_%link_subtypes%conduits%length%a%a(ucr_)
+      zz646 = ctx_%link_subtypes%conduits%length%a%a(ucr_)
     else
-      zz643 = 0.0_8
+      zz646 = 0.0_8
     end if
-    length_ = zz643
+    length_ = zz646
     if ((length_ <= 0.0_8)) then
       call bump_filled_%invoke()
       if (associated(cpp_exc)) return
@@ -9070,22 +9076,22 @@ contains
       if (associated(cpp_exc)) return
       goto 194
     end if
-    zz644 = (ctx_%options%link_offsets == 1)
-    if (zz644) then
-      zz644 = (.not. ctx_%gpkg_units_internal)
+    zz647 = (ctx_%options%link_offsets == 1)
+    if (zz647) then
+      zz647 = (.not. ctx_%gpkg_units_internal)
     end if
-    if (zz644) then
-      zz645 => p_nameindex__name_of(ctx_%link_names, j_15_)
+    if (zz647) then
+      zz648 => p_nameindex__name_of(ctx_%link_names, j_15_)
       if (associated(cpp_exc)) return
-      lname_ => zz645
-      zz647 => ctx_%links%offset1%a%a(uj_15_)
-      zz646 = p_input__anon_input_postparseresolver_cpp__f__legacyo_1955e982(ctx_%links%offset1%a%a(uj_15_), ctx_%nodes%invert_elev%a%a(int(n1_4_, 8)), ctx_, lname_)
+      lname_ => zz648
+      zz650 => ctx_%links%offset1%a%a(uj_15_)
+      zz649 = p_input__anon_input_postparseresolver_cpp__f__legacyo_1955e982(ctx_%links%offset1%a%a(uj_15_), ctx_%nodes%invert_elev%a%a(int(n1_4_, 8)), ctx_, lname_)
       if (associated(cpp_exc)) return
-      zz647 = zz646
-      zz649 => ctx_%links%offset2%a%a(uj_15_)
-      zz648 = p_input__anon_input_postparseresolver_cpp__f__legacyo_1955e982(ctx_%links%offset2%a%a(uj_15_), ctx_%nodes%invert_elev%a%a(int(n2_4_, 8)), ctx_, lname_)
+      zz650 = zz649
+      zz652 => ctx_%links%offset2%a%a(uj_15_)
+      zz651 = p_input__anon_input_postparseresolver_cpp__f__legacyo_1955e982(ctx_%links%offset2%a%a(uj_15_), ctx_%nodes%invert_elev%a%a(int(n2_4_, 8)), ctx_, lname_)
       if (associated(cpp_exc)) return
-      zz649 = zz648
+      zz652 = zz651
     end if
     call bump_filled_%invoke()
     if (associated(cpp_exc)) return
@@ -9094,26 +9100,26 @@ contains
     delta_2_ = abs((elev1_ - elev2_))
     if ((delta_2_ < s_constants__f__min_delta_z)) then
       delta_2_ = s_constants__f__min_delta_z
-      zz654 => ctx_%warnings
-      zz650 => p_nameindex__name_of(ctx_%link_names, j_15_)
+      zz657 => ctx_%warnings
+      zz653 => p_nameindex__name_of(ctx_%link_names, j_15_)
       if (associated(cpp_exc)) return
-      zz651 => cpp_str_clone(zz650)
-      zz652 => p__f__format_warning__i_sv(4, zz651)
+      zz654 => cpp_str_clone(zz653)
+      zz655 => p__f__format_warning__i_sv(4, zz654)
       if (associated(cpp_exc)) return
-      zz653 => zz652
-      call cpp_vec_o_push_back(zz654, zz653)
+      zz656 => zz655
+      call cpp_vec_o_push_back(zz657, zz656)
     end if
     slope_ = 0.0_8
     if ((delta_2_ >= length_)) then
       slope_ = (delta_2_ / length_)
-      zz659 => ctx_%warnings
-      zz655 => p_nameindex__name_of(ctx_%link_names, j_15_)
+      zz662 => ctx_%warnings
+      zz658 => p_nameindex__name_of(ctx_%link_names, j_15_)
       if (associated(cpp_exc)) return
-      zz656 => cpp_str_clone(zz655)
-      zz657 => p__f__format_warning__i_sv(8, zz656)
+      zz659 => cpp_str_clone(zz658)
+      zz660 => p__f__format_warning__i_sv(8, zz659)
       if (associated(cpp_exc)) return
-      zz658 => zz657
-      call cpp_vec_o_push_back(zz659, zz658)
+      zz661 => zz660
+      call cpp_vec_o_push_back(zz662, zz661)
     else
       slope_ = (delta_2_ / sqrt(((length_ * length_) - (delta_2_ * delta_2_))))
     end if
@@ -9121,19 +9127,19 @@ contains
     min_slope_kw_sf_ = .false.
     if (((min_slope_ > 0.0_8) .and. (slope_ < min_slope_))) then
       slope_ = min_slope_
-      zz664 => ctx_%warnings
-      zz660 => p_nameindex__name_of(ctx_%link_names, j_15_)
+      zz667 => ctx_%warnings
+      zz663 => p_nameindex__name_of(ctx_%link_names, j_15_)
       if (associated(cpp_exc)) return
-      zz661 => cpp_str_clone(zz660)
-      zz662 => p__f__format_warning__i_sv(5, zz661)
+      zz664 => cpp_str_clone(zz663)
+      zz665 => p__f__format_warning__i_sv(5, zz664)
       if (associated(cpp_exc)) return
-      zz663 => zz662
-      call cpp_vec_o_push_back(zz664, zz663)
-      zz665 = (ctx_%options%routing_model == 0)
-      if (.not. zz665) then
-        zz665 = (ctx_%options%routing_model == 1)
+      zz666 => zz665
+      call cpp_vec_o_push_back(zz667, zz666)
+      zz668 = (ctx_%options%routing_model == 0)
+      if (.not. zz668) then
+        zz668 = (ctx_%options%routing_model == 1)
       end if
-      min_slope_kw_sf_ = zz665
+      min_slope_kw_sf_ = zz668
     end if
     if (((elev1_ < elev2_) .and. (.not. min_slope_kw_sf_))) then
       slope_ = (-slope_)
@@ -9141,28 +9147,28 @@ contains
     if ((cr_2_ >= 0)) then
       ctx_%link_subtypes%conduits%slope%a%a(ucr_) = slope_
     end if
-    zz666 = (ctx_%options%routing_model == 2)
-    if (.not. zz666) then
-      zz666 = (ctx_%options%routing_model == 3)
+    zz669 = (ctx_%options%routing_model == 2)
+    if (.not. zz669) then
+      zz669 = (ctx_%options%routing_model == 3)
     end if
-    zz667 = (zz666 .and. (slope_ < 0.0_8))
-    if (zz667) then
-      zz667 = (ctx_%links%xsect_shape%a%a(uj_15_) /= 25_2)
+    zz670 = (zz669 .and. (slope_ < 0.0_8))
+    if (zz670) then
+      zz670 = (ctx_%links%xsect_shape%a%a(uj_15_) /= 25_2)
     end if
-    if (zz667) then
-      zz668 = ctx_%links%node1%a%a(uj_15_)
+    if (zz670) then
+      zz671 = ctx_%links%node1%a%a(uj_15_)
       ctx_%links%node1%a%a(uj_15_) = ctx_%links%node2%a%a(uj_15_)
-      ctx_%links%node2%a%a(uj_15_) = zz668
-      zz669 = ctx_%links%offset1%a%a(uj_15_)
+      ctx_%links%node2%a%a(uj_15_) = zz671
+      zz672 = ctx_%links%offset1%a%a(uj_15_)
       ctx_%links%offset1%a%a(uj_15_) = ctx_%links%offset2%a%a(uj_15_)
-      ctx_%links%offset2%a%a(uj_15_) = zz669
-      zz670 = (ctx_%links%direction%a%a(uj_15_) * (-1))
-      ctx_%links%direction%a%a(uj_15_) = zz670
+      ctx_%links%offset2%a%a(uj_15_) = zz672
+      zz673 = (ctx_%links%direction%a%a(uj_15_) * (-1))
+      ctx_%links%direction%a%a(uj_15_) = zz673
       ctx_%links%q0%a%a(uj_15_) = (-ctx_%links%q0%a%a(uj_15_))
       if ((cr_2_ >= 0)) then
-        zz671 = ctx_%link_subtypes%conduits%loss_inlet%a%a(ucr_)
+        zz674 = ctx_%link_subtypes%conduits%loss_inlet%a%a(ucr_)
         ctx_%link_subtypes%conduits%loss_inlet%a%a(ucr_) = ctx_%link_subtypes%conduits%loss_outlet%a%a(ucr_)
-        ctx_%link_subtypes%conduits%loss_outlet%a%a(ucr_) = zz671
+        ctx_%link_subtypes%conduits%loss_outlet%a%a(ucr_) = zz674
         ctx_%link_subtypes%conduits%slope%a%a(ucr_) = (-slope_)
       end if
     end if
@@ -9186,19 +9192,19 @@ contains
   x__i24_n_ = int(x__r23_%n, 8)
   do
     if (.not. ((x__i24_ < x__i24_n_))) exit
-    zz672 => h_uas_table(x__r23_%a%a(x__i24_)%p)
-    tbl_3_ => zz672
+    zz675 => h_uas_table(x__r23_%a%a(x__i24_)%p)
+    tbl_3_ => zz675
     is_ts_2_ = (tbl_3_%type == 0)
     k_3_ = 1_8
     do
       if (.not. ((ieor(k_3_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(tbl_3_%x), (-9223372036854775807_8 - 1_8))))) exit
       if (((tbl_3_%x%a%a(k_3_) - tbl_3_%x%a%a((k_3_ - 1_8))) <= 0.0_8)) then
-        zz676 => ctx_%errors
-        zz673 => cpp_str_clone(tbl_3_%id)
-        zz674 => p__f__format_error__i_sv(merge(173, 171, is_ts_2_), zz673)
+        zz679 => ctx_%errors
+        zz676 => cpp_str_clone(tbl_3_%id)
+        zz677 => p__f__format_error__i_sv(merge(173, 171, is_ts_2_), zz676)
         if (associated(cpp_exc)) return
-        zz675 => zz674
-        call cpp_vec_o_push_back(zz676, zz675)
+        zz678 => zz677
+        call cpp_vec_o_push_back(zz679, zz678)
         goto 199
       end if
       k_3_ = (k_3_ + 1_8)
@@ -9220,27 +9226,27 @@ contains
       if ((ctx_%gages%source%a%a(uj_16_) /= 1_1)) then
         goto 204
       end if
-      zz677 => h_uas_cpp_str(ctx_%gages%station_id%a%a(ui_8_)%p)
-      zz678 => cpp_str_clone(zz677)
-      zz679 => h_uas_cpp_str(ctx_%gages%station_id%a%a(uj_16_)%p)
-      zz680 => cpp_str_clone(zz679)
-      zz685 = p__f__ieq(zz678, zz680)
-      if (zz685) then
-        zz681 => h_uas_filepathpair(ctx_%gages%file_path%a%a(ui_8_)%p)
-        zz682 => cpp_str_clone(zz681%original)
-        zz683 => h_uas_filepathpair(ctx_%gages%file_path%a%a(uj_16_)%p)
-        zz684 => cpp_str_clone(zz683%original)
-        zz685 = (.not. p__f__ieq(zz682, zz684))
+      zz680 => h_uas_cpp_str(ctx_%gages%station_id%a%a(ui_8_)%p)
+      zz681 => cpp_str_clone(zz680)
+      zz682 => h_uas_cpp_str(ctx_%gages%station_id%a%a(uj_16_)%p)
+      zz683 => cpp_str_clone(zz682)
+      zz688 = p__f__ieq(zz681, zz683)
+      if (zz688) then
+        zz684 => h_uas_filepathpair(ctx_%gages%file_path%a%a(ui_8_)%p)
+        zz685 => cpp_str_clone(zz684%original)
+        zz686 => h_uas_filepathpair(ctx_%gages%file_path%a%a(uj_16_)%p)
+        zz687 => cpp_str_clone(zz686%original)
+        zz688 = (.not. p__f__ieq(zz685, zz687))
       end if
-      if (zz685) then
-        zz690 => ctx_%errors
-        zz686 => p_nameindex__name_of(ctx_%gage_names, i_14_)
+      if (zz688) then
+        zz693 => ctx_%errors
+        zz689 => p_nameindex__name_of(ctx_%gage_names, i_14_)
         if (associated(cpp_exc)) return
-        zz687 => cpp_str_clone(zz686)
-        zz688 => p__f__format_error__i_sv(156, zz687)
+        zz690 => cpp_str_clone(zz689)
+        zz691 => p__f__format_error__i_sv(156, zz690)
         if (associated(cpp_exc)) return
-        zz689 => zz688
-        call cpp_vec_o_push_back(zz690, zz689)
+        zz692 => zz691
+        call cpp_vec_o_push_back(zz693, zz692)
         goto 203
       end if
       204 continue
@@ -9250,13 +9256,13 @@ contains
     202 continue
     i_14_ = (i_14_ + 1)
   end do
-  zz691 => cpp_algo_vecfrom__d(cpp_vec_d_begin(ctx_%nodes%full_depth), cpp_vec_d_end(ctx_%nodes%full_depth))
+  zz694 => cpp_algo_vecfrom__d(cpp_vec_d_begin(ctx_%nodes%full_depth), cpp_vec_d_end(ctx_%nodes%full_depth))
   if (associated(cpp_exc)) return
-  authored_full_depth_ => zz691
-  allocate(zz692)
-  zz692%c_n_nodes = n_nodes_
-  zz692%c_ctx => ctx_
-  extend_to_crown_ => zz692
+  authored_full_depth_ => zz694
+  allocate(zz695)
+  zz695%c_n_nodes = n_nodes_
+  zz695%c_ctx => ctx_
+  extend_to_crown_ => zz695
   j_18_ = 0
   do
     if (.not. ((j_18_ < n_links_))) exit
@@ -9266,24 +9272,24 @@ contains
     end if
     if ((ctx_%links%type%a%a(uj_17_) == 2_1)) then
       orr_ = p_linksubtypes__orifice_row(ctx_%link_subtypes, j_18_)
-      zz693 = (orr_ >= 0)
-      if (zz693) then
-        zz693 = (ctx_%link_subtypes%orifices%orifice_type%a%a(int(orr_, 8)) == 0.0_8)
+      zz696 = (orr_ >= 0)
+      if (zz696) then
+        zz696 = (ctx_%link_subtypes%orifices%orifice_type%a%a(int(orr_, 8)) == 0.0_8)
       end if
-      if (zz693) then
+      if (zz696) then
         goto 206
       end if
     end if
     y_full_3_ = ctx_%links%xsect_y_full%a%a(uj_17_)
-    zz695 = (ctx_%links%type%a%a(uj_17_) == 4_1)
-    if (.not. zz695) then
-      zz694 = (ctx_%links%type%a%a(uj_17_) == 0_1)
-      if (zz694) then
-        zz694 = (ctx_%links%xsect_shape%a%a(uj_17_) == 25_2)
+    zz698 = (ctx_%links%type%a%a(uj_17_) == 4_1)
+    if (.not. zz698) then
+      zz697 = (ctx_%links%type%a%a(uj_17_) == 0_1)
+      if (zz697) then
+        zz697 = (ctx_%links%xsect_shape%a%a(uj_17_) == 25_2)
       end if
-      zz695 = zz694
+      zz698 = zz697
     end if
-    if (zz695) then
+    if (zz698) then
       y_full_3_ = s_constants__f__tiny
     end if
     off1_ = ctx_%links%offset1%a%a(uj_17_)
@@ -9309,19 +9315,19 @@ contains
   do
     if (.not. ((n_3_ < n_nodes_))) exit
     un_3_ = int(n_3_, 8)
-    zz696 = (ctx_%nodes%full_depth%a%a(un_3_) > authored_full_depth_%a%a(un_3_))
-    if (zz696) then
-      zz696 = (authored_full_depth_%a%a(un_3_) > 0.0_8)
+    zz699 = (ctx_%nodes%full_depth%a%a(un_3_) > authored_full_depth_%a%a(un_3_))
+    if (zz699) then
+      zz699 = (authored_full_depth_%a%a(un_3_) > 0.0_8)
     end if
-    if (zz696) then
-      zz701 => ctx_%warnings
-      zz697 => p_nameindex__name_of(ctx_%node_names, n_3_)
+    if (zz699) then
+      zz704 => ctx_%warnings
+      zz700 => p_nameindex__name_of(ctx_%node_names, n_3_)
       if (associated(cpp_exc)) return
-      zz698 => cpp_str_clone(zz697)
-      zz699 => p__f__format_warning__i_sv(2, zz698)
+      zz701 => cpp_str_clone(zz700)
+      zz702 => p__f__format_warning__i_sv(2, zz701)
       if (associated(cpp_exc)) return
-      zz700 => zz699
-      call cpp_vec_o_push_back(zz701, zz700)
+      zz703 => zz702
+      call cpp_vec_o_push_back(zz704, zz703)
     end if
     n_3_ = (n_3_ + 1)
   end do
@@ -9335,12 +9341,12 @@ contains
     x__i26_n_ = int(x__r25_%n, 8)
     do
       if (.not. ((x__i26_ < x__i26_n_))) exit
-      zz702 => h_uas_cpp_str(x__r25_%a%a(x__i26_)%p)
-      name_10_ => zz702
-      zz704 => ctx_%subcatch_names
-      zz703 => cpp_str_clone(name_10_)
-      zz705 = p_nameindex__find(zz704, zz703)
-      idx_6_ = zz705
+      zz705 => h_uas_cpp_str(x__r25_%a%a(x__i26_)%p)
+      name_10_ => zz705
+      zz707 => ctx_%subcatch_names
+      zz706 => cpp_str_clone(name_10_)
+      zz708 = p_nameindex__find(zz707, zz706)
+      idx_6_ = zz708
       if ((idx_6_ >= 0)) then
         ctx_%subcatches%rpt_flag%a%a(int(idx_6_, 8)) = 1_1
       end if
@@ -9356,12 +9362,12 @@ contains
     x__i28_n_ = int(x__r27_%n, 8)
     do
       if (.not. ((x__i28_ < x__i28_n_))) exit
-      zz706 => h_uas_cpp_str(x__r27_%a%a(x__i28_)%p)
-      name_11_ => zz706
-      zz708 => ctx_%node_names
-      zz707 => cpp_str_clone(name_11_)
-      zz709 = p_nameindex__find(zz708, zz707)
-      idx_7_ = zz709
+      zz709 => h_uas_cpp_str(x__r27_%a%a(x__i28_)%p)
+      name_11_ => zz709
+      zz711 => ctx_%node_names
+      zz710 => cpp_str_clone(name_11_)
+      zz712 = p_nameindex__find(zz711, zz710)
+      idx_7_ = zz712
       if ((idx_7_ >= 0)) then
         ctx_%nodes%rpt_flag%a%a(int(idx_7_, 8)) = 1_1
       end if
@@ -9377,12 +9383,12 @@ contains
     x__i30_n_ = int(x__r29_%n, 8)
     do
       if (.not. ((x__i30_ < x__i30_n_))) exit
-      zz710 => h_uas_cpp_str(x__r29_%a%a(x__i30_)%p)
-      name_12_ => zz710
-      zz712 => ctx_%link_names
-      zz711 => cpp_str_clone(name_12_)
-      zz713 = p_nameindex__find(zz712, zz711)
-      idx_8_ = zz713
+      zz713 => h_uas_cpp_str(x__r29_%a%a(x__i30_)%p)
+      name_12_ => zz713
+      zz715 => ctx_%link_names
+      zz714 => cpp_str_clone(name_12_)
+      zz716 = p_nameindex__find(zz715, zz714)
+      idx_8_ = zz716
       if ((idx_8_ >= 0)) then
         ctx_%links%rpt_flag%a%a(int(idx_8_, 8)) = 1_1
       end if
@@ -9395,8 +9401,8 @@ contains
   if ((p_snowpackstore__count(ctx_%snowpacks) == 0)) then
     ctx_%options%ignore_snow_melt = .true.
   end if
-  zz714 => p_perf_scopedtimer__new_rd(s_perf__f__sec_res_shrink)
-  x_pt_ => zz714
+  zz717 => p_perf_scopedtimer__new_rd(s_perf__f__sec_res_shrink)
+  x_pt_ => zz717
   call p_simulationcontext__shrink_all_to_fit(ctx_)
   call p_nodesubtypes__rebuild_index(ctx_%node_subtypes, p_nodedata__count(ctx_%nodes))
   if (associated(cpp_exc)) return

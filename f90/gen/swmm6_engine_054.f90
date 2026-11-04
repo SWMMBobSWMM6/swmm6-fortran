@@ -700,28 +700,28 @@ contains
   return
   end procedure p_transport_rowlayout__movenew
 
-  module procedure p_lam896
+  module procedure p_lam901
   call p_transport__anon_transport_components_eulerianardcom_59197f5f(a1, a3, a4)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam896
+  end procedure p_lam901
 
-  module procedure p_lam897
+  module procedure p_lam902
     class(cpp_str), pointer :: zz1
   zres => null()
   zz1 => p_transport__anon_transport_components_eulerianardcom_8627fecc(a1)
   if (associated(cpp_exc)) return
   zres => zz1
   return
-  end procedure p_lam897
+  end procedure p_lam902
 
   module procedure p_transport__f__registerardcomponent
     class(t_components_processcomponentregistry), pointer :: zz1
     class(cpp_str), pointer :: zz2
     type(cpp_cptr) :: zz3
     class(cpp_str), pointer :: zz4
-    class(t_lam896), pointer :: zz5
-    class(t_lam897), pointer :: zz6
+    class(t_lam901), pointer :: zz5
+    class(t_lam902), pointer :: zz6
   zz1 => p_components_processcomponentregistry__instance()
   if (associated(cpp_exc)) return
   zz2 => cpp_str_new_cptr(s_transport__anon_transport_components_eulerianardcom_14f8feeb)
@@ -751,7 +751,7 @@ contains
   call cpp_vec_o_push_back(zz4, zz3)
   end procedure p_transport__f__warniffvdispersionkeyignored
 
-  module procedure p_lam898
+  module procedure p_lam903
     integer(4) :: s_
     class(cpp_str), pointer :: zz1
     class(t_reactiondata), pointer :: zz2
@@ -829,9 +829,9 @@ contains
   end if
   zres = (-1)
   return
-  end procedure p_lam898
+  end procedure p_lam903
 
-  module procedure p_lam899
+  module procedure p_lam904
     integer(4) :: t_
     class(cpp_str), pointer :: zz1
     class(t_tabledata), pointer :: zz2
@@ -871,15 +871,15 @@ contains
   end if
   zres = t_
   return
-  end procedure p_lam899
+  end procedure p_lam904
 
   module procedure p_transport__f__resolveardtransportrows
     class(t_ardconfigdata), pointer :: cfg_
     logical :: zz1
     class(t_fn157), pointer :: resolve_species_
-    class(t_lam898), pointer :: zz2
+    class(t_lam903), pointer :: zz2
     class(t_fn157), pointer :: resolve_ts_
-    class(t_lam899), pointer :: zz3
+    class(t_lam904), pointer :: zz3
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -1219,14 +1219,14 @@ contains
   return
   end procedure p_transport__anon_transport_components_eulerianardcom_fb5cfb5d
 
-  module procedure p_lam920
+  module procedure p_lam925
   zres = int(cpp_r_toupper(iand(int(a1, 4), 255_4)), 1)
   return
-  end procedure p_lam920
+  end procedure p_lam925
 
   module procedure p_transport__anon_transport_components_eulerianardcom_bc64e5e6
     class(cpp_str), pointer :: s_l_
-    class(t_lam920), pointer :: zz1
+    class(t_lam925), pointer :: zz1
     type(cpp_iter_b) :: zz2
     type(cpp_iter_b) :: zz3
     type(cpp_iter_b) :: zz4
@@ -2170,7 +2170,7 @@ contains
   return
   end procedure p_transport__anon_transport_components_eulerianardcom_c3ba8c17
 
-  module procedure p_lam921
+  module procedure p_lam926
     class(cpp_str), pointer :: zz1
     type(cpp_cptr) :: zz2
     class(cpp_str), pointer :: zz3
@@ -2253,7 +2253,7 @@ contains
   zz30 = cpp_r_lit(achar(10))
   zz31 => cpp_str_append_cptr(zz29, zz30)
   return
-  end procedure p_lam921
+  end procedure p_lam926
 
   module procedure p_transport__anon_transport_components_eulerianardcom_8627fecc
     class(t_ardconfigdata), pointer :: cfg_
@@ -2340,7 +2340,7 @@ contains
     type(cpp_cptr) :: zz77
     class(cpp_str), pointer :: zz78
     class(t_fn260), pointer :: rows_
-    class(t_lam921), pointer :: zz79
+    class(t_lam926), pointer :: zz79
     type(cpp_cptr) :: zz80
     type(cpp_cptr) :: zz81
     class(cpp_str), pointer :: zz82
@@ -2496,7 +2496,7 @@ contains
   return
   end procedure p_transport__anon_transport_components_eulerianardcom_8627fecc
 
-  module procedure p_lam922
+  module procedure p_lam927
     logical :: zz1
     type(cpp_ptr_d) :: zz2
     real(8), pointer :: zz3
@@ -2514,9 +2514,9 @@ contains
   zz3 => cpp_ptr_d_item_i(zz2, 6)
   zres = p_transport__f__initialagesecondsfor(zz4, .true., a1, zz3)
   return
-  end procedure p_lam922
+  end procedure p_lam927
 
-  module procedure p_lam923
+  module procedure p_lam928
     logical :: zz1
     type(cpp_ptr_d) :: zz2
     real(8), pointer :: zz3
@@ -2534,7 +2534,7 @@ contains
   zz3 => cpp_ptr_d_item_i(zz2, 6)
   zres = p_transport__f__initialagesecondsfor(zz4, .false., int(a1, 4), zz3)
   return
-  end procedure p_lam923
+  end procedure p_lam928
 
   module procedure p_transport_ardengine__init
     class(t_transport_classenables), pointer :: en_
@@ -2609,12 +2609,12 @@ contains
     logical, pointer :: age_from_hs_
     logical :: zz42
     class(t_fn122), pointer :: age_seed_link_
-    class(t_lam922), pointer :: zz43
+    class(t_lam927), pointer :: zz43
     real(8) :: temp_seed_
     type(cpp_ptr_d) :: zz44
     real(8), pointer :: zz45
     class(t_fn119), pointer :: age_seed_node_
-    class(t_lam923), pointer :: zz46
+    class(t_lam928), pointer :: zz46
     integer(4) :: n_links_
     integer(4) :: r_
     integer(8) :: ur_
@@ -3188,7 +3188,20 @@ contains
     integer(8) :: uns0_
     integer(8) :: nd2_
     real(8) :: zz15
-    real(8) :: zz16
+    type(cpp_ptr_d) :: zz16
+    type(cpp_ptr_d) :: zz17
+    type(cpp_ptr_d) :: zz18
+    type(cpp_ptr_d) :: zz19
+    integer(4) :: zz20
+    type(cpp_ptr_d) :: zz21
+    type(cpp_ptr_i) :: zz22
+    integer(4) :: zz23
+    integer(4) :: zz24
+    integer(4) :: zz25
+    real(8) :: zz26
+    integer(4) :: zz27
+    type(cpp_ptr_i) :: zz28
+    real(8) :: zz29
   if (((.not. self%initialized_) .or. (dt_ <= 0.0_8))) then
     return
   end if
@@ -3303,15 +3316,28 @@ contains
   call p_transport_ardengine__applyheatfluxes(self, ctx_, dt_)
   if (associated(cpp_exc)) return
   call p_quality__f__updateuntreatedstoragehrt(ctx_, dt_)
-  call p_transport__f__reactardstage(ctx_, dt_, cpp_vec_d_data(self%state_%cell_phi), cpp_vec_d_data(self%state_%cell_a), cpp_vec_d_data(self%mesh_%cell_dx), p_fv_networkmeshdata__n_cells(self%mesh_), cpp_vec_d_data(self%node_mass_), cpp_vec_d_data(self%node_vol_), int(cpp_vec_d_size(self%node_vol_), 4), p_simulationcontext__n_pollutants(ctx_), self%state_%n_species, s_transport__anon_transport_components_eulerianardcom_265e7291, self%temp_row_, cpp_vec_i_data(self%mesh_%cell_conduit), cpp_vec_i_data(self%mesh_%conduit_link))
+  zz16 = cpp_vec_d_data(self%state_%cell_phi)
+  zz17 = cpp_vec_d_data(self%state_%cell_a)
+  zz18 = cpp_vec_d_data(self%mesh_%cell_dx)
+  zz20 = p_fv_networkmeshdata__n_cells(self%mesh_)
+  zz19 = cpp_vec_d_data(self%node_mass_)
+  zz21 = cpp_vec_d_data(self%node_vol_)
+  zz23 = int(cpp_vec_d_size(self%node_vol_), 4)
+  zz24 = p_simulationcontext__n_pollutants(ctx_)
+  zz25 = self%state_%n_species
+  zz26 = s_transport__anon_transport_components_eulerianardcom_265e7291
+  zz27 = self%temp_row_
+  zz22 = cpp_vec_i_data(self%mesh_%cell_conduit)
+  zz28 = cpp_vec_i_data(self%mesh_%conduit_link)
+  call p_transport__f__reactardstage(ctx_, dt_, zz16, zz17, zz18, zz20, zz19, zz21, zz23, zz24, zz25, zz26, zz27, zz22, zz28)
   if (associated(cpp_exc)) return
   call p_transport_ardengine__applybedsoluteexchange(self, ctx_, dt_)
   if (associated(cpp_exc)) return
   call p_transport_ardengine__publish(self, ctx_)
   if (associated(cpp_exc)) return
   if (self%detail_active_) then
-    zz16 = (self%detail_time_s_ + dt_)
-    self%detail_time_s_ = zz16
+    zz29 = (self%detail_time_s_ + dt_)
+    self%detail_time_s_ = zz29
     call p_transport_ardengine__writedetailrows(self, ctx_)
     if (associated(cpp_exc)) return
   end if
@@ -4138,7 +4164,7 @@ contains
   end do
   end procedure p_transport_ardengine__projecthydraulics
 
-  module procedure p_lam924
+  module procedure p_lam929
   if (self%c_this%has_vj_src_) then
     return
   end if
@@ -4148,9 +4174,9 @@ contains
   if (associated(cpp_exc)) return
   self%c_this%has_vj_src_ = .true.
   return
-  end procedure p_lam924
+  end procedure p_lam929
 
-  module procedure p_lam925
+  module procedure p_lam930
     class(cpp_arr_i), pointer :: x__r1_
     class(cpp_arr_i), pointer :: zz1
     integer(8) :: x__i2_
@@ -4178,7 +4204,7 @@ contains
     x__i2_ = (x__i2_ + 1_8)
   end do
   return
-  end procedure p_lam925
+  end procedure p_lam930
 
   module procedure p_transport_ardengine__substep
     integer(4) :: ns_
@@ -4194,9 +4220,9 @@ contains
     integer(4) :: np_v_
     integer(8) :: unp_v_
     class(t_fn3), pointer :: ensure_
-    class(t_lam924), pointer :: zz3
+    class(t_lam929), pointer :: zz3
     class(t_fn111), pointer :: credit_mass_
-    class(t_lam925), pointer :: zz4
+    class(t_lam930), pointer :: zz4
     integer(4) :: nd_
     logical :: zz5
     integer(8) :: und_
@@ -5309,7 +5335,7 @@ contains
   end do
   end procedure p_transport_ardengine__updatetransportrows
 
-  module procedure p_lam926
+  module procedure p_lam931
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     type(cpp_cptr) :: zz3
@@ -5344,7 +5370,7 @@ contains
   end if
   zres => zz9
   return
-  end procedure p_lam926
+  end procedure p_lam931
 
   module procedure p_transport_ardengine__writedetailrows
     integer(4) :: ns_
@@ -5352,7 +5378,7 @@ contains
     integer(8) :: unc_
     integer(8) :: uns_
     class(t_fn134), pointer :: species_name_
-    class(t_lam926), pointer :: zz1
+    class(t_lam931), pointer :: zz1
     integer(4) :: r_
     integer(8) :: ur_
     integer(4) :: link_
@@ -5503,12 +5529,12 @@ contains
   end do
   end procedure p_transport_ardengine__writedetailrows
 
-  module procedure p_lam927
+  module procedure p_lam932
     real(8) :: zz1
   zz1 = p_transport_heat__f__netfluxout(self%c_ctx, a1, a2)
   zres = zz1
   return
-  end procedure p_lam927
+  end procedure p_lam932
 
   module procedure p_transport_ardengine__applyheatfluxes
     logical :: bed_on_
@@ -5527,7 +5553,7 @@ contains
     real(8) :: rho_
     real(8) :: cp_
     class(t_fn135), pointer :: flux_out_
-    class(t_lam927), pointer :: zz6
+    class(t_lam932), pointer :: zz6
     integer(8) :: tr_
     integer(8) :: unc_
     integer(8) :: c_
@@ -6101,35 +6127,5 @@ contains
   self%initialized_ = .false.
   self%warned_cfl_clamp_ = .false.
   end procedure p_transport_ardengine__init_d
-
-  module procedure p_transport_ardengine__new
-    class(t_transport_ardengine), pointer :: o_
-    class(t_transport_ardengine), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_transport_ardengine__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_transport_ardengine__init_d(o_)
-  zres => o_
-  return
-  end procedure p_transport_ardengine__new
-
-  module procedure p_transport_ardengine__ctor_x
-  call p_transport_ardengine__ctor_raw(self, cpp_raw_v)
-  call p_transport_ardengine__init_d(self)
-  end procedure p_transport_ardengine__ctor_x
-
-  module procedure p_transport_ardengine__clone
-    class(t_transport_ardengine), pointer :: o_
-    class(t_transport_ardengine), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_transport_ardengine__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_transport_ardengine__copyfrom_ardengine(o_, self)
-  if (associated(cpp_exc)) return
-  zres => o_
-  return
-  end procedure p_transport_ardengine__clone
 
 end submodule swmm6_engine_054

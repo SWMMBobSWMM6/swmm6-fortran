@@ -2398,7 +2398,7 @@ contains
   end do
   end procedure p_msxlid__f__preparenodes
 
-  module procedure p_lam882
+  module procedure p_lam887
     integer(4) :: sp_
     real(8) :: zz1
     real(8) :: zz2
@@ -2412,7 +2412,7 @@ contains
     sp_ = (sp_ + 1)
   end do
   return
-  end procedure p_lam882
+  end procedure p_lam887
 
   module procedure p_msxlid__f__reactnodes
     class(t_reactiondata), pointer :: r_
@@ -2430,7 +2430,7 @@ contains
     class(t_lidnodeconfig), pointer :: zz4
     real(8) :: temp_
     class(t_fn3), pointer :: book_
-    class(t_lam882), pointer :: zz5
+    class(t_lam887), pointer :: zz5
     integer(8) :: i_
     real(8) :: v_
     logical :: zz6
@@ -2440,31 +2440,34 @@ contains
     real(8) :: zz10
     class(t_lidnodecell), pointer :: zz11
     class(cpp_vec_d), pointer :: zz12
-    integer(4) :: zz13
-    logical :: zz14
+    type(cpp_ptr_d) :: zz13
+    integer(4) :: zz14
+    logical :: zz15
     real(8) :: v_2_
     class(cpp_vec_d), pointer :: shares_
-    class(cpp_vec_d), pointer :: zz15
+    class(cpp_vec_d), pointer :: zz16
     real(8) :: total_
     integer(8) :: i_2_
     class(t_lidnodecell), pointer :: cell_
-    class(t_lidnodecell), pointer :: zz16
-    logical :: zz17
-    real(8) :: zz18
+    class(t_lidnodecell), pointer :: zz17
+    logical :: zz18
+    real(8) :: zz19
     class(cpp_vec_d), pointer :: original_
-    class(cpp_vec_d), pointer :: zz19
-    class(cpp_vec_d), pointer :: delta_
     class(cpp_vec_d), pointer :: zz20
-    class(cpp_vec_d), pointer :: mass_
+    class(cpp_vec_d), pointer :: delta_
     class(cpp_vec_d), pointer :: zz21
+    class(cpp_vec_d), pointer :: mass_
+    class(cpp_vec_d), pointer :: zz22
     integer(4) :: sp_2_
     integer(8) :: i_3_
     real(8) :: volume_
     integer(4) :: sp_3_
-    class(t_lidnodecell), pointer :: zz22
-    logical :: zz23
+    class(t_lidnodecell), pointer :: zz23
+    type(cpp_ptr_d) :: zz24
+    integer(4) :: zz25
+    logical :: zz26
     integer(4) :: sp_4_
-    real(8) :: zz24
+    real(8) :: zz27
     integer(4) :: sp_5_
   r_ => c_%reactions
   if (cpp_vec_i_empty(r_%lid_controls)) then
@@ -2509,9 +2512,10 @@ contains
         end if
         v_ = zz10
         zz11 => h_uas_lidnodecell(state_%cells%a%a(i_)%p)
-        zz13 = zz11%layer
+        zz14 = zz11%layer
         zz12 => h_uas_cpp_vec_d(r_%lid%node_mass%a%a(int(row_, 8))%p)
-        zz14 = p_msxlid__f__reactpool(c_, control_, zz13, v_, cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(zz12), (i_ * int(ns_, 8))), dt_, temp_, reacted_, clamped_)
+        zz13 = cpp_vec_d_data(zz12)
+        zz15 = p_msxlid__f__reactpool(c_, control_, zz14, v_, cpp_ptr_d_op_add_ptrt_l(zz13, (i_ * int(ns_, 8))), dt_, temp_, reacted_, clamped_)
         if (associated(cpp_exc)) return
         call book_%invoke()
         if (associated(cpp_exc)) return
@@ -2521,38 +2525,38 @@ contains
       if ((.not. (v_2_ > s_quality__f__zero_volume))) then
         goto 102
       end if
-      zz15 => cpp_vec_d_new_ul_t(cpp_vec_o_size(state_%cells), 0.0_8)
+      zz16 => cpp_vec_d_new_ul_t(cpp_vec_o_size(state_%cells), 0.0_8)
       if (associated(cpp_exc)) return
-      shares_ => zz15
+      shares_ => zz16
       total_ = 0.0_8
       i_2_ = 0_8
       do
         if (.not. ((ieor(i_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8))))) exit
-        zz16 => h_uas_lidnodecell(state_%cells%a%a(i_2_)%p)
-        cell_ => zz16
-        zz17 = state_%richards
-        if (zz17) then
-          zz17 = (cell_%kind /= 0)
+        zz17 => h_uas_lidnodecell(state_%cells%a%a(i_2_)%p)
+        cell_ => zz17
+        zz18 = state_%richards
+        if (zz18) then
+          zz18 = (cell_%kind /= 0)
         end if
-        if (zz17) then
+        if (zz18) then
           goto 106
         end if
         shares_%a%a(i_2_) = ((cell_%geometric_volume * cpp_m_max_d_d(0.0_8, (cell_%porosity - cell_%theta))) * cpp_m_clamp_d_d_d(((c_%nodes%depth%a%a(int(node_, 8)) - cell_%bottom) / (cell_%top - cell_%bottom)), 0.0_8, 1.0_8))
-        zz18 = (total_ + shares_%a%a(i_2_))
-        total_ = zz18
+        zz19 = (total_ + shares_%a%a(i_2_))
+        total_ = zz19
         106 continue
         i_2_ = (i_2_ + 1_8)
       end do
       if ((.not. (total_ > 0.0_8))) then
         goto 102
       end if
-      zz19 => cpp_vec_d_new_ul(int(ns_, 8))
-      original_ => zz19
-      zz20 => cpp_vec_d_new_ul_t(int(ns_, 8), 0.0_8)
+      zz20 => cpp_vec_d_new_ul(int(ns_, 8))
+      original_ => zz20
+      zz21 => cpp_vec_d_new_ul_t(int(ns_, 8), 0.0_8)
       if (associated(cpp_exc)) return
-      delta_ => zz20
-      zz21 => cpp_vec_d_new_ul(int(ns_, 8))
-      mass_ => zz21
+      delta_ => zz21
+      zz22 => cpp_vec_d_new_ul(int(ns_, 8))
+      mass_ => zz22
       sp_2_ = 0
       do
         if (.not. ((sp_2_ < ns_))) exit
@@ -2570,16 +2574,18 @@ contains
             mass_%a%a(int(sp_3_, 8)) = (original_%a%a(int(sp_3_, 8)) * volume_)
             sp_3_ = (sp_3_ + 1)
           end do
-          zz22 => h_uas_lidnodecell(state_%cells%a%a(i_3_)%p)
-          zz23 = p_msxlid__f__reactpool(c_, control_, zz22%layer, volume_, cpp_vec_d_data(mass_), dt_, temp_, reacted_, clamped_)
+          zz23 => h_uas_lidnodecell(state_%cells%a%a(i_3_)%p)
+          zz25 = zz23%layer
+          zz24 = cpp_vec_d_data(mass_)
+          zz26 = p_msxlid__f__reactpool(c_, control_, zz25, volume_, zz24, dt_, temp_, reacted_, clamped_)
           if (associated(cpp_exc)) return
           call book_%invoke()
           if (associated(cpp_exc)) return
           sp_4_ = 0
           do
             if (.not. ((sp_4_ < ns_))) exit
-            zz24 = (delta_%a%a(int(sp_4_, 8)) + (mass_%a%a(int(sp_4_, 8)) - (original_%a%a(int(sp_4_, 8)) * volume_)))
-            delta_%a%a(int(sp_4_, 8)) = zz24
+            zz27 = (delta_%a%a(int(sp_4_, 8)) + (mass_%a%a(int(sp_4_, 8)) - (original_%a%a(int(sp_4_, 8)) * volume_)))
+            delta_%a%a(int(sp_4_, 8)) = zz27
             sp_4_ = (sp_4_ + 1)
           end do
         end if
@@ -2745,13 +2751,13 @@ contains
   return
   end procedure p_msxlid__f__reactedsubcatchment
 
-  module procedure p_lam883
+  module procedure p_lam888
     class(*), pointer :: zz1
   zz1 => self%c_lease
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam883
+  end procedure p_lam888
 
   module procedure p_msxlid__f__reactpool
     class(t_reactiondata), pointer :: r_
@@ -2759,7 +2765,7 @@ contains
     class(t_msxlid__anon_quality_msxlidreactions_cpp_poolscratchlease), pointer :: lease_
     class(t_msxlid__anon_quality_msxlidreactions_cpp_poolscratchlease), pointer :: zz1
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam883), pointer :: zz2
+    class(t_lam888), pointer :: zz2
     class(cpp_defer), pointer :: zz3
     integer(4) :: zz4
     class(t_msxlid__anon_quality_msxlidreactions_cpp_poolscratch), pointer :: scratch_
@@ -2794,20 +2800,21 @@ contains
     real(8), pointer :: zz18
     class(t_transport_rxworkspace), pointer :: work_
     class(t_transport_rxstepreport), pointer :: result_
-    class(t_transport_rxstepreport), pointer :: zz19
+    type(cpp_ptr_d) :: zz19
+    class(t_transport_rxstepreport), pointer :: zz20
     logical :: valid_
     integer(4) :: s_2_
-    logical :: zz20
     logical :: zz21
     logical :: zz22
-    type(cpp_cptr) :: zz23
-    class(cpp_str), pointer :: zz24
-    class(*), pointer :: zz25
-    class(cpp_vec_o), pointer :: zz26
+    logical :: zz23
+    type(cpp_cptr) :: zz24
+    class(cpp_str), pointer :: zz25
+    class(*), pointer :: zz26
+    class(cpp_vec_o), pointer :: zz27
     integer(4) :: s_3_
-    real(8), pointer :: zz27
-    type(cpp_cptr) :: zz28
-    class(cpp_object), pointer :: zz29
+    real(8), pointer :: zz28
+    type(cpp_cptr) :: zz29
+    class(cpp_object), pointer :: zz30
   r_ => c_%reactions
   ns_ = p_reactiondata__n_species(r_)
   call cpp_vec_d_assign_ul_t(reacted_, int(ns_, 8), 0.0_8)
@@ -2897,36 +2904,37 @@ contains
   work_ => scratch_%workspace
   call p_transport_rxworkspace__init(work_, r_)
   if (associated(cpp_exc)) goto 101
-  zz19 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(r_, forms_, spans_, dt_, cpp_vec_d_data(values_), cpp_ptr_d_new_ta_l(variables_, 0_8), work_, cpp_ptr_d(), cpp_ptr_d(), cpp_ptr_d(), cpp_cspan_o())
+  zz19 = cpp_vec_d_data(values_)
+  zz20 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(r_, forms_, spans_, dt_, zz19, cpp_ptr_d_new_ta_l(variables_, 0_8), work_, cpp_ptr_d(), cpp_ptr_d(), cpp_ptr_d(), cpp_cspan_o())
   if (associated(cpp_exc)) goto 101
-  result_ => zz19
+  result_ => zz20
   valid_ = result_%ok
   s_2_ = 0
   do
     if (.not. ((s_2_ < ns_))) exit
-    zz20 = valid_
-    if (zz20) then
-      zz20 = cpp_double_isfinite(values_%a%a(int(s_2_, 8)))
+    zz21 = valid_
+    if (zz21) then
+      zz21 = cpp_double_isfinite(values_%a%a(int(s_2_, 8)))
     end if
-    zz22 = zz20
-    if (zz22) then
-      zz21 = (values_%a%a(int(s_2_, 8)) >= 0.0_8)
-      if (.not. zz21) then
-        zz21 = (forms_%a%a(int(s_2_, 8)) == 1)
+    zz23 = zz21
+    if (zz23) then
+      zz22 = (values_%a%a(int(s_2_, 8)) >= 0.0_8)
+      if (.not. zz22) then
+        zz22 = (forms_%a%a(int(s_2_, 8)) == 1)
       end if
-      zz22 = zz21
+      zz23 = zz22
     end if
-    valid_ = zz22
+    valid_ = zz23
     s_2_ = (s_2_ + 1)
   end do
   if ((.not. valid_)) then
     if ((.not. r_%warned_react_failure)) then
       r_%warned_react_failure = .true.
-      zz26 => c_%warnings
-      zz23 = cpp_r_lit("LID reaction solve failed; its unreacted inventory was retained.")
-      zz24 => cpp_str_new_cptr(zz23)
-      zz25 => zz24
-      call cpp_vec_o_push_back(zz26, zz25)
+      zz27 => c_%warnings
+      zz24 = cpp_r_lit("LID reaction solve failed; its unreacted inventory was retained.")
+      zz25 => cpp_str_new_cptr(zz24)
+      zz26 => zz25
+      call cpp_vec_o_push_back(zz27, zz26)
     end if
     zres = .false.
     zz4 = 1
@@ -2937,11 +2945,11 @@ contains
     if (.not. ((s_3_ < ns_))) exit
     reacted_%a%a(int(s_3_, 8)) = ((before_%a%a(int(s_3_, 8)) - values_%a%a(int(s_3_, 8))) * volume_)
     clamped_%a%a(int(s_3_, 8)) = (cpp_m_max_d_d(0.0_8, (-values_%a%a(int(s_3_, 8)))) * volume_)
-    zz27 => cpp_ptr_d_item_i(mass_, s_3_)
-    zz27 = (cpp_m_max_d_d(0.0_8, values_%a%a(int(s_3_, 8))) * volume_)
+    zz28 => cpp_ptr_d_item_i(mass_, s_3_)
+    zz28 = (cpp_m_max_d_d(0.0_8, values_%a%a(int(s_3_, 8))) * volume_)
     if ((clamped_%a%a(int(s_3_, 8)) > 0.0_8)) then
-      zz28 = cpp_r_lit("a LID layer")
-      call p_transport__f__notenegativeclamp(c_, zz28)
+      zz29 = cpp_r_lit("a LID layer")
+      call p_transport__f__notenegativeclamp(c_, zz29)
     end if
     s_3_ = (s_3_ + 1)
   end do
@@ -2949,14 +2957,14 @@ contains
   zz4 = 1
   goto 101
   101 continue
-  zz29 => cpp_exc
+  zz30 => cpp_exc
   cpp_exc => null()
   if (associated(x__dtor1_)) then
     call x__dtor1_%dispose()
     if (associated(cpp_exc)) return
   end if
-  if (associated(zz29)) then
-    cpp_exc => zz29
+  if (associated(zz30)) then
+    cpp_exc => zz30
     return
   end if
   if (zz4 == 1) then
@@ -3308,10 +3316,10 @@ contains
   return
   end procedure p_msxlid__anon_quality_msxlidreactions_cpp__f__temper_b1914d0c
 
-  module procedure p_lam884
+  module procedure p_lam889
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam884
+  end procedure p_lam889
 
   module procedure p_msxlid__f__initializeunits
     class(t_reactiondata), pointer :: r_
@@ -3331,7 +3339,7 @@ contains
     class(t_lid_lidgroupsoa), pointer :: zz6
     integer(4) :: u_
     integer(4) :: sc_
-    class(t_lam884), pointer :: zz7
+    class(t_lam889), pointer :: zz7
     type(cpp_iter_b) :: zz8
     type(cpp_iter_b) :: zz9
     logical :: zz10
@@ -3576,61 +3584,62 @@ contains
     integer(4), pointer :: zz43
     integer(8) :: row_
     type(cpp_ptr_d) :: mass_
+    type(cpp_ptr_d) :: zz44
     integer(4) :: sp_2_
-    real(8), pointer :: zz44
-    real(8) :: zz45
+    real(8), pointer :: zz45
+    real(8) :: zz46
     real(8) :: pool_
-    type(cpp_ptr_d) :: zz46
-    real(8), pointer :: zz47
-    real(8) :: zz48
+    type(cpp_ptr_d) :: zz47
+    real(8), pointer :: zz48
+    real(8) :: zz49
     class(cpp_vec_d), pointer :: reacted_
-    class(cpp_vec_d), pointer :: zz49
-    class(cpp_vec_d), pointer :: clamped_
     class(cpp_vec_d), pointer :: zz50
-    type(cpp_ptr_d) :: zz51
-    real(8), pointer :: zz52
-    real(8) :: zz53
+    class(cpp_vec_d), pointer :: clamped_
+    class(cpp_vec_d), pointer :: zz51
+    type(cpp_ptr_d) :: zz52
+    real(8), pointer :: zz53
+    real(8) :: zz54
     real(8) :: temp_
     class(t_lidlayerspeciesstate), pointer :: thermal_
-    logical :: zz54
     logical :: zz55
-    real(8) :: value_
     logical :: zz56
+    real(8) :: value_
+    logical :: zz57
     integer(4) :: sp_3_
     real(8) :: factor_
-    real(8) :: zz57
     real(8) :: zz58
+    real(8) :: zz59
     real(8) :: vs_
     real(8) :: vd_
     real(8) :: vi_
     real(8) :: outgoing_
-    type(cpp_ptr_d) :: zz59
-    real(8), pointer :: zz60
+    type(cpp_ptr_d) :: zz60
+    real(8), pointer :: zz61
     real(8) :: mixed_
-    class(cpp_arr_d), pointer :: zz61
-    type(cpp_ptr_d) :: zz62
-    real(8), pointer :: zz63
-    type(cpp_ptr_d) :: zz64
-    real(8), pointer :: zz65
-    real(8) :: zz66
+    class(cpp_arr_d), pointer :: zz62
+    type(cpp_ptr_d) :: zz63
+    real(8), pointer :: zz64
+    type(cpp_ptr_d) :: zz65
+    real(8), pointer :: zz66
+    real(8) :: zz67
     integer(4) :: sp_4_
     real(8) :: concentration_
-    real(8), pointer :: zz67
-    real(8) :: zz68
+    real(8), pointer :: zz68
+    real(8) :: zz69
     integer(4) :: dest_
-    type(cpp_ptr_i) :: zz69
-    integer(4), pointer :: zz70
-    type(cpp_ptr_d) :: zz71
-    real(8), pointer :: zz72
+    type(cpp_ptr_i) :: zz70
+    integer(4), pointer :: zz71
+    type(cpp_ptr_d) :: zz72
     real(8), pointer :: zz73
-    real(8) :: zz74
+    real(8), pointer :: zz74
     real(8) :: zz75
     real(8) :: zz76
-    real(8), pointer :: zz77
+    real(8) :: zz77
     real(8), pointer :: zz78
-    type(cpp_ptr_d) :: zz79
-    real(8), pointer :: zz80
+    real(8), pointer :: zz79
+    type(cpp_ptr_d) :: zz80
     real(8), pointer :: zz81
+    real(8), pointer :: zz82
   r_ => c_%reactions
   s_ => r_%lid
   zz1 = cpp_vec_i_empty(r_%lid_controls)
@@ -3806,115 +3815,116 @@ contains
           zz43 => cpp_ptr_i_item_i(zz42, k_2_)
           if ((zz43 /= s_transport__f__kabsent)) then
             row_ = (int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8) * int(ns_, 8))
-            mass_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(s_%mass), row_)
+            zz44 = cpp_vec_d_data(s_%mass)
+            mass_ = cpp_ptr_d_op_add_ptrt_l(zz44, row_)
             sp_2_ = 0
             do
               if (.not. ((sp_2_ < ns_))) exit
-              zz44 => cpp_ptr_d_item_i(mass_, sp_2_)
-              zz45 = (zz44 + arrivals_%a%a(int(((k_2_ * ns_) + sp_2_), 8)))
-              zz44 = zz45
+              zz45 => cpp_ptr_d_item_i(mass_, sp_2_)
+              zz46 = (zz45 + arrivals_%a%a(int(((k_2_ * ns_) + sp_2_), 8)))
+              zz45 = zz46
               sp_2_ = (sp_2_ + 1)
             end do
-            zz48 = s_%old_water%a%a(int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8))
-            zz46 = cpp_ptr_d_new_ta_l(incoming_, 0_8)
-            zz47 => cpp_ptr_d_item_i(zz46, k_2_)
-            pool_ = (zz48 + zz47)
-            zz49 => cpp_vec_d_new_0()
-            reacted_ => zz49
+            zz49 = s_%old_water%a%a(int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8))
+            zz47 = cpp_ptr_d_new_ta_l(incoming_, 0_8)
+            zz48 => cpp_ptr_d_item_i(zz47, k_2_)
+            pool_ = (zz49 + zz48)
             zz50 => cpp_vec_d_new_0()
-            clamped_ => zz50
-            zz53 = s_%old_water%a%a(int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8))
-            zz51 = cpp_ptr_d_new_ta_l(water_, 0_8)
-            zz52 => cpp_ptr_d_item_i(zz51, k_2_)
-            if ((cpp_m_max_d_d(zz53, zz52) > 0.0353147_8)) then
+            reacted_ => zz50
+            zz51 => cpp_vec_d_new_0()
+            clamped_ => zz51
+            zz54 = s_%old_water%a%a(int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8))
+            zz52 = cpp_ptr_d_new_ta_l(water_, 0_8)
+            zz53 => cpp_ptr_d_item_i(zz52, k_2_)
+            if ((cpp_m_max_d_d(zz54, zz53) > 0.0353147_8)) then
               temp_ = r_%default_temp_c
               thermal_ => c_%lid_layer_state
-              zz54 = c_%options%heat_transport
-              if (zz54) then
-                zz54 = (flat_ < thermal_%n_units)
-              end if
-              zz55 = zz54
+              zz55 = c_%options%heat_transport
               if (zz55) then
-                zz55 = (thermal_%n_species > 1)
+                zz55 = (flat_ < thermal_%n_units)
               end if
-              if (zz55) then
+              zz56 = zz55
+              if (zz56) then
+                zz56 = (thermal_%n_species > 1)
+              end if
+              if (zz56) then
                 value_ = thermal_%value%a%a(p_lidlayerspeciesstate__layer_index(thermal_, flat_, k_2_, 1))
                 if (cpp_double_isfinite(value_)) then
                   temp_ = value_
                 end if
               end if
-              zz56 = p_msxlid__f__reactpool(c_, control_, (k_2_ + 1), pool_, mass_, dt_, temp_, reacted_, clamped_)
+              zz57 = p_msxlid__f__reactpool(c_, control_, (k_2_ + 1), pool_, mass_, dt_, temp_, reacted_, clamped_)
               if (associated(cpp_exc)) return
               sp_3_ = 0
               do
                 if (.not. ((sp_3_ < ns_))) exit
                 factor_ = (28.317_8 * r_%surface%mcf%a%a(int(sp_3_, 8)))
-                zz57 = (r_%surface%led_reacted%a%a(int(sp_3_, 8)) + (reacted_%a%a(int(sp_3_, 8)) * factor_))
-                r_%surface%led_reacted%a%a(int(sp_3_, 8)) = zz57
-                zz58 = (r_%surface%led_reaction_clamped%a%a(int(sp_3_, 8)) + (clamped_%a%a(int(sp_3_, 8)) * factor_))
-                r_%surface%led_reaction_clamped%a%a(int(sp_3_, 8)) = zz58
+                zz58 = (r_%surface%led_reacted%a%a(int(sp_3_, 8)) + (reacted_%a%a(int(sp_3_, 8)) * factor_))
+                r_%surface%led_reacted%a%a(int(sp_3_, 8)) = zz58
+                zz59 = (r_%surface%led_reaction_clamped%a%a(int(sp_3_, 8)) + (clamped_%a%a(int(sp_3_, 8)) * factor_))
+                r_%surface%led_reaction_clamped%a%a(int(sp_3_, 8)) = zz59
                 sp_3_ = (sp_3_ + 1)
               end do
             end if
             vs_ = merge(surface_, 0.0_8, (k_2_ == surf_layer_))
             vd_ = merge(drain_, 0.0_8, (k_2_ == drain_layer_))
             vi_ = merge(infiltrated_, 0.0_8, (k_2_ == last_))
-            zz59 = cpp_ptr_d_new_ta_l(internal_, 0_8)
-            zz60 => cpp_ptr_d_item_i(zz59, k_2_)
-            outgoing_ = (((zz60 + vs_) + vd_) + vi_)
-            zz61 => cpp_arr_d_new(3_8)
-            zz62 = cpp_ptr_d_new_ta_l(evap_, 0_8)
-            zz63 => cpp_ptr_d_item_i(zz62, k_2_)
-            zz61%a(0) = (pool_ - ((cpp_m_max_d_d(0.0_8, zz63) * area_) * dt_))
-            zz64 = cpp_ptr_d_new_ta_l(water_, 0_8)
-            zz65 => cpp_ptr_d_item_i(zz64, k_2_)
-            zz61%a(1) = (outgoing_ + zz65)
-            zz61%a(2) = outgoing_
-            zz66 = cpp_m_max_da(zz61)
-            mixed_ = zz66
+            zz60 = cpp_ptr_d_new_ta_l(internal_, 0_8)
+            zz61 => cpp_ptr_d_item_i(zz60, k_2_)
+            outgoing_ = (((zz61 + vs_) + vd_) + vi_)
+            zz62 => cpp_arr_d_new(3_8)
+            zz63 = cpp_ptr_d_new_ta_l(evap_, 0_8)
+            zz64 => cpp_ptr_d_item_i(zz63, k_2_)
+            zz62%a(0) = (pool_ - ((cpp_m_max_d_d(0.0_8, zz64) * area_) * dt_))
+            zz65 = cpp_ptr_d_new_ta_l(water_, 0_8)
+            zz66 => cpp_ptr_d_item_i(zz65, k_2_)
+            zz62%a(1) = (outgoing_ + zz66)
+            zz62%a(2) = outgoing_
+            zz67 = cpp_m_max_da(zz62)
+            mixed_ = zz67
             sp_4_ = 0
             do
               if (.not. ((sp_4_ < ns_))) exit
               if ((mixed_ > 0.0_8)) then
-                zz67 => cpp_ptr_d_item_i(mass_, sp_4_)
-                zz68 = (zz67 / mixed_)
+                zz68 => cpp_ptr_d_item_i(mass_, sp_4_)
+                zz69 = (zz68 / mixed_)
               else
-                zz68 = 0.0_8
+                zz69 = 0.0_8
               end if
-              concentration_ = zz68
+              concentration_ = zz69
               dest_ = 0
               do
                 if (.not. ((dest_ < s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits))) exit
-                zz69 = cpp_ptr_i_new_ta_l(donor_, 0_8)
-                zz70 => cpp_ptr_i_item_i(zz69, dest_)
-                if ((zz70 == k_2_)) then
-                  zz73 => arrivals_%a%a(int(((dest_ * ns_) + sp_4_), 8))
-                  zz71 = cpp_ptr_d_new_ta_l(incoming_, 0_8)
-                  zz72 => cpp_ptr_d_item_i(zz71, dest_)
-                  zz74 = (zz73 + (concentration_ * zz72))
-                  zz73 = zz74
+                zz70 = cpp_ptr_i_new_ta_l(donor_, 0_8)
+                zz71 => cpp_ptr_i_item_i(zz70, dest_)
+                if ((zz71 == k_2_)) then
+                  zz74 => arrivals_%a%a(int(((dest_ * ns_) + sp_4_), 8))
+                  zz72 = cpp_ptr_d_new_ta_l(incoming_, 0_8)
+                  zz73 => cpp_ptr_d_item_i(zz72, dest_)
+                  zz75 = (zz74 + (concentration_ * zz73))
+                  zz74 = zz75
                 end if
                 dest_ = (dest_ + 1)
               end do
-              zz75 = (s_%surface_export%a%a(((int(sc_, 8) * int(ns_, 8)) + int(sp_4_, 8))) + (concentration_ * vs_))
-              s_%surface_export%a%a(((int(sc_, 8) * int(ns_, 8)) + int(sp_4_, 8))) = zz75
+              zz76 = (s_%surface_export%a%a(((int(sc_, 8) * int(ns_, 8)) + int(sp_4_, 8))) + (concentration_ * vs_))
+              s_%surface_export%a%a(((int(sc_, 8) * int(ns_, 8)) + int(sp_4_, 8))) = zz76
               if ((k_2_ == surf_layer_)) then
                 s_%surface_conc%a%a(int(((flat_ * ns_) + sp_4_), 8)) = merge(concentration_, 0.0_8, (surface_ > 0.0_8))
               end if
               if ((k_2_ == drain_layer_)) then
                 s_%drain_conc%a%a(int(((flat_ * ns_) + sp_4_), 8)) = merge(concentration_, 0.0_8, (drain_ > 0.0_8))
               end if
-              zz76 = (r_%surface%led_infil_loss%a%a(int(sp_4_, 8)) + (((concentration_ * vi_) * 28.317_8) * r_%surface%mcf%a%a(int(sp_4_, 8))))
-              r_%surface%led_infil_loss%a%a(int(sp_4_, 8)) = zz76
-              zz77 => cpp_ptr_d_item_i(mass_, sp_4_)
+              zz77 = (r_%surface%led_infil_loss%a%a(int(sp_4_, 8)) + (((concentration_ * vi_) * 28.317_8) * r_%surface%mcf%a%a(int(sp_4_, 8))))
+              r_%surface%led_infil_loss%a%a(int(sp_4_, 8)) = zz77
               zz78 => cpp_ptr_d_item_i(mass_, sp_4_)
-              zz77 = cpp_m_max_d_d(0.0_8, (zz78 - (concentration_ * outgoing_)))
+              zz79 => cpp_ptr_d_item_i(mass_, sp_4_)
+              zz78 = cpp_m_max_d_d(0.0_8, (zz79 - (concentration_ * outgoing_)))
               sp_4_ = (sp_4_ + 1)
             end do
-            zz81 => s_%old_water%a%a(int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8))
-            zz79 = cpp_ptr_d_new_ta_l(water_, 0_8)
-            zz80 => cpp_ptr_d_item_i(zz79, k_2_)
-            zz81 = zz80
+            zz82 => s_%old_water%a%a(int(((flat_ * s_msxlid__anon_quality_msxlidunits_cpp__f__layers_msxlidunits) + k_2_), 8))
+            zz80 = cpp_ptr_d_new_ta_l(water_, 0_8)
+            zz81 => cpp_ptr_d_item_i(zz80, k_2_)
+            zz82 = zz81
           end if
           k_2_ = (k_2_ + 1)
         end do
@@ -3968,6 +3978,7 @@ contains
     logical :: zz1
     integer(8) :: k_
     type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d) :: zz3
   r_ => c_%reactions
   zz1 = ((.not. p_reactiondata__lid_enabled(r_, control_)) .or. (type_ < 0))
   if (.not. zz1) then
@@ -3979,11 +3990,12 @@ contains
   end if
   k_ = (int((r_%lid%group_offsets%a%a(int(type_, 8)) + unit_), 8) * int(p_reactiondata__n_species(r_), 8))
   if ((ieor((k_ + int(p_reactiondata__n_species(r_), 8)), (-9223372036854775807_8 - 1_8)) <= ieor(cpp_vec_d_size(r_%lid%drain_conc), (-9223372036854775807_8 - 1_8)))) then
-    zz2 = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(r_%lid%drain_conc), k_)
+    zz2 = cpp_vec_d_data(r_%lid%drain_conc)
+    zz3 = cpp_ptr_d_op_add_ptrt_l(zz2, k_)
   else
-    zz2 = cpp_ptr_d()
+    zz3 = cpp_ptr_d()
   end if
-  zres = zz2
+  zres = zz3
   return
   end procedure p_msxlid__f__drainvalues
 
@@ -4228,20 +4240,20 @@ contains
   end do
   end procedure p_msxsurf__f__initstate
 
-  module procedure p_lam885
+  module procedure p_lam890
     class(*), pointer :: zz1
   zz1 => self%c_lease
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam885
+  end procedure p_lam890
 
   module procedure p_msxsurf__f__step
     class(t_msxsurfacedata), pointer :: s_
     class(t_msxsurf__anon_quality_msxsurfacequality_cpp_surface_9fd1b2c0), pointer :: lease_
     class(t_msxsurf__anon_quality_msxsurfacequality_cpp_surface_9fd1b2c0), pointer :: zz1
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam885), pointer :: zz2
+    class(t_lam890), pointer :: zz2
     class(cpp_defer), pointer :: zz3
     integer(4) :: zz4
     class(t_msxsurf__anon_quality_msxsurfacequality_cpp_surfacescratch), pointer :: scratch_
@@ -4303,13 +4315,13 @@ contains
   end if
   end procedure p_msxsurf__f__step
 
-  module procedure p_lam886
+  module procedure p_lam891
     class(*), pointer :: zz1
   zz1 => self%c_lease
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam886
+  end procedure p_lam891
 
   module procedure p_msxsurf__f__bookpostlid
     class(t_msxsurfacedata), pointer :: s_
@@ -4317,7 +4329,7 @@ contains
     class(t_msxsurf__anon_quality_msxsurfacequality_cpp_surface_9fd1b2c0), pointer :: lease_
     class(t_msxsurf__anon_quality_msxsurfacequality_cpp_surface_9fd1b2c0), pointer :: zz2
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam886), pointer :: zz3
+    class(t_lam891), pointer :: zz3
     class(cpp_defer), pointer :: zz4
     integer(4) :: zz5
     class(t_msxsurf__anon_quality_msxsurfacequality_cpp_surfacescratch), pointer :: scratch_
@@ -5714,7 +5726,7 @@ contains
   return
   end procedure p_msxsurf__anon_quality_msxsurfacequality_cpp__f__app_d6cef5f8
 
-  module procedure p_lam887
+  module procedure p_lam892
     integer(4) :: m_2_
     class(cpp_str), pointer :: zz1
     class(t_reactiondata), pointer :: zz2
@@ -5780,9 +5792,9 @@ contains
   end if
   zres = m_2_
   return
-  end procedure p_lam887
+  end procedure p_lam892
 
-  module procedure p_lam888
+  module procedure p_lam893
     integer(4) :: lu_
     class(cpp_str), pointer :: zz1
     class(t_nameindex), pointer :: zz2
@@ -5816,7 +5828,7 @@ contains
   end if
   zres = lu_
   return
-  end procedure p_lam888
+  end procedure p_lam893
 
   module procedure p_msxsurf__anon_quality_msxsurfacequality_cpp__f__res_2e779c8b
     type(cpp_slot), pointer :: warnings_
@@ -5881,9 +5893,9 @@ contains
     real(8) :: zz40
     real(8), pointer :: zz41
     class(t_fn259), pointer :: species_
-    class(t_lam887), pointer :: zz42
+    class(t_lam892), pointer :: zz42
     class(t_fn259), pointer :: landuse_
-    class(t_lam888), pointer :: zz43
+    class(t_lam893), pointer :: zz43
     logical :: any_
     class(cpp_vec_o), pointer :: x__r7_
     integer(8) :: x__i8_

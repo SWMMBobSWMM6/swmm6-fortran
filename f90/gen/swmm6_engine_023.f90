@@ -5940,26 +5940,35 @@ contains
     class(cpp_arr_d), pointer :: p_
     class(cpp_arr_d), pointer :: zz10
     integer(4) :: zz11
+    type(cpp_ptr_o) :: zz12
+    class(t_xsectgroups), pointer :: zz13
     class(cpp_vec_i), pointer :: sorted_
-    class(cpp_vec_i), pointer :: zz12
+    class(cpp_vec_i), pointer :: zz14
     class(cpp_vec_i), pointer :: divert_
-    class(cpp_vec_i), pointer :: zz13
+    class(cpp_vec_i), pointer :: zz15
     integer(4) :: n_sorted_
-    integer(4) :: zz14
+    type(cpp_ptr_i) :: zz16
+    type(cpp_ptr_i) :: zz17
+    type(cpp_ptr_i) :: zz18
+    integer(4) :: zz19
     real(8) :: ucf_len_
-    type(cpp_ptr_o) :: zz15
-    type(cpp_slot), pointer :: zz16
-    class(cpp_arr_d), pointer :: zz17
-    type(cpp_ptr_d) :: zz18
-    real(8), pointer :: zz19
-    real(8) :: zz20
-    real(8), pointer :: zz21
-    integer(4), pointer :: zz22
-    integer(4), pointer :: zz23
+    type(cpp_ptr_o) :: zz20
+    type(cpp_slot), pointer :: zz21
+    class(cpp_arr_d), pointer :: zz22
+    type(cpp_ptr_d) :: zz23
+    real(8), pointer :: zz24
+    real(8) :: zz25
+    real(8), pointer :: zz26
+    integer(4), pointer :: zz27
+    integer(4), pointer :: zz28
     class(cpp_vec_i), pointer :: divert_2_
-    class(cpp_vec_i), pointer :: zz24
+    class(cpp_vec_i), pointer :: zz29
     integer(4) :: n_sorted_2_
-    integer(4) :: zz25
+    type(cpp_ptr_i) :: zz30
+    type(cpp_ptr_i) :: zz31
+    type(cpp_ptr_i) :: zz32
+    class(cpp_vec_i), pointer :: zz33
+    integer(4) :: zz34
   self%checkpoint_context_ => null()
   self%checkpoint_owned_session_ = .false.
   call cpp_str_clear(self%checkpoint_model_)
@@ -6022,7 +6031,9 @@ contains
   end do
   call p__f__applyconduitlengthening(ctx_, model_)
   if (associated(cpp_exc)) return
-  call p_xsectgroups__build(self%groups_, cpp_vec_o_data(xsect_params_), n_links_)
+  zz13 => self%groups_
+  zz12 = cpp_vec_o_data(xsect_params_)
+  call p_xsectgroups__build(zz13, zz12, n_links_)
   call p_xsectgroups__attachtransecttables(self%groups_, ctx_)
   if (associated(cpp_exc)) return
   call p_outfall__f__buildoutfalllinkmap(ctx_)
@@ -6032,14 +6043,17 @@ contains
   case (1)
     call p_kinwave_kwsolver__init(self%kw_solver_, n_links_, self%groups_)
     if (associated(cpp_exc)) return
-    zz12 => cpp_vec_i_new_0()
-    sorted_ => zz12
-    zz13 => p__f__builddivertlinks_routing(ctx_)
+    zz14 => cpp_vec_i_new_0()
+    sorted_ => zz14
+    zz15 => p__f__builddivertlinks_routing(ctx_)
     if (associated(cpp_exc)) return
-    divert_ => zz13
-    zz14 = p_toposort__f__sortlinks(cpp_vec_i_data(ctx_%links%node1), cpp_vec_i_data(ctx_%links%node2), n_links_, n_nodes_, sorted_, cpp_vec_i_data(divert_))
+    divert_ => zz15
+    zz16 = cpp_vec_i_data(ctx_%links%node1)
+    zz17 = cpp_vec_i_data(ctx_%links%node2)
+    zz18 = cpp_vec_i_data(divert_)
+    zz19 = p_toposort__f__sortlinks(zz16, zz17, n_links_, n_nodes_, sorted_, zz18)
     if (associated(cpp_exc)) return
-    n_sorted_ = zz14
+    n_sorted_ = zz19
     if ((n_sorted_ < n_links_)) then
       self%cycle_detected_ = .true.
     end if
@@ -6047,26 +6061,26 @@ contains
     if (associated(cpp_exc)) return
     goto 103
   case (2)
-    zz15 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-    zz16 => cpp_ptr_o_item_l(zz15, 3_8)
-    zz17 => h_uas_cpp_arr_d(zz16%p)
-    zz18 = cpp_ptr_d_new_ta_l(zz17, 0_8)
-    zz19 => cpp_ptr_d_item_i(zz18, p_ucf__f__getunitsystem(ctx_%options%flow_units))
-    ucf_len_ = zz19
-    zz21 => self%dw_solver_%head_tol
+    zz20 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+    zz21 => cpp_ptr_o_item_l(zz20, 3_8)
+    zz22 => h_uas_cpp_arr_d(zz21%p)
+    zz23 = cpp_ptr_d_new_ta_l(zz22, 0_8)
+    zz24 => cpp_ptr_d_item_i(zz23, p_ucf__f__getunitsystem(ctx_%options%flow_units))
+    ucf_len_ = zz24
+    zz26 => self%dw_solver_%head_tol
     if ((ctx_%options%head_tol == 0.0_8)) then
-      zz20 = s_constants__f__default_head_tol
+      zz25 = s_constants__f__default_head_tol
     else
-      zz20 = (ctx_%options%head_tol / ucf_len_)
+      zz25 = (ctx_%options%head_tol / ucf_len_)
     end if
-    zz21 = zz20
-    zz23 => self%dw_solver_%max_trials
+    zz26 = zz25
+    zz28 => self%dw_solver_%max_trials
     if ((ctx_%options%max_trials > 0)) then
-      zz22 => ctx_%options%max_trials
+      zz27 => ctx_%options%max_trials
     else
-      zz22 => s_constants__f__default_max_trials
+      zz27 => s_constants__f__default_max_trials
     end if
-    zz23 = zz22
+    zz28 = zz27
     self%dw_solver_%surcharge_method = ctx_%options%surcharge_method
     self%dw_solver_%node_continuity = ctx_%options%node_continuity
     self%dw_solver_%anderson_accel = ctx_%options%anderson_accel
@@ -6081,12 +6095,16 @@ contains
     if (associated(cpp_exc)) return
     goto 103
   case (0)
-    zz24 => p__f__builddivertlinks_routing(ctx_)
+    zz29 => p__f__builddivertlinks_routing(ctx_)
     if (associated(cpp_exc)) return
-    divert_2_ => zz24
-    zz25 = p_toposort__f__sortlinks(cpp_vec_i_data(ctx_%links%node1), cpp_vec_i_data(ctx_%links%node2), n_links_, n_nodes_, self%steady_sorted_links_, cpp_vec_i_data(divert_2_))
+    divert_2_ => zz29
+    zz30 = cpp_vec_i_data(ctx_%links%node1)
+    zz31 = cpp_vec_i_data(ctx_%links%node2)
+    zz33 => self%steady_sorted_links_
+    zz32 = cpp_vec_i_data(divert_2_)
+    zz34 = p_toposort__f__sortlinks(zz30, zz31, n_links_, n_nodes_, zz33, zz32)
     if (associated(cpp_exc)) return
-    n_sorted_2_ = zz25
+    n_sorted_2_ = zz34
     if ((n_sorted_2_ < n_links_)) then
       self%cycle_detected_ = .true.
     end if
@@ -6144,280 +6162,5 @@ contains
   end if
   return
   end procedure p_lam271
-
-  module procedure p_lam272
-  zres = (self%c_nn + int(self%c_this%fv_mesh_%conduit_link%a%a(int(self%c_this%fv_mesh_%cell_conduit%a%a(int(a1, 8)), 8)), 8))
-  return
-  end procedure p_lam272
-
-  module procedure p_router__acceptedqualitywater
-    class(t_fv_explicitfvsolver), pointer :: native_
-    class(t_fv_explicitfvsolver), pointer :: zz1
-    class(t_fv_acceptedwatervolumes), pointer :: zz2
-    logical :: zz3
-    integer(8) :: nn_
-    integer(8) :: nl_
-    integer(8) :: n_
-    class(t_quality_mixingwater), pointer :: w_
-    class(t_fv_acceptedwatervolumes), pointer :: r_
-    class(t_fv_acceptedwatervolumes), pointer :: zz4
-    integer(8) :: i_
-    integer(4) :: row_
-    class(t_storagedata), pointer :: st_
-    class(cpp_vec_d), pointer :: zz5
-    real(8), pointer :: zz6
-    class(cpp_vec_d), pointer :: zz7
-    real(8), pointer :: zz8
-    logical :: zz9
-    class(t_quality_boundarywaterimport), pointer :: zz10
-    class(*), pointer :: zz11
-    class(cpp_vec_o), pointer :: zz12
-    real(8) :: zz13
-    integer(8) :: j_
-    logical :: zz14
-    integer(4) :: cr_
-    class(t_conduitdata), pointer :: cd_
-    class(t_fn111), pointer :: transfer_
-    class(t_lam271), pointer :: zz15
-    class(t_fn112), pointer :: cellcv_
-    class(t_lam272), pointer :: zz16
-    integer(4) :: f_
-    integer(4), target :: cl_
-    integer(4), target :: cr_2_
-    integer(4) :: nd_
-    integer(4) :: vj_
-    logical :: zz17
-    integer(8) :: zz18
-    integer(8) :: zz19
-    integer(8) :: zz20
-    integer(8) :: zz21
-    integer(8) :: left_
-    integer(8) :: zz22
-    integer(8) :: zz23
-    integer(8) :: right_
-    integer(8) :: zz24
-    integer(8) :: zz25
-    integer(4) :: side_
-    integer(4) :: c_2_
-    integer(4), pointer :: zz26
-    real(8) :: v_2_
-    real(8), pointer :: zz27
-    integer(8) :: zz28
-    integer(8) :: zz29
-    integer(8) :: zz30
-    integer(4), pointer :: zz31
-    integer(8) :: zz32
-    integer(8) :: i_2_
-  out_%ready = .false.
-  zz1 => h_as_fv_explicitfvsolver(self%fv_solver_)
-  native_ => zz1
-  zz3 = ((.not. (.not. (.not. associated(native_)))) .or. (dt_ <= 0.0_8))
-  if (.not. zz3) then
-    zz2 => p_fv_explicitfvsolver__acceptedwater(native_)
-    zz3 = cpp_vec_d_empty(zz2%face_forward)
-  end if
-  if (zz3) then
-    return
-  end if
-  nn_ = int(p_simulationcontext__n_nodes(ctx_), 8)
-  nl_ = int(p_simulationcontext__n_links(ctx_), 8)
-  n_ = (nn_ + nl_)
-  w_ => out_%water
-  zz4 => p_fv_explicitfvsolver__acceptedwater(native_)
-  r_ => zz4
-  call cpp_vec_d_assign_ul_t(w_%old_volume, n_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(w_%new_volume, n_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(w_%source_volume, n_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(w_%exported, n_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(w_%seeped, n_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(w_%evaporated, n_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_o_clear(w_%transfers)
-  call cpp_vec_o_clear(out_%boundary_imports)
-  call cpp_vec_d_assign_ul_t(out_%withdrawal, nn_, 0.0_8)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_ul_t(out_%flooding, nn_, 0.0_8)
-  if (associated(cpp_exc)) return
-  i_ = 0_8
-  do
-    if (.not. ((ieor(i_, (-9223372036854775807_8 - 1_8)) < ieor(nn_, (-9223372036854775807_8 - 1_8))))) exit
-    if ((ctx_%nodes%type%a%a(i_) /= 1_1)) then
-      w_%old_volume%a%a(i_) = ctx_%nodes%old_volume%a%a(i_)
-      w_%new_volume%a%a(i_) = ctx_%nodes%volume%a%a(i_)
-    end if
-    row_ = p_nodesubtypes__storage_row(ctx_%node_subtypes, int(i_, 4))
-    if ((row_ >= 0)) then
-      st_ => ctx_%node_subtypes%storages
-      w_%seeped%a%a(i_) = st_%exfil_loss%a%a(int(row_, 8))
-      w_%evaporated%a%a(i_) = st_%evap_loss%a%a(int(row_, 8))
-    end if
-    if ((.not. (iand(int(self%fv_mesh_%node_can_pond%a%a(i_), 4), 255_4) /= 0))) then
-      zz6 => out_%flooding%a%a(i_)
-      zz5 => p_fv_explicitfvsolver__node_flood_volume(native_)
-      zz6 = zz5%a%a(i_)
-    end if
-    zz8 => out_%withdrawal%a%a(i_)
-    zz7 => p_fv_explicitfvsolver__withdrawalrates__v_t2(native_)
-    zz8 = (zz7%a%a(i_) * dt_)
-    zz9 = (ctx_%nodes%type%a%a(i_) == 1_1)
-    if (zz9) then
-      zz9 = (out_%withdrawal%a%a(i_) > 0.0_8)
-    end if
-    if (zz9) then
-      zz12 => out_%boundary_imports
-      allocate(zz10)
-      call p_quality_boundarywaterimport__ctor_x(zz10)
-      zz10%node = i_
-      zz10%receiver = i_
-      zz10%volume = out_%withdrawal%a%a(i_)
-      zz11 => zz10
-      call cpp_vec_o_push_back(zz12, zz11)
-      zz13 = (w_%source_volume%a%a(i_) + out_%withdrawal%a%a(i_))
-      w_%source_volume%a%a(i_) = zz13
-    end if
-    w_%exported%a%a(i_) = (out_%withdrawal%a%a(i_) + out_%flooding%a%a(i_))
-    i_ = (i_ + 1_8)
-  end do
-  j_ = 0_8
-  do
-    if (.not. ((ieor(j_, (-9223372036854775807_8 - 1_8)) < ieor(nl_, (-9223372036854775807_8 - 1_8))))) exit
-    zz14 = (ctx_%links%type%a%a(j_) /= 0_1)
-    if (.not. zz14) then
-      zz14 = (ctx_%links%xsect_shape%a%a(j_) == 25_2)
-    end if
-    if (zz14) then
-      goto 104
-    end if
-    w_%old_volume%a%a((nn_ + j_)) = ctx_%links%old_volume%a%a(j_)
-    w_%new_volume%a%a((nn_ + j_)) = ctx_%links%volume%a%a(j_)
-    cr_ = p_linksubtypes__conduit_row(ctx_%link_subtypes, int(j_, 4))
-    if ((cr_ >= 0)) then
-      cd_ => ctx_%link_subtypes%conduits
-      w_%seeped%a%a((nn_ + j_)) = ((cpp_m_max_d_d(0.0_8, cd_%seep_loss_rate%a%a(int(cr_, 8))) * real(cpp_m_max_i_i(1, cd_%barrels%a%a(int(cr_, 8))), 8)) * dt_)
-      w_%evaporated%a%a((nn_ + j_)) = ((cpp_m_max_d_d(0.0_8, cd_%evap_loss_rate%a%a(int(cr_, 8))) * real(cpp_m_max_i_i(1, cd_%barrels%a%a(int(cr_, 8))), 8)) * dt_)
-    end if
-    104 continue
-    j_ = (j_ + 1_8)
-  end do
-  allocate(zz15)
-  zz15%c_nn = nn_
-  zz15%c_ctx => ctx_
-  zz15%c_out => out_
-  zz15%c_w => w_
-  transfer_ => zz15
-  allocate(zz16)
-  zz16%c_nn = nn_
-  zz16%c_this => self
-  cellcv_ => zz16
-  f_ = 0
-  do
-    if (.not. ((f_ < p_fv_networkmeshdata__n_faces(self%fv_mesh_)))) exit
-    cl_ = self%fv_mesh_%face_cl%a%a(int(f_, 8))
-    cr_2_ = self%fv_mesh_%face_cr%a%a(int(f_, 8))
-    nd_ = self%fv_mesh_%face_node%a%a(int(f_, 8))
-    vj_ = self%fv_mesh_%face_vj_node%a%a(int(f_, 8))
-    zz17 = ((cl_ >= 0) .and. (cr_2_ >= 0))
-    if (zz17) then
-      zz17 = (self%fv_mesh_%cell_conduit%a%a(int(cl_, 8)) == self%fv_mesh_%cell_conduit%a%a(int(cr_2_, 8)))
-    end if
-    if (zz17) then
-      goto 106
-    end if
-    if ((vj_ >= 0)) then
-      zz18 = cellcv_%invoke(cl_)
-      call transfer_%invoke(zz18, int(vj_, 8), r_%face_forward%a%a(int(f_, 8)))
-      if (associated(cpp_exc)) return
-      zz19 = cellcv_%invoke(cr_2_)
-      call transfer_%invoke(int(vj_, 8), zz19, r_%face_forward%a%a(int(f_, 8)))
-      if (associated(cpp_exc)) return
-      zz20 = cellcv_%invoke(cr_2_)
-      call transfer_%invoke(zz20, int(vj_, 8), r_%face_reverse%a%a(int(f_, 8)))
-      if (associated(cpp_exc)) return
-      zz21 = cellcv_%invoke(cl_)
-      call transfer_%invoke(int(vj_, 8), zz21, r_%face_reverse%a%a(int(f_, 8)))
-      if (associated(cpp_exc)) return
-      nd_ = vj_
-    else if ((nd_ >= 0)) then
-      if ((cl_ >= 0)) then
-        zz22 = cellcv_%invoke(cl_)
-        zz23 = zz22
-      else
-        zz23 = int(nd_, 8)
-      end if
-      left_ = zz23
-      if ((cr_2_ >= 0)) then
-        zz24 = cellcv_%invoke(cr_2_)
-        zz25 = zz24
-      else
-        zz25 = int(nd_, 8)
-      end if
-      right_ = zz25
-      call transfer_%invoke(left_, right_, r_%face_forward%a%a(int(f_, 8)))
-      if (associated(cpp_exc)) return
-      call transfer_%invoke(right_, left_, r_%face_reverse%a%a(int(f_, 8)))
-      if (associated(cpp_exc)) return
-    end if
-    if ((nd_ >= 0)) then
-      side_ = 0
-      do
-        if (.not. ((side_ < 2))) exit
-        if ((side_ /= 0)) then
-          zz26 => cr_2_
-        else
-          zz26 => cl_
-        end if
-        c_2_ = zz26
-        if ((c_2_ < 0)) then
-          goto 108
-        end if
-        if ((side_ /= 0)) then
-          zz27 => r_%face_lateral_right%a%a(int(f_, 8))
-        else
-          zz27 => r_%face_lateral_left%a%a(int(f_, 8))
-        end if
-        v_2_ = zz27
-        if ((v_2_ >= 0.0_8)) then
-          zz29 = int(nd_, 8)
-          zz28 = cellcv_%invoke(c_2_)
-          call transfer_%invoke(zz29, zz28, v_2_)
-          if (associated(cpp_exc)) return
-        else
-          zz30 = cellcv_%invoke(c_2_)
-          call transfer_%invoke(zz30, int(nd_, 8), (-v_2_))
-          if (associated(cpp_exc)) return
-        end if
-        108 continue
-        side_ = (side_ + 1)
-      end do
-      if ((r_%face_spill%a%a(int(f_, 8)) > 0.0_8)) then
-        if ((cl_ >= 0)) then
-          zz31 => cl_
-        else
-          zz31 => cr_2_
-        end if
-        zz32 = cellcv_%invoke(zz31)
-        call transfer_%invoke(zz32, int(nd_, 8), r_%face_spill%a%a(int(f_, 8)))
-        if (associated(cpp_exc)) return
-      end if
-    end if
-    106 continue
-    f_ = (f_ + 1)
-  end do
-  i_2_ = 0_8
-  do
-    if (.not. ((ieor(i_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(self%fv_mesh_%struct_link), (-9223372036854775807_8 - 1_8))))) exit
-    call transfer_%invoke(int(self%fv_mesh_%struct_n1%a%a(i_2_), 8), int(self%fv_mesh_%struct_n2%a%a(i_2_), 8), r_%structure_forward%a%a(i_2_))
-    if (associated(cpp_exc)) return
-    call transfer_%invoke(int(self%fv_mesh_%struct_n2%a%a(i_2_), 8), int(self%fv_mesh_%struct_n1%a%a(i_2_), 8), r_%structure_reverse%a%a(i_2_))
-    if (associated(cpp_exc)) return
-    i_2_ = (i_2_ + 1_8)
-  end do
-  out_%ready = .true.
-  end procedure p_router__acceptedqualitywater
 
 end submodule swmm6_engine_023

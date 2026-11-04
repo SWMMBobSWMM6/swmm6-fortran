@@ -4,6 +4,43 @@ submodule (swmm6_engine) swmm6_engine_053
   implicit none
 contains
 
+  module procedure p_treatment__f__precedence_treatment
+  select case (t_)
+  case (2, 3)
+    zres = 1
+    return
+  case (4, 5)
+    zres = 2
+    return
+  case (6)
+    zres = 3
+    return
+  case (7)
+    zres = 4
+    return
+  case default
+    zres = 0
+    return
+  end select
+  end procedure p_treatment__f__precedence_treatment
+
+  module procedure p_treatment__f__isfunction_treatment
+    integer(4) :: v_
+  v_ = t_
+  zres = ((v_ >= 8) .and. (v_ <= 15))
+  return
+  end procedure p_treatment__f__isfunction_treatment
+
+  module procedure p_treatment__f__isoperator_treatment
+  zres = ((((((t_ == 2) .or. (t_ == 3)) .or. (t_ == 4)) .or. (t_ == 5)) .or. (t_ == 6)) .or. (t_ == 7))
+  return
+  end procedure p_treatment__f__isoperator_treatment
+
+  module procedure p_treatment__f__isrightassoc_treatment
+  zres = ((t_ == 6) .or. (t_ == 7))
+  return
+  end procedure p_treatment__f__isrightassoc_treatment
+
   module procedure p_treatment__f__tokenize_treatment
     class(cpp_vec_o), pointer :: tokens_
     class(cpp_vec_o), pointer :: zz1
@@ -1357,13 +1394,16 @@ contains
     class(cpp_vec_d), pointer :: zz6
     integer(4) :: link_
     real(8) :: volume_
-    class(t_channelthermalregion), pointer :: zz7
-    class(*), pointer :: zz8
-    class(cpp_vec_o), pointer :: zz9
-    type(cpp_slot), pointer :: zz10
-    class(t_channelthermalregion), pointer :: zz11
+    type(cpp_ptr_d) :: zz7
+    class(t_lard_segmentstore), pointer :: zz8
+    integer(4) :: zz9
+    class(t_channelthermalregion), pointer :: zz10
+    class(*), pointer :: zz11
     class(cpp_vec_o), pointer :: zz12
-    class(cpp_vec_o), pointer :: zz13
+    type(cpp_slot), pointer :: zz13
+    class(t_channelthermalregion), pointer :: zz14
+    class(cpp_vec_o), pointer :: zz15
+    class(cpp_vec_o), pointer :: zz16
   zres => null()
   zz1 => cpp_vec_o_new_0(h_mk_channelthermalregion, 2)
   out_ => zz1
@@ -1389,28 +1429,31 @@ contains
     if ((.not. (volume_ > 0.0_8))) then
       goto 102
     end if
-    call p_lard_segmentstore__mean_conc(self%store_, link_, cpp_vec_d_data(mean_))
-    zz9 => out_
-    allocate(zz7)
-    call p_channelthermalregion__ctor_x(zz7)
-    zz7%link = link_
-    zz7%region = 0
-    zz7%begin = 0.0_8
-    zz7%end = 1.0_8
-    zz7%volume = volume_
-    zz7%temperature = mean_%a%a(int(layout_%temp_row, 8))
-    zz8 => zz7
-    call cpp_vec_o_push_back(zz9, zz8)
-    zz10 => cpp_vec_o_back(out_)
-    zz11 => h_uas_channelthermalregion(zz10%p)
-    call p_transport_heat__f__fillchannelthermalgeometry(ctx_, zz11)
+    zz8 => self%store_
+    zz9 = link_
+    zz7 = cpp_vec_d_data(mean_)
+    call p_lard_segmentstore__mean_conc(zz8, zz9, zz7)
+    zz12 => out_
+    allocate(zz10)
+    call p_channelthermalregion__ctor_x(zz10)
+    zz10%link = link_
+    zz10%region = 0
+    zz10%begin = 0.0_8
+    zz10%end = 1.0_8
+    zz10%volume = volume_
+    zz10%temperature = mean_%a%a(int(layout_%temp_row, 8))
+    zz11 => zz10
+    call cpp_vec_o_push_back(zz12, zz11)
+    zz13 => cpp_vec_o_back(out_)
+    zz14 => h_uas_channelthermalregion(zz13%p)
+    call p_transport_heat__f__fillchannelthermalgeometry(ctx_, zz14)
     102 continue
     link_ = (link_ + 1)
   end do
-  zz12 => out_
-  zz13 => h_new_cpp_vec_o_channelthermalregion()
-  out_ => zz13
-  zres => zz12
+  zz15 => out_
+  zz16 => h_new_cpp_vec_o_channelthermalregion()
+  out_ => zz16
+  zres => zz15
   return
   end procedure p_lard_lagrangiansolver__thermalregions
 
@@ -1426,36 +1469,39 @@ contains
     class(cpp_vec_d), pointer :: zz6
     integer(4) :: link_
     real(8) :: volume_
+    type(cpp_ptr_d) :: zz7
+    class(t_lard_segmentstore), pointer :: zz8
+    integer(4) :: zz9
     class(t_channelspeciesregion), pointer :: region_
-    class(t_channelspeciesregion), pointer :: zz7
+    class(t_channelspeciesregion), pointer :: zz10
     integer(4) :: p_
-    class(cpp_str), pointer :: zz8
-    class(cpp_str), pointer :: zz9
-    class(*), pointer :: zz10
-    class(cpp_vec_o), pointer :: zz11
-    type(cpp_cptr) :: zz12
-    class(cpp_str), pointer :: zz13
-    class(*), pointer :: zz14
-    class(cpp_vec_o), pointer :: zz15
-    type(cpp_slot), pointer :: zz16
-    class(cpp_str), pointer :: zz17
-    type(cpp_cptr) :: zz18
-    class(cpp_str), pointer :: zz19
-    class(*), pointer :: zz20
-    class(cpp_vec_o), pointer :: zz21
-    type(cpp_slot), pointer :: zz22
-    class(cpp_str), pointer :: zz23
+    class(cpp_str), pointer :: zz11
+    class(cpp_str), pointer :: zz12
+    class(*), pointer :: zz13
+    class(cpp_vec_o), pointer :: zz14
+    type(cpp_cptr) :: zz15
+    class(cpp_str), pointer :: zz16
+    class(*), pointer :: zz17
+    class(cpp_vec_o), pointer :: zz18
+    type(cpp_slot), pointer :: zz19
+    class(cpp_str), pointer :: zz20
+    type(cpp_cptr) :: zz21
+    class(cpp_str), pointer :: zz22
+    class(*), pointer :: zz23
+    class(cpp_vec_o), pointer :: zz24
+    type(cpp_slot), pointer :: zz25
+    class(cpp_str), pointer :: zz26
     integer(4) :: row_
-    class(cpp_str), pointer :: zz24
-    class(cpp_str), pointer :: zz25
-    class(*), pointer :: zz26
-    class(cpp_vec_o), pointer :: zz27
-    class(t_channelspeciesregion), pointer :: zz28
-    class(t_channelspeciesregion), pointer :: zz29
-    class(*), pointer :: zz30
-    class(cpp_vec_o), pointer :: zz31
-    class(cpp_vec_o), pointer :: zz32
-    class(cpp_vec_o), pointer :: zz33
+    class(cpp_str), pointer :: zz27
+    class(cpp_str), pointer :: zz28
+    class(*), pointer :: zz29
+    class(cpp_vec_o), pointer :: zz30
+    class(t_channelspeciesregion), pointer :: zz31
+    class(t_channelspeciesregion), pointer :: zz32
+    class(*), pointer :: zz33
+    class(cpp_vec_o), pointer :: zz34
+    class(cpp_vec_o), pointer :: zz35
+    class(cpp_vec_o), pointer :: zz36
   zres => null()
   zz1 => cpp_vec_o_new_0(h_mk_channelspeciesregion, 2)
   out_ => zz1
@@ -1481,67 +1527,70 @@ contains
     if ((.not. (volume_ > 0.0_8))) then
       goto 102
     end if
-    call p_lard_segmentstore__mean_conc(self%store_, link_, cpp_vec_d_data(mean_))
-    allocate(zz7)
-    call p_channelspeciesregion__ctor_x(zz7)
-    region_ => zz7
+    zz8 => self%store_
+    zz9 = link_
+    zz7 = cpp_vec_d_data(mean_)
+    call p_lard_segmentstore__mean_conc(zz8, zz9, zz7)
+    allocate(zz10)
+    call p_channelspeciesregion__ctor_x(zz10)
+    region_ => zz10
     region_%link = link_
     region_%region = 0
     region_%volume = volume_
     p_ = 0
     do
       if (.not. ((p_ < layout_%np))) exit
-      zz11 => region_%row_names
-      zz8 => p_nameindex__name_of(ctx_%pollutant_names, p_)
+      zz14 => region_%row_names
+      zz11 => p_nameindex__name_of(ctx_%pollutant_names, p_)
       if (associated(cpp_exc)) return
-      zz9 => cpp_str_clone(zz8)
-      zz10 => zz9
-      call cpp_vec_o_push_back(zz11, zz10)
+      zz12 => cpp_str_clone(zz11)
+      zz13 => zz12
+      call cpp_vec_o_push_back(zz14, zz13)
       p_ = (p_ + 1)
     end do
     if ((layout_%age_row >= 0)) then
-      zz15 => region_%row_names
-      zz12 = cpp_r_lit("__WATER_AGE__")
-      zz13 => cpp_str_from(zz12)
-      zz14 => zz13
-      zz16 => cpp_vec_o_emplace_back(zz15, zz14)
-      zz17 => h_uas_cpp_str(zz16%p)
+      zz18 => region_%row_names
+      zz15 = cpp_r_lit("__WATER_AGE__")
+      zz16 => cpp_str_from(zz15)
+      zz17 => zz16
+      zz19 => cpp_vec_o_emplace_back(zz18, zz17)
+      zz20 => h_uas_cpp_str(zz19%p)
     end if
     if ((layout_%temp_row >= 0)) then
-      zz21 => region_%row_names
-      zz18 = cpp_r_lit("__TEMPERATURE__")
-      zz19 => cpp_str_from(zz18)
-      zz20 => zz19
-      zz22 => cpp_vec_o_emplace_back(zz21, zz20)
-      zz23 => h_uas_cpp_str(zz22%p)
+      zz24 => region_%row_names
+      zz21 = cpp_r_lit("__TEMPERATURE__")
+      zz22 => cpp_str_from(zz21)
+      zz23 => zz22
+      zz25 => cpp_vec_o_emplace_back(zz24, zz23)
+      zz26 => h_uas_cpp_str(zz25%p)
     end if
     if ((layout_%msx_first >= 0)) then
       row_ = layout_%msx_first
       do
         if (.not. ((row_ < layout_%ns))) exit
-        zz27 => region_%row_names
-        zz24 => h_uas_cpp_str(ctx_%reactions%species_name%a%a(int((row_ - layout_%msx_first), 8))%p)
-        zz25 => cpp_str_clone(zz24)
-        zz26 => zz25
-        call cpp_vec_o_push_back(zz27, zz26)
+        zz30 => region_%row_names
+        zz27 => h_uas_cpp_str(ctx_%reactions%species_name%a%a(int((row_ - layout_%msx_first), 8))%p)
+        zz28 => cpp_str_clone(zz27)
+        zz29 => zz28
+        call cpp_vec_o_push_back(zz30, zz29)
         row_ = (row_ + 1)
       end do
     end if
     call cpp_vec_d_assign_vect(region_%concentration, mean_)
     if (associated(cpp_exc)) return
-    zz31 => out_
-    zz28 => region_
-    zz29 => h_new_channelspeciesregion()
-    region_ => zz29
-    zz30 => zz28
-    call cpp_vec_o_push_back(zz31, zz30)
+    zz34 => out_
+    zz31 => region_
+    zz32 => h_new_channelspeciesregion()
+    region_ => zz32
+    zz33 => zz31
+    call cpp_vec_o_push_back(zz34, zz33)
     102 continue
     link_ = (link_ + 1)
   end do
-  zz32 => out_
-  zz33 => h_new_cpp_vec_o_channelspeciesregion()
-  out_ => zz33
-  zres => zz32
+  zz35 => out_
+  zz36 => h_new_cpp_vec_o_channelspeciesregion()
+  out_ => zz36
+  zres => zz35
   return
   end procedure p_lard_lagrangiansolver__speciesregions
 
@@ -1565,29 +1614,35 @@ contains
     class(cpp_str), pointer :: zz12
     class(cpp_vec_d), pointer :: mean_
     class(cpp_vec_d), pointer :: zz13
+    type(cpp_ptr_d) :: zz14
+    class(t_lard_segmentstore), pointer :: zz15
+    integer(4) :: zz16
     integer(4) :: k_
     integer(4) :: row_
     real(8) :: delta_
     real(8) :: target_
     real(8) :: next_
-    real(8) :: zz14
-    logical :: zz15
-    logical :: zz16
-    type(cpp_cptr) :: zz17
-    class(cpp_str), pointer :: zz18
+    real(8) :: zz17
+    logical :: zz18
+    logical :: zz19
+    type(cpp_cptr) :: zz20
+    class(cpp_str), pointer :: zz21
     class(cpp_vec_o), pointer :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
     class(t_channelspeciesincrement), pointer :: u_2_
-    class(t_channelspeciesincrement), pointer :: zz19
+    class(t_channelspeciesincrement), pointer :: zz22
     class(cpp_vec_d), pointer :: mean_2_
-    class(cpp_vec_d), pointer :: zz20
+    class(cpp_vec_d), pointer :: zz23
+    type(cpp_ptr_d) :: zz24
+    class(t_lard_segmentstore), pointer :: zz25
+    integer(4) :: zz26
     integer(4) :: k_2_
     integer(4) :: row_2_
     real(8) :: target_2_
     real(8) :: next_2_
-    real(8) :: zz21
-    class(cpp_str), pointer :: zz22
+    real(8) :: zz27
+    class(cpp_str), pointer :: zz28
   zres => null()
   zz1 => p_lard__f__rowlayout(ctx_)
   layout_ => zz1
@@ -1634,7 +1689,10 @@ contains
     end if
     zz13 => cpp_vec_d_new_ul(int(layout_%ns, 8))
     mean_ => zz13
-    call p_lard_segmentstore__mean_conc(self%store_, u_%link, cpp_vec_d_data(mean_))
+    zz15 => self%store_
+    zz16 = u_%link
+    zz14 = cpp_vec_d_data(mean_)
+    call p_lard_segmentstore__mean_conc(zz15, zz16, zz14)
     k_ = 0
     do
       if (.not. ((k_ < p_lard_segmentstore__count(self%store_, u_%link)))) exit
@@ -1644,23 +1702,23 @@ contains
         delta_ = u_%concentration_delta%a%a(int(row_, 8))
         target_ = (mean_%a%a(int(row_, 8)) + delta_)
         if ((mean_%a%a(int(row_, 8)) > 0.0_8)) then
-          zz14 = ((p_lard_segmentstore__seg_conc(self%store_, u_%link, k_, row_) * target_) / mean_%a%a(int(row_, 8)))
+          zz17 = ((p_lard_segmentstore__seg_conc(self%store_, u_%link, k_, row_) * target_) / mean_%a%a(int(row_, 8)))
         else
-          zz14 = target_
+          zz17 = target_
         end if
-        next_ = zz14
-        zz15 = (.not. cpp_double_isfinite(delta_))
-        if (.not. zz15) then
-          zz15 = (.not. cpp_double_isfinite(next_))
+        next_ = zz17
+        zz18 = (.not. cpp_double_isfinite(delta_))
+        if (.not. zz18) then
+          zz18 = (.not. cpp_double_isfinite(next_))
         end if
-        zz16 = zz15
-        if (.not. zz16) then
-          zz16 = ((row_ /= layout_%temp_row) .and. (next_ < 0.0_8))
+        zz19 = zz18
+        if (.not. zz19) then
+          zz19 = ((row_ /= layout_%temp_row) .and. (next_ < 0.0_8))
         end if
-        if (zz16) then
-          zz17 = cpp_r_lit("LARD species increment is nonfinite or makes a carried mass negative.")
-          zz18 => cpp_str_new_cptr(zz17)
-          zres => zz18
+        if (zz19) then
+          zz20 = cpp_r_lit("LARD species increment is nonfinite or makes a carried mass negative.")
+          zz21 => cpp_str_new_cptr(zz20)
+          zres => zz21
           return
         end if
         row_ = (row_ + 1)
@@ -1674,11 +1732,14 @@ contains
   x__i4_n_ = int(x__r3_%n, 8)
   do
     if (.not. ((x__i4_ < x__i4_n_))) exit
-    zz19 => h_uas_channelspeciesincrement(x__r3_%a%a(x__i4_)%p)
-    u_2_ => zz19
-    zz20 => cpp_vec_d_new_ul(int(layout_%ns, 8))
-    mean_2_ => zz20
-    call p_lard_segmentstore__mean_conc(self%store_, u_2_%link, cpp_vec_d_data(mean_2_))
+    zz22 => h_uas_channelspeciesincrement(x__r3_%a%a(x__i4_)%p)
+    u_2_ => zz22
+    zz23 => cpp_vec_d_new_ul(int(layout_%ns, 8))
+    mean_2_ => zz23
+    zz25 => self%store_
+    zz26 = u_2_%link
+    zz24 = cpp_vec_d_data(mean_2_)
+    call p_lard_segmentstore__mean_conc(zz25, zz26, zz24)
     k_2_ = 0
     do
       if (.not. ((k_2_ < p_lard_segmentstore__count(self%store_, u_2_%link)))) exit
@@ -1688,11 +1749,11 @@ contains
         if ((row_2_ /= layout_%temp_row)) then
           target_2_ = (mean_2_%a%a(int(row_2_, 8)) + u_2_%concentration_delta%a%a(int(row_2_, 8)))
           if ((mean_2_%a%a(int(row_2_, 8)) > 0.0_8)) then
-            zz21 = ((p_lard_segmentstore__seg_conc(self%store_, u_2_%link, k_2_, row_2_) * target_2_) / mean_2_%a%a(int(row_2_, 8)))
+            zz27 = ((p_lard_segmentstore__seg_conc(self%store_, u_2_%link, k_2_, row_2_) * target_2_) / mean_2_%a%a(int(row_2_, 8)))
           else
-            zz21 = target_2_
+            zz27 = target_2_
           end if
-          next_2_ = zz21
+          next_2_ = zz27
           call p_lard_segmentstore__set_seg_conc(self%store_, u_2_%link, k_2_, row_2_, next_2_)
         end if
         row_2_ = (row_2_ + 1)
@@ -1703,8 +1764,8 @@ contains
   end do
   call p_lard_lagrangiansolver__publish(self, ctx_, 0.0_8)
   if (associated(cpp_exc)) return
-  zz22 => cpp_str_new_0()
-  zres => zz22
+  zz28 => cpp_str_new_0()
+  zres => zz28
   return
   end procedure p_lard_lagrangiansolver__applyspeciesincrements
 
@@ -1910,11 +1971,19 @@ contains
     integer(4) :: dn_
     integer(4) :: up_
     real(8) :: drained_
-    real(8) :: zz3
+    type(cpp_ptr_d) :: zz3
+    class(t_lard_segmentstore), pointer :: zz4
+    integer(4) :: zz5
+    real(8) :: zz6
+    type(cpp_ptr_d) :: zz7
     real(8) :: v_new_
     real(8) :: v_rem_
     real(8) :: shed_
-    real(8) :: zz4
+    type(cpp_ptr_d) :: zz8
+    class(t_lard_segmentstore), pointer :: zz9
+    integer(4) :: zz10
+    real(8) :: zz11
+    type(cpp_ptr_d) :: zz12
     class(cpp_vec_i), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -1923,42 +1992,43 @@ contains
     real(8) :: v_old_
     real(8) :: v_in_
     logical :: zero_bf_
-    logical :: zz5
-    logical :: zz6
+    logical :: zz13
+    logical :: zz14
     integer(4) :: s_
     logical :: is_age_
     logical :: is_temp_
     logical :: is_msx_
-    logical :: zz7
+    logical :: zz15
     integer(8) :: xi_
-    integer(8) :: zz8
+    integer(8) :: zz16
     integer(8) :: li_
     integer(8) :: ci_
     real(8) :: st_old_
-    real(8), pointer :: zz9
-    real(8), pointer :: zz10
-    real(8), pointer :: zz11
+    real(8), pointer :: zz17
+    real(8), pointer :: zz18
+    real(8), pointer :: zz19
     real(8) :: m_ext_
-    real(8) :: zz12
-    real(8) :: zz13
-    real(8) :: zz14
-    real(8) :: zz15
-    real(8) :: m_
-    logical :: zz16
-    real(8) :: denom_
-    real(8) :: zz17
-    real(8) :: zz18
-    real(8) :: st_new_
-    real(8) :: zz19
     real(8) :: zz20
-    logical :: zz21
-    logical :: zz22
+    real(8) :: zz21
+    real(8) :: zz22
+    real(8) :: zz23
+    real(8) :: m_
+    logical :: zz24
+    real(8) :: denom_
+    real(8) :: zz25
+    real(8) :: zz26
+    real(8) :: st_new_
+    real(8) :: zz27
+    real(8) :: zz28
+    logical :: zz29
+    logical :: zz30
     real(8) :: v_in_total_
     integer(4) :: p_
-    real(8) :: zz23
-    real(8), pointer :: zz24
+    real(8) :: zz31
+    real(8), pointer :: zz32
+    type(cpp_ptr_d) :: zz33
     class(cpp_vec_i), pointer :: x__r3_
-    class(cpp_vec_i), pointer :: zz25
+    class(cpp_vec_i), pointer :: zz34
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
     integer(4) :: l_2_2_
@@ -1971,6 +2041,7 @@ contains
     integer(4) :: nsp_
     integer(4) :: sp_
     real(8) :: c_
+    type(cpp_ptr_d) :: zz35
     integer(4) :: l_3_
     integer(8) :: ul_3_
     integer(4) :: up_2_
@@ -1979,6 +2050,9 @@ contains
     integer(4) :: p_3_
     integer(4) :: nsp_2_
     integer(4) :: sp_2_
+    type(cpp_ptr_d) :: zz36
+    class(t_lard_segmentstore), pointer :: zz37
+    integer(4) :: zz38
     class(t_conduitdata), pointer :: cond_
     integer(4) :: l_4_
     integer(8) :: ul_4_
@@ -1996,13 +2070,13 @@ contains
     real(8) :: k_
     real(8) :: f_
     real(8) :: removed_
-    real(8) :: zz26
+    real(8) :: zz39
     integer(4) :: n_3_
     integer(8) :: idx_
     real(8) :: v_
-    real(8) :: zz27
-    real(8) :: zz28
-    real(8) :: zz29
+    real(8) :: zz40
+    real(8) :: zz41
+    real(8) :: zz42
     class(t_reactiondata), pointer :: rx_
     integer(4) :: nsp_3_
     integer(4) :: l_5_
@@ -2012,22 +2086,24 @@ contains
     integer(4) :: sp_3_
     integer(4) :: p_5_
     real(8) :: seg_temp_c_
-    real(8) :: zz30
-    type(cpp_ptr_d) :: zz31
-    type(cpp_ptr_d) :: zz32
+    real(8) :: zz43
+    type(cpp_ptr_d) :: zz44
+    type(cpp_ptr_d) :: zz45
+    type(cpp_ptr_d) :: zz46
     integer(4) :: sp_4_
     integer(4) :: n_4_
     integer(8) :: un_2_
-    logical :: zz33
+    logical :: zz47
     integer(4) :: sp_5_
     integer(4) :: p_6_
     real(8) :: hrt_
-    real(8) :: zz34
+    real(8) :: zz48
     real(8) :: node_temp_c_
-    logical :: zz35
-    real(8) :: zz36
-    type(cpp_ptr_d) :: zz37
-    type(cpp_ptr_d) :: zz38
+    logical :: zz49
+    real(8) :: zz50
+    type(cpp_ptr_d) :: zz51
+    type(cpp_ptr_d) :: zz52
+    type(cpp_ptr_d) :: zz53
     integer(4) :: sp_6_
   zz1 => p_lard__f__rowlayout(ctx_)
   l_ => zz1
@@ -2068,18 +2144,26 @@ contains
     if (((q_ > s_lard__f__ktinyflow) .and. (dn_ >= 0))) then
       call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%scratch_), cpp_vec_d_end(self%scratch_), 0.0_8)
       if (associated(cpp_exc)) return
-      zz3 = p_lard_segmentstore__drain_back(self%store_, l_2_, (q_ * dt_), cpp_vec_d_data(self%scratch_))
-      drained_ = zz3
-      call p_lard_lagrangiansolver__addtoledger(self, dn_, drained_, cpp_vec_d_data(self%scratch_), ns_)
+      zz4 => self%store_
+      zz5 = l_2_
+      zz3 = cpp_vec_d_data(self%scratch_)
+      zz6 = p_lard_segmentstore__drain_back(zz4, zz5, (q_ * dt_), zz3)
+      drained_ = zz6
+      zz7 = cpp_vec_d_data(self%scratch_)
+      call p_lard_lagrangiansolver__addtoledger(self, dn_, drained_, zz7, ns_)
     end if
     v_new_ = links_%volume%a%a(ul_)
     v_rem_ = p_lard_segmentstore__total_volume(self%store_, l_2_)
     if (((v_rem_ > v_new_) .and. (up_ >= 0))) then
       call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%scratch_), cpp_vec_d_end(self%scratch_), 0.0_8)
       if (associated(cpp_exc)) return
-      zz4 = p_lard_segmentstore__drain_front(self%store_, l_2_, (v_rem_ - v_new_), cpp_vec_d_data(self%scratch_))
-      shed_ = zz4
-      call p_lard_lagrangiansolver__addtoledger(self, up_, shed_, cpp_vec_d_data(self%scratch_), ns_)
+      zz9 => self%store_
+      zz10 = l_2_
+      zz8 = cpp_vec_d_data(self%scratch_)
+      zz11 = p_lard_segmentstore__drain_front(zz9, zz10, (v_rem_ - v_new_), zz8)
+      shed_ = zz11
+      zz12 = cpp_vec_d_data(self%scratch_)
+      call p_lard_lagrangiansolver__addtoledger(self, up_, shed_, zz12, ns_)
     end if
     104 continue
     l_2_ = (l_2_ + 1)
@@ -2093,76 +2177,76 @@ contains
     un_ = int(n_2_, 8)
     v_old_ = p_node__f__storevolume__rnodedata_i_d_d(nodes_, n_2_, nodes_%old_depth%a%a(un_), nodes_%old_volume%a%a(un_))
     v_in_ = self%node_vol_in_%a%a(un_)
-    zz5 = ctx_%options%outfall_backflow_zero
-    if (zz5) then
-      zz5 = (nodes_%type%a%a(un_) == 1_1)
+    zz13 = ctx_%options%outfall_backflow_zero
+    if (zz13) then
+      zz13 = (nodes_%type%a%a(un_) == 1_1)
     end if
-    zz6 = zz5
-    if (zz6) then
-      zz6 = ((v_in_ + (nodes_%qual_vol_in%a%a(un_) * frac_)) <= 0.0_8)
+    zz14 = zz13
+    if (zz14) then
+      zz14 = ((v_in_ + (nodes_%qual_vol_in%a%a(un_) * frac_)) <= 0.0_8)
     end if
-    zero_bf_ = zz6
+    zero_bf_ = zz14
     s_ = 0
     do
       if (.not. ((s_ < ns_))) exit
       is_age_ = (s_ == l_%age_row)
       is_temp_ = (s_ == l_%temp_row)
-      zz7 = (l_%msx_first >= 0)
-      if (zz7) then
-        zz7 = (s_ >= l_%msx_first)
+      zz15 = (l_%msx_first >= 0)
+      if (zz15) then
+        zz15 = (s_ >= l_%msx_first)
       end if
-      is_msx_ = zz7
+      is_msx_ = zz15
       if (is_msx_) then
-        zz8 = ((un_ * int((ns_ - l_%msx_first), 8)) + int((s_ - l_%msx_first), 8))
+        zz16 = ((un_ * int((ns_ - l_%msx_first), 8)) + int((s_ - l_%msx_first), 8))
       else
-        zz8 = 0_8
+        zz16 = 0_8
       end if
-      xi_ = zz8
+      xi_ = zz16
       li_ = ((un_ * int(ns_, 8)) + int(s_, 8))
       ci_ = ((un_ * int(np_, 8)) + int(s_, 8))
       if (is_age_) then
-        zz9 => ws_%node_age%a%a(un_)
+        zz17 => ws_%node_age%a%a(un_)
       else
         if (is_temp_) then
-          zz10 => hs_%node_temp%a%a(un_)
+          zz18 => hs_%node_temp%a%a(un_)
         else
           if (is_msx_) then
-            zz11 => ctx_%reactions%msx_node_conc%a%a(xi_)
+            zz19 => ctx_%reactions%msx_node_conc%a%a(xi_)
           else
-            zz11 => nodes_%conc%a%a(ci_)
+            zz19 => nodes_%conc%a%a(ci_)
           end if
-          zz10 => zz11
+          zz18 => zz19
         end if
-        zz9 => zz10
+        zz17 => zz18
       end if
-      st_old_ = zz9
+      st_old_ = zz17
       if (is_age_) then
-        zz15 = (ws_%node_age_vol_in%a%a(un_) * dt_)
+        zz23 = (ws_%node_age_vol_in%a%a(un_) * dt_)
       else
         if (is_temp_) then
-          zz14 = (hs_%node_temp_vol_in%a%a(un_) * dt_)
+          zz22 = (hs_%node_temp_vol_in%a%a(un_) * dt_)
         else
           if (is_msx_) then
             if ((ieor(xi_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%reactions%msx_ext_mass_in), (-9223372036854775807_8 - 1_8)))) then
-              zz12 = (ctx_%reactions%msx_ext_mass_in%a%a(xi_) * dt_)
+              zz20 = (ctx_%reactions%msx_ext_mass_in%a%a(xi_) * dt_)
             else
-              zz12 = 0.0_8
+              zz20 = 0.0_8
             end if
-            zz13 = zz12
+            zz21 = zz20
           else
-            zz13 = (nodes_%qual_mass_in%a%a(ci_) * dt_)
+            zz21 = (nodes_%qual_mass_in%a%a(ci_) * dt_)
           end if
-          zz14 = zz13
+          zz22 = zz21
         end if
-        zz15 = zz14
+        zz23 = zz22
       end if
-      m_ext_ = zz15
+      m_ext_ = zz23
       m_ = (((st_old_ * v_old_) + self%node_mass_in_%a%a(li_)) + m_ext_)
-      zz16 = (((.not. is_age_) .and. (.not. is_temp_)) .and. (.not. is_msx_))
-      if (zz16) then
-        zz16 = (s_ < int(cpp_vec_d_size(self%treat_cin_), 4))
+      zz24 = (((.not. is_age_) .and. (.not. is_temp_)) .and. (.not. is_msx_))
+      if (zz24) then
+        zz24 = (s_ < int(cpp_vec_d_size(self%treat_cin_), 4))
       end if
-      if (zz16) then
+      if (zz24) then
         self%treat_cin_%a%a(int(s_, 8)) = (self%node_mass_in_%a%a(li_) + m_ext_)
       end if
       if (((m_ < 0.0_8) .and. (.not. is_temp_))) then
@@ -2175,22 +2259,22 @@ contains
       end if
       denom_ = ((v_old_ + v_in_) + (nodes_%qual_vol_in%a%a(un_) * frac_))
       if ((is_msx_ .and. (.not. zero_bf_))) then
-        zz17 = p_transport__f__reactionboostermass(ctx_, n_2_, (s_ - l_%msx_first), m_, denom_, (v_in_ + (nodes_%qual_vol_in%a%a(un_) * frac_)))
+        zz25 = p_transport__f__reactionboostermass(ctx_, n_2_, (s_ - l_%msx_first), m_, denom_, (v_in_ + (nodes_%qual_vol_in%a%a(un_) * frac_)))
         if (associated(cpp_exc)) return
-        zz18 = (m_ + zz17)
-        m_ = zz18
+        zz26 = (m_ + zz25)
+        m_ = zz26
       end if
       if (zero_bf_) then
-        zz20 = 0.0_8
+        zz28 = 0.0_8
       else
         if ((denom_ > 1E-12_8)) then
-          zz19 = (m_ / denom_)
+          zz27 = (m_ / denom_)
         else
-          zz19 = st_old_
+          zz27 = st_old_
         end if
-        zz20 = zz19
+        zz28 = zz27
       end if
-      st_new_ = zz20
+      st_new_ = zz28
       if (is_age_) then
         ws_%node_age%a%a(un_) = st_new_
       else if (is_temp_) then
@@ -2204,33 +2288,34 @@ contains
       s_ = (s_ + 1)
     end do
     self%node_vol_in_%a%a(un_) = 0.0_8
-    zz21 = ((np_ > 0) .and. (dt_ > 0.0_8))
-    if (zz21) then
-      zz21 = (ieor(un_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_z_size(ctx_%treatment%has_treatment), (-9223372036854775807_8 - 1_8)))
+    zz29 = ((np_ > 0) .and. (dt_ > 0.0_8))
+    if (zz29) then
+      zz29 = (ieor(un_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_z_size(ctx_%treatment%has_treatment), (-9223372036854775807_8 - 1_8)))
     end if
-    zz22 = zz21
-    if (zz22) then
-      zz22 = ctx_%treatment%has_treatment%a%a(un_)
+    zz30 = zz29
+    if (zz30) then
+      zz30 = ctx_%treatment%has_treatment%a%a(un_)
     end if
-    if (zz22) then
+    if (zz30) then
       v_in_total_ = (v_in_ + (nodes_%qual_vol_in%a%a(un_) * frac_))
       p_ = 0
       do
         if (.not. ((p_ < np_))) exit
-        zz24 => self%treat_cin_%a%a(int(p_, 8))
+        zz32 => self%treat_cin_%a%a(int(p_, 8))
         if ((v_in_total_ > 1E-12_8)) then
-          zz23 = (cpp_m_max_d_d(0.0_8, self%treat_cin_%a%a(int(p_, 8))) / v_in_total_)
+          zz31 = (cpp_m_max_d_d(0.0_8, self%treat_cin_%a%a(int(p_, 8))) / v_in_total_)
         else
-          zz23 = 0.0_8
+          zz31 = 0.0_8
         end if
-        zz24 = zz23
+        zz32 = zz31
         p_ = (p_ + 1)
       end do
-      call p_quality__f__applynodetreatment(ctx_, n_2_, dt_, (v_in_total_ / dt_), cpp_vec_d_data(self%treat_cin_))
+      zz33 = cpp_vec_d_data(self%treat_cin_)
+      call p_quality__f__applynodetreatment(ctx_, n_2_, dt_, (v_in_total_ / dt_), zz33)
       if (associated(cpp_exc)) return
     end if
-    zz25 => h_uas_cpp_vec_i(self%node_out_links_%a%a(un_)%p)
-    x__r3_ => zz25
+    zz34 => h_uas_cpp_vec_i(self%node_out_links_%a%a(un_)%p)
+    x__r3_ => zz34
     x__i4_ = 0_8
     x__i4_n_ = int(x__r3_%n, 8)
     do
@@ -2276,7 +2361,8 @@ contains
           sp_ = (sp_ + 1)
         end do
       end if
-      call p_lard_lagrangiansolver__addtoledgerrate(self, dn_2_, (q_2_ * dt_), cpp_vec_d_data(self%scratch_), ns_)
+      zz35 = cpp_vec_d_data(self%scratch_)
+      call p_lard_lagrangiansolver__addtoledgerrate(self, dn_2_, (q_2_ * dt_), zz35, ns_)
       112 continue
       x__i4_ = (x__i4_ + 1_8)
     end do
@@ -2317,7 +2403,10 @@ contains
         sp_2_ = (sp_2_ + 1)
       end do
     end if
-    call p_lard_segmentstore__push_front(self%store_, l_3_, need_, cpp_vec_d_data(self%scratch_))
+    zz37 => self%store_
+    zz38 = l_3_
+    zz36 = cpp_vec_d_data(self%scratch_)
+    call p_lard_segmentstore__push_front(zz37, zz38, need_, zz36)
     118 continue
     l_3_ = (l_3_ + 1)
   end do
@@ -2364,22 +2453,22 @@ contains
       goto 126
     end if
     f_ = cpp_math_exp_d(((-k_) * dt_))
-    zz26 = p_lard_segmentstore__decay_species(self%store_, p_4_, f_)
-    removed_ = zz26
+    zz39 = p_lard_segmentstore__decay_species(self%store_, p_4_, f_)
+    removed_ = zz39
     n_3_ = 0
     do
       if (.not. ((n_3_ < nn_))) exit
       idx_ = ((int(n_3_, 8) * int(np_, 8)) + int(p_4_, 8))
       v_ = p_node__f__storevolume__rnodedata_i(nodes_, n_3_)
-      zz27 = (removed_ + ((nodes_%conc%a%a(idx_) * (1.0_8 - f_)) * v_))
-      removed_ = zz27
-      zz28 = (nodes_%conc%a%a(idx_) * f_)
-      nodes_%conc%a%a(idx_) = zz28
+      zz40 = (removed_ + ((nodes_%conc%a%a(idx_) * (1.0_8 - f_)) * v_))
+      removed_ = zz40
+      zz41 = (nodes_%conc%a%a(idx_) * f_)
+      nodes_%conc%a%a(idx_) = zz41
       n_3_ = (n_3_ + 1)
     end do
     if ((ieor(int(p_4_, 8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%mass_balance%qual_routing_reacted), (-9223372036854775807_8 - 1_8)))) then
-      zz29 = (ctx_%mass_balance%qual_routing_reacted%a%a(int(p_4_, 8)) + removed_)
-      ctx_%mass_balance%qual_routing_reacted%a%a(int(p_4_, 8)) = zz29
+      zz42 = (ctx_%mass_balance%qual_routing_reacted%a%a(int(p_4_, 8)) + removed_)
+      ctx_%mass_balance%qual_routing_reacted%a%a(int(p_4_, 8)) = zz42
     end if
     126 continue
     p_4_ = (p_4_ + 1)
@@ -2420,18 +2509,19 @@ contains
           p_5_ = (p_5_ + 1)
         end do
         if ((l_%temp_row >= 0)) then
-          zz30 = p_lard_segmentstore__seg_conc(self%store_, l_5_, i_, l_%temp_row)
+          zz43 = p_lard_segmentstore__seg_conc(self%store_, l_5_, i_, l_%temp_row)
         else
-          zz30 = cpp_std_qnan
+          zz43 = cpp_std_qnan
         end if
-        seg_temp_c_ = zz30
-        zz32 = cpp_vec_d_data(self%msx_block_)
+        seg_temp_c_ = zz43
+        zz44 = cpp_vec_d_data(self%msx_block_)
         if ((np_ > 0)) then
-          zz31 = cpp_vec_d_data(self%msx_poll_)
+          zz45 = cpp_vec_d_data(self%msx_poll_)
+          zz46 = zz45
         else
-          zz31 = cpp_ptr_d()
+          zz46 = cpp_ptr_d()
         end if
-        call p_transport__f__reactspeciesblock(ctx_, .false., dt_, zz32, zz31, 0.0_8, seg_temp_c_, l_5_)
+        call p_transport__f__reactspeciesblock(ctx_, .false., dt_, zz44, zz46, 0.0_8, seg_temp_c_, l_5_)
         if (associated(cpp_exc)) return
         sp_4_ = 0
         do
@@ -2448,11 +2538,11 @@ contains
     do
       if (.not. ((n_4_ < nn_))) exit
       un_2_ = int(n_4_, 8)
-      zz33 = (.not. p_quality__f__nodeisreactor(ctx_, n_4_))
-      if (.not. zz33) then
-        zz33 = (nodes_%volume%a%a(un_2_) <= s_quality__f__zero_volume)
+      zz47 = (.not. p_quality__f__nodeisreactor(ctx_, n_4_))
+      if (.not. zz47) then
+        zz47 = (nodes_%volume%a%a(un_2_) <= s_quality__f__zero_volume)
       end if
-      if (zz33) then
+      if (zz47) then
         goto 140
       end if
       sp_5_ = 0
@@ -2468,28 +2558,29 @@ contains
         p_6_ = (p_6_ + 1)
       end do
       if ((ieor(un_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(nodes_%hrt), (-9223372036854775807_8 - 1_8)))) then
-        zz34 = nodes_%hrt%a%a(un_2_)
+        zz48 = nodes_%hrt%a%a(un_2_)
       else
-        zz34 = 0.0_8
+        zz48 = 0.0_8
       end if
-      hrt_ = zz34
-      zz35 = (l_%temp_row >= 0)
-      if (zz35) then
-        zz35 = (ieor(un_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%heat_state%node_temp), (-9223372036854775807_8 - 1_8)))
+      hrt_ = zz48
+      zz49 = (l_%temp_row >= 0)
+      if (zz49) then
+        zz49 = (ieor(un_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%heat_state%node_temp), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz35) then
-        zz36 = ctx_%heat_state%node_temp%a%a(un_2_)
+      if (zz49) then
+        zz50 = ctx_%heat_state%node_temp%a%a(un_2_)
       else
-        zz36 = cpp_std_qnan
+        zz50 = cpp_std_qnan
       end if
-      node_temp_c_ = zz36
-      zz38 = cpp_vec_d_data(self%msx_block_)
+      node_temp_c_ = zz50
+      zz51 = cpp_vec_d_data(self%msx_block_)
       if ((np_ > 0)) then
-        zz37 = cpp_vec_d_data(self%msx_poll_)
+        zz52 = cpp_vec_d_data(self%msx_poll_)
+        zz53 = zz52
       else
-        zz37 = cpp_ptr_d()
+        zz53 = cpp_ptr_d()
       end if
-      call p_transport__f__reactspeciesblock(ctx_, .true., dt_, zz38, zz37, hrt_, node_temp_c_, n_4_)
+      call p_transport__f__reactspeciesblock(ctx_, .true., dt_, zz51, zz53, hrt_, node_temp_c_, n_4_)
       if (associated(cpp_exc)) return
       sp_6_ = 0
       do
@@ -2516,9 +2607,12 @@ contains
     class(t_heatstate), pointer :: hs_
     integer(4) :: l_2_
     integer(8) :: ul_
+    type(cpp_ptr_d) :: zz2
+    class(t_lard_segmentstore), pointer :: zz3
+    integer(4) :: zz4
     integer(4) :: p_
-    real(8) :: zz2
-    logical :: zz3
+    real(8) :: zz5
+    logical :: zz6
     integer(4) :: nsp_
     integer(4) :: sp_
   zz1 => p_lard__f__rowlayout(ctx_)
@@ -2538,7 +2632,10 @@ contains
     if ((links_%type%a%a(ul_) /= 0_1)) then
       goto 102
     end if
-    call p_lard_segmentstore__mean_conc(self%store_, l_2_, cpp_vec_d_data(self%scratch_))
+    zz3 => self%store_
+    zz4 = l_2_
+    zz2 = cpp_vec_d_data(self%scratch_)
+    call p_lard_segmentstore__mean_conc(zz3, zz4, zz2)
     p_ = 0
     do
       if (.not. ((p_ < np_))) exit
@@ -2549,8 +2646,8 @@ contains
       if ((p_lard_segmentstore__count(self%store_, l_2_) > 0)) then
         ws_%link_age%a%a(ul_) = self%scratch_%a%a(int(l_%age_row, 8))
       else
-        zz2 = (ws_%link_age%a%a(ul_) + dt_routing_)
-        ws_%link_age%a%a(ul_) = zz2
+        zz5 = (ws_%link_age%a%a(ul_) + dt_routing_)
+        ws_%link_age%a%a(ul_) = zz5
       end if
     end if
     if (heat_) then
@@ -2558,11 +2655,11 @@ contains
         hs_%link_temp%a%a(ul_) = self%scratch_%a%a(int(l_%temp_row, 8))
       end if
     end if
-    zz3 = (l_%msx_first >= 0)
-    if (zz3) then
-      zz3 = (p_lard_segmentstore__count(self%store_, l_2_) > 0)
+    zz6 = (l_%msx_first >= 0)
+    if (zz6) then
+      zz6 = (p_lard_segmentstore__count(self%store_, l_2_) > 0)
     end if
-    if (zz3) then
+    if (zz6) then
       nsp_ = (l_%ns - l_%msx_first)
       sp_ = 0
       do
@@ -2798,46 +2895,49 @@ contains
     logical :: zz16
     integer(4) :: cnt_
     real(8) :: vol_ft3_
+    type(cpp_ptr_d) :: zz17
+    class(t_lard_segmentstore), pointer :: zz18
+    integer(4) :: zz19
     class(t_heatelement), pointer :: le_
-    class(t_heatelement), pointer :: zz17
+    class(t_heatelement), pointer :: zz20
     real(8) :: t_mean_
     real(8) :: surf_m2_
-    real(8) :: zz18
-    real(8) :: zz19
+    real(8) :: zz21
+    real(8) :: zz22
     real(8) :: d_tw_
     logical :: bed_stepped_
-    logical :: zz20
+    logical :: zz23
     class(t_sedimentconfig), pointer :: sd_
-    class(t_sedimentconfig), pointer :: zz21
+    class(t_sedimentconfig), pointer :: zz24
     class(t_transport_heat_bedcoupling), pointer :: g_
-    real(8) :: zz22
-    class(t_transport_heat_bedcoupling), pointer :: zz23
-    class(t_transport_heat_pairstep), pointer :: ps_
-    real(8) :: zz24
     real(8) :: zz25
-    real(8) :: zz26
+    class(t_transport_heat_bedcoupling), pointer :: zz26
+    class(t_transport_heat_pairstep), pointer :: ps_
     real(8) :: zz27
     real(8) :: zz28
-    class(t_transport_heat_pairstep), pointer :: zz29
+    real(8) :: zz29
     real(8) :: zz30
     real(8) :: zz31
-    real(8) :: zz32
+    class(t_transport_heat_pairstep), pointer :: zz32
+    real(8) :: zz33
+    real(8) :: zz34
+    real(8) :: zz35
     integer(4) :: i_
     class(t_sedimentconfig), pointer :: sd_2_
-    class(t_sedimentconfig), pointer :: zz33
+    class(t_sedimentconfig), pointer :: zz36
     real(8) :: bed_m2_
-    real(8) :: zz34
+    real(8) :: zz37
     real(8) :: vol_b_
     real(8) :: q_exch_
     integer(4) :: b_
     integer(4) :: row_
-    integer(4) :: zz35
+    integer(4) :: zz38
     real(8) :: c_mean_
     real(8), pointer :: cb_
     class(t_transport_heat_solutepairstep), pointer :: st_
-    class(t_transport_heat_solutepairstep), pointer :: zz36
+    class(t_transport_heat_solutepairstep), pointer :: zz39
     integer(4) :: i_2_
-    real(8) :: zz37
+    real(8) :: zz40
   zz1 => p_lard__f__rowlayout(ctx_)
   l_ => zz1
   heat_on_ = (l_%temp_row >= 0)
@@ -2950,56 +3050,59 @@ contains
     if ((.not. (vol_ft3_ > 0.0_8))) then
       goto 104
     end if
-    call p_lard_segmentstore__mean_conc(self%store_, l_2_, cpp_vec_d_data(self%scratch_))
-    zz17 => p_heatelement__link(l_2_)
-    le_ => zz17
+    zz18 => self%store_
+    zz19 = l_2_
+    zz17 = cpp_vec_d_data(self%scratch_)
+    call p_lard_segmentstore__mean_conc(zz18, zz19, zz17)
+    zz20 => p_heatelement__link(l_2_)
+    le_ => zz20
     if (heat_on_) then
       t_mean_ = self%scratch_%a%a(int(l_%temp_row, 8))
       if (flux_on_) then
-        zz18 = p_transport_heat__f__linkfreesurfaceft2(ctx_, l_2_)
-        zz19 = (zz18 * ksqft_)
+        zz21 = p_transport_heat__f__linkfreesurfaceft2(ctx_, l_2_)
+        zz22 = (zz21 * ksqft_)
       else
-        zz19 = 0.0_8
+        zz22 = 0.0_8
       end if
-      surf_m2_ = zz19
+      surf_m2_ = zz22
       d_tw_ = 0.0_8
       bed_stepped_ = .false.
-      zz20 = bed_on_
-      if (zz20) then
-        zz20 = (ieor(ul_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(bed_%link_temp), (-9223372036854775807_8 - 1_8)))
+      zz23 = bed_on_
+      if (zz23) then
+        zz23 = (ieor(ul_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(bed_%link_temp), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz20) then
-        zz21 => p_transport_heat__f__sedimentfor(ctx_, le_)
-        sd_ => zz21
-        zz22 = p_transport_heat__f__linkbedaream2(ctx_, l_2_)
-        zz23 => p_transport_heat__f__bedcouplingfromcontact(ctx_, sd_, zz22, vol_ft3_, p_transport_heat__f__groundtempfor(ctx_, sd_, t_gr_))
-        g_ => zz23
+      if (zz23) then
+        zz24 => p_transport_heat__f__sedimentfor(ctx_, le_)
+        sd_ => zz24
+        zz25 = p_transport_heat__f__linkbedaream2(ctx_, l_2_)
+        zz26 => p_transport_heat__f__bedcouplingfromcontact(ctx_, sd_, zz25, vol_ft3_, p_transport_heat__f__groundtempfor(ctx_, sd_, t_gr_))
+        g_ => zz26
         if (p_transport_heat_bedcoupling__viable(g_)) then
-          zz26 = bed_%link_temp%a%a(ul_)
+          zz29 = bed_%link_temp%a%a(ul_)
           if (flux_on_) then
-            zz24 = p_transport_heat__f__netfluxout(ctx_, le_, t_mean_)
-            zz25 = zz24
-          else
-            zz25 = 0.0_8
-          end if
-          if (flux_on_) then
-            zz27 = p_transport_heat__f__netfluxout(ctx_, le_, (t_mean_ + s_transport_heat__f__kprobec))
+            zz27 = p_transport_heat__f__netfluxout(ctx_, le_, t_mean_)
             zz28 = zz27
           else
             zz28 = 0.0_8
           end if
-          zz29 => p_transport_heat__f__relaxpair(g_, t_mean_, zz26, zz25, zz28, merge(s_transport_heat__f__kprobec, 0.0_8, flux_on_), surf_m2_, dt_)
-          ps_ => zz29
+          if (flux_on_) then
+            zz30 = p_transport_heat__f__netfluxout(ctx_, le_, (t_mean_ + s_transport_heat__f__kprobec))
+            zz31 = zz30
+          else
+            zz31 = 0.0_8
+          end if
+          zz32 => p_transport_heat__f__relaxpair(g_, t_mean_, zz29, zz28, zz31, merge(s_transport_heat__f__kprobec, 0.0_8, flux_on_), surf_m2_, dt_)
+          ps_ => zz32
           d_tw_ = ps_%dt_w
-          zz30 = (bed_%link_temp%a%a(ul_) + ps_%dt_b)
-          bed_%link_temp%a%a(ul_) = zz30
+          zz33 = (bed_%link_temp%a%a(ul_) + ps_%dt_b)
+          bed_%link_temp%a%a(ul_) = zz33
           bed_stepped_ = .true.
         end if
       end if
       if ((((.not. bed_stepped_) .and. flux_on_) .and. (surf_m2_ > 0.0_8))) then
-        zz31 = p_transport_heat__f__netfluxout(ctx_, le_, t_mean_)
-        zz32 = p_transport_heat__f__netfluxout(ctx_, le_, (t_mean_ + s_transport_heat__f__kprobec))
-        d_tw_ = p_transport_heat__f__relaxt(zz31, zz32, s_transport_heat__f__kprobec, surf_m2_, (vol_ft3_ * kcuft_), dt_, rho_, cp_)
+        zz34 = p_transport_heat__f__netfluxout(ctx_, le_, t_mean_)
+        zz35 = p_transport_heat__f__netfluxout(ctx_, le_, (t_mean_ + s_transport_heat__f__kprobec))
+        d_tw_ = p_transport_heat__f__relaxt(zz34, zz35, s_transport_heat__f__kprobec, surf_m2_, (vol_ft3_ * kcuft_), dt_, rho_, cp_)
       end if
       if ((d_tw_ /= 0.0_8)) then
         i_ = 0
@@ -3011,10 +3114,10 @@ contains
       end if
     end if
     if ((bed_on_ .and. (n_bed_ > 0))) then
-      zz33 => p_transport_heat__f__sedimentfor(ctx_, le_)
-      sd_2_ => zz33
-      zz34 = p_transport_heat__f__linkbedaream2(ctx_, l_2_)
-      bed_m2_ = zz34
+      zz36 => p_transport_heat__f__sedimentfor(ctx_, le_)
+      sd_2_ => zz36
+      zz37 = p_transport_heat__f__linkbedaream2(ctx_, l_2_)
+      bed_m2_ = zz37
       vol_b_ = (bed_m2_ * sd_2_%bed_thickness)
       q_exch_ = p_transport_heat__f__bedexchangeq(sd_2_, bed_m2_)
       if (((q_exch_ > 0.0_8) .and. (vol_b_ > 0.0_8))) then
@@ -3022,15 +3125,15 @@ contains
         do
           if (.not. ((b_ < n_bed_))) exit
           if ((b_ < l_%np)) then
-            zz35 = b_
+            zz38 = b_
           else
-            zz35 = (l_%msx_first + (b_ - l_%np))
+            zz38 = (l_%msx_first + (b_ - l_%np))
           end if
-          row_ = zz35
+          row_ = zz38
           c_mean_ = self%scratch_%a%a(int(row_, 8))
           cb_ => bed_%link_conc%a%a(((ul_ * int(n_bed_, 8)) + int(b_, 8)))
-          zz36 => p_transport_heat__f__exchangepair(c_mean_, cb_, (vol_ft3_ * kcuft_), vol_b_, q_exch_, dt_)
-          st_ => zz36
+          zz39 => p_transport_heat__f__exchangepair(c_mean_, cb_, (vol_ft3_ * kcuft_), vol_b_, q_exch_, dt_)
+          st_ => zz39
           if ((st_%dc_w /= 0.0_8)) then
             i_2_ = 0
             do
@@ -3039,8 +3142,8 @@ contains
               i_2_ = (i_2_ + 1)
             end do
           end if
-          zz37 = (cb_ + st_%dc_b)
-          cb_ = zz37
+          zz40 = (cb_ + st_%dc_b)
+          cb_ = zz40
           b_ = (b_ + 1)
         end do
       end if
@@ -3076,6 +3179,9 @@ contains
     integer(4) :: p_
     integer(4) :: nsp_
     integer(4) :: sp_
+    type(cpp_ptr_d) :: zz9
+    class(t_lard_segmentstore), pointer :: zz10
+    integer(4) :: zz11
   zz1 => p_lard__f__rowlayout(ctx_)
   l_ => zz1
   np_ = l_%np
@@ -3181,7 +3287,10 @@ contains
         sp_ = (sp_ + 1)
       end do
     end if
-    call p_lard_segmentstore__push_front(self%store_, l_2_, v_, cpp_vec_d_data(self%scratch_))
+    zz10 => self%store_
+    zz11 = l_2_
+    zz9 = cpp_vec_d_data(self%scratch_)
+    call p_lard_segmentstore__push_front(zz10, zz11, v_, zz9)
     self%flow_sign_%a%a(ul_) = int(merge(1, (-1), (ctx_%links%flow%a%a(ul_) >= 0.0_8)), 1)
     102 continue
     l_2_ = (l_2_ + 1)
@@ -3922,6 +4031,8 @@ contains
     real(8) :: bnd_
     real(8) :: pen_
     integer(4) :: s_
+    type(cpp_ptr_d) :: zz4
+    integer(4) :: zz5
   nseg_ = p_lard_segmentstore__count(segs_, l_)
   if ((((nseg_ < 2) .or. (h_ <= 0.001_8)) .or. (ubar_ <= 0.0_8))) then
     return
@@ -4002,7 +4113,9 @@ contains
           delta_%a%a(int(s_, 8)) = (p_lard_segmentstore__seg_conc(segs_, l_, j_2_, s_) * pen_)
           s_ = (s_ + 1)
         end do
-        call p_lard_rwptdispersion__exchange(self, segs_, l_, j_2_, jn_, cpp_vec_d_data(delta_), ns_)
+        zz5 = j_2_
+        zz4 = cpp_vec_d_data(delta_)
+        call p_lard_rwptdispersion__exchange(self, segs_, l_, zz5, jn_, zz4, ns_)
         j_2_ = jn_
       end do
     end if
@@ -5315,7 +5428,7 @@ contains
   return
   end procedure p_transport__f__canonicalrows
 
-  module procedure p_lam895
+  module procedure p_lam900
     type(cpp_cptr) :: zz1
     type(cpp_cptr) :: zz2
     type(cpp_cptr) :: zz3
@@ -5348,7 +5461,7 @@ contains
   end if
   call p_transport__anon_transport_transportpolicy_cpp__f__e_c58aa2c0(a1, a7)
   return
-  end procedure p_lam895
+  end procedure p_lam900
 
   module procedure p_transport__f__resolve
     class(t_transport_matrix), pointer :: m_
@@ -5485,7 +5598,7 @@ contains
     logical :: ig2d_
     logical, pointer :: zz100
     class(t_fn132), pointer :: gate_
-    class(t_lam895), pointer :: zz101
+    class(t_lam900), pointer :: zz101
     class(t_transport_cell), pointer :: zz102
     type(cpp_cptr) :: zz103
     logical :: zz104

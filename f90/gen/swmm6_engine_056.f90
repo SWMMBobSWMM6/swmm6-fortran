@@ -1433,12 +1433,12 @@ contains
   hs_%subcatch_runon_temp_rate%a%a(ur_) = zz3
   end procedure p_transport__f__addrunontemperatureat
 
-  module procedure p_lam902
+  module procedure p_lam907
     real(8) :: zz1
   zz1 = p_transport_heat__f__netfluxout(self%c_ctx, self%c_er, a1)
   zres = zz1
   return
-  end procedure p_lam902
+  end procedure p_lam907
 
   module procedure p_transport__f__routesubcatchmenttemperature
     class(t_heatstate), pointer :: hs_
@@ -1500,7 +1500,7 @@ contains
     class(t_heatelement), pointer :: er_
     class(t_heatelement), pointer :: zz23
     class(t_fn106), pointer :: net_out_
-    class(t_lam902), pointer :: zz24
+    class(t_lam907), pointer :: zz24
     real(8) :: zz25
     real(8) :: zz26
     real(8) :: zz27
@@ -2707,51 +2707,55 @@ contains
     type(cpp_ptr_d) :: zz38
     type(cpp_ptr_d) :: zz39
     type(cpp_ptr_d) :: zz40
-    class(t_transport_rxworkspace), pointer :: zz41
-    logical :: zz42
-    integer(4), pointer :: zz43
+    type(cpp_ptr_d) :: zz41
+    class(t_transport_rxworkspace), pointer :: zz42
+    logical :: zz43
     integer(4), pointer :: zz44
-    integer(4) :: zz45
-    type(cpp_ptr_d) :: zz46
-    class(t_transport_rxstepreport), pointer :: zz47
-    real(8) :: zz48
-    type(cpp_cptr) :: zz49
-    integer(4) :: m_2_
-    real(8), pointer :: zz50
+    integer(4), pointer :: zz45
+    integer(4) :: zz46
+    type(cpp_ptr_d) :: zz47
+    class(t_transport_rxstepreport), pointer :: zz48
+    type(cpp_ptr_d) :: zz49
+    real(8) :: zz50
     type(cpp_cptr) :: zz51
+    integer(4) :: m_2_
+    real(8), pointer :: zz52
+    type(cpp_cptr) :: zz53
     integer(4) :: nd_2_
     integer(8) :: und_
     real(8) :: vol_
-    real(8), pointer :: zz52
-    type(cpp_ptr_d) :: zz53
     real(8), pointer :: zz54
-    real(8) :: zz55
-    real(8) :: zz56
+    type(cpp_ptr_d) :: zz55
+    real(8), pointer :: zz56
+    real(8) :: zz57
+    real(8) :: zz58
     integer(4) :: m_3_
-    real(8), pointer :: zz57
-    real(8), pointer :: zz58
-    integer(4) :: p_3_
     real(8), pointer :: zz59
     real(8), pointer :: zz60
-    type(cpp_ptr_d) :: zz61
+    integer(4) :: p_3_
+    real(8), pointer :: zz61
     real(8), pointer :: zz62
-    real(8) :: zz63
-    type(cpp_ptr_d) :: zz64
-    real(8), pointer :: zz65
-    real(8), pointer :: zz66
-    real(8) :: zz67
+    type(cpp_ptr_d) :: zz63
+    real(8), pointer :: zz64
+    real(8) :: zz65
+    type(cpp_ptr_d) :: zz66
+    real(8), pointer :: zz67
+    real(8), pointer :: zz68
+    real(8) :: zz69
     class(t_transport_rxstepreport), pointer :: rep_2_
-    type(cpp_ptr_d) :: zz68
-    type(cpp_ptr_d) :: zz69
     type(cpp_ptr_d) :: zz70
-    class(t_transport_rxworkspace), pointer :: zz71
+    type(cpp_ptr_d) :: zz71
     type(cpp_ptr_d) :: zz72
-    class(t_transport_rxstepreport), pointer :: zz73
-    real(8) :: zz74
-    type(cpp_cptr) :: zz75
+    type(cpp_ptr_d) :: zz73
+    class(t_transport_rxworkspace), pointer :: zz74
+    type(cpp_ptr_d) :: zz75
+    class(t_transport_rxstepreport), pointer :: zz76
+    type(cpp_ptr_d) :: zz77
+    real(8) :: zz78
+    type(cpp_cptr) :: zz79
     integer(4) :: m_4_
-    real(8), pointer :: zz76
-    type(cpp_cptr) :: zz77
+    real(8), pointer :: zz80
+    type(cpp_cptr) :: zz81
   if ((dt_ <= 0.0_8)) then
     return
   end if
@@ -2886,46 +2890,48 @@ contains
       zz36 => rx_%default_temp_c
     end if
     zz35 = zz36
-    zz39 = cpp_vec_d_data(sc_%msx)
-    zz40 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
-    zz41 => sc_%ws
+    zz38 = cpp_vec_d_data(sc_%msx)
+    zz41 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
+    zz42 => sc_%ws
     if ((n_pollut_ > 0)) then
-      zz38 = cpp_vec_d_data(sc_%pollut)
+      zz39 = cpp_vec_d_data(sc_%pollut)
+      zz40 = zz39
     else
-      zz38 = cpp_ptr_d()
+      zz40 = cpp_ptr_d()
     end if
-    zz42 = (.not. cpp_ptr_i_isnull(cell_conduit_))
-    if (zz42) then
-      zz42 = (.not. cpp_ptr_i_isnull(conduit_link_))
+    zz43 = (.not. cpp_ptr_i_isnull(cell_conduit_))
+    if (zz43) then
+      zz43 = (.not. cpp_ptr_i_isnull(conduit_link_))
     end if
-    if (zz42) then
-      zz43 => cpp_ptr_i_item_i(cell_conduit_, c_2_)
-      zz44 => cpp_ptr_i_item_i(conduit_link_, zz43)
-      zz45 = zz44
+    if (zz43) then
+      zz44 => cpp_ptr_i_item_i(cell_conduit_, c_2_)
+      zz45 => cpp_ptr_i_item_i(conduit_link_, zz44)
+      zz46 = zz45
     else
-      zz45 = (-1)
+      zz46 = (-1)
     end if
-    zz46 = p_reactiondata__coefficients(rx_, .true., zz45, sc_%coefficients)
+    zz47 = p_reactiondata__coefficients(rx_, .true., zz46, sc_%coefficients)
     if (associated(cpp_exc)) return
-    zz47 => p_transport_reactionintegrator__step__rreactiondata_b_6afab4a6(rx_, .false., dt_, zz39, zz40, zz41, zz38, zz46)
+    zz48 => p_transport_reactionintegrator__step__rreactiondata_b_6afab4a6(rx_, .false., dt_, zz38, zz41, zz42, zz40, zz47)
     if (associated(cpp_exc)) return
-    rep_ => zz47
+    rep_ => zz48
     if (rep_%ok) then
-      zz48 = p_transport__f__clampratespecies(rx_, .false., cpp_vec_d_data(sc_%msx), cpp_ptr_d())
-      if ((zz48 > 0.0_8)) then
-        zz49 = cpp_r_lit("a transport cell")
-        call p_transport__f__notenegativeclamp(ctx_, zz49)
+      zz49 = cpp_vec_d_data(sc_%msx)
+      zz50 = p_transport__f__clampratespecies(rx_, .false., zz49, cpp_ptr_d())
+      if ((zz50 > 0.0_8)) then
+        zz51 = cpp_r_lit("a transport cell")
+        call p_transport__f__notenegativeclamp(ctx_, zz51)
       end if
       m_2_ = 0
       do
         if (.not. ((m_2_ < nm_))) exit
-        zz50 => cpp_ptr_d_item_ul(cell_phi_, ((int((n_pollut_ + m_2_), 8) * unc_) + ucell_))
-        zz50 = sc_%msx%a%a(int(m_2_, 8))
+        zz52 => cpp_ptr_d_item_ul(cell_phi_, ((int((n_pollut_ + m_2_), 8) * unc_) + ucell_))
+        zz52 = sc_%msx%a%a(int(m_2_, 8))
         m_2_ = (m_2_ + 1)
       end do
     else
-      zz51 = cpp_r_lit("cell")
-      call p_transport__anon_transport_components_reactionmodule_5fb6c335(ctx_, zz51, c_2_, rep_%error)
+      zz53 = cpp_r_lit("cell")
+      call p_transport__anon_transport_components_reactionmodule_5fb6c335(ctx_, zz53, c_2_, rep_%error)
       if (associated(cpp_exc)) return
     end if
     c_2_ = (c_2_ + 1)
@@ -2934,82 +2940,84 @@ contains
   do
     if (.not. ((nd_2_ < n_nodes_))) exit
     und_ = int(nd_2_, 8)
-    zz52 => cpp_ptr_d_item_ul(node_vol_, und_)
-    vol_ = zz52
+    zz54 => cpp_ptr_d_item_ul(node_vol_, und_)
+    vol_ = zz54
     if ((vol_ <= min_store_vol_)) then
       goto 116
     end if
-    zz53 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
-    zz54 => cpp_ptr_d_item_i(zz53, 6)
+    zz55 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
+    zz56 => cpp_ptr_d_item_i(zz55, 6)
     if (rx_%wall_geometry) then
-      zz55 = p_transport__f__reactionareavolume(ctx_, .false., nd_2_, vol_)
-      zz56 = zz55
+      zz57 = p_transport__f__reactionareavolume(ctx_, .false., nd_2_, vol_)
+      zz58 = zz57
     else
-      zz56 = 0.0_8
+      zz58 = 0.0_8
     end if
-    zz54 = zz56
+    zz56 = zz58
     m_3_ = 0
     do
       if (.not. ((m_3_ < nm_))) exit
-      zz58 => sc_%msx%a%a(int(m_3_, 8))
-      zz57 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int((n_pollut_ + m_3_), 8)))
-      zz58 = (zz57 / vol_)
+      zz60 => sc_%msx%a%a(int(m_3_, 8))
+      zz59 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int((n_pollut_ + m_3_), 8)))
+      zz60 = (zz59 / vol_)
       m_3_ = (m_3_ + 1)
     end do
     p_3_ = 0
     do
       if (.not. ((p_3_ < n_pollut_))) exit
-      zz60 => sc_%pollut%a%a(int(p_3_, 8))
-      zz59 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int(p_3_, 8)))
-      zz60 = (zz59 / vol_)
+      zz62 => sc_%pollut%a%a(int(p_3_, 8))
+      zz61 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int(p_3_, 8)))
+      zz62 = (zz61 / vol_)
       p_3_ = (p_3_ + 1)
     end do
-    zz61 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
-    zz62 => cpp_ptr_d_item_i(zz61, 7)
+    zz63 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
+    zz64 => cpp_ptr_d_item_i(zz63, 7)
     if ((ieor(und_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(ctx_%nodes%hrt), (-9223372036854775807_8 - 1_8)))) then
-      zz63 = ctx_%nodes%hrt%a%a(und_)
+      zz65 = ctx_%nodes%hrt%a%a(und_)
     else
-      zz63 = 0.0_8
+      zz65 = 0.0_8
     end if
-    zz62 = zz63
-    zz64 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
-    zz65 => cpp_ptr_d_item_i(zz64, 9)
+    zz64 = zz65
+    zz66 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
+    zz67 => cpp_ptr_d_item_i(zz66, 9)
     if ((temp_row_ >= 0)) then
-      zz66 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int(temp_row_, 8)))
-      zz67 = (zz66 / vol_)
+      zz68 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int(temp_row_, 8)))
+      zz69 = (zz68 / vol_)
     else
-      zz67 = rx_%default_temp_c
+      zz69 = rx_%default_temp_c
     end if
-    zz65 = zz67
-    zz69 = cpp_vec_d_data(sc_%msx)
-    zz70 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
-    zz71 => sc_%ws
+    zz67 = zz69
+    zz70 = cpp_vec_d_data(sc_%msx)
+    zz73 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
+    zz74 => sc_%ws
     if ((n_pollut_ > 0)) then
-      zz68 = cpp_vec_d_data(sc_%pollut)
+      zz71 = cpp_vec_d_data(sc_%pollut)
+      zz72 = zz71
     else
-      zz68 = cpp_ptr_d()
+      zz72 = cpp_ptr_d()
     end if
-    zz72 = p_reactiondata__coefficients(rx_, .false., nd_2_, sc_%coefficients)
+    zz75 = p_reactiondata__coefficients(rx_, .false., nd_2_, sc_%coefficients)
     if (associated(cpp_exc)) return
-    zz73 => p_transport_reactionintegrator__step__rreactiondata_b_6afab4a6(rx_, .true., dt_, zz69, zz70, zz71, zz68, zz72)
+    zz76 => p_transport_reactionintegrator__step__rreactiondata_b_6afab4a6(rx_, .true., dt_, zz70, zz73, zz74, zz72, zz75)
     if (associated(cpp_exc)) return
-    rep_2_ => zz73
+    rep_2_ => zz76
     if (rep_2_%ok) then
-      zz74 = p_transport__f__clampratespecies(rx_, .true., cpp_vec_d_data(sc_%msx), cpp_ptr_d())
-      if ((zz74 > 0.0_8)) then
-        zz75 = cpp_r_lit("a node store")
-        call p_transport__f__notenegativeclamp(ctx_, zz75)
+      zz77 = cpp_vec_d_data(sc_%msx)
+      zz78 = p_transport__f__clampratespecies(rx_, .true., zz77, cpp_ptr_d())
+      if ((zz78 > 0.0_8)) then
+        zz79 = cpp_r_lit("a node store")
+        call p_transport__f__notenegativeclamp(ctx_, zz79)
       end if
       m_4_ = 0
       do
         if (.not. ((m_4_ < nm_))) exit
-        zz76 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int((n_pollut_ + m_4_), 8)))
-        zz76 = (sc_%msx%a%a(int(m_4_, 8)) * vol_)
+        zz80 => cpp_ptr_d_item_ul(node_mass_, ((und_ * uns_) + int((n_pollut_ + m_4_), 8)))
+        zz80 = (sc_%msx%a%a(int(m_4_, 8)) * vol_)
         m_4_ = (m_4_ + 1)
       end do
     else
-      zz77 = cpp_r_lit("node store")
-      call p_transport__anon_transport_components_reactionmodule_5fb6c335(ctx_, zz77, nd_2_, rep_2_%error)
+      zz81 = cpp_r_lit("node store")
+      call p_transport__anon_transport_components_reactionmodule_5fb6c335(ctx_, zz81, nd_2_, rep_2_%error)
       if (associated(cpp_exc)) return
     end if
     116 continue
@@ -3454,16 +3462,16 @@ contains
   return
   end procedure p_transport__f__reactioncontextdiagnostic
 
-  module procedure p_lam903
+  module procedure p_lam908
     class(cpp_str), pointer :: zz1
   zres => null()
   self%c_error_col = a2
   zz1 => cpp_str_clone(a1)
   zres => zz1
   return
-  end procedure p_lam903
+  end procedure p_lam908
 
-  module procedure p_lam904
+  module procedure p_lam909
     class(t_rxtoken), pointer :: t_
     class(t_rxtoken), pointer :: zz1
     class(t_rxtoken), pointer :: zz2
@@ -3478,7 +3486,7 @@ contains
   zz3 => zz2
   call cpp_vec_o_push_back(zz4, zz3)
   return
-  end procedure p_lam904
+  end procedure p_lam909
 
   module procedure p_transport__f__compilereactionexpression
     integer(4), pointer :: error_col_
@@ -3491,9 +3499,9 @@ contains
     class(t_transport__anon_transport_components_reactionmodule_041afd22), pointer :: lex_
     class(t_transport__anon_transport_components_reactionmodule_041afd22), pointer :: zz5
     class(t_fn192), pointer :: fail_
-    class(t_lam903), pointer :: zz6
+    class(t_lam908), pointer :: zz6
     class(t_fn193), pointer :: popoptooutput_
-    class(t_lam904), pointer :: zz7
+    class(t_lam909), pointer :: zz7
     logical :: expect_operand_
     integer(4) :: depth_guard_
     class(cpp_str), pointer :: lex_err_
@@ -4334,147 +4342,148 @@ contains
     class(cpp_arr_d), pointer :: zz1
     integer(4) :: sp_
     type(cpp_ptr_o) :: t_
+    type(cpp_ptr_o) :: zz2
     type(cpp_ptr_o) :: end_
-    logical :: zz2
-    type(cpp_slot), pointer :: zz3
-    class(t_rxtoken), pointer :: zz4
-    type(cpp_ptr_d) :: zz5
-    integer(4) :: zz6
-    real(8), pointer :: zz7
-    type(cpp_slot), pointer :: zz8
-    class(t_rxtoken), pointer :: zz9
-    type(cpp_ptr_d) :: zz10
-    integer(4) :: zz11
-    real(8), pointer :: zz12
-    type(cpp_slot), pointer :: zz13
-    class(t_rxtoken), pointer :: zz14
-    type(cpp_ptr_d) :: zz15
-    real(8), pointer :: zz16
-    type(cpp_ptr_d) :: zz17
-    integer(4) :: zz18
-    real(8), pointer :: zz19
-    type(cpp_slot), pointer :: zz20
-    class(t_rxtoken), pointer :: zz21
-    type(cpp_ptr_d) :: zz22
-    real(8), pointer :: zz23
-    type(cpp_ptr_d) :: zz24
-    integer(4) :: zz25
-    real(8), pointer :: zz26
-    type(cpp_slot), pointer :: zz27
-    class(t_rxtoken), pointer :: zz28
-    type(cpp_ptr_d) :: zz29
-    real(8), pointer :: zz30
-    type(cpp_ptr_d) :: zz31
-    integer(4) :: zz32
-    real(8), pointer :: zz33
-    type(cpp_slot), pointer :: zz34
-    class(t_rxtoken), pointer :: zz35
-    type(cpp_ptr_d) :: zz36
-    real(8), pointer :: zz37
-    type(cpp_ptr_d) :: zz38
-    integer(4) :: zz39
-    real(8), pointer :: zz40
-    type(cpp_slot), pointer :: zz41
-    class(t_rxtoken), pointer :: zz42
-    type(cpp_ptr_d) :: zz43
-    real(8), pointer :: zz44
-    type(cpp_ptr_d) :: zz45
-    real(8), pointer :: zz46
-    type(cpp_ptr_d) :: zz47
-    real(8), pointer :: zz48
-    real(8) :: zz49
-    type(cpp_ptr_d) :: zz50
-    real(8), pointer :: zz51
-    type(cpp_ptr_d) :: zz52
-    real(8), pointer :: zz53
-    real(8) :: zz54
-    type(cpp_ptr_d) :: zz55
-    real(8), pointer :: zz56
-    type(cpp_ptr_d) :: zz57
-    real(8), pointer :: zz58
-    real(8) :: zz59
-    type(cpp_ptr_d) :: zz60
-    real(8), pointer :: zz61
-    type(cpp_ptr_d) :: zz62
-    real(8), pointer :: zz63
-    real(8) :: zz64
-    type(cpp_ptr_d) :: zz65
-    real(8), pointer :: zz66
-    type(cpp_ptr_d) :: zz67
-    real(8), pointer :: zz68
-    type(cpp_ptr_d) :: zz69
-    real(8), pointer :: zz70
-    type(cpp_ptr_d) :: zz71
-    real(8), pointer :: zz72
-    type(cpp_ptr_d) :: zz73
-    real(8), pointer :: zz74
-    type(cpp_ptr_d) :: zz75
-    real(8), pointer :: zz76
-    type(cpp_ptr_d) :: zz77
-    real(8), pointer :: zz78
-    type(cpp_ptr_d) :: zz79
-    real(8), pointer :: zz80
-    type(cpp_ptr_d) :: zz81
-    real(8), pointer :: zz82
-    type(cpp_ptr_d) :: zz83
-    real(8), pointer :: zz84
-    type(cpp_ptr_d) :: zz85
-    real(8), pointer :: zz86
-    type(cpp_ptr_d) :: zz87
-    real(8), pointer :: zz88
-    type(cpp_ptr_d) :: zz89
-    real(8), pointer :: zz90
-    type(cpp_ptr_d) :: zz91
-    real(8), pointer :: zz92
-    type(cpp_ptr_d) :: zz93
-    real(8), pointer :: zz94
-    type(cpp_ptr_d) :: zz95
-    real(8), pointer :: zz96
-    type(cpp_ptr_d) :: zz97
-    real(8), pointer :: zz98
-    type(cpp_ptr_d) :: zz99
-    real(8), pointer :: zz100
-    real(8) :: zz101
-    type(cpp_ptr_d) :: zz102
-    real(8), pointer :: zz103
-    type(cpp_ptr_d) :: zz104
-    real(8), pointer :: zz105
-    type(cpp_ptr_d) :: zz106
-    real(8), pointer :: zz107
-    type(cpp_ptr_d) :: zz108
-    real(8), pointer :: zz109
-    type(cpp_ptr_d) :: zz110
-    real(8), pointer :: zz111
-    type(cpp_ptr_d) :: zz112
-    real(8), pointer :: zz113
-    type(cpp_ptr_d) :: zz114
-    real(8), pointer :: zz115
-    type(cpp_ptr_d) :: zz116
-    real(8), pointer :: zz117
-    type(cpp_ptr_d) :: zz118
-    real(8), pointer :: zz119
-    type(cpp_ptr_d) :: zz120
-    real(8), pointer :: zz121
-    type(cpp_ptr_d) :: zz122
-    real(8), pointer :: zz123
+    logical :: zz3
+    type(cpp_slot), pointer :: zz4
+    class(t_rxtoken), pointer :: zz5
+    type(cpp_ptr_d) :: zz6
+    integer(4) :: zz7
+    real(8), pointer :: zz8
+    type(cpp_slot), pointer :: zz9
+    class(t_rxtoken), pointer :: zz10
+    type(cpp_ptr_d) :: zz11
+    integer(4) :: zz12
+    real(8), pointer :: zz13
+    type(cpp_slot), pointer :: zz14
+    class(t_rxtoken), pointer :: zz15
+    type(cpp_ptr_d) :: zz16
+    real(8), pointer :: zz17
+    type(cpp_ptr_d) :: zz18
+    integer(4) :: zz19
+    real(8), pointer :: zz20
+    type(cpp_slot), pointer :: zz21
+    class(t_rxtoken), pointer :: zz22
+    type(cpp_ptr_d) :: zz23
+    real(8), pointer :: zz24
+    type(cpp_ptr_d) :: zz25
+    integer(4) :: zz26
+    real(8), pointer :: zz27
+    type(cpp_slot), pointer :: zz28
+    class(t_rxtoken), pointer :: zz29
+    type(cpp_ptr_d) :: zz30
+    real(8), pointer :: zz31
+    type(cpp_ptr_d) :: zz32
+    integer(4) :: zz33
+    real(8), pointer :: zz34
+    type(cpp_slot), pointer :: zz35
+    class(t_rxtoken), pointer :: zz36
+    type(cpp_ptr_d) :: zz37
+    real(8), pointer :: zz38
+    type(cpp_ptr_d) :: zz39
+    integer(4) :: zz40
+    real(8), pointer :: zz41
+    type(cpp_slot), pointer :: zz42
+    class(t_rxtoken), pointer :: zz43
+    type(cpp_ptr_d) :: zz44
+    real(8), pointer :: zz45
+    type(cpp_ptr_d) :: zz46
+    real(8), pointer :: zz47
+    type(cpp_ptr_d) :: zz48
+    real(8), pointer :: zz49
+    real(8) :: zz50
+    type(cpp_ptr_d) :: zz51
+    real(8), pointer :: zz52
+    type(cpp_ptr_d) :: zz53
+    real(8), pointer :: zz54
+    real(8) :: zz55
+    type(cpp_ptr_d) :: zz56
+    real(8), pointer :: zz57
+    type(cpp_ptr_d) :: zz58
+    real(8), pointer :: zz59
+    real(8) :: zz60
+    type(cpp_ptr_d) :: zz61
+    real(8), pointer :: zz62
+    type(cpp_ptr_d) :: zz63
+    real(8), pointer :: zz64
+    real(8) :: zz65
+    type(cpp_ptr_d) :: zz66
+    real(8), pointer :: zz67
+    type(cpp_ptr_d) :: zz68
+    real(8), pointer :: zz69
+    type(cpp_ptr_d) :: zz70
+    real(8), pointer :: zz71
+    type(cpp_ptr_d) :: zz72
+    real(8), pointer :: zz73
+    type(cpp_ptr_d) :: zz74
+    real(8), pointer :: zz75
+    type(cpp_ptr_d) :: zz76
+    real(8), pointer :: zz77
+    type(cpp_ptr_d) :: zz78
+    real(8), pointer :: zz79
+    type(cpp_ptr_d) :: zz80
+    real(8), pointer :: zz81
+    type(cpp_ptr_d) :: zz82
+    real(8), pointer :: zz83
+    type(cpp_ptr_d) :: zz84
+    real(8), pointer :: zz85
+    type(cpp_ptr_d) :: zz86
+    real(8), pointer :: zz87
+    type(cpp_ptr_d) :: zz88
+    real(8), pointer :: zz89
+    type(cpp_ptr_d) :: zz90
+    real(8), pointer :: zz91
+    type(cpp_ptr_d) :: zz92
+    real(8), pointer :: zz93
+    type(cpp_ptr_d) :: zz94
+    real(8), pointer :: zz95
+    type(cpp_ptr_d) :: zz96
+    real(8), pointer :: zz97
+    type(cpp_ptr_d) :: zz98
+    real(8), pointer :: zz99
+    type(cpp_ptr_d) :: zz100
+    real(8), pointer :: zz101
+    real(8) :: zz102
+    type(cpp_ptr_d) :: zz103
+    real(8), pointer :: zz104
+    type(cpp_ptr_d) :: zz105
+    real(8), pointer :: zz106
+    type(cpp_ptr_d) :: zz107
+    real(8), pointer :: zz108
+    type(cpp_ptr_d) :: zz109
+    real(8), pointer :: zz110
+    type(cpp_ptr_d) :: zz111
+    real(8), pointer :: zz112
+    type(cpp_ptr_d) :: zz113
+    real(8), pointer :: zz114
+    type(cpp_ptr_d) :: zz115
+    real(8), pointer :: zz116
+    type(cpp_ptr_d) :: zz117
+    real(8), pointer :: zz118
+    type(cpp_ptr_d) :: zz119
+    real(8), pointer :: zz120
+    type(cpp_ptr_d) :: zz121
+    real(8), pointer :: zz122
+    type(cpp_ptr_d) :: zz123
     real(8), pointer :: zz124
-    type(cpp_ptr_d) :: zz125
-    real(8), pointer :: zz126
-    type(cpp_ptr_d) :: zz127
-    real(8), pointer :: zz128
-    type(cpp_ptr_d) :: zz129
-    real(8), pointer :: zz130
-    type(cpp_ptr_d) :: zz131
-    real(8), pointer :: zz132
-    type(cpp_ptr_d) :: zz133
-    real(8), pointer :: zz134
+    real(8), pointer :: zz125
+    type(cpp_ptr_d) :: zz126
+    real(8), pointer :: zz127
+    type(cpp_ptr_d) :: zz128
+    real(8), pointer :: zz129
+    type(cpp_ptr_d) :: zz130
+    real(8), pointer :: zz131
+    type(cpp_ptr_d) :: zz132
+    real(8), pointer :: zz133
+    type(cpp_ptr_d) :: zz134
     real(8), pointer :: zz135
-    type(cpp_ptr_d) :: zz136
-    real(8), pointer :: zz137
-    type(cpp_ptr_d) :: zz138
-    real(8), pointer :: zz139
-    type(cpp_ptr_d) :: zz140
-    real(8), pointer :: zz141
+    real(8), pointer :: zz136
+    type(cpp_ptr_d) :: zz137
+    real(8), pointer :: zz138
+    type(cpp_ptr_d) :: zz139
+    real(8), pointer :: zz140
+    type(cpp_ptr_d) :: zz141
+    real(8), pointer :: zz142
   if ((span_%len <= 0)) then
     zres = 0.0_8
     return
@@ -4482,253 +4491,254 @@ contains
   zz1 => cpp_arr_make__d(32)
   st_ => zz1
   sp_ = 0
-  t_ = cpp_ptr_o_op_add_ptrt_l(cpp_vec_o_data(pool_), int(span_%begin, 8))
+  zz2 = cpp_vec_o_data(pool_)
+  t_ = cpp_ptr_o_op_add_ptrt_l(zz2, int(span_%begin, 8))
   end_ = cpp_ptr_o_op_add_ptrt_l(t_, int(span_%len, 8))
   do
-    zz2 = cpp_ptr_o_op_ne(t_, end_)
-    if (.not. (zz2)) exit
-    zz3 => cpp_ptr_o_deref(t_)
-    zz4 => h_uas_rxtoken(zz3%p)
-    select case (iand(int(zz4%op, 4), 255_4))
+    zz3 = cpp_ptr_o_op_ne(t_, end_)
+    if (.not. (zz3)) exit
+    zz4 => cpp_ptr_o_deref(t_)
+    zz5 => h_uas_rxtoken(zz4%p)
+    select case (iand(int(zz5%op, 4), 255_4))
     case (0)
-      zz5 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz6 = sp_
+      zz6 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz7 = sp_
       sp_ = (sp_ + 1)
-      zz7 => cpp_ptr_d_item_i(zz5, zz6)
-      zz8 => cpp_ptr_o_deref(t_)
-      zz9 => h_uas_rxtoken(zz8%p)
-      zz7 = zz9%value
+      zz8 => cpp_ptr_d_item_i(zz6, zz7)
+      zz9 => cpp_ptr_o_deref(t_)
+      zz10 => h_uas_rxtoken(zz9%p)
+      zz8 = zz10%value
       goto 103
     case (1)
-      zz10 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz11 = sp_
+      zz11 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz12 = sp_
       sp_ = (sp_ + 1)
-      zz12 => cpp_ptr_d_item_i(zz10, zz11)
-      zz15 = env_%species
-      zz13 => cpp_ptr_o_deref(t_)
-      zz14 => h_uas_rxtoken(zz13%p)
-      zz16 => cpp_ptr_d_item_i(zz15, zz14%idx)
-      zz12 = zz16
+      zz13 => cpp_ptr_d_item_i(zz11, zz12)
+      zz16 = env_%species
+      zz14 => cpp_ptr_o_deref(t_)
+      zz15 => h_uas_rxtoken(zz14%p)
+      zz17 => cpp_ptr_d_item_i(zz16, zz15%idx)
+      zz13 = zz17
       goto 103
     case (2)
-      zz17 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz18 = sp_
+      zz18 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz19 = sp_
       sp_ = (sp_ + 1)
-      zz19 => cpp_ptr_d_item_i(zz17, zz18)
-      zz22 = env_%coefs
-      zz20 => cpp_ptr_o_deref(t_)
-      zz21 => h_uas_rxtoken(zz20%p)
-      zz23 => cpp_ptr_d_item_i(zz22, zz21%idx)
-      zz19 = zz23
+      zz20 => cpp_ptr_d_item_i(zz18, zz19)
+      zz23 = env_%coefs
+      zz21 => cpp_ptr_o_deref(t_)
+      zz22 => h_uas_rxtoken(zz21%p)
+      zz24 => cpp_ptr_d_item_i(zz23, zz22%idx)
+      zz20 = zz24
       goto 103
     case (3)
-      zz24 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz25 = sp_
+      zz25 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz26 = sp_
       sp_ = (sp_ + 1)
-      zz26 => cpp_ptr_d_item_i(zz24, zz25)
-      zz29 = env_%terms
-      zz27 => cpp_ptr_o_deref(t_)
-      zz28 => h_uas_rxtoken(zz27%p)
-      zz30 => cpp_ptr_d_item_i(zz29, zz28%idx)
-      zz26 = zz30
+      zz27 => cpp_ptr_d_item_i(zz25, zz26)
+      zz30 = env_%terms
+      zz28 => cpp_ptr_o_deref(t_)
+      zz29 => h_uas_rxtoken(zz28%p)
+      zz31 => cpp_ptr_d_item_i(zz30, zz29%idx)
+      zz27 = zz31
       goto 103
     case (4)
-      zz31 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz32 = sp_
+      zz32 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz33 = sp_
       sp_ = (sp_ + 1)
-      zz33 => cpp_ptr_d_item_i(zz31, zz32)
-      zz36 = env_%hydvar
-      zz34 => cpp_ptr_o_deref(t_)
-      zz35 => h_uas_rxtoken(zz34%p)
-      zz37 => cpp_ptr_d_item_i(zz36, zz35%idx)
-      zz33 = zz37
+      zz34 => cpp_ptr_d_item_i(zz32, zz33)
+      zz37 = env_%hydvar
+      zz35 => cpp_ptr_o_deref(t_)
+      zz36 => h_uas_rxtoken(zz35%p)
+      zz38 => cpp_ptr_d_item_i(zz37, zz36%idx)
+      zz34 = zz38
       goto 103
     case (5)
-      zz38 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz39 = sp_
+      zz39 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz40 = sp_
       sp_ = (sp_ + 1)
-      zz40 => cpp_ptr_d_item_i(zz38, zz39)
-      zz43 = env_%pollutants
-      zz41 => cpp_ptr_o_deref(t_)
-      zz42 => h_uas_rxtoken(zz41%p)
-      zz44 => cpp_ptr_d_item_i(zz43, zz42%idx)
-      zz40 = zz44
+      zz41 => cpp_ptr_d_item_i(zz39, zz40)
+      zz44 = env_%pollutants
+      zz42 => cpp_ptr_o_deref(t_)
+      zz43 => h_uas_rxtoken(zz42%p)
+      zz45 => cpp_ptr_d_item_i(zz44, zz43%idx)
+      zz41 = zz45
       goto 103
     case (6)
       sp_ = (sp_ - 1)
-      zz45 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz46 => cpp_ptr_d_item_i(zz45, (sp_ - 1))
-      zz47 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz48 => cpp_ptr_d_item_i(zz47, sp_)
-      zz49 = (zz46 + zz48)
-      zz46 = zz49
+      zz46 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz47 => cpp_ptr_d_item_i(zz46, (sp_ - 1))
+      zz48 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz49 => cpp_ptr_d_item_i(zz48, sp_)
+      zz50 = (zz47 + zz49)
+      zz47 = zz50
       goto 103
     case (7)
       sp_ = (sp_ - 1)
-      zz50 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz51 => cpp_ptr_d_item_i(zz50, (sp_ - 1))
-      zz52 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz53 => cpp_ptr_d_item_i(zz52, sp_)
-      zz54 = (zz51 - zz53)
-      zz51 = zz54
+      zz51 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz52 => cpp_ptr_d_item_i(zz51, (sp_ - 1))
+      zz53 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz54 => cpp_ptr_d_item_i(zz53, sp_)
+      zz55 = (zz52 - zz54)
+      zz52 = zz55
       goto 103
     case (8)
       sp_ = (sp_ - 1)
-      zz55 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz56 => cpp_ptr_d_item_i(zz55, (sp_ - 1))
-      zz57 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz58 => cpp_ptr_d_item_i(zz57, sp_)
-      zz59 = (zz56 * zz58)
-      zz56 = zz59
+      zz56 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz57 => cpp_ptr_d_item_i(zz56, (sp_ - 1))
+      zz58 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz59 => cpp_ptr_d_item_i(zz58, sp_)
+      zz60 = (zz57 * zz59)
+      zz57 = zz60
       goto 103
     case (9)
       sp_ = (sp_ - 1)
-      zz60 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz61 => cpp_ptr_d_item_i(zz60, (sp_ - 1))
-      zz62 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz63 => cpp_ptr_d_item_i(zz62, sp_)
-      zz64 = (zz61 / zz63)
-      zz61 = zz64
+      zz61 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz62 => cpp_ptr_d_item_i(zz61, (sp_ - 1))
+      zz63 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz64 => cpp_ptr_d_item_i(zz63, sp_)
+      zz65 = (zz62 / zz64)
+      zz62 = zz65
       goto 103
     case (10)
       sp_ = (sp_ - 1)
-      zz65 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz66 => cpp_ptr_d_item_i(zz65, (sp_ - 1))
-      zz67 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz68 => cpp_ptr_d_item_i(zz67, (sp_ - 1))
-      zz69 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz70 => cpp_ptr_d_item_i(zz69, sp_)
-      zz66 = cpp_math_pow_dd(zz68, zz70)
+      zz66 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz67 => cpp_ptr_d_item_i(zz66, (sp_ - 1))
+      zz68 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz69 => cpp_ptr_d_item_i(zz68, (sp_ - 1))
+      zz70 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz71 => cpp_ptr_d_item_i(zz70, sp_)
+      zz67 = cpp_math_pow_dd(zz69, zz71)
       goto 103
     case (11)
-      zz71 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz72 => cpp_ptr_d_item_i(zz71, (sp_ - 1))
-      zz73 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz74 => cpp_ptr_d_item_i(zz73, (sp_ - 1))
-      zz72 = (-zz74)
+      zz72 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz73 => cpp_ptr_d_item_i(zz72, (sp_ - 1))
+      zz74 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz75 => cpp_ptr_d_item_i(zz74, (sp_ - 1))
+      zz73 = (-zz75)
       goto 103
     case (12)
-      zz75 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz76 => cpp_ptr_d_item_i(zz75, (sp_ - 1))
-      zz77 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz78 => cpp_ptr_d_item_i(zz77, (sp_ - 1))
-      zz76 = cpp_math_exp_d(zz78)
+      zz76 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz77 => cpp_ptr_d_item_i(zz76, (sp_ - 1))
+      zz78 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz79 => cpp_ptr_d_item_i(zz78, (sp_ - 1))
+      zz77 = cpp_math_exp_d(zz79)
       goto 103
     case (13)
-      zz79 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz80 => cpp_ptr_d_item_i(zz79, (sp_ - 1))
-      zz81 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz82 => cpp_ptr_d_item_i(zz81, (sp_ - 1))
-      zz80 = cpp_math_log_d(zz82)
+      zz80 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz81 => cpp_ptr_d_item_i(zz80, (sp_ - 1))
+      zz82 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz83 => cpp_ptr_d_item_i(zz82, (sp_ - 1))
+      zz81 = cpp_math_log_d(zz83)
       goto 103
     case (14)
-      zz83 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz84 => cpp_ptr_d_item_i(zz83, (sp_ - 1))
-      zz85 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz86 => cpp_ptr_d_item_i(zz85, (sp_ - 1))
-      zz84 = cpp_math_log10_d(zz86)
+      zz84 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz85 => cpp_ptr_d_item_i(zz84, (sp_ - 1))
+      zz86 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz87 => cpp_ptr_d_item_i(zz86, (sp_ - 1))
+      zz85 = cpp_math_log10_d(zz87)
       goto 103
     case (15)
-      zz87 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz88 => cpp_ptr_d_item_i(zz87, (sp_ - 1))
-      zz89 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz90 => cpp_ptr_d_item_i(zz89, (sp_ - 1))
-      zz88 = sqrt(zz90)
+      zz88 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz89 => cpp_ptr_d_item_i(zz88, (sp_ - 1))
+      zz90 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz91 => cpp_ptr_d_item_i(zz90, (sp_ - 1))
+      zz89 = sqrt(zz91)
       goto 103
     case (16)
-      zz91 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz92 => cpp_ptr_d_item_i(zz91, (sp_ - 1))
-      zz93 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz94 => cpp_ptr_d_item_i(zz93, (sp_ - 1))
-      zz92 = abs(zz94)
+      zz92 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz93 => cpp_ptr_d_item_i(zz92, (sp_ - 1))
+      zz94 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz95 => cpp_ptr_d_item_i(zz94, (sp_ - 1))
+      zz93 = abs(zz95)
       goto 103
     case (17)
-      zz95 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz96 => cpp_ptr_d_item_i(zz95, (sp_ - 1))
-      zz97 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz98 => cpp_ptr_d_item_i(zz97, (sp_ - 1))
-      if ((zz98 > 0.0_8)) then
-        zz101 = 1.0_8
+      zz96 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz97 => cpp_ptr_d_item_i(zz96, (sp_ - 1))
+      zz98 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz99 => cpp_ptr_d_item_i(zz98, (sp_ - 1))
+      if ((zz99 > 0.0_8)) then
+        zz102 = 1.0_8
       else
-        zz99 = cpp_ptr_d_new_ta_l(st_, 0_8)
-        zz100 => cpp_ptr_d_item_i(zz99, (sp_ - 1))
-        zz101 = merge((-1.0_8), 0.0_8, (zz100 < 0.0_8))
+        zz100 = cpp_ptr_d_new_ta_l(st_, 0_8)
+        zz101 => cpp_ptr_d_item_i(zz100, (sp_ - 1))
+        zz102 = merge((-1.0_8), 0.0_8, (zz101 < 0.0_8))
       end if
-      zz96 = zz101
+      zz97 = zz102
       goto 103
     case (18)
-      zz102 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz103 => cpp_ptr_d_item_i(zz102, (sp_ - 1))
-      zz104 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz105 => cpp_ptr_d_item_i(zz104, (sp_ - 1))
-      zz103 = merge(1.0_8, 0.0_8, (zz105 > 0.0_8))
+      zz103 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz104 => cpp_ptr_d_item_i(zz103, (sp_ - 1))
+      zz105 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz106 => cpp_ptr_d_item_i(zz105, (sp_ - 1))
+      zz104 = merge(1.0_8, 0.0_8, (zz106 > 0.0_8))
       goto 103
     case (19)
-      zz106 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz107 => cpp_ptr_d_item_i(zz106, (sp_ - 1))
-      zz108 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz109 => cpp_ptr_d_item_i(zz108, (sp_ - 1))
-      zz107 = cpp_math_sin_d(zz109)
+      zz107 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz108 => cpp_ptr_d_item_i(zz107, (sp_ - 1))
+      zz109 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz110 => cpp_ptr_d_item_i(zz109, (sp_ - 1))
+      zz108 = cpp_math_sin_d(zz110)
       goto 103
     case (20)
-      zz110 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz111 => cpp_ptr_d_item_i(zz110, (sp_ - 1))
-      zz112 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz113 => cpp_ptr_d_item_i(zz112, (sp_ - 1))
-      zz111 = cpp_math_cos_d(zz113)
+      zz111 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz112 => cpp_ptr_d_item_i(zz111, (sp_ - 1))
+      zz113 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz114 => cpp_ptr_d_item_i(zz113, (sp_ - 1))
+      zz112 = cpp_math_cos_d(zz114)
       goto 103
     case (21)
-      zz114 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz115 => cpp_ptr_d_item_i(zz114, (sp_ - 1))
-      zz116 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz117 => cpp_ptr_d_item_i(zz116, (sp_ - 1))
-      zz115 = cpp_math_tan_d(zz117)
+      zz115 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz116 => cpp_ptr_d_item_i(zz115, (sp_ - 1))
+      zz117 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz118 => cpp_ptr_d_item_i(zz117, (sp_ - 1))
+      zz116 = cpp_math_tan_d(zz118)
       goto 103
     case (22)
       sp_ = (sp_ - 1)
-      zz118 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz119 => cpp_ptr_d_item_i(zz118, (sp_ - 1))
-      zz120 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz121 => cpp_ptr_d_item_i(zz120, (sp_ - 1))
-      zz122 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz123 => cpp_ptr_d_item_i(zz122, sp_)
-      if ((zz121 < zz123)) then
-        zz125 = cpp_ptr_d_new_ta_l(st_, 0_8)
-        zz126 => cpp_ptr_d_item_i(zz125, (sp_ - 1))
-        zz124 => zz126
+      zz119 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz120 => cpp_ptr_d_item_i(zz119, (sp_ - 1))
+      zz121 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz122 => cpp_ptr_d_item_i(zz121, (sp_ - 1))
+      zz123 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz124 => cpp_ptr_d_item_i(zz123, sp_)
+      if ((zz122 < zz124)) then
+        zz126 = cpp_ptr_d_new_ta_l(st_, 0_8)
+        zz127 => cpp_ptr_d_item_i(zz126, (sp_ - 1))
+        zz125 => zz127
       else
-        zz127 = cpp_ptr_d_new_ta_l(st_, 0_8)
-        zz128 => cpp_ptr_d_item_i(zz127, sp_)
-        zz124 => zz128
+        zz128 = cpp_ptr_d_new_ta_l(st_, 0_8)
+        zz129 => cpp_ptr_d_item_i(zz128, sp_)
+        zz125 => zz129
       end if
-      zz119 = zz124
+      zz120 = zz125
       goto 103
     case (23)
       sp_ = (sp_ - 1)
-      zz129 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz130 => cpp_ptr_d_item_i(zz129, (sp_ - 1))
-      zz131 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz132 => cpp_ptr_d_item_i(zz131, (sp_ - 1))
-      zz133 = cpp_ptr_d_new_ta_l(st_, 0_8)
-      zz134 => cpp_ptr_d_item_i(zz133, sp_)
-      if ((zz132 > zz134)) then
-        zz136 = cpp_ptr_d_new_ta_l(st_, 0_8)
-        zz137 => cpp_ptr_d_item_i(zz136, (sp_ - 1))
-        zz135 => zz137
+      zz130 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz131 => cpp_ptr_d_item_i(zz130, (sp_ - 1))
+      zz132 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz133 => cpp_ptr_d_item_i(zz132, (sp_ - 1))
+      zz134 = cpp_ptr_d_new_ta_l(st_, 0_8)
+      zz135 => cpp_ptr_d_item_i(zz134, sp_)
+      if ((zz133 > zz135)) then
+        zz137 = cpp_ptr_d_new_ta_l(st_, 0_8)
+        zz138 => cpp_ptr_d_item_i(zz137, (sp_ - 1))
+        zz136 => zz138
       else
-        zz138 = cpp_ptr_d_new_ta_l(st_, 0_8)
-        zz139 => cpp_ptr_d_item_i(zz138, sp_)
-        zz135 => zz139
+        zz139 = cpp_ptr_d_new_ta_l(st_, 0_8)
+        zz140 => cpp_ptr_d_item_i(zz139, sp_)
+        zz136 => zz140
       end if
-      zz130 = zz135
+      zz131 = zz136
       goto 103
     end select
     103 continue
     t_ = cpp_ptr_o_op_add_ptrt_l(t_, 1_8)
   end do
-  zz140 = cpp_ptr_d_new_ta_l(st_, 0_8)
-  zz141 => cpp_ptr_d_item_i(zz140, 0)
-  zres = zz141
+  zz141 = cpp_ptr_d_new_ta_l(st_, 0_8)
+  zz142 => cpp_ptr_d_item_i(zz141, 0)
+  zres = zz142
   return
   end procedure p_transport__f__evalreactionexpression
 
@@ -5722,7 +5732,7 @@ contains
   call cpp_vec_i_reserve(self%formula_idx_, un_)
   end procedure p_transport_rxworkspace__init
 
-  module procedure p_lam934
+  module procedure p_lam939
     integer(4) :: i_
     class(t_rxtoken), pointer :: zz1
     class(t_rxtoken), pointer :: zz2
@@ -5737,9 +5747,9 @@ contains
     i_ = (i_ + 1)
   end do
   return
-  end procedure p_lam934
+  end procedure p_lam939
 
-  module procedure p_lam935
+  module procedure p_lam940
     logical :: zz1
     integer(4) :: r_
     integer(4) :: c_
@@ -5773,9 +5783,9 @@ contains
   self%c_ws%lu_scale_ = a2
   zres = .true.
   return
-  end procedure p_lam935
+  end procedure p_lam940
 
-  module procedure p_lam936
+  module procedure p_lam941
     integer(8) :: k_
     real(8), pointer :: zz1
   if (self%c_coupled) then
@@ -5791,16 +5801,25 @@ contains
     k_ = (k_ + 1_8)
   end do
   return
-  end procedure p_lam936
+  end procedure p_lam941
 
-  module procedure p_lam937
+  module procedure p_lam942
     integer(8) :: k_3_
     real(8), pointer :: zz1
     real(8), pointer :: zz2
     integer(8) :: k_4_
     real(8), pointer :: zz3
+    type(cpp_ptr_d) :: zz4
+    class(t_reactiondata), pointer :: zz5
+    class(cpp_vec_o), pointer :: zz6
+    type(cpp_ptr_d) :: zz7
+    type(cpp_ptr_d) :: zz8
+    type(cpp_ptr_d) :: zz9
+    class(cpp_vec_d), pointer :: zz10
+    class(cpp_vec_i), pointer :: zz11
+    real(8) :: zz12
     integer(8) :: k_5_
-    real(8), pointer :: zz4
+    real(8), pointer :: zz13
   k_3_ = 0_8
   do
     if (.not. ((ieor(k_3_, (-9223372036854775807_8 - 1_8)) < ieor(self%c_gn, (-9223372036854775807_8 - 1_8))))) exit
@@ -5817,124 +5836,138 @@ contains
     k_4_ = (k_4_ + 1_8)
   end do
   call self%c_freeze_others%invoke(merge((-1_8), self%c_gb, self%c_coupled))
-  call p_transport__anon_transport_components_reactionmodule_b6291286(self%c_rx, self%c_spans, self%c_species, self%c_hydvar, self%c_pollutants, self%c_ws%terms_, self%c_ridx, self%c_factor, cpp_vec_d_data(self%c_ws%rates_), self%c_kinetic_scale, self%c_ws%term_needed_, self%c_coefficients, self%c_contexts)
+  zz5 => self%c_rx
+  zz6 => self%c_spans
+  zz7 = self%c_species
+  zz8 = self%c_hydvar
+  zz9 = self%c_pollutants
+  zz10 => self%c_ws%terms_
+  zz11 => self%c_ridx
+  zz12 = self%c_factor
+  zz4 = cpp_vec_d_data(self%c_ws%rates_)
+  call p_transport__anon_transport_components_reactionmodule_b6291286(zz5, zz6, zz7, zz8, zz9, zz10, zz11, zz12, zz4, self%c_kinetic_scale, self%c_ws%term_needed_, self%c_coefficients, self%c_contexts)
   if (associated(cpp_exc)) return
   k_5_ = 0_8
   do
     if (.not. ((ieor(k_5_, (-9223372036854775807_8 - 1_8)) < ieor(self%c_gn, (-9223372036854775807_8 - 1_8))))) exit
-    zz4 => cpp_ptr_d_item_ul(a2, k_5_)
-    zz4 = self%c_ws%rates_%a%a((self%c_gb + k_5_))
+    zz13 => cpp_ptr_d_item_ul(a2, k_5_)
+    zz13 = self%c_ws%rates_%a%a((self%c_gb + k_5_))
     k_5_ = (k_5_ + 1_8)
   end do
   return
-  end procedure p_lam937
+  end procedure p_lam942
 
-  module procedure p_lam938
+  module procedure p_lam943
     class(t_transport_rxevalenv), pointer :: env_
     class(t_transport_rxevalenv), pointer :: zz1
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d), pointer :: zz3
     integer(4) :: k_28_
-    real(8), pointer :: zz2
-    class(t_rxexprspan), pointer :: zz3
-    class(cpp_vec_o), pointer :: zz4
-    real(8) :: zz5
+    real(8), pointer :: zz4
+    class(t_rxexprspan), pointer :: zz5
+    class(cpp_vec_o), pointer :: zz6
+    real(8) :: zz7
   call p_transport__anon_transport_components_reactionmodule_6e10660b(self%c_rx, self%c_species, self%c_hydvar, self%c_pollutants, self%c_ws%terms_, self%c_ws%term_needed_, self%c_coefficients)
   allocate(zz1)
   call p_transport_rxevalenv__ctor_x(zz1)
   zz1%species = self%c_species
   zz1%coefs = self%c_coefficients
-  zz1%terms = cpp_vec_d_data(self%c_ws%terms_)
+  zz3 => zz1%terms
+  zz2 = cpp_vec_d_data(self%c_ws%terms_)
+  zz3 = zz2
   zz1%hydvar = self%c_hydvar
   zz1%pollutants = self%c_pollutants
   env_ => zz1
   k_28_ = 0
   do
     if (.not. ((k_28_ < self%c_ne))) exit
-    zz2 => cpp_ptr_d_item_i(a1, k_28_)
-    zz4 => self%c_rx%token_pool
-    zz3 => h_uas_rxexprspan(self%c_spans%a%a(int(self%c_eidx%a%a(int(k_28_, 8)), 8))%p)
-    zz5 = p_transport__f__evalreactionexpression(zz4, zz3, env_)
-    zz2 = zz5
+    zz4 => cpp_ptr_d_item_i(a1, k_28_)
+    zz6 => self%c_rx%token_pool
+    zz5 => h_uas_rxexprspan(self%c_spans%a%a(int(self%c_eidx%a%a(int(k_28_, 8)), 8))%p)
+    zz7 = p_transport__f__evalreactionexpression(zz6, zz5, env_)
+    zz4 = zz7
     k_28_ = (k_28_ + 1)
   end do
   return
-  end procedure p_lam938
+  end procedure p_lam943
 
   module procedure p_transport_reactionintegrator__step__rreactiondata_r_7027e427
     type(cpp_ptr_d), pointer :: coefficients_c_
+    type(cpp_ptr_d) :: zz1
     class(t_transport_rxstepreport), pointer :: rep_
-    class(t_transport_rxstepreport), pointer :: zz1
-    integer(4) :: n_
     class(t_transport_rxstepreport), pointer :: zz2
-    logical :: zz3
-    type(cpp_cptr) :: zz4
-    class(cpp_str), pointer :: zz5
-    class(t_transport_rxstepreport), pointer :: zz6
+    integer(4) :: n_
+    class(t_transport_rxstepreport), pointer :: zz3
+    logical :: zz4
+    type(cpp_cptr) :: zz5
+    class(cpp_str), pointer :: zz6
+    class(t_transport_rxstepreport), pointer :: zz7
     integer(4) :: s_
-    logical :: zz7
-    type(cpp_cptr) :: zz8
-    class(cpp_str), pointer :: zz9
-    class(t_transport_rxstepreport), pointer :: zz10
+    logical :: zz8
+    type(cpp_cptr) :: zz9
+    class(cpp_str), pointer :: zz10
+    class(t_transport_rxstepreport), pointer :: zz11
     type(cpp_cspan_o) :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
     class(t_transport_rxratecontext), pointer :: context_
-    class(t_transport_rxratecontext), pointer :: zz11
-    logical :: zz12
+    class(t_transport_rxratecontext), pointer :: zz12
     logical :: zz13
     logical :: zz14
     logical :: zz15
     logical :: zz16
     logical :: zz17
-    type(cpp_cptr) :: zz18
-    class(cpp_str), pointer :: zz19
-    class(t_transport_rxstepreport), pointer :: zz20
+    logical :: zz18
+    type(cpp_cptr) :: zz19
+    class(cpp_str), pointer :: zz20
+    class(t_transport_rxstepreport), pointer :: zz21
     integer(4) :: s_2_
-    logical :: zz21
-    real(8), pointer :: zz22
-    logical :: zz23
-    real(8), pointer :: zz24
-    logical :: zz25
+    logical :: zz22
+    real(8), pointer :: zz23
+    logical :: zz24
+    real(8), pointer :: zz25
     logical :: zz26
     logical :: zz27
-    type(cpp_cptr) :: zz28
-    class(cpp_str), pointer :: zz29
-    class(t_transport_rxstepreport), pointer :: zz30
+    logical :: zz28
+    type(cpp_cptr) :: zz29
+    class(cpp_str), pointer :: zz30
+    class(t_transport_rxstepreport), pointer :: zz31
     type(cpp_cspan_o) :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
     class(t_transport_rxratecontext), pointer :: context_2_
-    class(t_transport_rxratecontext), pointer :: zz31
-    real(8), pointer :: zz32
+    class(t_transport_rxratecontext), pointer :: zz32
     real(8), pointer :: zz33
+    real(8), pointer :: zz34
     real(8) :: factor_
     integer(4) :: s_3_
     class(t_fn255), pointer :: mark_
-    class(t_lam934), pointer :: zz34
+    class(t_lam939), pointer :: zz35
     integer(4) :: s_4_
-    class(t_rxexprspan), pointer :: zz35
+    class(t_rxexprspan), pointer :: zz36
     type(cpp_cspan_o) :: x__r5_
     integer(8) :: x__i6_
     integer(8) :: x__i6_n_
     class(t_transport_rxratecontext), pointer :: context_3_
-    class(t_transport_rxratecontext), pointer :: zz36
+    class(t_transport_rxratecontext), pointer :: zz37
     integer(4) :: s_5_
-    class(t_rxexprspan), pointer :: zz37
-    integer(4) :: term_
     class(t_rxexprspan), pointer :: zz38
+    integer(4) :: term_
+    class(t_rxexprspan), pointer :: zz39
     class(t_fn107), pointer :: factoriterationmatrix_
-    class(t_lam935), pointer :: zz39
+    class(t_lam940), pointer :: zz40
     class(cpp_vec_i), pointer :: ridx_
     integer(8) :: nr_
     logical :: coupled_
     integer(4) :: s2_
-    real(8), pointer :: zz40
     real(8), pointer :: zz41
+    real(8), pointer :: zz42
     class(t_fn256), pointer :: freeze_others_
-    class(t_lam936), pointer :: zz42
+    class(t_lam941), pointer :: zz43
     integer(8) :: k_2_
     integer(8) :: groups_
     integer(8) :: g_
-    logical :: zz43
+    logical :: zz44
     integer(8) :: gb_
     integer(8) :: gn_
     real(8) :: t_
@@ -5943,219 +5976,275 @@ contains
     real(8) :: h_min_
     integer(4) :: guard_
     class(t_fn257), pointer :: fg_
-    class(t_lam937), pointer :: zz44
+    class(t_lam942), pointer :: zz45
     integer(8) :: k_6_
-    real(8), pointer :: zz45
     real(8), pointer :: zz46
-    logical :: zz47
-    integer(4) :: zz48
-    logical :: zz49
-    type(cpp_cptr) :: zz50
+    real(8), pointer :: zz47
+    logical :: zz48
+    integer(4) :: zz49
+    logical :: zz50
     type(cpp_cptr) :: zz51
     type(cpp_cptr) :: zz52
-    class(cpp_str), pointer :: zz53
-    type(cpp_cptr) :: zz54
-    class(cpp_str), pointer :: zz55
-    logical :: zz56
-    type(cpp_cptr) :: zz57
-    class(cpp_str), pointer :: zz58
+    type(cpp_cptr) :: zz53
+    class(cpp_str), pointer :: zz54
+    type(cpp_cptr) :: zz55
+    class(cpp_str), pointer :: zz56
+    type(cpp_ptr_d) :: zz57
+    type(cpp_ptr_d) :: zz58
+    type(cpp_ptr_d) :: zz59
+    logical :: zz60
+    type(cpp_cptr) :: zz61
+    class(cpp_str), pointer :: zz62
     logical :: accepted_
     real(8) :: h_next_
     integer(8) :: k_7_
-    real(8) :: zz59
+    real(8) :: zz63
     type(cpp_ptr_d) :: y_2_
+    type(cpp_ptr_d) :: zz64
     integer(8) :: k_8_
-    real(8), pointer :: zz60
-    real(8), pointer :: zz61
-    integer(8) :: k_9_
-    real(8), pointer :: zz62
-    real(8), pointer :: zz63
-    integer(8) :: k_10_
-    real(8), pointer :: zz64
     real(8), pointer :: zz65
-    integer(8) :: k_11_
     real(8), pointer :: zz66
-    real(8), pointer :: zz67
-    integer(8) :: k_12_
-    real(8), pointer :: zz68
+    type(cpp_ptr_d) :: zz67
+    type(cpp_ptr_d) :: zz68
+    integer(8) :: k_9_
     real(8), pointer :: zz69
-    integer(8) :: k_13_
-    real(8) :: y5_
     real(8), pointer :: zz70
-    real(8) :: y4_
-    real(8), pointer :: zz71
-    real(8) :: en_
-    real(8) :: zz72
-    integer(8) :: k_14_
+    type(cpp_ptr_d) :: zz71
+    type(cpp_ptr_d) :: zz72
+    integer(8) :: k_10_
     real(8), pointer :: zz73
-    real(8) :: zz74
-    integer(4) :: gni_
-    type(cpp_ptr_d) :: y_3_
-    logical :: refresh_jac_
-    logical :: zz75
-    integer(4) :: c_2_
-    real(8) :: save_
-    real(8), pointer :: zz76
-    real(8) :: dy_
+    real(8), pointer :: zz74
+    type(cpp_ptr_d) :: zz75
+    type(cpp_ptr_d) :: zz76
+    integer(8) :: k_11_
     real(8), pointer :: zz77
     real(8), pointer :: zz78
+    type(cpp_ptr_d) :: zz79
+    type(cpp_ptr_d) :: zz80
+    integer(8) :: k_12_
+    real(8), pointer :: zz81
+    real(8), pointer :: zz82
+    type(cpp_ptr_d) :: zz83
+    type(cpp_ptr_d) :: zz84
+    integer(8) :: k_13_
+    real(8) :: y5_
+    real(8), pointer :: zz85
+    real(8) :: y4_
+    real(8), pointer :: zz86
+    real(8) :: en_
+    type(cpp_ptr_i) :: zz87
+    type(cpp_ptr_d) :: zz88
+    type(cpp_ptr_i) :: zz89
+    type(cpp_ptr_d) :: zz90
+    real(8) :: zz91
+    integer(8) :: k_14_
+    real(8), pointer :: zz92
+    real(8) :: zz93
+    integer(4) :: gni_
+    type(cpp_ptr_d) :: y_3_
+    type(cpp_ptr_d) :: zz94
+    logical :: refresh_jac_
+    logical :: zz95
+    integer(4) :: c_2_
+    real(8) :: save_
+    real(8), pointer :: zz96
+    real(8) :: dy_
+    real(8), pointer :: zz97
+    type(cpp_ptr_d) :: zz98
+    real(8), pointer :: zz99
     integer(4) :: r_2_
     integer(8) :: k_15_
-    real(8), pointer :: zz79
-    real(8), pointer :: zz80
+    real(8), pointer :: zz100
+    real(8), pointer :: zz101
     real(8) :: g2_
-    logical :: zz81
-    real(8) :: zz82
+    logical :: zz102
+    real(8) :: zz103
+    type(cpp_ptr_d) :: zz104
+    class(cpp_vec_d), pointer :: zz105
+    class(cpp_vec_i), pointer :: zz106
+    type(cpp_ptr_d) :: zz107
     integer(8) :: k_16_
-    real(8), pointer :: zz83
-    real(8), pointer :: zz84
+    real(8), pointer :: zz108
+    real(8), pointer :: zz109
+    type(cpp_ptr_d) :: zz110
+    type(cpp_ptr_d) :: zz111
     integer(8) :: k_17_
+    type(cpp_ptr_d) :: zz112
+    class(cpp_vec_d), pointer :: zz113
+    class(cpp_vec_i), pointer :: zz114
+    type(cpp_ptr_d) :: zz115
     real(8) :: w1_
     real(8) :: w2_
     integer(8) :: k_18_
-    real(8), pointer :: zz85
-    real(8), pointer :: zz86
+    real(8), pointer :: zz116
+    real(8), pointer :: zz117
     real(8) :: en_2_
-    real(8) :: zz87
+    type(cpp_ptr_i) :: zz118
+    type(cpp_ptr_d) :: zz119
+    type(cpp_ptr_i) :: zz120
+    type(cpp_ptr_d) :: zz121
+    real(8) :: zz122
     integer(8) :: k_19_
-    real(8), pointer :: zz88
-    real(8) :: zz89
+    real(8), pointer :: zz123
+    real(8) :: zz124
     logical :: have_hist_
     real(8) :: r_3_
-    real(8) :: zz90
+    real(8) :: zz125
     real(8) :: a0_
-    real(8) :: zz91
+    real(8) :: zz126
     real(8) :: a1_
-    real(8) :: zz92
+    real(8) :: zz127
     integer(8) :: k_20_
-    real(8), pointer :: zz93
-    real(8), pointer :: zz94
+    real(8), pointer :: zz128
+    real(8), pointer :: zz129
     real(8) :: beta_
-    real(8) :: zz95
+    real(8) :: zz130
     logical :: newton_ok_
-    logical :: zz96
-    real(8) :: zz97
+    logical :: zz131
+    real(8) :: zz132
     integer(4) :: it_
+    type(cpp_ptr_d) :: zz133
+    type(cpp_ptr_d) :: zz134
     integer(8) :: k_21_
     real(8) :: rhs_
-    real(8), pointer :: zz98
-    real(8), pointer :: zz99
-    real(8) :: zz100
+    real(8), pointer :: zz135
+    real(8), pointer :: zz136
+    real(8) :: zz137
     real(8) :: rn_
     integer(8) :: k_22_
+    type(cpp_ptr_d) :: zz138
+    class(cpp_vec_d), pointer :: zz139
+    class(cpp_vec_i), pointer :: zz140
+    type(cpp_ptr_d) :: zz141
     integer(8) :: k_23_
-    real(8) :: zz101
-    logical :: zz102
-    logical :: zz103
+    real(8) :: zz142
+    type(cpp_ptr_d) :: zz143
+    logical :: zz144
+    logical :: zz145
     integer(8) :: k_24_
-    real(8), pointer :: zz104
-    real(8) :: zz105
-    real(8), pointer :: zz106
+    real(8), pointer :: zz146
+    real(8) :: zz147
+    real(8), pointer :: zz148
     real(8) :: en_3_
-    real(8) :: zz107
+    type(cpp_ptr_i) :: zz149
+    type(cpp_ptr_d) :: zz150
+    type(cpp_ptr_i) :: zz151
+    type(cpp_ptr_d) :: zz152
+    real(8) :: zz153
     integer(8) :: k_25_
-    real(8), pointer :: zz108
-    real(8), pointer :: zz109
-    real(8), pointer :: zz110
-    real(8) :: zz111
-    real(8) :: zz112
-    real(8) :: zz113
-    logical :: zz114
-    type(cpp_cptr) :: zz115
-    class(cpp_str), pointer :: zz116
+    real(8), pointer :: zz154
+    real(8), pointer :: zz155
+    real(8), pointer :: zz156
+    real(8) :: zz157
+    real(8) :: zz158
+    real(8) :: zz159
+    type(cpp_ptr_d) :: zz160
+    logical :: zz161
+    type(cpp_cptr) :: zz162
+    class(cpp_str), pointer :: zz163
     integer(8) :: k_26_
     integer(8) :: k_27_
-    real(8), pointer :: zz117
-    class(t_transport_rxstepreport), pointer :: zz118
+    real(8), pointer :: zz164
+    class(t_transport_rxstepreport), pointer :: zz165
     class(cpp_vec_i), pointer :: eidx_
     integer(4) :: ne_
     class(t_fn258), pointer :: residual_
-    class(t_lam938), pointer :: zz119
+    class(t_lam943), pointer :: zz166
     logical :: converged_
     integer(4) :: it_2_
+    type(cpp_ptr_d) :: zz167
     real(8) :: rn_2_
     integer(4) :: k_29_
     integer(4) :: c_3_
     integer(4) :: sc_
     real(8) :: save_2_
-    real(8), pointer :: zz120
+    real(8), pointer :: zz168
     real(8) :: dy_2_
-    real(8), pointer :: zz121
-    real(8), pointer :: zz122
+    real(8), pointer :: zz169
+    type(cpp_ptr_d) :: zz170
+    real(8), pointer :: zz171
     integer(4) :: r_4_
     integer(8) :: k_30_
-    logical :: zz123
+    logical :: zz172
+    type(cpp_ptr_d) :: zz173
+    class(cpp_vec_d), pointer :: zz174
+    class(cpp_vec_i), pointer :: zz175
+    type(cpp_ptr_d) :: zz176
     real(8) :: lambda_
     integer(4) :: ls_
     integer(4) :: k_31_
-    real(8), pointer :: zz124
-    real(8) :: zz125
+    real(8), pointer :: zz177
+    real(8) :: zz178
+    type(cpp_ptr_d) :: zz179
     real(8) :: rn2_
     integer(4) :: k_32_
     integer(4) :: k_33_
-    real(8), pointer :: zz126
-    real(8) :: zz127
-    real(8) :: zz128
-    type(cpp_cptr) :: zz129
-    class(cpp_str), pointer :: zz130
-    class(t_transport_rxstepreport), pointer :: zz131
+    real(8), pointer :: zz180
+    real(8) :: zz181
+    real(8) :: zz182
+    type(cpp_cptr) :: zz183
+    class(cpp_str), pointer :: zz184
+    class(t_transport_rxstepreport), pointer :: zz185
     class(cpp_vec_i), pointer :: x__r7_
     integer(8) :: x__i8_
     integer(8) :: x__i8_n_
     integer(4) :: s_6_
     class(t_transport_rxevalenv), pointer :: env_2_
-    class(t_transport_rxevalenv), pointer :: zz132
-    real(8), pointer :: zz133
-    class(t_rxexprspan), pointer :: zz134
-    class(cpp_vec_o), pointer :: zz135
-    real(8) :: zz136
-    logical :: zz137
-    type(cpp_cptr) :: zz138
-    class(cpp_str), pointer :: zz139
-    class(t_transport_rxstepreport), pointer :: zz140
+    class(t_transport_rxevalenv), pointer :: zz186
+    type(cpp_ptr_d) :: zz187
+    type(cpp_ptr_d), pointer :: zz188
+    real(8), pointer :: zz189
+    class(t_rxexprspan), pointer :: zz190
+    class(cpp_vec_o), pointer :: zz191
+    real(8) :: zz192
+    logical :: zz193
+    type(cpp_cptr) :: zz194
+    class(cpp_str), pointer :: zz195
+    class(t_transport_rxstepreport), pointer :: zz196
   zres => null()
   allocate(coefficients_c_)
   coefficients_c_ = coefficients_
   if ((.not. (.not. cpp_ptr_d_isnull(coefficients_c_)))) then
-    coefficients_c_ = cpp_vec_d_data(rx_%coef_value)
+    zz1 = cpp_vec_d_data(rx_%coef_value)
+    coefficients_c_ = zz1
   end if
-  allocate(zz1)
-  call p_transport_rxstepreport__ctor_x(zz1)
-  rep_ => zz1
+  allocate(zz2)
+  call p_transport_rxstepreport__ctor_x(zz2)
+  rep_ => zz2
   n_ = p_reactiondata__n_species(rx_)
   if ((((.not. rx_%compiled) .or. (n_ == 0)) .or. (dt_ <= 0.0_8))) then
-    zz2 => p_transport_rxstepreport__movenew(rep_)
-    zres => zz2
+    zz3 => p_transport_rxstepreport__movenew(rep_)
+    zres => zz3
     return
   end if
-  zz3 = (cpp_vec_i_size(forms_) /= int(n_, 8))
-  if (.not. zz3) then
-    zz3 = (cpp_vec_o_size(spans_) /= int(n_, 8))
+  zz4 = (cpp_vec_i_size(forms_) /= int(n_, 8))
+  if (.not. zz4) then
+    zz4 = (cpp_vec_o_size(spans_) /= int(n_, 8))
   end if
-  if (zz3) then
+  if (zz4) then
     rep_%ok = .false.
-    zz5 => rep_%error
-    zz4 = cpp_r_lit("Reaction context shape differs from species")
-    call cpp_str_assign_cptr(zz5, zz4)
-    zz6 => p_transport_rxstepreport__movenew(rep_)
-    zres => zz6
+    zz6 => rep_%error
+    zz5 = cpp_r_lit("Reaction context shape differs from species")
+    call cpp_str_assign_cptr(zz6, zz5)
+    zz7 => p_transport_rxstepreport__movenew(rep_)
+    zres => zz7
     return
   end if
   if ((.not. cpp_cspan_o_empty(contexts_))) then
     s_ = 0
     do
       if (.not. ((s_ < n_))) exit
-      zz7 = (forms_%a%a(int(s_, 8)) /= 0)
-      if (zz7) then
-        zz7 = (forms_%a%a(int(s_, 8)) /= 1)
+      zz8 = (forms_%a%a(int(s_, 8)) /= 0)
+      if (zz8) then
+        zz8 = (forms_%a%a(int(s_, 8)) /= 1)
       end if
-      if (zz7) then
+      if (zz8) then
         rep_%ok = .false.
-        zz9 => rep_%error
-        zz8 = cpp_r_lit("Shared reaction contexts support RATE terms only")
-        call cpp_str_assign_cptr(zz9, zz8)
-        zz10 => p_transport_rxstepreport__movenew(rep_)
-        zres => zz10
+        zz10 => rep_%error
+        zz9 = cpp_r_lit("Shared reaction contexts support RATE terms only")
+        call cpp_str_assign_cptr(zz10, zz9)
+        zz11 => p_transport_rxstepreport__movenew(rep_)
+        zres => zz11
         return
       end if
       s_ = (s_ + 1)
@@ -6165,73 +6254,73 @@ contains
     x__i2_n_ = x__r1_%n
     do
       if (.not. ((x__i2_ < x__i2_n_))) exit
-      zz11 => h_uas_transport_rxratecontext(x__r1_%a%a((x__r1_%o + x__i2_))%p)
-      context_ => zz11
-      zz12 = (.not. cpp_ptr_d_isnull(kinetic_scale_))
-      if (.not. zz12) then
-        zz12 = (.not. (.not. (.not. associated(context_%forms))))
-      end if
-      zz13 = zz12
+      zz12 => h_uas_transport_rxratecontext(x__r1_%a%a((x__r1_%o + x__i2_))%p)
+      context_ => zz12
+      zz13 = (.not. cpp_ptr_d_isnull(kinetic_scale_))
       if (.not. zz13) then
-        zz13 = (.not. (.not. (.not. associated(context_%expressions))))
+        zz13 = (.not. (.not. (.not. associated(context_%forms))))
       end if
       zz14 = zz13
       if (.not. zz14) then
-        zz14 = (.not. (.not. cpp_ptr_d_isnull(context_%hydvar)))
+        zz14 = (.not. (.not. (.not. associated(context_%expressions))))
       end if
       zz15 = zz14
       if (.not. zz15) then
-        zz15 = (.not. (.not. cpp_ptr_d_isnull(context_%kinetic_scale)))
+        zz15 = (.not. (.not. cpp_ptr_d_isnull(context_%hydvar)))
       end if
       zz16 = zz15
       if (.not. zz16) then
-        zz16 = (cpp_vec_i_size(context_%forms) /= int(n_, 8))
+        zz16 = (.not. (.not. cpp_ptr_d_isnull(context_%kinetic_scale)))
       end if
       zz17 = zz16
       if (.not. zz17) then
-        zz17 = (cpp_vec_o_size(context_%expressions) /= int(n_, 8))
+        zz17 = (cpp_vec_i_size(context_%forms) /= int(n_, 8))
       end if
-      if (zz17) then
+      zz18 = zz17
+      if (.not. zz18) then
+        zz18 = (cpp_vec_o_size(context_%expressions) /= int(n_, 8))
+      end if
+      if (zz18) then
         rep_%ok = .false.
-        zz19 => rep_%error
-        zz18 = cpp_r_lit("Shared reaction context shape or scale differs")
-        call cpp_str_assign_cptr(zz19, zz18)
-        zz20 => p_transport_rxstepreport__movenew(rep_)
-        zres => zz20
+        zz20 => rep_%error
+        zz19 = cpp_r_lit("Shared reaction context shape or scale differs")
+        call cpp_str_assign_cptr(zz20, zz19)
+        zz21 => p_transport_rxstepreport__movenew(rep_)
+        zres => zz21
         return
       end if
       s_2_ = 0
       do
         if (.not. ((s_2_ < n_))) exit
-        zz21 = (context_%forms%a%a(int(s_2_, 8)) /= 0)
-        if (zz21) then
-          zz21 = (context_%forms%a%a(int(s_2_, 8)) /= 1)
+        zz22 = (context_%forms%a%a(int(s_2_, 8)) /= 0)
+        if (zz22) then
+          zz22 = (context_%forms%a%a(int(s_2_, 8)) /= 1)
         end if
-        zz23 = zz21
-        if (.not. zz23) then
-          zz22 => cpp_ptr_d_item_i(context_%kinetic_scale, s_2_)
-          zz23 = (.not. cpp_double_isfinite(zz22))
+        zz24 = zz22
+        if (.not. zz24) then
+          zz23 => cpp_ptr_d_item_i(context_%kinetic_scale, s_2_)
+          zz24 = (.not. cpp_double_isfinite(zz23))
         end if
-        zz25 = zz23
-        if (.not. zz25) then
-          zz24 => cpp_ptr_d_item_i(context_%kinetic_scale, s_2_)
-          zz25 = (zz24 < 0.0_8)
+        zz26 = zz24
+        if (.not. zz26) then
+          zz25 => cpp_ptr_d_item_i(context_%kinetic_scale, s_2_)
+          zz26 = (zz25 < 0.0_8)
         end if
-        zz27 = zz25
-        if (.not. zz27) then
-          zz26 = (context_%forms%a%a(int(s_2_, 8)) == 1)
-          if (zz26) then
-            zz26 = (forms_%a%a(int(s_2_, 8)) /= 1)
+        zz28 = zz26
+        if (.not. zz28) then
+          zz27 = (context_%forms%a%a(int(s_2_, 8)) == 1)
+          if (zz27) then
+            zz27 = (forms_%a%a(int(s_2_, 8)) /= 1)
           end if
-          zz27 = zz26
+          zz28 = zz27
         end if
-        if (zz27) then
+        if (zz28) then
           rep_%ok = .false.
-          zz29 => rep_%error
-          zz28 = cpp_r_lit("Shared reaction context has incompatible forms or weights")
-          call cpp_str_assign_cptr(zz29, zz28)
-          zz30 => p_transport_rxstepreport__movenew(rep_)
-          zres => zz30
+          zz30 => rep_%error
+          zz29 = cpp_r_lit("Shared reaction context has incompatible forms or weights")
+          call cpp_str_assign_cptr(zz30, zz29)
+          zz31 => p_transport_rxstepreport__movenew(rep_)
+          zres => zz31
           return
         end if
         s_2_ = (s_2_ + 1)
@@ -6243,15 +6332,15 @@ contains
     x__i4_n_ = x__r3_%n
     do
       if (.not. ((x__i4_ < x__i4_n_))) exit
-      zz31 => h_uas_transport_rxratecontext(x__r3_%a%a((x__r3_%o + x__i4_))%p)
-      context_2_ => zz31
-      zz32 => cpp_ptr_d_item_i(context_2_%hydvar, 8)
-      zz32 = dt_
+      zz32 => h_uas_transport_rxratecontext(x__r3_%a%a((x__r3_%o + x__i4_))%p)
+      context_2_ => zz32
+      zz33 => cpp_ptr_d_item_i(context_2_%hydvar, 8)
+      zz33 = dt_
       x__i4_ = (x__i4_ + 1_8)
     end do
   end if
-  zz33 => cpp_ptr_d_item_i(hydvar_, 8)
-  zz33 = dt_
+  zz34 => cpp_ptr_d_item_i(hydvar_, 8)
+  zz34 = dt_
   factor_ = p_transport__anon_transport_components_reactionmodule_a74d7db5(rx_%rate_units)
   call cpp_vec_i_clear(ws_%rate_idx_)
   call cpp_vec_i_clear(ws_%equil_idx_)
@@ -6277,16 +6366,16 @@ contains
   end do
   call cpp_algo_fill_itert_itert_t__b(cpp_vec_b_begin(ws_%term_needed_), cpp_vec_b_end(ws_%term_needed_), 0_1)
   if (associated(cpp_exc)) return
-  allocate(zz34)
-  zz34%c_rx => rx_
-  zz34%c_ws => ws_
-  mark_ => zz34
+  allocate(zz35)
+  zz35%c_rx => rx_
+  zz35%c_ws => ws_
+  mark_ => zz35
   s_4_ = 0
   do
     if (.not. ((s_4_ < n_))) exit
     if ((forms_%a%a(int(s_4_, 8)) /= 0)) then
-      zz35 => h_uas_rxexprspan(spans_%a%a(int(s_4_, 8))%p)
-      call mark_%invoke(zz35)
+      zz36 => h_uas_rxexprspan(spans_%a%a(int(s_4_, 8))%p)
+      call mark_%invoke(zz36)
     end if
     s_4_ = (s_4_ + 1)
   end do
@@ -6295,14 +6384,14 @@ contains
   x__i6_n_ = x__r5_%n
   do
     if (.not. ((x__i6_ < x__i6_n_))) exit
-    zz36 => h_uas_transport_rxratecontext(x__r5_%a%a((x__r5_%o + x__i6_))%p)
-    context_3_ => zz36
+    zz37 => h_uas_transport_rxratecontext(x__r5_%a%a((x__r5_%o + x__i6_))%p)
+    context_3_ => zz37
     s_5_ = 0
     do
       if (.not. ((s_5_ < n_))) exit
       if ((context_3_%forms%a%a(int(s_5_, 8)) == 1)) then
-        zz37 => h_uas_rxexprspan(context_3_%expressions%a%a(int(s_5_, 8))%p)
-        call mark_%invoke(zz37)
+        zz38 => h_uas_rxexprspan(context_3_%expressions%a%a(int(s_5_, 8))%p)
+        call mark_%invoke(zz38)
       end if
       s_5_ = (s_5_ + 1)
     end do
@@ -6312,14 +6401,14 @@ contains
   do
     if (.not. ((term_ >= 0))) exit
     if ((iand(int(ws_%term_needed_%a%a(int(term_, 8)), 4), 255_4) /= 0)) then
-      zz38 => h_uas_rxexprspan(rx_%term_expr%a%a(int(term_, 8))%p)
-      call mark_%invoke(zz38)
+      zz39 => h_uas_rxexprspan(rx_%term_expr%a%a(int(term_, 8))%p)
+      call mark_%invoke(zz39)
     end if
     term_ = (term_ - 1)
   end do
-  allocate(zz39)
-  zz39%c_ws => ws_
-  factoriterationmatrix_ => zz39
+  allocate(zz40)
+  zz40%c_ws => ws_
+  factoriterationmatrix_ => zz40
   ridx_ => ws_%rate_idx_
   nr_ = cpp_vec_i_size(ridx_)
   if ((ieor(nr_, (-9223372036854775807_8 - 1_8)) > ieor(0_8, (-9223372036854775807_8 - 1_8)))) then
@@ -6327,18 +6416,18 @@ contains
     s2_ = 0
     do
       if (.not. ((s2_ < n_))) exit
-      zz41 => ws_%y0_%a%a(int(s2_, 8))
-      zz40 => cpp_ptr_d_item_i(species_, s2_)
-      zz41 = zz40
+      zz42 => ws_%y0_%a%a(int(s2_, 8))
+      zz41 => cpp_ptr_d_item_i(species_, s2_)
+      zz42 = zz41
       s2_ = (s2_ + 1)
     end do
-    allocate(zz42)
-    zz42%c_coupled = coupled_
-    zz42%c_nr = nr_
-    zz42%c_species = species_
-    zz42%c_ridx => ridx_
-    zz42%c_ws => ws_
-    freeze_others_ => zz42
+    allocate(zz43)
+    zz43%c_coupled = coupled_
+    zz43%c_nr = nr_
+    zz43%c_species = species_
+    zz43%c_ridx => ridx_
+    zz43%c_ws => ws_
+    freeze_others_ => zz43
     k_2_ = 0_8
     do
       if (.not. ((ieor(k_2_, (-9223372036854775807_8 - 1_8)) < ieor(nr_, (-9223372036854775807_8 - 1_8))))) exit
@@ -6348,11 +6437,11 @@ contains
     groups_ = merge(1_8, nr_, coupled_)
     g_ = 0_8
     do
-      zz43 = (ieor(g_, (-9223372036854775807_8 - 1_8)) < ieor(groups_, (-9223372036854775807_8 - 1_8)))
-      if (zz43) then
-        zz43 = rep_%ok
+      zz44 = (ieor(g_, (-9223372036854775807_8 - 1_8)) < ieor(groups_, (-9223372036854775807_8 - 1_8)))
+      if (zz44) then
+        zz44 = rep_%ok
       end if
-      if (.not. (zz43)) exit
+      if (.not. (zz44)) exit
       gb_ = merge(0_8, g_, coupled_)
       gn_ = merge(nr_, 1_8, coupled_)
       ws_%jac_valid_ = .false.
@@ -6362,76 +6451,79 @@ contains
       h_prev_ = 0.0_8
       h_min_ = (dt_ * s_transport__anon_transport_components_reactionmodule_9f82125b)
       guard_ = 0
-      allocate(zz44)
-      zz44%c_gn = gn_
-      zz44%c_ws => ws_
-      zz44%c_species = species_
-      zz44%c_ridx => ridx_
-      zz44%c_gb = gb_
-      zz44%c_freeze_others => freeze_others_
-      zz44%c_coupled = coupled_
-      zz44%c_rx => rx_
-      zz44%c_spans => spans_
-      zz44%c_hydvar = hydvar_
-      zz44%c_pollutants = pollutants_
-      zz44%c_factor = factor_
-      zz44%c_kinetic_scale = kinetic_scale_
-      zz44%c_coefficients => coefficients_c_
-      zz44%c_contexts = contexts_
-      fg_ => zz44
+      allocate(zz45)
+      zz45%c_gn = gn_
+      zz45%c_ws => ws_
+      zz45%c_species = species_
+      zz45%c_ridx => ridx_
+      zz45%c_gb = gb_
+      zz45%c_freeze_others => freeze_others_
+      zz45%c_coupled = coupled_
+      zz45%c_rx => rx_
+      zz45%c_spans => spans_
+      zz45%c_hydvar = hydvar_
+      zz45%c_pollutants = pollutants_
+      zz45%c_factor = factor_
+      zz45%c_kinetic_scale = kinetic_scale_
+      zz45%c_coefficients => coefficients_c_
+      zz45%c_contexts = contexts_
+      fg_ => zz45
       k_6_ = 0_8
       do
         if (.not. ((ieor(k_6_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-        zz46 => ws_%y_%a%a(k_6_)
-        zz45 => cpp_ptr_d_item_i(species_, ridx_%a%a((gb_ + k_6_)))
-        zz46 = zz45
+        zz47 => ws_%y_%a%a(k_6_)
+        zz46 => cpp_ptr_d_item_i(species_, ridx_%a%a((gb_ + k_6_)))
+        zz47 = zz46
         k_6_ = (k_6_ + 1_8)
       end do
       do
-        zz47 = (t_ < dt_)
-        if (zz47) then
-          zz47 = rep_%ok
+        zz48 = (t_ < dt_)
+        if (zz48) then
+          zz48 = rep_%ok
         end if
-        if (.not. (zz47)) exit
-        zz48 = (guard_ + 1)
-        guard_ = zz48
-        if ((zz48 > s_transport__anon_transport_components_reactionmodule_ac7d63ac)) then
+        if (.not. (zz48)) exit
+        zz49 = (guard_ + 1)
+        guard_ = zz49
+        if ((zz49 > s_transport__anon_transport_components_reactionmodule_ac7d63ac)) then
           rep_%ok = .false.
           rep_%interval_limit = .true.
-          zz53 => rep_%error
-          zz49 = (rx_%solver == 1)
-          if (.not. zz49) then
-            zz49 = (rx_%solver == 0)
+          zz54 => rep_%error
+          zz50 = (rx_%solver == 1)
+          if (.not. zz50) then
+            zz50 = (rx_%solver == 0)
           end if
-          if (zz49) then
-            zz50 = cpp_r_lit("reaction step exceeded the substep cap: the explicit solver is resolving kinetics too stiff for it. Set [REACTION_OPTIONS] SOLVER to ROS2 or BDF2, or declare the fast species EQUIL.")
-            zz52 = zz50
+          if (zz50) then
+            zz51 = cpp_r_lit("reaction step exceeded the substep cap: the explicit solver is resolving kinetics too stiff for it. Set [REACTION_OPTIONS] SOLVER to ROS2 or BDF2, or declare the fast species EQUIL.")
+            zz53 = zz51
           else
-            zz51 = cpp_r_lit("reaction step exceeded the substep cap (stiffness beyond the solver " // achar(226) // achar(128) // achar(148) // " see the D-R7 escape hatch)")
-            zz52 = zz51
+            zz52 = cpp_r_lit("reaction step exceeded the substep cap (stiffness beyond the solver " // achar(226) // achar(128) // achar(148) // " see the D-R7 escape hatch)")
+            zz53 = zz52
           end if
-          call cpp_str_assign_cptr(zz53, zz52)
+          call cpp_str_assign_cptr(zz54, zz53)
           goto 128
         end if
         if ((h_ < h_min_)) then
           rep_%ok = .false.
           rep_%interval_limit = .true.
-          zz55 => rep_%error
-          zz54 = cpp_r_lit("reaction step size collapsed below the floor (stiffness beyond the solver " // achar(226) // achar(128) // achar(148) // " see D-R7 escape hatch)")
-          call cpp_str_assign_cptr(zz55, zz54)
+          zz56 => rep_%error
+          zz55 = cpp_r_lit("reaction step size collapsed below the floor (stiffness beyond the solver " // achar(226) // achar(128) // achar(148) // " see D-R7 escape hatch)")
+          call cpp_str_assign_cptr(zz56, zz55)
           goto 128
         end if
         if (((t_ + h_) > dt_)) then
           h_ = (dt_ - t_)
         end if
-        call fg_%invoke(cpp_vec_d_data(ws_%y_), cpp_vec_d_data(ws_%k1_))
+        zz57 = cpp_vec_d_data(ws_%y_)
+        zz58 = cpp_vec_d_data(ws_%k1_)
+        call fg_%invoke(zz57, zz58)
         if (associated(cpp_exc)) return
-        zz56 = p_transport__anon_transport_components_reactionmodule_ef1f854b(cpp_vec_d_data(ws_%k1_), gn_)
-        if ((.not. zz56)) then
+        zz59 = cpp_vec_d_data(ws_%k1_)
+        zz60 = p_transport__anon_transport_components_reactionmodule_ef1f854b(zz59, gn_)
+        if ((.not. zz60)) then
           rep_%ok = .false.
-          zz58 => rep_%error
-          zz57 = cpp_r_lit("non-finite reaction rate at accepted state")
-          call cpp_str_assign_cptr(zz58, zz57)
+          zz62 => rep_%error
+          zz61 = cpp_r_lit("non-finite reaction rate at accepted state")
+          call cpp_str_assign_cptr(zz62, zz61)
           goto 128
         end if
         accepted_ = .false.
@@ -6441,83 +6533,98 @@ contains
           k_7_ = 0_8
           do
             if (.not. ((ieor(k_7_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz59 = (ws_%y_%a%a(k_7_) + (h_ * ws_%k1_%a%a(k_7_)))
-            ws_%y_%a%a(k_7_) = zz59
+            zz63 = (ws_%y_%a%a(k_7_) + (h_ * ws_%k1_%a%a(k_7_)))
+            ws_%y_%a%a(k_7_) = zz63
             k_7_ = (k_7_ + 1_8)
           end do
           accepted_ = .true.
           goto 130
         case (1)
-          y_2_ = cpp_vec_d_data(ws_%y_)
+          zz64 = cpp_vec_d_data(ws_%y_)
+          y_2_ = zz64
           k_8_ = 0_8
           do
             if (.not. ((ieor(k_8_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz61 => ws_%ytmp_%a%a(k_8_)
-            zz60 => cpp_ptr_d_item_ul(y_2_, k_8_)
-            zz61 = (zz60 + ((h_ * s_transport_reactionintegrator__s_b21_167) * ws_%k1_%a%a(k_8_)))
+            zz66 => ws_%ytmp_%a%a(k_8_)
+            zz65 => cpp_ptr_d_item_ul(y_2_, k_8_)
+            zz66 = (zz65 + ((h_ * s_transport_reactionintegrator__s_b21_167) * ws_%k1_%a%a(k_8_)))
             k_8_ = (k_8_ + 1_8)
           end do
-          call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k2_))
+          zz67 = cpp_vec_d_data(ws_%ytmp_)
+          zz68 = cpp_vec_d_data(ws_%k2_)
+          call fg_%invoke(zz67, zz68)
           if (associated(cpp_exc)) return
           k_9_ = 0_8
           do
             if (.not. ((ieor(k_9_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz63 => ws_%ytmp_%a%a(k_9_)
-            zz62 => cpp_ptr_d_item_ul(y_2_, k_9_)
-            zz63 = (zz62 + (h_ * ((s_transport_reactionintegrator__s_b31_168 * ws_%k1_%a%a(k_9_)) + (s_transport_reactionintegrator__s_b32_169 * ws_%k2_%a%a(k_9_)))))
+            zz70 => ws_%ytmp_%a%a(k_9_)
+            zz69 => cpp_ptr_d_item_ul(y_2_, k_9_)
+            zz70 = (zz69 + (h_ * ((s_transport_reactionintegrator__s_b31_168 * ws_%k1_%a%a(k_9_)) + (s_transport_reactionintegrator__s_b32_169 * ws_%k2_%a%a(k_9_)))))
             k_9_ = (k_9_ + 1_8)
           end do
-          call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k3_))
+          zz71 = cpp_vec_d_data(ws_%ytmp_)
+          zz72 = cpp_vec_d_data(ws_%k3_)
+          call fg_%invoke(zz71, zz72)
           if (associated(cpp_exc)) return
           k_10_ = 0_8
           do
             if (.not. ((ieor(k_10_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz65 => ws_%ytmp_%a%a(k_10_)
-            zz64 => cpp_ptr_d_item_ul(y_2_, k_10_)
-            zz65 = (zz64 + (h_ * (((s_transport_reactionintegrator__s_b41_170 * ws_%k1_%a%a(k_10_)) + (s_transport_reactionintegrator__s_b42_171 * ws_%k2_%a%a(k_10_))) + (s_transport_reactionintegrator__s_b43_172 * ws_%k3_%a%a(k_10_)))))
+            zz74 => ws_%ytmp_%a%a(k_10_)
+            zz73 => cpp_ptr_d_item_ul(y_2_, k_10_)
+            zz74 = (zz73 + (h_ * (((s_transport_reactionintegrator__s_b41_170 * ws_%k1_%a%a(k_10_)) + (s_transport_reactionintegrator__s_b42_171 * ws_%k2_%a%a(k_10_))) + (s_transport_reactionintegrator__s_b43_172 * ws_%k3_%a%a(k_10_)))))
             k_10_ = (k_10_ + 1_8)
           end do
-          call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k4_))
+          zz75 = cpp_vec_d_data(ws_%ytmp_)
+          zz76 = cpp_vec_d_data(ws_%k4_)
+          call fg_%invoke(zz75, zz76)
           if (associated(cpp_exc)) return
           k_11_ = 0_8
           do
             if (.not. ((ieor(k_11_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz67 => ws_%ytmp_%a%a(k_11_)
-            zz66 => cpp_ptr_d_item_ul(y_2_, k_11_)
-            zz67 = (zz66 + (h_ * ((((s_transport_reactionintegrator__s_b51_173 * ws_%k1_%a%a(k_11_)) + (s_transport_reactionintegrator__s_b52_174 * ws_%k2_%a%a(k_11_))) + (s_transport_reactionintegrator__s_b53_175 * ws_%k3_%a%a(k_11_))) + (s_transport_reactionintegrator__s_b54_176 * ws_%k4_%a%a(k_11_)))))
+            zz78 => ws_%ytmp_%a%a(k_11_)
+            zz77 => cpp_ptr_d_item_ul(y_2_, k_11_)
+            zz78 = (zz77 + (h_ * ((((s_transport_reactionintegrator__s_b51_173 * ws_%k1_%a%a(k_11_)) + (s_transport_reactionintegrator__s_b52_174 * ws_%k2_%a%a(k_11_))) + (s_transport_reactionintegrator__s_b53_175 * ws_%k3_%a%a(k_11_))) + (s_transport_reactionintegrator__s_b54_176 * ws_%k4_%a%a(k_11_)))))
             k_11_ = (k_11_ + 1_8)
           end do
-          call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k5_))
+          zz79 = cpp_vec_d_data(ws_%ytmp_)
+          zz80 = cpp_vec_d_data(ws_%k5_)
+          call fg_%invoke(zz79, zz80)
           if (associated(cpp_exc)) return
           k_12_ = 0_8
           do
             if (.not. ((ieor(k_12_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz69 => ws_%ytmp_%a%a(k_12_)
-            zz68 => cpp_ptr_d_item_ul(y_2_, k_12_)
-            zz69 = (zz68 + (h_ * (((((s_transport_reactionintegrator__s_b61_177 * ws_%k1_%a%a(k_12_)) + (s_transport_reactionintegrator__s_b62_178 * ws_%k2_%a%a(k_12_))) + (s_transport_reactionintegrator__s_b63_179 * ws_%k3_%a%a(k_12_))) + (s_transport_reactionintegrator__s_b64_180 * ws_%k4_%a%a(k_12_))) + (s_transport_reactionintegrator__s_b65_181 * ws_%k5_%a%a(k_12_)))))
+            zz82 => ws_%ytmp_%a%a(k_12_)
+            zz81 => cpp_ptr_d_item_ul(y_2_, k_12_)
+            zz82 = (zz81 + (h_ * (((((s_transport_reactionintegrator__s_b61_177 * ws_%k1_%a%a(k_12_)) + (s_transport_reactionintegrator__s_b62_178 * ws_%k2_%a%a(k_12_))) + (s_transport_reactionintegrator__s_b63_179 * ws_%k3_%a%a(k_12_))) + (s_transport_reactionintegrator__s_b64_180 * ws_%k4_%a%a(k_12_))) + (s_transport_reactionintegrator__s_b65_181 * ws_%k5_%a%a(k_12_)))))
             k_12_ = (k_12_ + 1_8)
           end do
-          call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k6_))
+          zz83 = cpp_vec_d_data(ws_%ytmp_)
+          zz84 = cpp_vec_d_data(ws_%k6_)
+          call fg_%invoke(zz83, zz84)
           if (associated(cpp_exc)) return
           k_13_ = 0_8
           do
             if (.not. ((ieor(k_13_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-            zz70 => cpp_ptr_d_item_ul(y_2_, k_13_)
-            y5_ = (zz70 + (h_ * ((((s_transport_reactionintegrator__s_c1_182 * ws_%k1_%a%a(k_13_)) + (s_transport_reactionintegrator__s_c3_183 * ws_%k3_%a%a(k_13_))) + (s_transport_reactionintegrator__s_c4_184 * ws_%k4_%a%a(k_13_))) + (s_transport_reactionintegrator__s_c6_185 * ws_%k6_%a%a(k_13_)))))
-            zz71 => cpp_ptr_d_item_ul(y_2_, k_13_)
-            y4_ = (zz71 + (h_ * (((((s_transport_reactionintegrator__s_d1_186 * ws_%k1_%a%a(k_13_)) + (s_transport_reactionintegrator__s_d3_187 * ws_%k3_%a%a(k_13_))) + (s_transport_reactionintegrator__s_d4_188 * ws_%k4_%a%a(k_13_))) + (s_transport_reactionintegrator__s_d5_189 * ws_%k5_%a%a(k_13_))) + (s_transport_reactionintegrator__s_d6_190 * ws_%k6_%a%a(k_13_)))))
+            zz85 => cpp_ptr_d_item_ul(y_2_, k_13_)
+            y5_ = (zz85 + (h_ * ((((s_transport_reactionintegrator__s_c1_182 * ws_%k1_%a%a(k_13_)) + (s_transport_reactionintegrator__s_c3_183 * ws_%k3_%a%a(k_13_))) + (s_transport_reactionintegrator__s_c4_184 * ws_%k4_%a%a(k_13_))) + (s_transport_reactionintegrator__s_c6_185 * ws_%k6_%a%a(k_13_)))))
+            zz86 => cpp_ptr_d_item_ul(y_2_, k_13_)
+            y4_ = (zz86 + (h_ * (((((s_transport_reactionintegrator__s_d1_186 * ws_%k1_%a%a(k_13_)) + (s_transport_reactionintegrator__s_d3_187 * ws_%k3_%a%a(k_13_))) + (s_transport_reactionintegrator__s_d4_188 * ws_%k4_%a%a(k_13_))) + (s_transport_reactionintegrator__s_d5_189 * ws_%k5_%a%a(k_13_))) + (s_transport_reactionintegrator__s_d6_190 * ws_%k6_%a%a(k_13_)))))
             ws_%err_%a%a(k_13_) = (y5_ - y4_)
             ws_%ytmp_%a%a(k_13_) = y5_
             k_13_ = (k_13_ + 1_8)
           end do
-          zz72 = p_transport__anon_transport_components_reactionmodule_9d4131cb(rx_, cpp_ptr_i_op_add_ptrt_l(cpp_vec_i_data(ridx_), gb_), gn_, cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%err_))
-          en_ = zz72
+          zz87 = cpp_vec_i_data(ridx_)
+          zz89 = cpp_ptr_i_op_add_ptrt_l(zz87, gb_)
+          zz88 = cpp_vec_d_data(ws_%ytmp_)
+          zz90 = cpp_vec_d_data(ws_%err_)
+          zz91 = p_transport__anon_transport_components_reactionmodule_9d4131cb(rx_, zz89, gn_, zz88, zz90)
+          en_ = zz91
           if ((en_ <= 1.0_8)) then
             k_14_ = 0_8
             do
               if (.not. ((ieor(k_14_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-              zz73 => cpp_ptr_d_item_ul(y_2_, k_14_)
-              zz73 = ws_%ytmp_%a%a(k_14_)
+              zz92 => cpp_ptr_d_item_ul(y_2_, k_14_)
+              zz92 = ws_%ytmp_%a%a(k_14_)
               k_14_ = (k_14_ + 1_8)
             end do
             accepted_ = .true.
@@ -6525,31 +6632,33 @@ contains
               h_next_ = cpp_m_min_d_d(dt_, ((0.9_8 * h_) * cpp_math_pow_dd(en_, (-0.2_8))))
             end if
           else
-            zz74 = (h_ * cpp_m_max_d_d(0.1_8, (0.9_8 * cpp_math_pow_dd(en_, (-0.25_8)))))
-            h_ = zz74
+            zz93 = (h_ * cpp_m_max_d_d(0.1_8, (0.9_8 * cpp_math_pow_dd(en_, (-0.25_8)))))
+            h_ = zz93
           end if
           goto 130
         case (2, 3)
           gni_ = int(gn_, 4)
-          y_3_ = cpp_vec_d_data(ws_%y_)
-          zz75 = (.not. ws_%jac_valid_)
-          if (.not. zz75) then
-            zz75 = (ws_%jac_age_ >= s_transport__anon_transport_components_reactionmodule_db41fb5c)
+          zz94 = cpp_vec_d_data(ws_%y_)
+          y_3_ = zz94
+          zz95 = (.not. ws_%jac_valid_)
+          if (.not. zz95) then
+            zz95 = (ws_%jac_age_ >= s_transport__anon_transport_components_reactionmodule_db41fb5c)
           end if
-          refresh_jac_ = zz75
+          refresh_jac_ = zz95
           if (refresh_jac_) then
             c_2_ = 0
             do
               if (.not. ((c_2_ < gni_))) exit
-              zz76 => cpp_ptr_d_item_i(y_3_, c_2_)
-              save_ = zz76
+              zz96 => cpp_ptr_d_item_i(y_3_, c_2_)
+              save_ = zz96
               dy_ = (s_transport__anon_transport_components_reactionmodule_264e4b89 * cpp_m_max_d_d(1.0_8, abs(save_)))
-              zz77 => cpp_ptr_d_item_i(y_3_, c_2_)
-              zz77 = (save_ + dy_)
-              call fg_%invoke(y_3_, cpp_vec_d_data(ws_%k2_))
+              zz97 => cpp_ptr_d_item_i(y_3_, c_2_)
+              zz97 = (save_ + dy_)
+              zz98 = cpp_vec_d_data(ws_%k2_)
+              call fg_%invoke(y_3_, zz98)
               if (associated(cpp_exc)) return
-              zz78 => cpp_ptr_d_item_i(y_3_, c_2_)
-              zz78 = save_
+              zz99 => cpp_ptr_d_item_i(y_3_, c_2_)
+              zz99 = save_
               r_2_ = 0
               do
                 if (.not. ((r_2_ < gni_))) exit
@@ -6564,32 +6673,38 @@ contains
             k_15_ = 0_8
             do
               if (.not. ((ieor(k_15_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-              zz79 => cpp_ptr_d_item_i(species_, ridx_%a%a((gb_ + k_15_)))
-              zz80 => cpp_ptr_d_item_ul(y_3_, k_15_)
-              zz79 = zz80
+              zz100 => cpp_ptr_d_item_i(species_, ridx_%a%a((gb_ + k_15_)))
+              zz101 => cpp_ptr_d_item_ul(y_3_, k_15_)
+              zz100 = zz101
               k_15_ = (k_15_ + 1_8)
             end do
             call freeze_others_%invoke(merge((-1_8), gb_, coupled_))
           end if
           if ((rx_%solver == 2)) then
             g2_ = (1.0_8 - (1.0_8 / sqrt(2.0_8)))
-            zz81 = factoriterationmatrix_%invoke(gni_, (g2_ * h_))
-            if ((.not. zz81)) then
-              zz82 = (h_ * 0.5_8)
-              h_ = zz82
+            zz102 = factoriterationmatrix_%invoke(gni_, (g2_ * h_))
+            if ((.not. zz102)) then
+              zz103 = (h_ * 0.5_8)
+              h_ = zz103
               ws_%jac_valid_ = .false.
               goto 130
             end if
-            call p_transport__anon_transport_components_reactionmodule_6018431d(ws_%lu_, ws_%piv_, gni_, cpp_vec_d_data(ws_%k1_), cpp_vec_d_data(ws_%k3_))
+            zz105 => ws_%lu_
+            zz106 => ws_%piv_
+            zz104 = cpp_vec_d_data(ws_%k1_)
+            zz107 = cpp_vec_d_data(ws_%k3_)
+            call p_transport__anon_transport_components_reactionmodule_6018431d(zz105, zz106, gni_, zz104, zz107)
             k_16_ = 0_8
             do
               if (.not. ((ieor(k_16_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-              zz84 => ws_%ytmp_%a%a(k_16_)
-              zz83 => cpp_ptr_d_item_ul(y_3_, k_16_)
-              zz84 = (zz83 + (h_ * ws_%k3_%a%a(k_16_)))
+              zz109 => ws_%ytmp_%a%a(k_16_)
+              zz108 => cpp_ptr_d_item_ul(y_3_, k_16_)
+              zz109 = (zz108 + (h_ * ws_%k3_%a%a(k_16_)))
               k_16_ = (k_16_ + 1_8)
             end do
-            call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k4_))
+            zz110 = cpp_vec_d_data(ws_%ytmp_)
+            zz111 = cpp_vec_d_data(ws_%k4_)
+            call fg_%invoke(zz110, zz111)
             if (associated(cpp_exc)) return
             k_17_ = 0_8
             do
@@ -6597,26 +6712,34 @@ contains
               ws_%res_%a%a(k_17_) = (ws_%k4_%a%a(k_17_) - (2.0_8 * ws_%k3_%a%a(k_17_)))
               k_17_ = (k_17_ + 1_8)
             end do
-            call p_transport__anon_transport_components_reactionmodule_6018431d(ws_%lu_, ws_%piv_, gni_, cpp_vec_d_data(ws_%res_), cpp_vec_d_data(ws_%k5_))
+            zz113 => ws_%lu_
+            zz114 => ws_%piv_
+            zz112 = cpp_vec_d_data(ws_%res_)
+            zz115 = cpp_vec_d_data(ws_%k5_)
+            call p_transport__anon_transport_components_reactionmodule_6018431d(zz113, zz114, gni_, zz112, zz115)
             w1_ = 1.5_8
             w2_ = 0.5_8
             k_18_ = 0_8
             do
               if (.not. ((ieor(k_18_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
               ws_%err_%a%a(k_18_) = ((0.5_8 * h_) * (ws_%k3_%a%a(k_18_) + ws_%k5_%a%a(k_18_)))
-              zz86 => ws_%ytmp_%a%a(k_18_)
-              zz85 => cpp_ptr_d_item_ul(y_3_, k_18_)
-              zz86 = (zz85 + (h_ * ((w1_ * ws_%k3_%a%a(k_18_)) + (w2_ * ws_%k5_%a%a(k_18_)))))
+              zz117 => ws_%ytmp_%a%a(k_18_)
+              zz116 => cpp_ptr_d_item_ul(y_3_, k_18_)
+              zz117 = (zz116 + (h_ * ((w1_ * ws_%k3_%a%a(k_18_)) + (w2_ * ws_%k5_%a%a(k_18_)))))
               k_18_ = (k_18_ + 1_8)
             end do
-            zz87 = p_transport__anon_transport_components_reactionmodule_9d4131cb(rx_, cpp_ptr_i_op_add_ptrt_l(cpp_vec_i_data(ridx_), gb_), gn_, cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%err_))
-            en_2_ = zz87
+            zz118 = cpp_vec_i_data(ridx_)
+            zz120 = cpp_ptr_i_op_add_ptrt_l(zz118, gb_)
+            zz119 = cpp_vec_d_data(ws_%ytmp_)
+            zz121 = cpp_vec_d_data(ws_%err_)
+            zz122 = p_transport__anon_transport_components_reactionmodule_9d4131cb(rx_, zz120, gn_, zz119, zz121)
+            en_2_ = zz122
             if ((en_2_ <= 1.0_8)) then
               k_19_ = 0_8
               do
                 if (.not. ((ieor(k_19_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-                zz88 => cpp_ptr_d_item_ul(y_3_, k_19_)
-                zz88 = ws_%ytmp_%a%a(k_19_)
+                zz123 => cpp_ptr_d_item_ul(y_3_, k_19_)
+                zz123 = ws_%ytmp_%a%a(k_19_)
                 k_19_ = (k_19_ + 1_8)
               end do
               accepted_ = .true.
@@ -6624,48 +6747,48 @@ contains
                 h_next_ = cpp_m_min_d_d(dt_, ((0.9_8 * h_) * cpp_math_pow_dd(en_2_, (-0.3333333333333333_8))))
               end if
             else
-              zz89 = (h_ * cpp_m_max_d_d(0.1_8, (0.9_8 * cpp_math_pow_dd(en_2_, (-0.5_8)))))
-              h_ = zz89
+              zz124 = (h_ * cpp_m_max_d_d(0.1_8, (0.9_8 * cpp_math_pow_dd(en_2_, (-0.5_8)))))
+              h_ = zz124
             end if
           else
             have_hist_ = ((t_ > 0.0_8) .and. (h_prev_ > 0.0_8))
             if (have_hist_) then
-              zz90 = (h_ / h_prev_)
+              zz125 = (h_ / h_prev_)
             else
-              zz90 = 0.0_8
+              zz125 = 0.0_8
             end if
-            r_3_ = zz90
+            r_3_ = zz125
             if (have_hist_) then
-              zz91 = (((1.0_8 + r_3_) * (1.0_8 + r_3_)) / (1.0_8 + (2.0_8 * r_3_)))
+              zz126 = (((1.0_8 + r_3_) * (1.0_8 + r_3_)) / (1.0_8 + (2.0_8 * r_3_)))
             else
-              zz91 = 1.0_8
+              zz126 = 1.0_8
             end if
-            a0_ = zz91
+            a0_ = zz126
             if (have_hist_) then
-              zz92 = ((r_3_ * r_3_) / (1.0_8 + (2.0_8 * r_3_)))
+              zz127 = ((r_3_ * r_3_) / (1.0_8 + (2.0_8 * r_3_)))
             else
-              zz92 = 0.0_8
+              zz127 = 0.0_8
             end if
-            a1_ = zz92
+            a1_ = zz127
             k_20_ = 0_8
             do
               if (.not. ((ieor(k_20_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-              zz94 => ws_%ytmp_%a%a(k_20_)
-              zz93 => cpp_ptr_d_item_ul(y_3_, k_20_)
-              zz94 = zz93
+              zz129 => ws_%ytmp_%a%a(k_20_)
+              zz128 => cpp_ptr_d_item_ul(y_3_, k_20_)
+              zz129 = zz128
               k_20_ = (k_20_ + 1_8)
             end do
             if (have_hist_) then
-              zz95 = ((1.0_8 + r_3_) / (1.0_8 + (2.0_8 * r_3_)))
+              zz130 = ((1.0_8 + r_3_) / (1.0_8 + (2.0_8 * r_3_)))
             else
-              zz95 = 1.0_8
+              zz130 = 1.0_8
             end if
-            beta_ = zz95
+            beta_ = zz130
             newton_ok_ = .false.
-            zz96 = factoriterationmatrix_%invoke(gni_, (beta_ * h_))
-            if ((.not. zz96)) then
-              zz97 = (h_ * 0.5_8)
-              h_ = zz97
+            zz131 = factoriterationmatrix_%invoke(gni_, (beta_ * h_))
+            if ((.not. zz131)) then
+              zz132 = (h_ * 0.5_8)
+              h_ = zz132
               ws_%jac_valid_ = .false.
               goto 130
             end if
@@ -6673,19 +6796,21 @@ contains
             do
               if (.not. ((it_ < s_transport__anon_transport_components_reactionmodule_1d3ee890))) exit
               rep_%newton_iters = (rep_%newton_iters + 1)
-              call fg_%invoke(cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%k2_))
+              zz133 = cpp_vec_d_data(ws_%ytmp_)
+              zz134 = cpp_vec_d_data(ws_%k2_)
+              call fg_%invoke(zz133, zz134)
               if (associated(cpp_exc)) return
               k_21_ = 0_8
               do
                 if (.not. ((ieor(k_21_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
                 if (have_hist_) then
-                  zz98 => cpp_ptr_d_item_ul(y_3_, k_21_)
-                  zz100 = ((a0_ * zz98) - (a1_ * ws_%res2_%a%a(k_21_)))
+                  zz135 => cpp_ptr_d_item_ul(y_3_, k_21_)
+                  zz137 = ((a0_ * zz135) - (a1_ * ws_%res2_%a%a(k_21_)))
                 else
-                  zz99 => cpp_ptr_d_item_ul(y_3_, k_21_)
-                  zz100 = zz99
+                  zz136 => cpp_ptr_d_item_ul(y_3_, k_21_)
+                  zz137 = zz136
                 end if
-                rhs_ = zz100
+                rhs_ = zz137
                 ws_%res_%a%a(k_21_) = ((ws_%ytmp_%a%a(k_21_) - rhs_) - ((beta_ * h_) * ws_%k2_%a%a(k_21_)))
                 k_21_ = (k_21_ + 1_8)
               end do
@@ -6700,12 +6825,16 @@ contains
                 newton_ok_ = .true.
                 goto 163
               end if
-              call p_transport__anon_transport_components_reactionmodule_6018431d(ws_%lu_, ws_%piv_, gni_, cpp_vec_d_data(ws_%res_), cpp_vec_d_data(ws_%dy_))
+              zz139 => ws_%lu_
+              zz140 => ws_%piv_
+              zz138 = cpp_vec_d_data(ws_%res_)
+              zz141 = cpp_vec_d_data(ws_%dy_)
+              call p_transport__anon_transport_components_reactionmodule_6018431d(zz139, zz140, gni_, zz138, zz141)
               k_23_ = 0_8
               do
                 if (.not. ((ieor(k_23_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-                zz101 = (ws_%ytmp_%a%a(k_23_) - ws_%dy_%a%a(k_23_))
-                ws_%ytmp_%a%a(k_23_) = zz101
+                zz142 = (ws_%ytmp_%a%a(k_23_) - ws_%dy_%a%a(k_23_))
+                ws_%ytmp_%a%a(k_23_) = zz142
                 k_23_ = (k_23_ + 1_8)
               end do
               it_ = (it_ + 1)
@@ -6714,32 +6843,37 @@ contains
             if ((.not. newton_ok_)) then
               ws_%jac_valid_ = .false.
             end if
-            zz103 = newton_ok_
-            if (zz103) then
-              zz102 = p_transport__anon_transport_components_reactionmodule_ef1f854b(cpp_vec_d_data(ws_%ytmp_), gn_)
-              zz103 = zz102
+            zz145 = newton_ok_
+            if (zz145) then
+              zz143 = cpp_vec_d_data(ws_%ytmp_)
+              zz144 = p_transport__anon_transport_components_reactionmodule_ef1f854b(zz143, gn_)
+              zz145 = zz144
             end if
-            if (zz103) then
+            if (zz145) then
               k_24_ = 0_8
               do
                 if (.not. ((ieor(k_24_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-                zz106 => ws_%err_%a%a(k_24_)
-                zz105 = ws_%ytmp_%a%a(k_24_)
-                zz104 => cpp_ptr_d_item_ul(y_3_, k_24_)
-                zz106 = (zz105 - (zz104 + (h_ * ws_%k1_%a%a(k_24_))))
+                zz148 => ws_%err_%a%a(k_24_)
+                zz147 = ws_%ytmp_%a%a(k_24_)
+                zz146 => cpp_ptr_d_item_ul(y_3_, k_24_)
+                zz148 = (zz147 - (zz146 + (h_ * ws_%k1_%a%a(k_24_))))
                 k_24_ = (k_24_ + 1_8)
               end do
-              zz107 = p_transport__anon_transport_components_reactionmodule_9d4131cb(rx_, cpp_ptr_i_op_add_ptrt_l(cpp_vec_i_data(ridx_), gb_), gn_, cpp_vec_d_data(ws_%ytmp_), cpp_vec_d_data(ws_%err_))
-              en_3_ = zz107
+              zz149 = cpp_vec_i_data(ridx_)
+              zz151 = cpp_ptr_i_op_add_ptrt_l(zz149, gb_)
+              zz150 = cpp_vec_d_data(ws_%ytmp_)
+              zz152 = cpp_vec_d_data(ws_%err_)
+              zz153 = p_transport__anon_transport_components_reactionmodule_9d4131cb(rx_, zz151, gn_, zz150, zz152)
+              en_3_ = zz153
               if ((en_3_ <= 1.0_8)) then
                 k_25_ = 0_8
                 do
                   if (.not. ((ieor(k_25_, (-9223372036854775807_8 - 1_8)) < ieor(gn_, (-9223372036854775807_8 - 1_8))))) exit
-                  zz109 => ws_%res2_%a%a(k_25_)
-                  zz108 => cpp_ptr_d_item_ul(y_3_, k_25_)
-                  zz109 = zz108
-                  zz110 => cpp_ptr_d_item_ul(y_3_, k_25_)
-                  zz110 = ws_%ytmp_%a%a(k_25_)
+                  zz155 => ws_%res2_%a%a(k_25_)
+                  zz154 => cpp_ptr_d_item_ul(y_3_, k_25_)
+                  zz155 = zz154
+                  zz156 => cpp_ptr_d_item_ul(y_3_, k_25_)
+                  zz156 = ws_%ytmp_%a%a(k_25_)
                   k_25_ = (k_25_ + 1_8)
                 end do
                 accepted_ = .true.
@@ -6747,32 +6881,33 @@ contains
                   h_next_ = cpp_m_min_d_d(dt_, ((0.9_8 * h_) * cpp_math_pow_dd(en_3_, (-0.5_8))))
                 end if
               else
-                zz111 = (h_ * cpp_m_max_d_d(0.1_8, (0.9_8 * cpp_math_pow_dd(en_3_, (-0.5_8)))))
-                h_ = zz111
+                zz157 = (h_ * cpp_m_max_d_d(0.1_8, (0.9_8 * cpp_math_pow_dd(en_3_, (-0.5_8)))))
+                h_ = zz157
               end if
             else
-              zz112 = (h_ * 0.5_8)
-              h_ = zz112
+              zz158 = (h_ * 0.5_8)
+              h_ = zz158
             end if
           end if
           goto 130
         end select
         130 continue
         if (accepted_) then
-          zz113 = (t_ + h_)
-          t_ = zz113
+          zz159 = (t_ + h_)
+          t_ = zz159
           h_prev_ = h_
           h_ = h_next_
           rep_%substeps = (rep_%substeps + 1)
           ws_%jac_age_ = (ws_%jac_age_ + 1)
         else
           ws_%jac_valid_ = .false.
-          zz114 = p_transport__anon_transport_components_reactionmodule_ef1f854b(cpp_vec_d_data(ws_%y_), gn_)
-          if ((.not. zz114)) then
+          zz160 = cpp_vec_d_data(ws_%y_)
+          zz161 = p_transport__anon_transport_components_reactionmodule_ef1f854b(zz160, gn_)
+          if ((.not. zz161)) then
             rep_%ok = .false.
-            zz116 => rep_%error
-            zz115 = cpp_r_lit("non-finite species state during reaction integration")
-            call cpp_str_assign_cptr(zz116, zz115)
+            zz163 => rep_%error
+            zz162 = cpp_r_lit("non-finite species state during reaction integration")
+            call cpp_str_assign_cptr(zz163, zz162)
           end if
         end if
       end do
@@ -6791,37 +6926,38 @@ contains
       k_27_ = 0_8
       do
         if (.not. ((ieor(k_27_, (-9223372036854775807_8 - 1_8)) < ieor(nr_, (-9223372036854775807_8 - 1_8))))) exit
-        zz117 => cpp_ptr_d_item_i(species_, ridx_%a%a(k_27_))
-        zz117 = ws_%grp_out_%a%a(int(ridx_%a%a(k_27_), 8))
+        zz164 => cpp_ptr_d_item_i(species_, ridx_%a%a(k_27_))
+        zz164 = ws_%grp_out_%a%a(int(ridx_%a%a(k_27_), 8))
         k_27_ = (k_27_ + 1_8)
       end do
     end if
   end if
   if ((.not. rep_%ok)) then
-    zz118 => p_transport_rxstepreport__movenew(rep_)
-    zres => zz118
+    zz165 => p_transport_rxstepreport__movenew(rep_)
+    zres => zz165
     return
   end if
   eidx_ => ws_%equil_idx_
   ne_ = int(cpp_vec_i_size(eidx_), 4)
   if ((ne_ > 0)) then
-    allocate(zz119)
-    zz119%c_rx => rx_
-    zz119%c_species = species_
-    zz119%c_hydvar = hydvar_
-    zz119%c_pollutants = pollutants_
-    zz119%c_ws => ws_
-    zz119%c_coefficients => coefficients_c_
-    zz119%c_ne = ne_
-    zz119%c_spans => spans_
-    zz119%c_eidx => eidx_
-    residual_ => zz119
+    allocate(zz166)
+    zz166%c_rx => rx_
+    zz166%c_species = species_
+    zz166%c_hydvar = hydvar_
+    zz166%c_pollutants = pollutants_
+    zz166%c_ws => ws_
+    zz166%c_coefficients => coefficients_c_
+    zz166%c_ne = ne_
+    zz166%c_spans => spans_
+    zz166%c_eidx => eidx_
+    residual_ => zz166
     converged_ = .false.
     it_2_ = 0
     do
       if (.not. ((it_2_ < s_transport__anon_transport_components_reactionmodule_1d3ee890))) exit
       rep_%newton_iters = (rep_%newton_iters + 1)
-      call residual_%invoke(cpp_vec_d_data(ws_%res_))
+      zz167 = cpp_vec_d_data(ws_%res_)
+      call residual_%invoke(zz167)
       rn_2_ = 0.0_8
       k_29_ = 0
       do
@@ -6837,14 +6973,15 @@ contains
       do
         if (.not. ((c_3_ < ne_))) exit
         sc_ = eidx_%a%a(int(c_3_, 8))
-        zz120 => cpp_ptr_d_item_i(species_, sc_)
-        save_2_ = zz120
+        zz168 => cpp_ptr_d_item_i(species_, sc_)
+        save_2_ = zz168
         dy_2_ = (s_transport__anon_transport_components_reactionmodule_264e4b89 * cpp_m_max_d_d(1.0_8, abs(save_2_)))
-        zz121 => cpp_ptr_d_item_i(species_, sc_)
-        zz121 = (save_2_ + dy_2_)
-        call residual_%invoke(cpp_vec_d_data(ws_%res2_))
-        zz122 => cpp_ptr_d_item_i(species_, sc_)
-        zz122 = save_2_
+        zz169 => cpp_ptr_d_item_i(species_, sc_)
+        zz169 = (save_2_ + dy_2_)
+        zz170 = cpp_vec_d_data(ws_%res2_)
+        call residual_%invoke(zz170)
+        zz171 => cpp_ptr_d_item_i(species_, sc_)
+        zz171 = save_2_
         r_4_ = 0
         do
           if (.not. ((r_4_ < ne_))) exit
@@ -6859,11 +6996,15 @@ contains
         ws_%lu_%a%a(k_30_) = ws_%jac_%a%a(k_30_)
         k_30_ = (k_30_ + 1_8)
       end do
-      zz123 = p_transport__anon_transport_components_reactionmodule_67d52f4f(ws_%lu_, ws_%piv_, ne_)
-      if ((.not. zz123)) then
+      zz172 = p_transport__anon_transport_components_reactionmodule_67d52f4f(ws_%lu_, ws_%piv_, ne_)
+      if ((.not. zz172)) then
         goto 179
       end if
-      call p_transport__anon_transport_components_reactionmodule_6018431d(ws_%lu_, ws_%piv_, ne_, cpp_vec_d_data(ws_%res_), cpp_vec_d_data(ws_%dy_))
+      zz174 => ws_%lu_
+      zz175 => ws_%piv_
+      zz173 = cpp_vec_d_data(ws_%res_)
+      zz176 = cpp_vec_d_data(ws_%dy_)
+      call p_transport__anon_transport_components_reactionmodule_6018431d(zz174, zz175, ne_, zz173, zz176)
       lambda_ = 1.0_8
       ls_ = 0
       do
@@ -6871,12 +7012,13 @@ contains
         k_31_ = 0
         do
           if (.not. ((k_31_ < ne_))) exit
-          zz124 => cpp_ptr_d_item_i(species_, eidx_%a%a(int(k_31_, 8)))
-          zz125 = (zz124 - (lambda_ * ws_%dy_%a%a(int(k_31_, 8))))
-          zz124 = zz125
+          zz177 => cpp_ptr_d_item_i(species_, eidx_%a%a(int(k_31_, 8)))
+          zz178 = (zz177 - (lambda_ * ws_%dy_%a%a(int(k_31_, 8))))
+          zz177 = zz178
           k_31_ = (k_31_ + 1)
         end do
-        call residual_%invoke(cpp_vec_d_data(ws_%res2_))
+        zz179 = cpp_vec_d_data(ws_%res2_)
+        call residual_%invoke(zz179)
         rn2_ = 0.0_8
         k_32_ = 0
         do
@@ -6890,13 +7032,13 @@ contains
         k_33_ = 0
         do
           if (.not. ((k_33_ < ne_))) exit
-          zz126 => cpp_ptr_d_item_i(species_, eidx_%a%a(int(k_33_, 8)))
-          zz127 = (zz126 + (lambda_ * ws_%dy_%a%a(int(k_33_, 8))))
-          zz126 = zz127
+          zz180 => cpp_ptr_d_item_i(species_, eidx_%a%a(int(k_33_, 8)))
+          zz181 = (zz180 + (lambda_ * ws_%dy_%a%a(int(k_33_, 8))))
+          zz180 = zz181
           k_33_ = (k_33_ + 1)
         end do
-        zz128 = (lambda_ * 0.5_8)
-        lambda_ = zz128
+        zz182 = (lambda_ * 0.5_8)
+        lambda_ = zz182
         ls_ = (ls_ + 1)
       end do
       189 continue
@@ -6905,11 +7047,11 @@ contains
     179 continue
     if ((.not. converged_)) then
       rep_%ok = .false.
-      zz130 => rep_%error
-      zz129 = cpp_r_lit("EQUIL Newton failed to converge")
-      call cpp_str_assign_cptr(zz130, zz129)
-      zz131 => p_transport_rxstepreport__movenew(rep_)
-      zres => zz131
+      zz184 => rep_%error
+      zz183 = cpp_r_lit("EQUIL Newton failed to converge")
+      call cpp_str_assign_cptr(zz184, zz183)
+      zz185 => p_transport_rxstepreport__movenew(rep_)
+      zres => zz185
       return
     end if
   end if
@@ -6921,31 +7063,33 @@ contains
       if (.not. ((x__i8_ < x__i8_n_))) exit
       s_6_ = x__r7_%a%a(x__i8_)
       call p_transport__anon_transport_components_reactionmodule_6e10660b(rx_, species_, hydvar_, pollutants_, ws_%terms_, ws_%term_needed_, coefficients_c_)
-      allocate(zz132)
-      call p_transport_rxevalenv__ctor_x(zz132)
-      zz132%species = species_
-      zz132%coefs = coefficients_c_
-      zz132%terms = cpp_vec_d_data(ws_%terms_)
-      zz132%hydvar = hydvar_
-      zz132%pollutants = pollutants_
-      env_2_ => zz132
-      zz133 => cpp_ptr_d_item_i(species_, s_6_)
-      zz135 => rx_%token_pool
-      zz134 => h_uas_rxexprspan(spans_%a%a(int(s_6_, 8))%p)
-      zz136 = p_transport__f__evalreactionexpression(zz135, zz134, env_2_)
-      zz133 = zz136
+      allocate(zz186)
+      call p_transport_rxevalenv__ctor_x(zz186)
+      zz186%species = species_
+      zz186%coefs = coefficients_c_
+      zz188 => zz186%terms
+      zz187 = cpp_vec_d_data(ws_%terms_)
+      zz188 = zz187
+      zz186%hydvar = hydvar_
+      zz186%pollutants = pollutants_
+      env_2_ => zz186
+      zz189 => cpp_ptr_d_item_i(species_, s_6_)
+      zz191 => rx_%token_pool
+      zz190 => h_uas_rxexprspan(spans_%a%a(int(s_6_, 8))%p)
+      zz192 = p_transport__f__evalreactionexpression(zz191, zz190, env_2_)
+      zz189 = zz192
       x__i8_ = (x__i8_ + 1_8)
     end do
   end if
-  zz137 = p_transport__anon_transport_components_reactionmodule_ef1f854b(species_, int(n_, 8))
-  if ((.not. zz137)) then
+  zz193 = p_transport__anon_transport_components_reactionmodule_ef1f854b(species_, int(n_, 8))
+  if ((.not. zz193)) then
     rep_%ok = .false.
-    zz139 => rep_%error
-    zz138 = cpp_r_lit("non-finite species state after reaction step")
-    call cpp_str_assign_cptr(zz139, zz138)
+    zz195 => rep_%error
+    zz194 = cpp_r_lit("non-finite species state after reaction step")
+    call cpp_str_assign_cptr(zz195, zz194)
   end if
-  zz140 => p_transport_rxstepreport__movenew(rep_)
-  zres => zz140
+  zz196 => p_transport_rxstepreport__movenew(rep_)
+  zres => zz196
   return
   end procedure p_transport_reactionintegrator__step__rreactiondata_r_7027e427
 

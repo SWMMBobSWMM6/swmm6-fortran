@@ -52,7 +52,7 @@ contains
     integer(4) :: count_
     integer(4) :: zz30
     class(t_fn71), pointer :: source_
-    class(t_lam460), pointer :: zz31
+    class(t_lam464), pointer :: zz31
     integer(8) :: un_
     real(8) :: ucf_landarea_
     real(8) :: zz32
@@ -86,7 +86,7 @@ contains
     real(8) :: zz48
     real(8) :: broadcast_
     class(t_fn74), pointer :: processsource_
-    class(t_lam461), pointer :: zz49
+    class(t_lam465), pointer :: zz49
     logical :: ordinary_
     logical :: zz50
     logical :: zz51
@@ -428,7 +428,7 @@ contains
   return
   end procedure p_runoff_runoffsolver__infilgetinfil
 
-  module procedure p_lam464
+  module procedure p_lam468
     real(8) :: rx_
     real(8), pointer :: zz1
     real(8) :: outflow_
@@ -445,7 +445,7 @@ contains
   zz3 => cpp_ptr_d_deref(a3)
   zz3 = (self%c___cap2 - outflow_)
   return
-  end procedure p_lam464
+  end procedure p_lam468
 
   module procedure p_runoff_runoffsolver__updatepondeddepth
     real(8) :: tx_
@@ -460,7 +460,7 @@ contains
     real(8) :: x__cap2_
     real(8) :: x__cap3_
     real(8) :: x__cap4_
-    class(t_lam464), pointer :: zz4
+    class(t_lam468), pointer :: zz4
     type(cpp_ptr_d) :: zz5
     real(8) :: zz6
     real(8) :: zz7
@@ -670,7 +670,7 @@ contains
   return
   end procedure p_runoff_runoffsoa__new_mrunoffsoa
 
-  module procedure p_lam458
+  module procedure p_lam462
     class(cpp_arr_o), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -678,7 +678,7 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam458
+  end procedure p_lam462
 
   module procedure p_runoff_runoffsoa__init_d
     class(cpp_vec_d), pointer :: zz1
@@ -711,7 +711,7 @@ contains
     class(cpp_vec_d), pointer :: zz28
     class(cpp_vec_d), pointer :: zz29
     class(cpp_vec_d), pointer :: zz30
-    class(t_lam458), pointer :: zz31
+    class(t_lam462), pointer :: zz31
     class(cpp_vec_o), pointer :: zz32
   self%n_subcatch = 0
   zz1 => cpp_vec_d_new_0()
@@ -1163,7 +1163,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_runoff_runoffsoa__assign
 
-  module procedure p_lam459
+  module procedure p_lam463
     class(cpp_arr_o), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -1171,7 +1171,7 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam459
+  end procedure p_lam463
 
   module procedure p_runoff_runoffsoa__movefrom
     class(t_runoff_runoffsoa), pointer :: zz1
@@ -1205,7 +1205,7 @@ contains
     class(cpp_vec_d), pointer :: zz29
     class(cpp_vec_d), pointer :: zz30
     class(cpp_vec_d), pointer :: zz31
-    class(t_lam459), pointer :: zz32
+    class(t_lam463), pointer :: zz32
     class(cpp_vec_o), pointer :: zz33
   zz1 => self
   if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
@@ -1920,7 +1920,7 @@ contains
   return
   end procedure p_runoff_runoffsourceforcing__movenew
 
-  module procedure p_lam465
+  module procedure p_lam469
     class(cpp_arr_o), pointer :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
@@ -1938,7 +1938,7 @@ contains
     x__i4_ = (x__i4_ + 1_8)
   end do
   return
-  end procedure p_lam465
+  end procedure p_lam469
 
   module procedure p_runoff_runoffsolver__checkpoint
     class(cpp_arr_o), pointer :: x__r1_
@@ -1951,7 +1951,7 @@ contains
     type(cpp_cptr) :: zz4
     class(cpp_str), pointer :: zz5
     class(cpp_runtimeerror), pointer :: zz6
-    class(t_lam465), pointer :: zz7
+    class(t_lam469), pointer :: zz7
     class(*), pointer :: zz8
     class(cpp_vec_o), pointer :: zz9
   if (model_) then
@@ -2012,7 +2012,7 @@ contains
   end if
   end procedure p_runoff_runoffsolver__checkpoint
 
-  module procedure p_lam466
+  module procedure p_lam470
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_runtimeerror), pointer :: zz3
@@ -2025,11 +2025,11 @@ contains
     return
   end if
   return
-  end procedure p_lam466
+  end procedure p_lam470
 
   module procedure p_runoff_runoffsolver__validatecheckpoint
     class(t_fn69), pointer :: require_
-    class(t_lam466), pointer :: zz1
+    class(t_lam470), pointer :: zz1
     logical :: zz2
     logical :: zz3
     class(cpp_arr_o), pointer :: x__r1_
@@ -2309,7 +2309,8 @@ contains
     logical :: zz25
     real(4) :: zz26
     real(4), pointer :: zz27
-    integer(8) :: zz28
+    type(cpp_ptr_f) :: zz28
+    integer(8) :: zz29
   if (((.not. (.not. (.not. associated(self%fp_)))) .or. (.not. self%writing_))) then
     return
   end if
@@ -2383,7 +2384,8 @@ contains
       zz27 = zz26
       p_ = (p_ + 1)
     end do
-    zz28 = cpp_mem_fwrite_ptrt_ul_ul_cfile__f(cpp_vec_f_data(self%buf_), 4_8, int(self%n_results_, 8), self%fp_)
+    zz28 = cpp_vec_f_data(self%buf_)
+    zz29 = cpp_mem_fwrite_ptrt_ul_ul_cfile__f(zz28, 4_8, int(self%n_results_, 8), self%fp_)
     if (associated(cpp_exc)) return
     j_ = (j_ + 1)
   end do
@@ -2397,25 +2399,26 @@ contains
     integer(4) :: np_
     integer(4) :: j_
     integer(8) :: uj_
-    integer(8) :: zz3
+    type(cpp_ptr_f) :: zz3
+    integer(8) :: zz4
     integer(4) :: us_
     real(8) :: qcf_
-    type(cpp_ptr_d) :: zz4
-    real(8), pointer :: zz5
-    type(cpp_ptr_o) :: zz6
-    type(cpp_slot), pointer :: zz7
-    class(cpp_arr_d), pointer :: zz8
-    type(cpp_ptr_d) :: zz9
-    real(8), pointer :: zz10
-    real(8) :: zz11
-    real(8), pointer :: zz12
-    type(cpp_ptr_o) :: zz13
-    type(cpp_slot), pointer :: zz14
-    class(cpp_arr_d), pointer :: zz15
-    type(cpp_ptr_d) :: zz16
-    real(8), pointer :: zz17
-    real(8) :: zz18
-    real(8), pointer :: zz19
+    type(cpp_ptr_d) :: zz5
+    real(8), pointer :: zz6
+    type(cpp_ptr_o) :: zz7
+    type(cpp_slot), pointer :: zz8
+    class(cpp_arr_d), pointer :: zz9
+    type(cpp_ptr_d) :: zz10
+    real(8), pointer :: zz11
+    real(8) :: zz12
+    real(8), pointer :: zz13
+    type(cpp_ptr_o) :: zz14
+    type(cpp_slot), pointer :: zz15
+    class(cpp_arr_d), pointer :: zz16
+    type(cpp_ptr_d) :: zz17
+    real(8), pointer :: zz18
+    real(8) :: zz19
+    real(8), pointer :: zz20
     integer(4) :: p_
     integer(8) :: sq_
   if (((.not. (.not. (.not. associated(self%fp_)))) .or. self%writing_)) then
@@ -2438,32 +2441,33 @@ contains
   do
     if (.not. ((j_ < self%n_subcatch_))) exit
     uj_ = int(j_, 8)
-    zz3 = cpp_mem_fread_ptrt_ul_ul_cfile__f(cpp_vec_f_data(self%buf_), 4_8, int(self%n_results_, 8), self%fp_)
+    zz3 = cpp_vec_f_data(self%buf_)
+    zz4 = cpp_mem_fread_ptrt_ul_ul_cfile__f(zz3, 4_8, int(self%n_results_, 8), self%fp_)
     if (associated(cpp_exc)) return
-    if ((zz3 /= int(self%n_results_, 8))) then
+    if ((zz4 /= int(self%n_results_, 8))) then
       zres = .false.
       return
     end if
     us_ = self%unit_system_
-    zz4 = cpp_ptr_d_new_ta_l(s_ucf__f__qcf_unitconversion, 0_8)
-    zz5 => cpp_ptr_d_item_i(zz4, self%flow_units_)
-    qcf_ = zz5
-    zz12 => ctx_%subcatches%evap_loss%a%a(uj_)
-    zz11 = real(self%buf_%a%a(2_8), 8)
-    zz6 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-    zz7 => cpp_ptr_o_item_l(zz6, 0_8)
-    zz8 => h_uas_cpp_arr_d(zz7%p)
-    zz9 = cpp_ptr_d_new_ta_l(zz8, 0_8)
-    zz10 => cpp_ptr_d_item_i(zz9, us_)
-    zz12 = (zz11 / zz10)
-    zz19 => ctx_%subcatches%infil_loss%a%a(uj_)
-    zz18 = real(self%buf_%a%a(3_8), 8)
-    zz13 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
-    zz14 => cpp_ptr_o_item_l(zz13, 0_8)
-    zz15 => h_uas_cpp_arr_d(zz14%p)
-    zz16 = cpp_ptr_d_new_ta_l(zz15, 0_8)
-    zz17 => cpp_ptr_d_item_i(zz16, us_)
-    zz19 = (zz18 / zz17)
+    zz5 = cpp_ptr_d_new_ta_l(s_ucf__f__qcf_unitconversion, 0_8)
+    zz6 => cpp_ptr_d_item_i(zz5, self%flow_units_)
+    qcf_ = zz6
+    zz13 => ctx_%subcatches%evap_loss%a%a(uj_)
+    zz12 = real(self%buf_%a%a(2_8), 8)
+    zz7 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+    zz8 => cpp_ptr_o_item_l(zz7, 0_8)
+    zz9 => h_uas_cpp_arr_d(zz8%p)
+    zz10 = cpp_ptr_d_new_ta_l(zz9, 0_8)
+    zz11 => cpp_ptr_d_item_i(zz10, us_)
+    zz13 = (zz12 / zz11)
+    zz20 => ctx_%subcatches%infil_loss%a%a(uj_)
+    zz19 = real(self%buf_%a%a(3_8), 8)
+    zz14 = cpp_ptr_o_new_ta_l(s_ucf__f__ucf_unitconversion, 0_8)
+    zz15 => cpp_ptr_o_item_l(zz14, 0_8)
+    zz16 => h_uas_cpp_arr_d(zz15%p)
+    zz17 = cpp_ptr_d_new_ta_l(zz16, 0_8)
+    zz18 => cpp_ptr_d_item_i(zz17, us_)
+    zz20 = (zz19 / zz18)
     ctx_%subcatches%runoff%a%a(uj_) = (real(self%buf_%a%a(4_8), 8) / qcf_)
     ctx_%subcatches%gw_flow%a%a(uj_) = (real(self%buf_%a%a(5_8), 8) / qcf_)
     p_ = 0
@@ -4401,7 +4405,7 @@ contains
   module procedure p_runoff_sourcepollutantledger__ctor_raw
   end procedure p_runoff_sourcepollutantledger__ctor_raw
 
-  module procedure p_lam467
+  module procedure p_lam471
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -4409,10 +4413,10 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam467
+  end procedure p_lam471
 
   module procedure p_runoff_sourcepollutantledger__init_d
-    class(t_lam467), pointer :: zz1
+    class(t_lam471), pointer :: zz1
     class(cpp_vec_o), pointer :: zz2
     class(cpp_vec_d), pointer :: zz3
     class(cpp_vec_d), pointer :: zz4
@@ -4636,7 +4640,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_runoff_sourcepollutantledger__assign
 
-  module procedure p_lam468
+  module procedure p_lam472
     class(cpp_arr_d), pointer :: zz1
     class(*), pointer :: zz2
   zres => null()
@@ -4644,11 +4648,11 @@ contains
   zz2 => zz1
   zres => zz2
   return
-  end procedure p_lam468
+  end procedure p_lam472
 
   module procedure p_runoff_sourcepollutantledger__movefrom
     class(t_runoff_sourcepollutantledger), pointer :: zz1
-    class(t_lam468), pointer :: zz2
+    class(t_lam472), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
     class(cpp_vec_d), pointer :: zz4
     class(cpp_vec_d), pointer :: zz5
@@ -5015,23 +5019,23 @@ contains
   return
   end procedure p_runoff_sourcewaterledger__movenew
 
-  module procedure p_lam384
+  module procedure p_lam387
     class(t_climate_snowdailyweather), pointer :: r_
     class(t_climate_snowdailyweather), pointer :: zz1
   zz1 => h_uas_climate_snowdailyweather(a1)
   r_ => zz1
   zres = (r_%date < a2)
   return
-  end procedure p_lam384
+  end procedure p_lam387
 
-  module procedure p_lam385
+  module procedure p_lam388
     class(t_climate_snowdailyweather), pointer :: r_2_
     class(t_climate_snowdailyweather), pointer :: zz1
   zz1 => h_uas_climate_snowdailyweather(a1)
   r_2_ => zz1
   zres = (r_2_%date < a2)
   return
-  end procedure p_lam385
+  end procedure p_lam388
 
   module procedure p_climate__f__resolveradiation
     logical :: zz1
@@ -5132,7 +5136,7 @@ contains
     real(8) :: b_2_
     class(cpp_vec_o), pointer :: records_
     type(cpp_iter_o) :: row_
-    class(t_lam384), pointer :: zz60
+    class(t_lam387), pointer :: zz60
     type(cpp_iter_o) :: zz61
     type(cpp_iter_o) :: zz62
     type(cpp_iter_o) :: zz63
@@ -5172,7 +5176,7 @@ contains
     real(8) :: zz95
     class(cpp_vec_o), pointer :: rows_
     type(cpp_iter_o) :: row_2_
-    class(t_lam385), pointer :: zz96
+    class(t_lam388), pointer :: zz96
     type(cpp_iter_o) :: zz97
     type(cpp_iter_o) :: zz98
     real(8) :: zz99
@@ -5630,13 +5634,13 @@ contains
   return
   end procedure p_climate__f__resolveradiation
 
-  module procedure p_lam386
+  module procedure p_lam389
     class(*), pointer :: zz1
   zz1 => self%c_reader
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam386
+  end procedure p_lam389
 
   module procedure p_climate__f__initializeradiation
     class(t_surface_snowconfig), pointer :: cfg_
@@ -5701,7 +5705,7 @@ contains
     class(t_climate_climatefilereader), pointer :: reader_
     class(t_climate_climatefilereader), pointer :: zz47
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam386), pointer :: zz48
+    class(t_lam389), pointer :: zz48
     class(cpp_defer), pointer :: zz49
     integer(4) :: zz50
     class(cpp_str), pointer :: path_

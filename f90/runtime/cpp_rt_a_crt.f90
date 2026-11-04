@@ -2,11 +2,12 @@
 ! part C: Str.stod (cs/runtime/Str.cs), which is C's strtod (cpp_r_strtod_cptr_cptrr). A submodule may use any part.
 ! Written by Claude (Anthropic) for the SWMM6 ports; see AI-USE.md.
 submodule (cpp_rt_a) cpp_rt_a_crt
-  use cpp_rt_c, only: cpp_r_strtod_cptr_cptrr
+  use cpp_rt_c, only: cpp_r_strtod_cptr_cptrr, crt_erange
   implicit none
 contains
-  ! std::stod: strtod over c_str(); invalid_argument("stod") when nothing converts; the count of bytes used goes
-  ! to *idx when idx is not null (out_of_range on ERANGE is not reproduced, as in the C#)
+  ! std::stod (libstdc++'s __stoa over strtod): strtod over c_str(); invalid_argument("stod") when nothing converts,
+  ! out_of_range("stod") when strtod sets ERANGE (crt_erange: overflow, or an underflow such as "1e-400" or the
+  ! inexact subnormal 2.2250738585072011e-308); the count of bytes used goes to *idx when idx is not null
   module procedure cpp_str_stod
     type(cpp_cptr) :: p, e
     real(8) :: v
@@ -18,6 +19,10 @@ contains
     if (associated(cpp_exc)) return
     if (e%o == p%o) then
       cpp_exc => cpp_a_exc(3, 'stod')
+      return
+    end if
+    if (crt_erange) then
+      cpp_exc => cpp_a_exc(2, 'stod')
       return
     end if
     if (associated(a2%a) .or. associated(a2%at)) then

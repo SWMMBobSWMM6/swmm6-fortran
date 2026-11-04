@@ -1403,6 +1403,32 @@ contains
     bits = compose(q, e2, isflt)
   end function dec_to_bin
 
+  !> glibc strtod's ERANGE for the nonzero decimal significand sd(1:ns) (value 0.sd * 10**dexp) that rounded to
+  !> the magnitude bits: overflow; zero; or, for a double, tiny after rounding (below 2**-1022 - 2**-1076, the
+  !> midpoint under DBL_MIN of the 53-bit grid) and inexact (not bits itself), both decided exactly
+  recursive logical function dec_erange(sd, ns, dexp, bits, isflt) result(er)
+    integer(int8), intent(in) :: sd(:)
+    integer, intent(in) :: ns, dexp
+    integer(int64), intent(in) :: bits
+    logical, intent(in) :: isflt
+    integer(int64) :: dl(MAXL), t
+    integer :: nl, k, i, j, e10
+    er = bits == 0 .or. bits == infbits(isflt)
+    if (er .or. isflt .or. bits > TWO52) return
+    nl = (ns + 8) / 9
+    do k = 1, nl
+       t = 0
+       j = ns - 9*k + 1          ! first digit of limb k
+       do i = max(j, 1), j + 8
+          t = t*10 + sd(i)
+       end do
+       dl(k) = t
+    end do
+    e10 = dexp - ns
+    if (cmp_dec_bin(dl, nl, e10, 18014398509481983_int64, -1076) >= 0) return   ! 2**54 - 1: not tiny
+    er = cmp_dec_bin(dl, nl, e10, bits, -1074) /= 0
+  end function dec_erange
+
   !> strtoull(base 0) over b(i0:i1-1); ok when it consumes exactly that range
   recursive subroutine nan_payload(b, i0, i1, mant, ok)
     integer(int8), intent(in) :: b(0:)
@@ -1474,6 +1500,7 @@ contains
     p = start
     bits = 0
     ncons = 0
+    crt_erange = .false.
     do while (isspace(ch(p)))
        p = p + 1
     end do
@@ -1592,6 +1619,8 @@ contains
           end do
           bits = dec_to_bin(sd, ns, int(max(min(int(dexp, int64) + ev, 100000_int64), &
                             -100000_int64)), isflt)
+          crt_erange = dec_erange(sd, ns, int(max(min(int(dexp, int64) + ev, 100000_int64), &
+                                  -100000_int64)), bits, isflt)
        end if
     else
        m = 0
@@ -1634,6 +1663,8 @@ contains
        else
           bits = round_bin(m, sticky, int(max(min(int(eb, int64) + ev, 1000000_int64), &
                            -1000000_int64)), isflt)
+          ! (a hexadecimal subnormal is not checked)
+          crt_erange = bits == 0 .or. bits == infbits(isflt)
        end if
     end if
     call finish()

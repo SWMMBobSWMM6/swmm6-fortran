@@ -4,10 +4,175 @@ submodule (swmm6_engine) swmm6_engine_028
   implicit none
 contains
 
+  module procedure p_fv_explicitfvsolver__cacheclosure
+    logical :: zz1
+    class(t_fv_kernels_closureeval), pointer :: e_
+    real(8), pointer :: zz2
+    class(t_fv_fvclosure), pointer :: zz3
+    real(8) :: zz4
+    class(t_fv_kernels_closureeval), pointer :: zz5
+    class(t_fv_kernels_closureeval), pointer :: zz6
+    class(t_fv_kernels_closureeval), pointer :: zz7
+    real(8), pointer :: zz8
+    real(8), pointer :: zz9
+    real(8) :: zz10
+  zz1 = (h_ > s_fv_kernels__f__kdrydepth)
+  if (zz1) then
+    zz1 = (.not. p_fv_explicitfvsolver__tpacell(self, uc_))
+  end if
+  if (zz1) then
+    call p_perf__f__count(12_8, 1_8)
+    call p_perf__f__count(13_8, 1_8)
+    call p_perf__f__count(14_8, 1_8)
+    if ((.not. cpp_ptr_d_isnull(radius_))) then
+      zz3 => g_%closure_tbl
+      zz4 = h_
+      zz2 => cpp_ptr_d_deref(radius_)
+      zz5 => p_fv_kernels__f__closureeval__rfvclosure_d_rd(zz3, zz4, zz2)
+      zz7 => zz5
+    else
+      zz6 => p_fv_kernels__f__closureeval__rfvclosure_d(g_%closure_tbl, h_)
+      zz7 => zz6
+    end if
+    e_ => zz7
+    self%cell_ah_%a%a(uc_) = e_%a
+    self%cell_t_%a%a(uc_) = e_%t
+    self%cell_i1_%a%a(uc_) = e_%i1
+  else
+    self%cell_ah_%a%a(uc_) = 0.0_8
+    self%cell_t_%a%a(uc_) = 0.0_8
+    self%cell_i1_%a%a(uc_) = 0.0_8
+    if ((.not. cpp_ptr_d_isnull(radius_))) then
+      zz8 => cpp_ptr_d_deref(radius_)
+      if (p_fv_explicitfvsolver__tpacell(self, uc_)) then
+        zz9 => g_%y_full
+      else
+        zz9 => h_
+      end if
+      zz10 = p_fv_kernels__f__hydradofdepth(g_, zz9)
+      zz8 = zz10
+    end if
+  end if
+  end procedure p_fv_explicitfvsolver__cacheclosure
+
+  module procedure p_lam345
+    integer(8) :: uc_
+    real(8) :: h_
+    real(8) :: u_
+    integer(4) :: cond_
+    real(8) :: dx_c_
+    real(8) :: ul_
+    real(8) :: ur_
+    real(8) :: dsum_
+    class(cpp_arr_i), pointer :: faces_
+    class(cpp_arr_i), pointer :: zz1
+    class(cpp_arr_b), pointer :: sides_
+    class(cpp_arr_b), pointer :: zz2
+    integer(4) :: e_
+    integer(8) :: uf_
+    type(cpp_ptr_i) :: zz3
+    integer(4), pointer :: zz4
+    integer(4) :: nb_
+    type(cpp_ptr_b) :: zz5
+    integer(1), pointer :: zz6
+    integer(4), pointer :: zz7
+    integer(8) :: unb_
+    real(8) :: d_
+    type(cpp_ptr_b) :: zz8
+    integer(1), pointer :: zz9
+    real(8) :: zz10
+    real(8) :: zz11
+    class(t_fv_fvgeometry), pointer :: g_
+    class(t_fv_fvgeometry), pointer :: zz12
+    real(8) :: c_wave_
+    real(8) :: zz13
+    real(8) :: zz14
+    real(8) :: zz15
+    real(8) :: sgn_
+  uc_ = int(a1, 8)
+  self%c_this%uf_grad_%a%a(uc_) = 0.0_8
+  if ((.not. (int(self%c_this%cell_active_%a%a(uc_), 4) /= 0))) then
+    return
+  end if
+  h_ = self%c_this%state_%cell_h%a%a(uc_)
+  if ((h_ <= s_fv_kernels__f__kdrydepth)) then
+    return
+  end if
+  u_ = self%c_this%cell_u_%a%a(uc_)
+  if ((u_ == 0.0_8)) then
+    return
+  end if
+  cond_ = self%c_this%mesh_%cell_conduit%a%a(uc_)
+  dx_c_ = self%c_this%mesh_%cell_dx%a%a(uc_)
+  ul_ = u_
+  ur_ = u_
+  dsum_ = 0.0_8
+  zz1 => cpp_arr_i_new(2_8)
+  zz1%a(0) = self%c_this%mesh_%cell_face0%a%a(uc_)
+  zz1%a(1) = self%c_this%mesh_%cell_face1%a%a(uc_)
+  faces_ => zz1
+  zz2 => cpp_arr_b_new(2_8)
+  zz2%a(0) = self%c_this%mesh_%cell_side0%a%a(uc_)
+  zz2%a(1) = self%c_this%mesh_%cell_side1%a%a(uc_)
+  sides_ => zz2
+  e_ = 0
+  do
+    if (.not. ((e_ < 2))) exit
+    zz3 = cpp_ptr_i_new_ta_l(faces_, 0_8)
+    zz4 => cpp_ptr_i_item_i(zz3, e_)
+    uf_ = int(zz4, 8)
+    zz5 = cpp_ptr_b_new_ta_l(sides_, 0_8)
+    zz6 => cpp_ptr_b_item_i(zz5, e_)
+    if ((int(zz6, 4) == 0)) then
+      zz7 => self%c_this%mesh_%face_cr%a%a(uf_)
+    else
+      zz7 => self%c_this%mesh_%face_cl%a%a(uf_)
+    end if
+    nb_ = zz7
+    if ((nb_ < 0)) then
+      goto 102
+    end if
+    unb_ = int(nb_, 8)
+    if ((self%c_this%mesh_%cell_conduit%a%a(unb_) /= cond_)) then
+      goto 102
+    end if
+    d_ = (0.5_8 * (dx_c_ + self%c_this%mesh_%cell_dx%a%a(unb_)))
+    zz8 = cpp_ptr_b_new_ta_l(sides_, 0_8)
+    zz9 => cpp_ptr_b_item_i(zz8, e_)
+    if ((int(zz9, 4) == 0)) then
+      ur_ = self%c_this%cell_u_%a%a(unb_)
+      zz10 = (dsum_ + d_)
+      dsum_ = zz10
+    else
+      ul_ = self%c_this%cell_u_%a%a(unb_)
+      zz11 = (dsum_ + d_)
+      dsum_ = zz11
+    end if
+    102 continue
+    e_ = (e_ + 1)
+  end do
+  if ((dsum_ <= 0.0_8)) then
+    return
+  end if
+  zz12 => h_uas_fv_fvgeometry(self%c_this%mesh_%geom%a%a(int(self%c_this%mesh_%cell_geom%a%a(uc_), 8))%p)
+  g_ => zz12
+  if (p_fv_explicitfvsolver__tpacell(self%c_this, uc_)) then
+    zz15 = p_fv_kernels__f__celerity(self%c_this%state_%cell_a%a%a(uc_), g_%ft_slot)
+  else
+    zz14 = self%c_this%state_%cell_a%a%a(uc_)
+    zz13 = p_fv_kernels__f__widthofdepth(g_, h_)
+    zz15 = p_fv_kernels__f__celerity(zz14, zz13)
+  end if
+  c_wave_ = zz15
+  sgn_ = merge(1.0_8, (-1.0_8), (u_ > 0.0_8))
+  self%c_this%uf_grad_%a%a(uc_) = ((c_wave_ * sgn_) * abs(((ur_ - ul_) / dsum_)))
+  return
+  end procedure p_lam345
+
   module procedure p_fv_explicitfvsolver__computeufgradients
     integer(4) :: nc_
     class(t_fn74), pointer :: grad_for_
-    class(t_lam342), pointer :: zz1
+    class(t_lam345), pointer :: zz1
     class(cpp_vec_i), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -87,7 +252,7 @@ contains
   return
   end procedure p_fv_explicitfvsolver__passthroughfarcell
 
-  module procedure p_lam343
+  module procedure p_lam346
     class(cpp_arr_i), pointer :: faces2_
     class(cpp_arr_i), pointer :: zz1
     class(cpp_arr_i), pointer :: x__r1_
@@ -151,9 +316,9 @@ contains
   end do
   zres = .false.
   return
-  end procedure p_lam343
+  end procedure p_lam346
 
-  module procedure p_lam344
+  module procedure p_lam347
     real(8) :: h2_
     real(8) :: zz1
     real(8) :: zz2
@@ -169,7 +334,7 @@ contains
   self%c_this%cell_eta_%a%a(self%c_uc) = (self%c_this%mesh_%cell_zb%a%a(self%c_uc) + h2_)
   call p_fv_explicitfvsolver__cacheclosure(self%c_this, self%c_uc, self%c_g, h2_, cpp_ptr_d())
   return
-  end procedure p_lam344
+  end procedure p_lam347
 
   module procedure p_fv_explicitfvsolver__updatetpaflags
     integer(4) :: nc_
@@ -180,9 +345,9 @@ contains
     class(t_fv_fvgeometry), pointer :: zz1
     real(8) :: a_
     class(t_fn5), pointer :: ventedcell_
-    class(t_lam343), pointer :: zz2
+    class(t_lam346), pointer :: zz2
     class(t_fn201), pointer :: refresh_
-    class(t_lam344), pointer :: zz3
+    class(t_lam347), pointer :: zz3
     integer(1) :: now_2_
     logical :: zz4
   nc_ = p_fv_networkmeshdata__n_cells(self%mesh_)
@@ -6091,158 +6256,5 @@ contains
   call p_fv_implicitnetworksolver_workspacediagnostics__ctor_x(zz3)
   self%reduced_workspace => zz3
   end procedure p_fv_implicitnetworksolver_condensationdiagnostics__init_d
-
-  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__ctor_x
-  call p_fv_implicitnetworksolver_condensationdiagnostics__ctor_raw(self, cpp_raw_v)
-  call p_fv_implicitnetworksolver_condensationdiagnostics__init_d(self)
-  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__ctor_x
-
-  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__clone
-    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: o_
-    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_fv_implicitnetworksolver_condensationdiagnostics__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_fv_implicitnetworksolver_condensationdiagnostics__c_23658dd5(o_, self)
-  zres => o_
-  return
-  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__clone
-
-  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__c_23658dd5
-    class(t_fv_nativegmres_result), pointer :: zz1
-    class(t_fv_nativegmres_result), pointer :: zz2
-    class(t_fv_implicitnetworksolver_blockiludiagnostics), pointer :: zz3
-    class(t_fv_implicitnetworksolver_blockiludiagnostics), pointer :: zz4
-    class(t_fv_implicitnetworksolver_workspacediagnostics), pointer :: zz5
-    class(t_fv_implicitnetworksolver_workspacediagnostics), pointer :: zz6
-  self%status = s_%status
-  self%eliminated = s_%eliminated
-  self%retained = s_%retained
-  self%failed_cell = s_%failed_cell
-  self%failed_interface_pivot = s_%failed_interface_pivot
-  self%schur_entries = s_%schur_entries
-  self%peak_workspace_bytes = s_%peak_workspace_bytes
-  self%minimum_block_pivot_ratio = s_%minimum_block_pivot_ratio
-  self%minimum_interface_pivot_ratio = s_%minimum_interface_pivot_ratio
-  self%full_true_residual = s_%full_true_residual
-  self%full_tolerance = s_%full_tolerance
-  self%reduced_true_residual = s_%reduced_true_residual
-  self%used_dense = s_%used_dense
-  self%used_reduced_gmres = s_%used_reduced_gmres
-  self%used_tree = s_%used_tree
-  self%tree_eliminated = s_%tree_eliminated
-  self%core_scalars = s_%core_scalars
-  self%unsafe_leaf_pivots = s_%unsafe_leaf_pivots
-  self%core_entries = s_%core_entries
-  self%minimum_leaf_pivot_ratio = s_%minimum_leaf_pivot_ratio
-  self%core_true_residual = s_%core_true_residual
-  zz1 => null()
-  if (associated(s_%reduced)) then
-    zz2 => p_fv_nativegmres_result__clone(s_%reduced)
-    zz1 => zz2
-  end if
-  self%reduced => zz1
-  zz3 => null()
-  if (associated(s_%reduced_block_ilu)) then
-    zz4 => p_fv_implicitnetworksolver_blockiludiagnostics__clone(s_%reduced_block_ilu)
-    zz3 => zz4
-  end if
-  self%reduced_block_ilu => zz3
-  zz5 => null()
-  if (associated(s_%reduced_workspace)) then
-    zz6 => p_fv_implicitnetworksolver_workspacediagnostics__clone(s_%reduced_workspace)
-    zz5 => zz6
-  end if
-  self%reduced_workspace => zz5
-  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__c_23658dd5
-
-  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__assign
-    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%status = s_%status
-  self%eliminated = s_%eliminated
-  self%retained = s_%retained
-  self%failed_cell = s_%failed_cell
-  self%failed_interface_pivot = s_%failed_interface_pivot
-  self%schur_entries = s_%schur_entries
-  self%peak_workspace_bytes = s_%peak_workspace_bytes
-  self%minimum_block_pivot_ratio = s_%minimum_block_pivot_ratio
-  self%minimum_interface_pivot_ratio = s_%minimum_interface_pivot_ratio
-  self%full_true_residual = s_%full_true_residual
-  self%full_tolerance = s_%full_tolerance
-  self%reduced_true_residual = s_%reduced_true_residual
-  self%used_dense = s_%used_dense
-  self%used_reduced_gmres = s_%used_reduced_gmres
-  self%used_tree = s_%used_tree
-  self%tree_eliminated = s_%tree_eliminated
-  self%core_scalars = s_%core_scalars
-  self%unsafe_leaf_pivots = s_%unsafe_leaf_pivots
-  self%core_entries = s_%core_entries
-  self%minimum_leaf_pivot_ratio = s_%minimum_leaf_pivot_ratio
-  self%core_true_residual = s_%core_true_residual
-  call p_fv_nativegmres_result__assign(self%reduced, s_%reduced)
-  call p_fv_implicitnetworksolver_blockiludiagnostics__assign(self%reduced_block_ilu, s_%reduced_block_ilu)
-  call p_fv_implicitnetworksolver_workspacediagnostics__assign(self%reduced_workspace, s_%reduced_workspace)
-  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__assign
-
-  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__movefrom
-    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
-    class(t_fv_nativegmres_result), pointer :: zz2
-    class(t_fv_implicitnetworksolver_blockiludiagnostics), pointer :: zz3
-    class(t_fv_implicitnetworksolver_workspacediagnostics), pointer :: zz4
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%status = s_%status
-  self%eliminated = s_%eliminated
-  self%retained = s_%retained
-  self%failed_cell = s_%failed_cell
-  self%failed_interface_pivot = s_%failed_interface_pivot
-  self%schur_entries = s_%schur_entries
-  self%peak_workspace_bytes = s_%peak_workspace_bytes
-  self%minimum_block_pivot_ratio = s_%minimum_block_pivot_ratio
-  self%minimum_interface_pivot_ratio = s_%minimum_interface_pivot_ratio
-  self%full_true_residual = s_%full_true_residual
-  self%full_tolerance = s_%full_tolerance
-  self%reduced_true_residual = s_%reduced_true_residual
-  self%used_dense = s_%used_dense
-  self%used_reduced_gmres = s_%used_reduced_gmres
-  self%used_tree = s_%used_tree
-  self%tree_eliminated = s_%tree_eliminated
-  self%core_scalars = s_%core_scalars
-  self%unsafe_leaf_pivots = s_%unsafe_leaf_pivots
-  self%core_entries = s_%core_entries
-  self%minimum_leaf_pivot_ratio = s_%minimum_leaf_pivot_ratio
-  self%core_true_residual = s_%core_true_residual
-  self%reduced => s_%reduced
-  allocate(zz2)
-  call p_fv_nativegmres_result__ctor_x(zz2)
-  s_%reduced => zz2
-  self%reduced_block_ilu => s_%reduced_block_ilu
-  allocate(zz3)
-  call p_fv_implicitnetworksolver_blockiludiagnostics__ctor_x(zz3)
-  s_%reduced_block_ilu => zz3
-  self%reduced_workspace => s_%reduced_workspace
-  allocate(zz4)
-  call p_fv_implicitnetworksolver_workspacediagnostics__ctor_x(zz4)
-  s_%reduced_workspace => zz4
-  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__movefrom
-
-  module procedure p_fv_implicitnetworksolver_condensationdiagnostics__movenew
-    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: o_
-    class(t_fv_implicitnetworksolver_condensationdiagnostics), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_fv_implicitnetworksolver_condensationdiagnostics__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_fv_implicitnetworksolver_condensationdiagnostics__movefrom(o_, s_)
-  zres => o_
-  return
-  end procedure p_fv_implicitnetworksolver_condensationdiagnostics__movenew
 
 end submodule swmm6_engine_028

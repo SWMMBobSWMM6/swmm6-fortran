@@ -15,6 +15,10 @@ contains
   !> one byte), as a char*; one element for a Ptr to a field
   module procedure cpp_bytes_view_ptrt__b
     integer(8) :: n
+    if (.not. associated(a1%a)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(n)
@@ -22,6 +26,10 @@ contains
   end procedure cpp_bytes_view_ptrt__b
   module procedure cpp_bytes_view_ptrt__d
     integer(8) :: n
+    if (.not. associated(a1%a) .and. .not. associated(a1%at)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(8 * n)
@@ -29,6 +37,10 @@ contains
   end procedure cpp_bytes_view_ptrt__d
   module procedure cpp_bytes_view_ptrt__f
     integer(8) :: n
+    if (.not. associated(a1%a)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(4 * n)
@@ -36,6 +48,10 @@ contains
   end procedure cpp_bytes_view_ptrt__f
   module procedure cpp_bytes_view_ptrt__i
     integer(8) :: n
+    if (.not. associated(a1%a) .and. .not. associated(a1%at)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(4 * n)
@@ -43,6 +59,10 @@ contains
   end procedure cpp_bytes_view_ptrt__i
   module procedure cpp_bytes_view_ptrt__l
     integer(8) :: n
+    if (.not. associated(a1%a) .and. .not. associated(a1%at)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(8 * n)
@@ -50,6 +70,10 @@ contains
   end procedure cpp_bytes_view_ptrt__l
   module procedure cpp_bytes_view_ptrt__s
     integer(8) :: n
+    if (.not. associated(a1%a)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(2 * n)
@@ -57,6 +81,10 @@ contains
   end procedure cpp_bytes_view_ptrt__s
   module procedure cpp_bytes_view_ptrt__z
     integer(8) :: n
+    if (.not. associated(a1%a)) then
+      zres = cpp_cptr()                 ! (const char*) of a null pointer is null
+      return
+    end if
     n = 1
     if (associated(a1%a)) n = size(a1%a%a, kind=8) - a1%o
     zres = crt_viewbuf(n)

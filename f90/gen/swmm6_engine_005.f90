@@ -5292,139 +5292,140 @@ contains
     class(t_richards_material), pointer :: p_
     class(t_lidnodelayer), pointer :: zz80
     type(cpp_ptr_d) :: v_
-    real(8), pointer :: zz81
+    type(cpp_ptr_d) :: zz81
     real(8), pointer :: zz82
-    logical :: zz83
-    real(8), pointer :: zz84
-    logical :: zz85
-    real(8), pointer :: zz86
-    logical :: zz87
-    real(8), pointer :: zz88
-    logical :: zz89
-    real(8), pointer :: zz90
-    logical :: zz91
-    real(8), pointer :: zz92
-    logical :: zz93
-    integer(4) :: zz94
-    real(8), pointer :: zz95
-    integer(4) :: zz96
-    logical :: zz97
+    real(8), pointer :: zz83
+    logical :: zz84
+    real(8), pointer :: zz85
+    logical :: zz86
+    real(8), pointer :: zz87
+    logical :: zz88
+    real(8), pointer :: zz89
+    logical :: zz90
+    real(8), pointer :: zz91
+    logical :: zz92
+    real(8), pointer :: zz93
+    logical :: zz94
+    integer(4) :: zz95
+    real(8), pointer :: zz96
+    integer(4) :: zz97
+    logical :: zz98
     class(t_lidnodestate), pointer :: state_2_
-    class(t_lidnodestate), pointer :: zz98
+    class(t_lidnodestate), pointer :: zz99
     class(t_greenamptstate), pointer :: ga_
-    logical :: zz99
     logical :: zz100
     logical :: zz101
     logical :: zz102
     logical :: zz103
     logical :: zz104
-    integer(4) :: zz105
-    type(cpp_cptr) :: zz106
-    class(cpp_str), pointer :: zz107
-    type(cpp_cptr) :: zz108
-    class(cpp_str), pointer :: zz109
+    logical :: zz105
+    integer(4) :: zz106
+    type(cpp_cptr) :: zz107
+    class(cpp_str), pointer :: zz108
+    type(cpp_cptr) :: zz109
+    class(cpp_str), pointer :: zz110
     class(t_lidnodestate), pointer :: state_3_
-    class(t_lidnodestate), pointer :: zz110
+    class(t_lidnodestate), pointer :: zz111
     integer(8) :: k_3_
-    class(t_lidnodecell), pointer :: zz111
-    class(t_hotstartlidcellrecord), pointer :: zz112
-    real(8), pointer :: zz113
-    class(t_lidnodecell), pointer :: zz114
+    class(t_lidnodecell), pointer :: zz112
+    class(t_hotstartlidcellrecord), pointer :: zz113
+    real(8), pointer :: zz114
     class(t_lidnodecell), pointer :: zz115
-    real(8) :: zz116
-    real(8), pointer :: zz117
-    real(8) :: zz118
-    integer(8) :: k_4_
+    class(t_lidnodecell), pointer :: zz116
+    real(8) :: zz117
+    real(8), pointer :: zz118
     real(8) :: zz119
-    real(8), pointer :: zz120
+    integer(8) :: k_4_
+    real(8) :: zz120
+    real(8), pointer :: zz121
     class(cpp_vec_d), pointer :: v_2_
     class(t_greenamptstate), pointer :: ga_2_
-    logical :: zz121
     logical :: zz122
-    type(cpp_cptr) :: zz123
-    class(cpp_str), pointer :: zz124
-    type(cpp_cptr) :: zz125
-    class(cpp_str), pointer :: zz126
-    logical :: zz127
+    logical :: zz123
+    type(cpp_cptr) :: zz124
+    class(cpp_str), pointer :: zz125
+    type(cpp_cptr) :: zz126
+    class(cpp_str), pointer :: zz127
+    logical :: zz128
     class(t_wateragestate), pointer :: ws_
     class(cpp_vec_o), pointer :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
     class(t_hotstartlinkrecord), pointer :: rec_2_
-    class(t_hotstartlinkrecord), pointer :: zz128
+    class(t_hotstartlinkrecord), pointer :: zz129
     integer(4) :: idx_2_
-    class(cpp_str), pointer :: zz129
-    class(t_nameindex), pointer :: zz130
-    integer(4) :: zz131
-    type(cpp_cptr) :: zz132
-    class(cpp_str), pointer :: zz133
-    type(cpp_cptr) :: zz134
-    class(cpp_str), pointer :: zz135
+    class(cpp_str), pointer :: zz130
+    class(t_nameindex), pointer :: zz131
+    integer(4) :: zz132
+    type(cpp_cptr) :: zz133
+    class(cpp_str), pointer :: zz134
+    type(cpp_cptr) :: zz135
+    class(cpp_str), pointer :: zz136
     integer(8) :: i_2_
-    logical :: zz136
+    logical :: zz137
     class(t_wateragestate), pointer :: ws_2_
     logical :: apply_v2_
-    logical :: zz137
+    logical :: zz138
     class(cpp_vec_o), pointer :: x__r5_
     integer(8) :: x__i6_
     integer(8) :: x__i6_n_
     class(t_hotstartsubcatchrecord), pointer :: rec_3_
-    class(t_hotstartsubcatchrecord), pointer :: zz138
+    class(t_hotstartsubcatchrecord), pointer :: zz139
     integer(4) :: idx_3_
-    class(cpp_str), pointer :: zz139
-    class(t_nameindex), pointer :: zz140
-    integer(4) :: zz141
-    type(cpp_cptr) :: zz142
-    class(cpp_str), pointer :: zz143
-    type(cpp_cptr) :: zz144
-    class(cpp_str), pointer :: zz145
+    class(cpp_str), pointer :: zz140
+    class(t_nameindex), pointer :: zz141
+    integer(4) :: zz142
+    type(cpp_cptr) :: zz143
+    class(cpp_str), pointer :: zz144
+    type(cpp_cptr) :: zz145
+    class(cpp_str), pointer :: zz146
     integer(8) :: i_3_
-    logical :: zz146
     logical :: zz147
     logical :: zz148
     logical :: zz149
-    class(t_lam58), pointer :: zz150
-    class(t_lam59), pointer :: zz151
-    class(t_lam60), pointer :: zz152
+    logical :: zz150
+    class(t_lam58), pointer :: zz151
+    class(t_lam59), pointer :: zz152
+    class(t_lam60), pointer :: zz153
     class(cpp_str), pointer :: error_4_
-    class(cpp_str), pointer :: zz153
-    class(t_lam61), pointer :: zz154
-    type(cpp_iter_i) :: zz155
+    class(cpp_str), pointer :: zz154
+    class(t_lam61), pointer :: zz155
     type(cpp_iter_i) :: zz156
-    logical :: zz157
-    class(cpp_str), pointer :: zz158
-    logical :: zz159
+    type(cpp_iter_i) :: zz157
+    logical :: zz158
+    class(cpp_str), pointer :: zz159
     logical :: zz160
     logical :: zz161
-    class(t_lam62), pointer :: zz162
-    type(cpp_iter_i) :: zz163
+    logical :: zz162
+    class(t_lam62), pointer :: zz163
     type(cpp_iter_i) :: zz164
-    logical :: zz165
-    class(cpp_str), pointer :: zz166
-    logical :: zz167
+    type(cpp_iter_i) :: zz165
+    logical :: zz166
+    class(cpp_str), pointer :: zz167
     logical :: zz168
     logical :: zz169
+    logical :: zz170
     class(cpp_str), pointer :: error_5_
-    class(cpp_str), pointer :: zz170
-    class(t_fn7), pointer :: zz171
-    class(cpp_str), pointer :: zz172
-    type(cpp_cptr) :: zz173
-    class(cpp_str), pointer :: zz174
-    class(cpp_str), pointer :: error_6_
+    class(cpp_str), pointer :: zz171
+    class(t_fn7), pointer :: zz172
+    class(cpp_str), pointer :: zz173
+    type(cpp_cptr) :: zz174
     class(cpp_str), pointer :: zz175
-    logical :: zz176
+    class(cpp_str), pointer :: error_6_
+    class(cpp_str), pointer :: zz176
     logical :: zz177
+    logical :: zz178
     class(cpp_str), pointer :: msg_2_
-    type(cpp_cptr) :: zz178
-    class(cpp_str), pointer :: zz179
+    type(cpp_cptr) :: zz179
     class(cpp_str), pointer :: zz180
-    type(cpp_cptr) :: zz181
-    class(cpp_str), pointer :: zz182
+    class(cpp_str), pointer :: zz181
+    type(cpp_cptr) :: zz182
     class(cpp_str), pointer :: zz183
-    class(*), pointer :: zz184
-    class(cpp_vec_o), pointer :: zz185
+    class(cpp_str), pointer :: zz184
+    class(*), pointer :: zz185
+    class(cpp_vec_o), pointer :: zz186
     class(cpp_str), pointer :: error_7_
-    class(cpp_str), pointer :: zz186
+    class(cpp_str), pointer :: zz187
   call cpp_vec_o_clear(hs_%warnings)
   zz1 = (.not. cpp_vec_i_empty(ctx_%reactions%lid_controls))
   if (zz1) then
@@ -5691,96 +5692,97 @@ contains
             cell_ => zz79
             zz80 => h_uas_lidnodelayer(stack_%a%a(int((cell_%layer - 1), 8))%p)
             p_ => zz80%retention
-            v_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(rec_%lid_richards), (k_2_ * 8_8))
-            zz94 = merge(1, 0, compatible_)
-            zz81 => cpp_ptr_d_item_i(v_, 1)
-            zz83 = (zz81 == p_%theta_r)
-            if (zz83) then
-              zz82 => cpp_ptr_d_item_i(v_, 2)
-              zz83 = (zz82 == p_%alpha)
+            zz81 = cpp_vec_d_data(rec_%lid_richards)
+            v_ = cpp_ptr_d_op_add_ptrt_l(zz81, (k_2_ * 8_8))
+            zz95 = merge(1, 0, compatible_)
+            zz82 => cpp_ptr_d_item_i(v_, 1)
+            zz84 = (zz82 == p_%theta_r)
+            if (zz84) then
+              zz83 => cpp_ptr_d_item_i(v_, 2)
+              zz84 = (zz83 == p_%alpha)
             end if
-            zz85 = zz83
-            if (zz85) then
-              zz84 => cpp_ptr_d_item_i(v_, 3)
-              zz85 = (zz84 == p_%n)
+            zz86 = zz84
+            if (zz86) then
+              zz85 => cpp_ptr_d_item_i(v_, 3)
+              zz86 = (zz85 == p_%n)
             end if
-            zz87 = zz85
-            if (zz87) then
-              zz86 => cpp_ptr_d_item_i(v_, 4)
-              zz87 = (zz86 == p_%l)
+            zz88 = zz86
+            if (zz88) then
+              zz87 => cpp_ptr_d_item_i(v_, 4)
+              zz88 = (zz87 == p_%l)
             end if
-            zz89 = zz87
-            if (zz89) then
-              zz88 => cpp_ptr_d_item_i(v_, 5)
-              zz89 = (zz88 == p_%specific_storage)
+            zz90 = zz88
+            if (zz90) then
+              zz89 => cpp_ptr_d_item_i(v_, 5)
+              zz90 = (zz89 == p_%specific_storage)
             end if
-            zz91 = zz89
-            if (zz91) then
-              zz90 => cpp_ptr_d_item_i(v_, 6)
-              zz91 = (zz90 == cell_%conductivity)
+            zz92 = zz90
+            if (zz92) then
+              zz91 => cpp_ptr_d_item_i(v_, 6)
+              zz92 = (zz91 == cell_%conductivity)
             end if
-            zz93 = zz91
-            if (zz93) then
-              zz92 => cpp_ptr_d_item_i(v_, 7)
-              zz93 = (zz92 == cell_%wilting_point)
+            zz94 = zz92
+            if (zz94) then
+              zz93 => cpp_ptr_d_item_i(v_, 7)
+              zz94 = (zz93 == cell_%wilting_point)
             end if
-            compatible_ = (iand(zz94, merge(1, 0, zz93)) /= 0)
+            compatible_ = (iand(zz95, merge(1, 0, zz94)) /= 0)
             if ((k_2_ /= 0_8)) then
-              zz96 = merge(1, 0, compatible_)
-              zz95 => cpp_ptr_d_item_i(v_, 0)
-              compatible_ = (iand(zz96, merge(1, 0, (zz95 > (p_%theta_r * cell_%geometric_volume)))) /= 0)
+              zz97 = merge(1, 0, compatible_)
+              zz96 => cpp_ptr_d_item_i(v_, 0)
+              compatible_ = (iand(zz97, merge(1, 0, (zz96 > (p_%theta_r * cell_%geometric_volume)))) /= 0)
             end if
             k_2_ = (k_2_ + 1_8)
           end do
         end if
       end if
-      zz97 = compatible_
-      if (zz97) then
-        zz97 = (ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(10, (-2147483647 - 1)))
+      zz98 = compatible_
+      if (zz98) then
+        zz98 = (ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(10, (-2147483647 - 1)))
       end if
-      if (zz97) then
-        zz98 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(int(r_, 8))%p)
-        state_2_ => zz98
+      if (zz98) then
+        zz99 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(int(r_, 8))%p)
+        state_2_ => zz99
         ga_ => state_2_%surface_infil
-        zz105 = merge(1, 0, compatible_)
+        zz106 = merge(1, 0, compatible_)
         if ((state_2_%infiltration_cell < 0)) then
-          zz104 = cpp_vec_d_empty(rec_%lid_infiltration)
+          zz105 = cpp_vec_d_empty(rec_%lid_infiltration)
         else
-          zz99 = (cpp_vec_d_size(rec_%lid_infiltration) == 11_8)
-          if (zz99) then
-            zz99 = (rec_%lid_infiltration%a%a(0_8) == ga_%s)
-          end if
-          zz100 = zz99
+          zz100 = (cpp_vec_d_size(rec_%lid_infiltration) == 11_8)
           if (zz100) then
-            zz100 = (rec_%lid_infiltration%a%a(1_8) == ga_%ks)
+            zz100 = (rec_%lid_infiltration%a%a(0_8) == ga_%s)
           end if
           zz101 = zz100
           if (zz101) then
-            zz101 = (rec_%lid_infiltration%a%a(2_8) == ga_%imdmax)
+            zz101 = (rec_%lid_infiltration%a%a(1_8) == ga_%ks)
           end if
           zz102 = zz101
           if (zz102) then
-            zz102 = (rec_%lid_infiltration%a%a(6_8) == ga_%fumax)
+            zz102 = (rec_%lid_infiltration%a%a(2_8) == ga_%imdmax)
           end if
           zz103 = zz102
           if (zz103) then
-            zz103 = (rec_%lid_infiltration%a%a(7_8) == ga_%lu)
+            zz103 = (rec_%lid_infiltration%a%a(6_8) == ga_%fumax)
           end if
           zz104 = zz103
+          if (zz104) then
+            zz104 = (rec_%lid_infiltration%a%a(7_8) == ga_%lu)
+          end if
+          zz105 = zz104
         end if
-        compatible_ = (iand(zz105, merge(1, 0, zz104)) /= 0)
+        compatible_ = (iand(zz106, merge(1, 0, zz105)) /= 0)
       end if
       if ((.not. compatible_)) then
-        zz106 = cpp_r_lit("Hot start: LID profile missing or incompatible for node '")
-        zz107 => cpp_str_cat_cptr_str(zz106, rec_%id)
-        zz108 = cpp_r_lit("'; node state not applied")
-        zz109 => cpp_str_cat_str_cptr(zz107, zz108)
-        call emit_warning_%invoke(zz109)
+        zz107 = cpp_r_lit("Hot start: LID profile missing or incompatible for node '")
+        zz108 => cpp_str_cat_cptr_str(zz107, rec_%id)
+        zz109 = cpp_r_lit("'; node state not applied")
+        zz110 => cpp_str_cat_str_cptr(zz108, zz109)
+        call emit_warning_%invoke(zz110)
         if (associated(cpp_exc)) return
         goto 102
       end if
-      zz110 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(int(r_, 8))%p)
-      state_3_ => zz110
+      zz111 => h_uas_lidnodestate(ctx_%node_subtypes%storages%lid_state%a%a(int(r_, 8))%p)
+      state_3_ => zz111
       state_3_%held_volume = 0.0_8
       state_3_%treated_volume = rec_%lid_treated_volume
       call cpp_vec_d_assign_vect(state_3_%quality_mass, rec_%lid_quality_mass)
@@ -5790,16 +5792,16 @@ contains
       k_3_ = 0_8
       do
         if (.not. ((ieor(k_3_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_3_%cells), (-9223372036854775807_8 - 1_8))))) exit
-        zz111 => h_uas_lidnodecell(state_3_%cells%a%a(k_3_)%p)
-        zz113 => zz111%theta
-        zz112 => h_uas_hotstartlidcellrecord(rec_%lid_cells%a%a(k_3_)%p)
-        zz113 = zz112%theta
-        zz117 => state_3_%held_volume
-        zz114 => h_uas_lidnodecell(state_3_%cells%a%a(k_3_)%p)
-        zz116 = zz114%theta
+        zz112 => h_uas_lidnodecell(state_3_%cells%a%a(k_3_)%p)
+        zz114 => zz112%theta
+        zz113 => h_uas_hotstartlidcellrecord(rec_%lid_cells%a%a(k_3_)%p)
+        zz114 = zz113%theta
+        zz118 => state_3_%held_volume
         zz115 => h_uas_lidnodecell(state_3_%cells%a%a(k_3_)%p)
-        zz118 = (zz117 + (zz116 * zz115%geometric_volume))
-        zz117 = zz118
+        zz117 = zz115%theta
+        zz116 => h_uas_lidnodecell(state_3_%cells%a%a(k_3_)%p)
+        zz119 = (zz118 + (zz117 * zz116%geometric_volume))
+        zz118 = zz119
         k_3_ = (k_3_ + 1_8)
       end do
       if (state_3_%richards) then
@@ -5813,9 +5815,9 @@ contains
         if (associated(cpp_exc)) return
       end if
       ctx_%nodes%full_volume%a%a(i_) = 0.0_8
-      zz120 => ctx_%nodes%full_volume%a%a(i_)
-      zz119 = p_node__f__getvolume(ctx_%nodes, idx_, ctx_%nodes%full_depth%a%a(i_), ctx_%tables, p_ucf__f__getunitsystem(ctx_%options%flow_units), ctx_%node_subtypes)
-      zz120 = zz119
+      zz121 => ctx_%nodes%full_volume%a%a(i_)
+      zz120 = p_node__f__getvolume(ctx_%nodes, idx_, ctx_%nodes%full_depth%a%a(i_), ctx_%tables, p_ucf__f__getunitsystem(ctx_%options%flow_units), ctx_%node_subtypes)
+      zz121 = zz120
       ctx_%nodes%rpt_full_volume%a%a(i_) = ctx_%nodes%full_volume%a%a(i_)
       if ((.not. cpp_vec_d_empty(rec_%lid_infiltration))) then
         v_2_ => rec_%lid_infiltration
@@ -5827,18 +5829,18 @@ contains
         state_3_%infiltration_head = v_2_%a%a(9_8)
         ga_2_%saturated = (v_2_%a%a(10_8) /= 0.0_8)
       else
-        zz122 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(10, (-2147483647 - 1)))
-        if (zz122) then
-          zz122 = (state_3_%infiltration_cell >= 0)
+        zz123 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(10, (-2147483647 - 1)))
+        if (zz123) then
+          zz123 = (state_3_%infiltration_cell >= 0)
         end if
-        if (zz122) then
+        if (zz123) then
           ctx_%nodes%depth%a%a(i_) = rec_%depth
           call p_lidnode__f__initializeinfiltration(ctx_, idx_)
-          zz123 = cpp_r_lit("Hot start: pre-V10 LID infiltration history reconstructed from moisture for node '")
-          zz124 => cpp_str_cat_cptr_str(zz123, rec_%id)
-          zz125 = cpp_r_lit("'; exact continuation unavailable")
-          zz126 => cpp_str_cat_str_cptr(zz124, zz125)
-          call emit_warning_%invoke(zz126)
+          zz124 = cpp_r_lit("Hot start: pre-V10 LID infiltration history reconstructed from moisture for node '")
+          zz125 => cpp_str_cat_cptr_str(zz124, rec_%id)
+          zz126 = cpp_r_lit("'; exact continuation unavailable")
+          zz127 => cpp_str_cat_str_cptr(zz125, zz126)
+          call emit_warning_%invoke(zz127)
           if (associated(cpp_exc)) return
         end if
       end if
@@ -5846,11 +5848,11 @@ contains
     ctx_%nodes%depth%a%a(i_) = rec_%depth
     ctx_%nodes%head%a%a(i_) = rec_%head
     ctx_%nodes%volume%a%a(i_) = rec_%volume
-    zz127 = (rec_%age >= 0.0_8)
-    if (zz127) then
-      zz127 = ctx_%options%water_age
+    zz128 = (rec_%age >= 0.0_8)
+    if (zz128) then
+      zz128 = ctx_%options%water_age
     end if
-    if (zz127) then
+    if (zz128) then
       ws_ => ctx_%water_age_state
       if ((cpp_vec_d_size(ws_%node_age) /= int(p_simulationcontext__n_nodes(ctx_), 8))) then
         call p_wateragestate__resize(ws_, p_simulationcontext__n_nodes(ctx_), p_simulationcontext__n_links(ctx_), p_simulationcontext__n_subcatches(ctx_))
@@ -5868,18 +5870,18 @@ contains
   x__i4_n_ = int(x__r3_%n, 8)
   do
     if (.not. ((x__i4_ < x__i4_n_))) exit
-    zz128 => h_uas_hotstartlinkrecord(x__r3_%a%a(x__i4_)%p)
-    rec_2_ => zz128
-    zz130 => ctx_%link_names
-    zz129 => cpp_str_clone(rec_2_%id)
-    zz131 = p_nameindex__find(zz130, zz129)
-    idx_2_ = zz131
+    zz129 => h_uas_hotstartlinkrecord(x__r3_%a%a(x__i4_)%p)
+    rec_2_ => zz129
+    zz131 => ctx_%link_names
+    zz130 => cpp_str_clone(rec_2_%id)
+    zz132 = p_nameindex__find(zz131, zz130)
+    idx_2_ = zz132
     if ((idx_2_ < 0)) then
-      zz132 = cpp_r_lit("Hot start: link '")
-      zz133 => cpp_str_cat_cptr_str(zz132, rec_2_%id)
-      zz134 = cpp_r_lit("' not found in current model")
-      zz135 => cpp_str_cat_str_cptr(zz133, zz134)
-      call emit_warning_%invoke(zz135)
+      zz133 = cpp_r_lit("Hot start: link '")
+      zz134 => cpp_str_cat_cptr_str(zz133, rec_2_%id)
+      zz135 = cpp_r_lit("' not found in current model")
+      zz136 => cpp_str_cat_str_cptr(zz134, zz135)
+      call emit_warning_%invoke(zz136)
       if (associated(cpp_exc)) return
       goto 112
     end if
@@ -5887,11 +5889,11 @@ contains
     ctx_%links%flow%a%a(i_2_) = rec_2_%flow
     ctx_%links%depth%a%a(i_2_) = rec_2_%depth
     ctx_%links%volume%a%a(i_2_) = rec_2_%volume
-    zz136 = (rec_2_%age >= 0.0_8)
-    if (zz136) then
-      zz136 = ctx_%options%water_age
+    zz137 = (rec_2_%age >= 0.0_8)
+    if (zz137) then
+      zz137 = ctx_%options%water_age
     end if
-    if (zz136) then
+    if (zz137) then
       ws_2_ => ctx_%water_age_state
       if ((cpp_vec_d_size(ws_2_%link_age) /= int(p_simulationcontext__n_links(ctx_), 8))) then
         call p_wateragestate__resize(ws_2_, p_simulationcontext__n_nodes(ctx_), p_simulationcontext__n_links(ctx_), p_simulationcontext__n_subcatches(ctx_))
@@ -5904,28 +5906,28 @@ contains
     112 continue
     x__i4_ = (x__i4_ + 1_8)
   end do
-  zz137 = (ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(2, (-2147483647 - 1)))
-  if (zz137) then
-    zz137 = p_stateaccessors__can_write(ctx_%state_accessors)
+  zz138 = (ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(2, (-2147483647 - 1)))
+  if (zz138) then
+    zz138 = p_stateaccessors__can_write(ctx_%state_accessors)
   end if
-  apply_v2_ = zz137
+  apply_v2_ = zz138
   x__r5_ => hs_%subcatches
   x__i6_ = 0_8
   x__i6_n_ = int(x__r5_%n, 8)
   do
     if (.not. ((x__i6_ < x__i6_n_))) exit
-    zz138 => h_uas_hotstartsubcatchrecord(x__r5_%a%a(x__i6_)%p)
-    rec_3_ => zz138
-    zz140 => ctx_%subcatch_names
-    zz139 => cpp_str_clone(rec_3_%id)
-    zz141 = p_nameindex__find(zz140, zz139)
-    idx_3_ = zz141
+    zz139 => h_uas_hotstartsubcatchrecord(x__r5_%a%a(x__i6_)%p)
+    rec_3_ => zz139
+    zz141 => ctx_%subcatch_names
+    zz140 => cpp_str_clone(rec_3_%id)
+    zz142 = p_nameindex__find(zz141, zz140)
+    idx_3_ = zz142
     if ((idx_3_ < 0)) then
-      zz142 = cpp_r_lit("Hot start: subcatchment '")
-      zz143 => cpp_str_cat_cptr_str(zz142, rec_3_%id)
-      zz144 = cpp_r_lit("' not found in current model")
-      zz145 => cpp_str_cat_str_cptr(zz143, zz144)
-      call emit_warning_%invoke(zz145)
+      zz143 = cpp_r_lit("Hot start: subcatchment '")
+      zz144 => cpp_str_cat_cptr_str(zz143, rec_3_%id)
+      zz145 = cpp_r_lit("' not found in current model")
+      zz146 => cpp_str_cat_str_cptr(zz144, zz145)
+      call emit_warning_%invoke(zz146)
       if (associated(cpp_exc)) return
       goto 114
     end if
@@ -5933,114 +5935,114 @@ contains
     ctx_%subcatches%runoff%a%a(i_3_) = rec_3_%runoff
     ctx_%subcatches%gw_flow%a%a(i_3_) = rec_3_%gwater
     if (apply_v2_) then
-      zz146 = (.not. (.not. associated(ctx_%state_accessors%set_infil_state)))
-      if (zz146) then
-        zz146 = (rec_3_%infil_model >= 0)
+      zz147 = (.not. (.not. associated(ctx_%state_accessors%set_infil_state)))
+      if (zz147) then
+        zz147 = (rec_3_%infil_model >= 0)
       end if
-      if (zz146) then
-        zz147 = ctx_%state_accessors%set_infil_state%invoke(idx_3_, rec_3_%infil_model, cpp_ptr_d_new_ta_l(rec_3_%infil, 0_8))
+      if (zz147) then
+        zz148 = ctx_%state_accessors%set_infil_state%invoke(idx_3_, rec_3_%infil_model, cpp_ptr_d_new_ta_l(rec_3_%infil, 0_8))
       end if
-      zz148 = (.not. (.not. associated(ctx_%state_accessors%set_gw_state)))
-      if (zz148) then
-        zz148 = (rec_3_%gw_theta >= 0.0_8)
+      zz149 = (.not. (.not. associated(ctx_%state_accessors%set_gw_state)))
+      if (zz149) then
+        zz149 = (rec_3_%gw_theta >= 0.0_8)
       end if
-      if (zz148) then
-        zz149 = ctx_%state_accessors%set_gw_state%invoke(idx_3_, rec_3_%gw_theta, rec_3_%gw_lower_depth)
+      if (zz149) then
+        zz150 = ctx_%state_accessors%set_gw_state%invoke(idx_3_, rec_3_%gw_theta, rec_3_%gw_lower_depth)
       end if
     end if
     114 continue
     x__i6_ = (x__i6_ + 1_8)
   end do
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(4, (-2147483647 - 1)))) then
-    allocate(zz150)
-    zz150%c_hs => hs_
-    zz150%c_warn_cb => warn_cb_
-    call p__anon_core_hotstartmanager_cpp__f__restorespeciesbl_2223cc3a(hs_, ctx_, zz150)
-    if (associated(cpp_exc)) return
-  end if
-  if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(5, (-2147483647 - 1)))) then
     allocate(zz151)
     zz151%c_hs => hs_
     zz151%c_warn_cb => warn_cb_
-    call p__anon_core_hotstartmanager_cpp__f__restoreaquiferbl_dd423571(hs_, ctx_, zz151)
+    call p__anon_core_hotstartmanager_cpp__f__restorespeciesbl_2223cc3a(hs_, ctx_, zz151)
+    if (associated(cpp_exc)) return
   end if
-  if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(6, (-2147483647 - 1)))) then
+  if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(5, (-2147483647 - 1)))) then
     allocate(zz152)
     zz152%c_hs => hs_
     zz152%c_warn_cb => warn_cb_
-    call p__anon_core_hotstartmanager_cpp__f__restoreaquifersp_f27c2fb5(hs_, ctx_, zz152)
+    call p__anon_core_hotstartmanager_cpp__f__restoreaquiferbl_dd423571(hs_, ctx_, zz152)
+  end if
+  if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(6, (-2147483647 - 1)))) then
+    allocate(zz153)
+    zz153%c_hs => hs_
+    zz153%c_warn_cb => warn_cb_
+    call p__anon_core_hotstartmanager_cpp__f__restoreaquifersp_f27c2fb5(hs_, ctx_, zz153)
   end if
   if ((.not. cpp_str_empty(hs_%snow_state))) then
-    zz153 => ctx_%state_accessors%set_snow_state%invoke(hs_%snow_state, .true.)
+    zz154 => ctx_%state_accessors%set_snow_state%invoke(hs_%snow_state, .true.)
     if (associated(cpp_exc)) return
-    error_4_ => zz153
+    error_4_ => zz154
     if ((.not. cpp_str_empty(error_4_))) then
       call cpp_str_assign_str(s__f__tl_last_io_error_hotstartmanager, error_4_)
       zres = (-1)
       return
     end if
   else
-    zz169 = (.not. (.not. associated(ctx_%state_accessors%set_snow_state)))
-    if (zz169) then
-      zz163 = cpp_vec_i_begin(ctx_%subcatches%snowpack)
-      zz164 = cpp_vec_i_end(ctx_%subcatches%snowpack)
-      allocate(zz162)
-      zz165 = cpp_algo_any_of__i(zz163, zz164, zz162)
-      zz168 = zz165
-      if (.not. zz168) then
-        zz167 = (.not. (.not. associated(ctx_%state_accessors%get_snow_state)))
-        if (zz167) then
-          zz166 => ctx_%state_accessors%get_snow_state%invoke()
+    zz170 = (.not. (.not. associated(ctx_%state_accessors%set_snow_state)))
+    if (zz170) then
+      zz164 = cpp_vec_i_begin(ctx_%subcatches%snowpack)
+      zz165 = cpp_vec_i_end(ctx_%subcatches%snowpack)
+      allocate(zz163)
+      zz166 = cpp_algo_any_of__i(zz164, zz165, zz163)
+      zz169 = zz166
+      if (.not. zz169) then
+        zz168 = (.not. (.not. associated(ctx_%state_accessors%get_snow_state)))
+        if (zz168) then
+          zz167 => ctx_%state_accessors%get_snow_state%invoke()
           if (associated(cpp_exc)) return
-          zz167 = (.not. cpp_str_empty(zz166))
+          zz168 = (.not. cpp_str_empty(zz167))
         end if
-        zz168 = zz167
+        zz169 = zz168
       end if
-      zz169 = zz168
+      zz170 = zz169
     end if
-    if (zz169) then
-      zz171 => ctx_%state_accessors%set_snow_state
-      zz170 => cpp_str_new_0()
-      zz172 => zz171%invoke(zz170, .true.)
+    if (zz170) then
+      zz172 => ctx_%state_accessors%set_snow_state
+      zz171 => cpp_str_new_0()
+      zz173 => zz172%invoke(zz171, .true.)
       if (associated(cpp_exc)) return
-      error_5_ => zz172
+      error_5_ => zz173
       if ((.not. cpp_str_empty(error_5_))) then
         call cpp_str_assign_str(s__f__tl_last_io_error_hotstartmanager, error_5_)
         zres = (-1)
         return
       end if
-      zz173 = cpp_r_lit("Hot start lacks snow state: assigned native and mesh snowpacks start bare; future snow forcing is retained.")
-      zz174 => cpp_str_new_cptr(zz173)
-      call emit_warning_%invoke(zz174)
+      zz174 = cpp_r_lit("Hot start lacks snow state: assigned native and mesh snowpacks start bare; future snow forcing is retained.")
+      zz175 => cpp_str_new_cptr(zz174)
+      call emit_warning_%invoke(zz175)
       if (associated(cpp_exc)) return
     end if
   end if
   if ((.not. cpp_str_empty(hs_%surface_state))) then
-    zz175 => ctx_%state_accessors%set_surface_state%invoke(hs_%surface_state, .true.)
+    zz176 => ctx_%state_accessors%set_surface_state%invoke(hs_%surface_state, .true.)
     if (associated(cpp_exc)) return
-    error_6_ => zz175
+    error_6_ => zz176
     if ((.not. cpp_str_empty(error_6_))) then
       call cpp_str_assign_str(s__f__tl_last_io_error_hotstartmanager, error_6_)
       zres = (-1)
       return
     end if
   else
-    zz177 = (.not. (.not. associated(ctx_%state_accessors%set_surface_state)))
-    if (zz177) then
-      zz177 = (p_simulationcontext__n_subcatches(ctx_) > 0)
+    zz178 = (.not. (.not. associated(ctx_%state_accessors%set_surface_state)))
+    if (zz178) then
+      zz178 = (p_simulationcontext__n_subcatches(ctx_) > 0)
     end if
-    if (zz177) then
-      zz178 = cpp_r_lit("Hot start lacks subcatchment surface state (version ")
-      zz179 => cpp_str_to_string_u(hs_%header%version)
+    if (zz178) then
+      zz179 = cpp_r_lit("Hot start lacks subcatchment surface state (version ")
+      zz180 => cpp_str_to_string_u(hs_%header%version)
       if (associated(cpp_exc)) return
-      zz180 => cpp_str_cat_cptr_str(zz178, zz179)
-      zz181 = cpp_r_lit(" file): ponded water and buildup start from the model's initial conditions.")
-      zz182 => cpp_str_cat_str_cptr(zz180, zz181)
-      msg_2_ => zz182
-      zz185 => hs_%warnings
-      zz183 => cpp_str_clone(msg_2_)
-      zz184 => zz183
-      call cpp_vec_o_push_back(zz185, zz184)
+      zz181 => cpp_str_cat_cptr_str(zz179, zz180)
+      zz182 = cpp_r_lit(" file): ponded water and buildup start from the model's initial conditions.")
+      zz183 => cpp_str_cat_str_cptr(zz181, zz182)
+      msg_2_ => zz183
+      zz186 => hs_%warnings
+      zz184 => cpp_str_clone(msg_2_)
+      zz185 => zz184
+      call cpp_vec_o_push_back(zz186, zz185)
       if ((.not. (.not. associated(warn_cb_)))) then
         call warn_cb_%invoke(msg_2_)
         if (associated(cpp_exc)) return
@@ -6048,9 +6050,9 @@ contains
     end if
   end if
   if ((.not. (.not. associated(ctx_%state_accessors%set_fv_dry_state)))) then
-    zz186 => ctx_%state_accessors%set_fv_dry_state%invoke(hs_%fv_dry_state, .true.)
+    zz187 => ctx_%state_accessors%set_fv_dry_state%invoke(hs_%fv_dry_state, .true.)
     if (associated(cpp_exc)) return
-    error_7_ => zz186
+    error_7_ => zz187
     if ((.not. cpp_str_empty(error_7_))) then
       call cpp_str_assign_str(s__f__tl_last_io_error_hotstartmanager, error_7_)
       zres = (-1)

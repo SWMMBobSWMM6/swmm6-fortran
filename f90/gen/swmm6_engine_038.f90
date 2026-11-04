@@ -4,40 +4,40 @@ submodule (swmm6_engine) swmm6_engine_038
   implicit none
 contains
 
-  module procedure p_lam469
+  module procedure p_lam473
   self%c_low = cpp_m_min_d_d(self%c_low, a1)
   self%c_high = cpp_m_max_d_d(self%c_high, a1)
   return
-  end procedure p_lam469
+  end procedure p_lam473
 
-  module procedure p_lam470
+  module procedure p_lam474
     class(t_climate_hourlymetrecord), pointer :: r_
     class(t_climate_hourlymetrecord), pointer :: zz1
   zz1 => h_uas_climate_hourlymetrecord(a1)
   r_ => zz1
   zres = (r_%date < a2)
   return
-  end procedure p_lam470
+  end procedure p_lam474
 
-  module procedure p_lam471
+  module procedure p_lam475
     class(t_climate_snowdailyweather), pointer :: row_
     class(t_climate_snowdailyweather), pointer :: zz1
   zz1 => h_uas_climate_snowdailyweather(a1)
   row_ => zz1
   zres = (row_%date < a2)
   return
-  end procedure p_lam471
+  end procedure p_lam475
 
   module procedure p_climate__anon_hydrology_uebforcing_cpp__f__dailyran_c1877b1a
     real(8), pointer :: low_
     real(8), pointer :: high_
     real(8) :: day_
     class(t_fn58), pointer :: accumulate_
-    class(t_lam469), pointer :: zz1
+    class(t_lam473), pointer :: zz1
     class(cpp_vec_o), pointer :: records_
     class(cpp_vec_o), pointer :: zz2
     type(cpp_iter_o) :: it_
-    class(t_lam470), pointer :: zz3
+    class(t_lam474), pointer :: zz3
     type(cpp_iter_o) :: zz4
     type(cpp_iter_o) :: zz5
     type(cpp_iter_o) :: zz6
@@ -48,7 +48,7 @@ contains
     class(t_climate_hourlymetrecord), pointer :: zz11
     class(cpp_vec_o), pointer :: records_2_
     type(cpp_iter_o) :: i_
-    class(t_lam471), pointer :: zz12
+    class(t_lam475), pointer :: zz12
     type(cpp_iter_o) :: zz13
     type(cpp_iter_o) :: zz14
     type(cpp_iter_o) :: zz15
@@ -158,7 +158,7 @@ contains
   return
   end procedure p_climate__anon_hydrology_uebforcing_cpp__f__dailyran_c1877b1a
 
-  module procedure p_lam472
+  module procedure p_lam476
     real(8) :: zz1
   a1 = cpp_m_max_d_d(self%c_a, a1)
   a2 = cpp_m_min_d_d(self%c_b, a2)
@@ -167,13 +167,13 @@ contains
     self%c_sum = zz1
   end if
   return
-  end procedure p_lam472
+  end procedure p_lam476
 
   module procedure p_climate__anon_hydrology_uebforcing_cpp__f__meandail_d604d300
     real(8) :: pi_
     real(8), pointer :: sum_
     class(t_fn233), pointer :: integrate_
-    class(t_lam472), pointer :: zz1
+    class(t_lam476), pointer :: zz1
     real(8) :: night_
     real(8) :: zz2
     real(8) :: daylight_
@@ -368,7 +368,7 @@ contains
   end do
   end procedure p_snow_degreedaysnow__setmeltcoeffs
 
-  module procedure p_lam473
+  module procedure p_lam477
     real(8) :: lid_
     real(8) :: zz1
     real(8) :: zz2
@@ -383,7 +383,7 @@ contains
   zz2 = p_ucf__f__ucf(4, self%c_ctx%options)
   zres = cpp_m_max_d_d(0.0_8, ((zz3 / zz2) - lid_))
   return
-  end procedure p_lam473
+  end procedure p_lam477
 
   module procedure p_snow_degreedaysnow__plowsnow
     integer(4) :: n_
@@ -433,7 +433,7 @@ contains
     logical :: zz20
     logical :: zz21
     class(t_fn122), pointer :: actualarea_
-    class(t_lam473), pointer :: zz22
+    class(t_lam477), pointer :: zz22
     real(8) :: target_area_
     real(8) :: zz23
     real(8) :: zz24
@@ -905,63 +905,77 @@ contains
 
   module procedure p_snow__anon_hydrology_surface_degreedaysnow_cpp__f_7dabe817
     type(cpp_ptr_d) :: wsnow_
+    type(cpp_ptr_d) :: zz1
     type(cpp_ptr_d) :: free_water_
+    type(cpp_ptr_d) :: zz2
     type(cpp_ptr_d) :: cold_
+    type(cpp_ptr_d) :: zz3
     type(cpp_ptr_d) :: coverage_
+    type(cpp_ptr_d) :: zz4
     type(cpp_ptr_d) :: melt_
+    type(cpp_ptr_d) :: zz5
     type(cpp_ptr_d) :: age_
+    type(cpp_ptr_d) :: zz6
     type(cpp_ptr_d) :: out_age_
+    type(cpp_ptr_d) :: zz7
     integer(4) :: i_
     real(8) :: imelt_
-    real(8), pointer :: zz1
-    real(8), pointer :: zz2
-    real(8), pointer :: zz3
-    real(8) :: zz4
-    real(8), pointer :: zz5
-    real(8), pointer :: zz6
-    real(8), pointer :: zz7
     real(8), pointer :: zz8
     real(8), pointer :: zz9
     real(8), pointer :: zz10
-    real(8), pointer :: zz11
+    real(8) :: zz11
     real(8), pointer :: zz12
     real(8), pointer :: zz13
     real(8), pointer :: zz14
-  wsnow_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%wsnow), first_)
-  free_water_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%fw), first_)
-  cold_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%coldc), first_)
-  coverage_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%asc), first_)
-  melt_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%imelt), first_)
-  age_ = cpp_vec_d_data(soa_%age)
-  out_age_ = cpp_vec_d_data(soa_%out_age)
+    real(8), pointer :: zz15
+    real(8), pointer :: zz16
+    real(8), pointer :: zz17
+    real(8), pointer :: zz18
+    real(8), pointer :: zz19
+    real(8), pointer :: zz20
+    real(8), pointer :: zz21
+  zz1 = cpp_vec_d_data(soa_%wsnow)
+  wsnow_ = cpp_ptr_d_op_add_ptrt_l(zz1, first_)
+  zz2 = cpp_vec_d_data(soa_%fw)
+  free_water_ = cpp_ptr_d_op_add_ptrt_l(zz2, first_)
+  zz3 = cpp_vec_d_data(soa_%coldc)
+  cold_ = cpp_ptr_d_op_add_ptrt_l(zz3, first_)
+  zz4 = cpp_vec_d_data(soa_%asc)
+  coverage_ = cpp_ptr_d_op_add_ptrt_l(zz4, first_)
+  zz5 = cpp_vec_d_data(soa_%imelt)
+  melt_ = cpp_ptr_d_op_add_ptrt_l(zz5, first_)
+  zz6 = cpp_vec_d_data(soa_%age)
+  age_ = zz6
+  zz7 = cpp_vec_d_data(soa_%out_age)
+  out_age_ = zz7
   i_ = 0
   do
     if (.not. ((i_ < s_snow__f__n_subareas))) exit
-    zz1 => cpp_ptr_d_item_i(melt_, i_)
-    imelt_ = zz1
-    zz2 => cpp_ptr_d_item_i(wsnow_, i_)
-    zz3 => cpp_ptr_d_item_i(free_water_, i_)
-    zz4 = (imelt_ + ((zz2 + zz3) / dt_))
-    imelt_ = zz4
-    zz5 => cpp_ptr_d_item_ul(out_age_, (first_ + int(i_, 8)))
-    zz6 => cpp_ptr_d_item_ul(age_, (first_ + int(i_, 8)))
-    zz5 = zz6
-    zz7 => cpp_ptr_d_item_ul(age_, (first_ + int(i_, 8)))
-    zz7 = 0.0_8
-    zz8 => cpp_ptr_d_item_i(wsnow_, i_)
-    zz8 = 0.0_8
-    zz9 => cpp_ptr_d_item_i(free_water_, i_)
-    zz9 = 0.0_8
-    zz10 => cpp_ptr_d_item_i(cold_, i_)
-    zz10 = 0.0_8
-    zz11 => cpp_ptr_d_item_i(coverage_, i_)
-    zz11 = 0.0_8
-    zz12 => cpp_ptr_d_item_i(melt_, i_)
-    zz12 = (0.0_8 + imelt_)
-    zz13 => cpp_ptr_d_item_i(melt_, i_)
-    if ((.not. (zz13 > 0.0_8))) then
-      zz14 => cpp_ptr_d_item_ul(out_age_, (first_ + int(i_, 8)))
-      zz14 = 0.0_8
+    zz8 => cpp_ptr_d_item_i(melt_, i_)
+    imelt_ = zz8
+    zz9 => cpp_ptr_d_item_i(wsnow_, i_)
+    zz10 => cpp_ptr_d_item_i(free_water_, i_)
+    zz11 = (imelt_ + ((zz9 + zz10) / dt_))
+    imelt_ = zz11
+    zz12 => cpp_ptr_d_item_ul(out_age_, (first_ + int(i_, 8)))
+    zz13 => cpp_ptr_d_item_ul(age_, (first_ + int(i_, 8)))
+    zz12 = zz13
+    zz14 => cpp_ptr_d_item_ul(age_, (first_ + int(i_, 8)))
+    zz14 = 0.0_8
+    zz15 => cpp_ptr_d_item_i(wsnow_, i_)
+    zz15 = 0.0_8
+    zz16 => cpp_ptr_d_item_i(free_water_, i_)
+    zz16 = 0.0_8
+    zz17 => cpp_ptr_d_item_i(cold_, i_)
+    zz17 = 0.0_8
+    zz18 => cpp_ptr_d_item_i(coverage_, i_)
+    zz18 = 0.0_8
+    zz19 => cpp_ptr_d_item_i(melt_, i_)
+    zz19 = (0.0_8 + imelt_)
+    zz20 => cpp_ptr_d_item_i(melt_, i_)
+    if ((.not. (zz20 > 0.0_8))) then
+      zz21 => cpp_ptr_d_item_ul(out_age_, (first_ + int(i_, 8)))
+      zz21 = 0.0_8
     end if
     i_ = (i_ + 1)
   end do
@@ -969,49 +983,63 @@ contains
 
   module procedure p_snow__anon_hydrology_surface_degreedaysnow_cpp__f_b3824b28
     type(cpp_ptr_d) :: wsnow_
+    type(cpp_ptr_d) :: zz1
     type(cpp_ptr_d) :: free_water_
+    type(cpp_ptr_d) :: zz2
     type(cpp_ptr_d) :: cold_
+    type(cpp_ptr_d) :: zz3
     type(cpp_ptr_d) :: coverage_
+    type(cpp_ptr_d) :: zz4
     type(cpp_ptr_d) :: melt_
+    type(cpp_ptr_d) :: zz5
     type(cpp_ptr_d) :: age_
+    type(cpp_ptr_d) :: zz6
     type(cpp_ptr_d) :: out_age_
+    type(cpp_ptr_d) :: zz7
     integer(4) :: i_
     real(8) :: imelt_
-    real(8), pointer :: zz1
-    real(8), pointer :: zz2
-    real(8), pointer :: zz3
-    real(8) :: zz4
-    real(8), pointer :: zz5
-    real(8), pointer :: zz6
-    real(8), pointer :: zz7
     real(8), pointer :: zz8
     real(8), pointer :: zz9
-  wsnow_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%wsnow), first_)
-  free_water_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%fw), first_)
-  cold_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%coldc), first_)
-  coverage_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%asc), first_)
-  melt_ = cpp_ptr_d_op_add_ptrt_l(cpp_vec_d_data(soa_%imelt), first_)
-  age_ = cpp_vec_d_data(soa_%age)
-  out_age_ = cpp_vec_d_data(soa_%out_age)
+    real(8), pointer :: zz10
+    real(8) :: zz11
+    real(8), pointer :: zz12
+    real(8), pointer :: zz13
+    real(8), pointer :: zz14
+    real(8), pointer :: zz15
+    real(8), pointer :: zz16
+  zz1 = cpp_vec_d_data(soa_%wsnow)
+  wsnow_ = cpp_ptr_d_op_add_ptrt_l(zz1, first_)
+  zz2 = cpp_vec_d_data(soa_%fw)
+  free_water_ = cpp_ptr_d_op_add_ptrt_l(zz2, first_)
+  zz3 = cpp_vec_d_data(soa_%coldc)
+  cold_ = cpp_ptr_d_op_add_ptrt_l(zz3, first_)
+  zz4 = cpp_vec_d_data(soa_%asc)
+  coverage_ = cpp_ptr_d_op_add_ptrt_l(zz4, first_)
+  zz5 = cpp_vec_d_data(soa_%imelt)
+  melt_ = cpp_ptr_d_op_add_ptrt_l(zz5, first_)
+  zz6 = cpp_vec_d_data(soa_%age)
+  age_ = zz6
+  zz7 = cpp_vec_d_data(soa_%out_age)
+  out_age_ = zz7
   i_ = 0
   do
     if (.not. ((i_ < s_snow__f__n_subareas))) exit
-    zz1 => cpp_ptr_d_item_i(melt_, i_)
-    imelt_ = zz1
-    zz2 => cpp_ptr_d_item_i(wsnow_, i_)
-    zz3 => cpp_ptr_d_item_i(free_water_, i_)
-    zz4 = (imelt_ + ((zz2 + zz3) / dt_))
-    imelt_ = zz4
-    zz5 => cpp_ptr_d_item_i(wsnow_, i_)
-    zz5 = 0.0_8
-    zz6 => cpp_ptr_d_item_i(free_water_, i_)
-    zz6 = 0.0_8
-    zz7 => cpp_ptr_d_item_i(cold_, i_)
-    zz7 = 0.0_8
-    zz8 => cpp_ptr_d_item_i(coverage_, i_)
-    zz8 = 0.0_8
-    zz9 => cpp_ptr_d_item_i(melt_, i_)
-    zz9 = (0.0_8 + imelt_)
+    zz8 => cpp_ptr_d_item_i(melt_, i_)
+    imelt_ = zz8
+    zz9 => cpp_ptr_d_item_i(wsnow_, i_)
+    zz10 => cpp_ptr_d_item_i(free_water_, i_)
+    zz11 = (imelt_ + ((zz9 + zz10) / dt_))
+    imelt_ = zz11
+    zz12 => cpp_ptr_d_item_i(wsnow_, i_)
+    zz12 = 0.0_8
+    zz13 => cpp_ptr_d_item_i(free_water_, i_)
+    zz13 = 0.0_8
+    zz14 => cpp_ptr_d_item_i(cold_, i_)
+    zz14 = 0.0_8
+    zz15 => cpp_ptr_d_item_i(coverage_, i_)
+    zz15 = 0.0_8
+    zz16 => cpp_ptr_d_item_i(melt_, i_)
+    zz16 = (0.0_8 + imelt_)
     i_ = (i_ + 1)
   end do
   end procedure p_snow__anon_hydrology_surface_degreedaysnow_cpp__f_b3824b28
@@ -2618,32 +2646,32 @@ contains
   return
   end procedure p_surface_infilbank_factors__movenew
 
-  module procedure p_lam474
+  module procedure p_lam478
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_dcb34e68(self%c_a, a1%f0, a1%fmin, a1%decay, a1%regen, a1%fmax, a1%tp, a1%fe, a1%fmh)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam474
+  end procedure p_lam478
 
-  module procedure p_lam475
+  module procedure p_lam479
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_8e779acb(self%c_a, a1%s, a1%ks, a1%imdmax, a1%imd, a1%f, a1%fu, a1%fumax, a1%lu, a1%t, a1%saturated)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam475
+  end procedure p_lam479
 
-  module procedure p_lam476
+  module procedure p_lam480
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_01f94ead(self%c_a, a1%smax, a1%s, a1%se, a1%p, a1%f, a1%f_2, a1%regen, a1%t, a1%tmax)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam476
+  end procedure p_lam480
 
   module procedure p_surface_infilbank__checkpoint
-    class(t_lam474), pointer :: zz1
+    class(t_lam478), pointer :: zz1
     class(*), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
-    class(t_lam475), pointer :: zz4
+    class(t_lam479), pointer :: zz4
     class(*), pointer :: zz5
     class(cpp_vec_o), pointer :: zz6
-    class(t_lam476), pointer :: zz7
+    class(t_lam480), pointer :: zz7
     class(*), pointer :: zz8
     class(cpp_vec_o), pointer :: zz9
   if (model_) then
@@ -2673,7 +2701,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_surface_infilbank__checkpoint
 
-  module procedure p_lam477
+  module procedure p_lam481
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_runtimeerror), pointer :: zz3
@@ -2686,11 +2714,11 @@ contains
     return
   end if
   return
-  end procedure p_lam477
+  end procedure p_lam481
 
   module procedure p_surface_infilbank__validatecheckpoint
     class(t_fn69), pointer :: require_
-    class(t_lam477), pointer :: zz1
+    class(t_lam481), pointer :: zz1
     logical :: zz2
     logical :: zz3
     logical :: zz4
@@ -2982,20 +3010,20 @@ contains
   return
   end procedure p_surface_meshsnow__savecheckpoint
 
-  module procedure p_lam478
+  module procedure p_lam482
   zres = (a1 == 1.0_8)
   return
-  end procedure p_lam478
+  end procedure p_lam482
 
-  module procedure p_lam479
+  module procedure p_lam483
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam479
+  end procedure p_lam483
 
-  module procedure p_lam480
+  module procedure p_lam484
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam480
+  end procedure p_lam484
 
   module procedure p_surface_meshsnow__restorecheckpoint
     type(cpp_cptr) :: zz1
@@ -3072,7 +3100,7 @@ contains
     logical :: zz56
     logical :: legacy_identity_
     logical :: zz57
-    class(t_lam478), pointer :: zz58
+    class(t_lam482), pointer :: zz58
     type(cpp_iter_d) :: zz59
     type(cpp_iter_d) :: zz60
     logical :: zz61
@@ -3089,11 +3117,11 @@ contains
     logical :: zz71
     type(cpp_cptr) :: zz72
     class(cpp_str), pointer :: zz73
-    class(t_lam479), pointer :: zz74
+    class(t_lam483), pointer :: zz74
     type(cpp_iter_b) :: zz75
     type(cpp_iter_b) :: zz76
     logical :: zz77
-    class(t_lam480), pointer :: zz78
+    class(t_lam484), pointer :: zz78
     type(cpp_iter_b) :: zz79
     type(cpp_iter_b) :: zz80
     logical :: zz81
@@ -3709,19 +3737,19 @@ contains
   return
   end procedure p_surface__anon_hydrology_surface_meshsnow_cpp__f__re_887441b1
 
-  module procedure p_lam481
+  module procedure p_lam485
   call p_surface__f__archiveheldsnow(self%c_a, a1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam481
+  end procedure p_lam485
 
-  module procedure p_lam482
+  module procedure p_lam486
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_01f94ead(self%c_a, a1%melt_m, a1%throughfall_m, a1%sublim_m, a1%swe_m, a1%cover_frac, a1%ts_c, a1%ft_c, a1%albedo, a1%energy_kjm2)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam482
+  end procedure p_lam486
 
-  module procedure p_lam483
+  module procedure p_lam487
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_rd_rd_rd(self%c_a, a1%initial, a1%precipitation, a1%raw_precipitation, a1%liquid, a1%sublimation, a1%stored, a1%net_energy)
   if (associated(cpp_exc)) return
   if (self%c_geometry_profile) then
@@ -3735,14 +3763,14 @@ contains
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam483
+  end procedure p_lam487
 
   module procedure p_surface__anon_hydrology_surface_meshsnow_cpp__f__ar_f798e02e
-    class(t_lam481), pointer :: zz1
+    class(t_lam485), pointer :: zz1
     class(*), pointer :: zz2
-    class(t_lam482), pointer :: zz3
+    class(t_lam486), pointer :: zz3
     class(*), pointer :: zz4
-    class(t_lam483), pointer :: zz5
+    class(t_lam487), pointer :: zz5
     class(*), pointer :: zz6
   call p_detail_completedsourcearchive__op_call__rd(a_, completed_)
   if (associated(cpp_exc)) return
@@ -6068,14 +6096,14 @@ contains
   return
   end procedure p_surface__f__nativesnowdepth
 
-  module procedure p_lam484
+  module procedure p_lam488
   zres = (a1 >= 0)
   return
-  end procedure p_lam484
+  end procedure p_lam488
 
   module procedure p_surface__f__savecombinedsnowcheckpoint
     logical :: assigned_
-    class(t_lam484), pointer :: zz1
+    class(t_lam488), pointer :: zz1
     type(cpp_iter_i) :: zz2
     type(cpp_iter_i) :: zz3
     logical :: zz4

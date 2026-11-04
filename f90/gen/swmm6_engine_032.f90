@@ -4,6 +4,158 @@ submodule (swmm6_engine) swmm6_engine_032
   implicit none
 contains
 
+  module procedure p_groundwater__f__gwf_validate
+    class(cpp_vec_o), pointer :: tokens_
+    class(cpp_vec_o), pointer :: zz1
+    type(cpp_slot), pointer :: zz2
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwftoken), pointer :: zz3
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz4
+    type(cpp_cptr) :: zz5
+    class(cpp_str), pointer :: zz6
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwfparser), pointer :: parser_
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwfparser), pointer :: zz7
+    class(cpp_vec_o), pointer :: zz8
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwftoken), pointer :: rest_
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwftoken), pointer :: zz9
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz10
+    type(cpp_cptr) :: zz11
+    class(cpp_str), pointer :: zz12
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz13
+    type(cpp_cptr) :: zz14
+    class(cpp_str), pointer :: zz15
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz16
+    type(cpp_cptr) :: zz17
+    class(cpp_str), pointer :: zz18
+    type(cpp_cptr) :: zz19
+    class(cpp_str), pointer :: zz20
+    class(t_mathexpr_expression), pointer :: probe_
+    class(t_mathexpr_expression), pointer :: zz21
+    integer(4) :: zz22
+    logical :: zz23
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz24
+    type(cpp_cptr) :: zz25
+    class(cpp_str), pointer :: zz26
+    class(cpp_object), pointer :: zz27
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: f_
+    class(t_groundwater__anon_hydrology_groundwater_cpp_gwffail), pointer :: zz28
+    class(cpp_object), pointer :: x__ex1_
+    type(cpp_cptr) :: zz29
+  call cpp_str_clear(msg_)
+  col_ = (-1)
+  zz1 => p_groundwater__anon_hydrology_groundwater_cpp__f__gwf_4a0f4462(expr_)
+  if (associated(cpp_exc)) goto 102
+  tokens_ => zz1
+  zz2 => cpp_vec_o_front(tokens_)
+  zz3 => h_uas_groundwater__anon_hydrology_groundwater_cpp_gwftoken(zz2%p)
+  if ((zz3%kind == 7)) then
+    allocate(zz4)
+    call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz4)
+    if (associated(cpp_exc)) goto 102
+    zz5 = cpp_r_lit("expression is empty")
+    zz6 => cpp_str_new_cptr(zz5)
+    zz4%msg_2 => zz6
+    zz4%col = 0
+    cpp_exc => zz4
+    goto 102
+  end if
+  allocate(zz7)
+  call p_groundwater__anon_hydrology_groundwater_cpp_gwfparser__ctor_x(zz7)
+  zz8 => cpp_vec_o_clone(tokens_)
+  if (associated(cpp_exc)) goto 102
+  zz7%t => zz8
+  parser_ => zz7
+  call p_groundwater__anon_hydrology_groundwater_cpp_gwfparser__expr(parser_)
+  if (associated(cpp_exc)) goto 102
+  zz9 => p_groundwater__anon_hydrology_groundwater_cpp_gwfparser__cur(parser_)
+  rest_ => zz9
+  if ((rest_%kind /= 7)) then
+    if ((rest_%kind == 5)) then
+      allocate(zz10)
+      call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz10)
+      if (associated(cpp_exc)) goto 102
+      zz11 = cpp_r_lit("unbalanced parenthesis")
+      zz12 => cpp_str_new_cptr(zz11)
+      zz10%msg_2 => zz12
+      zz10%col = rest_%col
+      cpp_exc => zz10
+      goto 102
+    end if
+    if ((rest_%kind == 6)) then
+      allocate(zz13)
+      call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz13)
+      if (associated(cpp_exc)) goto 102
+      zz14 = cpp_r_lit("unexpected ','")
+      zz15 => cpp_str_new_cptr(zz14)
+      zz13%msg_2 => zz15
+      zz13%col = rest_%col
+      cpp_exc => zz13
+      goto 102
+    end if
+    allocate(zz16)
+    call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz16)
+    if (associated(cpp_exc)) goto 102
+    zz17 = cpp_r_lit("missing operator before '")
+    zz18 => cpp_str_cat_cptr_str(zz17, rest_%text)
+    zz19 = cpp_r_lit("'")
+    zz20 => cpp_str_cat_str_cptr(zz18, zz19)
+    zz16%msg_2 => zz20
+    zz16%col = rest_%col
+    cpp_exc => zz16
+    goto 102
+  end if
+  allocate(zz21)
+  call p_mathexpr_expression__ctor_x(zz21)
+  probe_ => zz21
+  zz22 = p_mathexpr__f__parse(expr_, probe_)
+  if (associated(cpp_exc)) goto 102
+  zz23 = (zz22 /= 0)
+  if (.not. zz23) then
+    zz23 = (.not. probe_%valid)
+  end if
+  if (zz23) then
+    allocate(zz24)
+    call p_groundwater__anon_hydrology_groundwater_cpp_gwffail__ctor_x(zz24)
+    if (associated(cpp_exc)) goto 102
+    zz25 = cpp_r_lit("internal: expression rejected by the engine parser")
+    zz26 => cpp_str_new_cptr(zz25)
+    zz24%msg_2 => zz26
+    zz24%col = (-1)
+    cpp_exc => zz24
+    goto 102
+  end if
+  goto 101
+  102 continue
+  zz27 => cpp_exc
+  if (h_is_groundwater__anon_hydrology_groundwater_cpp_gwffail(zz27)) then
+    cpp_exc => null()
+    zz28 => h_as_groundwater__anon_hydrology_groundwater_cpp_gwffail(zz27)
+    f_ => zz28
+    call cpp_dbg_caught(f_)
+    if (associated(cpp_exc)) return
+    call cpp_str_assign_str(msg_, f_%msg_2)
+    col_ = f_%col
+    zres = (-1)
+    return
+    goto 101
+  end if
+  if (.true.) then
+    cpp_exc => null()
+    x__ex1_ => zz27
+    call cpp_dbg_caught(x__ex1_)
+    if (associated(cpp_exc)) return
+    zz29 = cpp_r_lit("internal: expression rejected by the engine parser")
+    call cpp_str_assign_cptr(msg_, zz29)
+    col_ = (-1)
+    zres = (-1)
+    return
+    goto 101
+  end if
+  return
+  101 continue
+  zres = 0
+  return
+  end procedure p_groundwater__f__gwf_validate
+
   module procedure p_groundwater__f__getfluxes_groundwater
     real(8) :: upper_depth_
     real(8) :: frac_
@@ -359,12 +511,12 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_groundwater_gwsolver__init
 
-  module procedure p_lam405
+  module procedure p_lam408
   call p_groundwater__f__getdxdt_groundwater(self%c_c, a1, a2, a3)
   return
-  end procedure p_lam405
+  end procedure p_lam408
 
-  module procedure p_lam404
+  module procedure p_lam407
     integer(8) :: ui_
     real(8), pointer :: zz1
     class(t_groundwater_gwcontext), pointer :: c_
@@ -434,7 +586,7 @@ contains
     real(8) :: zz49
     class(cpp_arr_d), pointer :: x_
     class(cpp_arr_d), pointer :: zz50
-    class(t_lam405), pointer :: zz51
+    class(t_lam408), pointer :: zz51
     class(*), pointer :: zz52
     type(cpp_ptr_d) :: zz53
     real(8) :: zz54
@@ -700,14 +852,14 @@ contains
   self%c_this%soa_%lower_evap%a%a(ui_) = c_%lower_evap
   self%c_this%soa_%deep_loss%a%a(ui_) = c_%deep_loss
   return
-  end procedure p_lam404
+  end procedure p_lam407
 
   module procedure p_groundwater_gwsolver__execute
     class(t_perf_processtimer), pointer :: process_timer_
     class(t_perf_processtimer), pointer :: zz1
     integer(4) :: n_
     class(t_fn74), pointer :: update_
-    class(t_lam404), pointer :: zz2
+    class(t_lam407), pointer :: zz2
     integer(4) :: threads_
     integer(4) :: zz3
     integer(4) :: zz4
@@ -2584,7 +2736,7 @@ contains
   return
   end procedure p_groundwater_gwsolver__state__v
 
-  module procedure p_lam406
+  module procedure p_lam409
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_str), pointer :: zz3
@@ -2599,35 +2751,20 @@ contains
   zz5 => cpp_str_cat_str_cptr(zz3, zz4)
   zres => zz5
   return
-  end procedure p_lam406
-
-  module procedure p_lam407
-  self%c_m = a1
-  return
-  end procedure p_lam407
-
-  module procedure p_lam408
-  self%c_d = a1
-  return
-  end procedure p_lam408
-
-  module procedure p_lam409
-  self%c_y = a1
-  return
   end procedure p_lam409
 
   module procedure p_lam410
-  self%c_end = a1
+  self%c_m = a1
   return
   end procedure p_lam410
 
   module procedure p_lam411
-  self%c_h = a1
+  self%c_d = a1
   return
   end procedure p_lam411
 
   module procedure p_lam412
-  self%c_minute = a1
+  self%c_y = a1
   return
   end procedure p_lam412
 
@@ -2635,6 +2772,21 @@ contains
   self%c_end = a1
   return
   end procedure p_lam413
+
+  module procedure p_lam414
+  self%c_h = a1
+  return
+  end procedure p_lam414
+
+  module procedure p_lam415
+  self%c_minute = a1
+  return
+  end procedure p_lam415
+
+  module procedure p_lam416
+  self%c_end = a1
+  return
+  end procedure p_lam416
 
   module procedure p_climate_hourlymeteorology__read
     class(cpp_vec_o), pointer :: candidate_
@@ -2647,7 +2799,7 @@ contains
     class(cpp_str), pointer :: zz4
     class(cpp_vec_o), pointer :: zz5
     class(t_fn6), pointer :: error_
-    class(t_lam406), pointer :: zz6
+    class(t_lam409), pointer :: zz6
     class(cpp_str), pointer :: zz7
     integer(4), pointer :: m_
     integer(4), pointer :: d_
@@ -2658,13 +2810,13 @@ contains
     class(cpp_str), pointer :: zz8
     type(cpp_cptr) :: zz9
     type(cpp_cptr) :: zz10
-    class(t_lam407), pointer :: zz11
+    class(t_lam410), pointer :: zz11
     class(cpp_refi), pointer :: zz12
-    class(t_lam408), pointer :: zz13
+    class(t_lam411), pointer :: zz13
     class(cpp_refi), pointer :: zz14
-    class(t_lam409), pointer :: zz15
+    class(t_lam412), pointer :: zz15
     class(cpp_refi), pointer :: zz16
-    class(t_lam410), pointer :: zz17
+    class(t_lam413), pointer :: zz17
     class(cpp_refi), pointer :: zz18
     integer(4) :: zz19
     class(cpp_str), pointer :: zz20
@@ -2674,11 +2826,11 @@ contains
     class(cpp_str), pointer :: zz24
     type(cpp_cptr) :: zz25
     type(cpp_cptr) :: zz26
-    class(t_lam411), pointer :: zz27
+    class(t_lam414), pointer :: zz27
     class(cpp_refi), pointer :: zz28
-    class(t_lam412), pointer :: zz29
+    class(t_lam415), pointer :: zz29
     class(cpp_refi), pointer :: zz30
-    class(t_lam413), pointer :: zz31
+    class(t_lam416), pointer :: zz31
     class(cpp_refi), pointer :: zz32
     integer(4) :: zz33
     class(cpp_str), pointer :: zz34
@@ -2919,19 +3071,19 @@ contains
   return
   end procedure p_climate_hourlymeteorology__read
 
-  module procedure p_lam414
+  module procedure p_lam417
     class(*), pointer :: zz1
   zz1 => self%c_stream
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam414
+  end procedure p_lam417
 
   module procedure p_climate_hourlymeteorology__load
     class(cpp_ifstream), pointer :: stream_
     class(cpp_ifstream), pointer :: zz1
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam414), pointer :: zz2
+    class(t_lam417), pointer :: zz2
     class(cpp_defer), pointer :: zz3
     integer(4) :: zz4
     type(cpp_cptr) :: zz5
@@ -4504,7 +4656,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_inflow_dwfinflowsoa__resize
 
-  module procedure p_lam415
+  module procedure p_lam418
     class(cpp_str), pointer :: s_l_
     class(cpp_str), pointer :: x__r1_
     integer(8) :: x__i2_
@@ -4532,9 +4684,9 @@ contains
   s_l_ => zz4
   zres => zz3
   return
-  end procedure p_lam415
+  end procedure p_lam418
 
-  module procedure p_lam416
+  module procedure p_lam419
     class(cpp_vec_o), pointer :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
@@ -4560,9 +4712,9 @@ contains
   zz3 => zz2
   call cpp_vec_o_push_back(zz4, zz3)
   return
-  end procedure p_lam416
+  end procedure p_lam419
 
-  module procedure p_lam417
+  module procedure p_lam420
   select case (a1)
   case (0)
     zres = (-1_8)
@@ -4577,9 +4729,9 @@ contains
     zres = merge(int(a2, 8), self%c_knone, (a2 >= 0))
     return
   end select
-  end procedure p_lam417
+  end procedure p_lam420
 
-  module procedure p_lam418
+  module procedure p_lam421
     integer(8) :: key_
     type(cpp_mit) :: it_
     class(*), pointer :: zz1
@@ -4613,7 +4765,7 @@ contains
   zz10 => h_ref_i(zz9%p)
   zz10 = a2
   return
-  end procedure p_lam418
+  end procedure p_lam421
 
   module procedure p_inflow_inflowsolver__init
     class(cpp_umapc), pointer :: pattern_map_
@@ -4631,9 +4783,9 @@ contains
     class(cpp_str), pointer :: cons_
     class(cpp_str), pointer :: zz6
     class(t_fn124), pointer :: upper_
-    class(t_lam415), pointer :: zz7
+    class(t_lam418), pointer :: zz7
     class(t_fn2), pointer :: warn_once_
-    class(t_lam416), pointer :: zz8
+    class(t_lam419), pointer :: zz8
     class(cpp_str), pointer :: zz9
     class(t_nameindex), pointer :: zz10
     integer(4) :: zz11
@@ -4781,11 +4933,11 @@ contains
     integer(8) :: kmsxbase_
     integer(8) :: kagekey_
     class(t_fn125), pointer :: ext_param_
-    class(t_lam417), pointer :: zz129
+    class(t_lam420), pointer :: zz129
     class(cpp_umap), pointer :: last_
     class(cpp_umap), pointer :: zz130
     class(t_fn126), pointer :: supersede_
-    class(t_lam418), pointer :: zz131
+    class(t_lam421), pointer :: zz131
     integer(4) :: i_4_
     integer(8) :: ui_3_
     integer(8) :: zz132
@@ -5215,7 +5367,7 @@ contains
   end do
   end procedure p_inflow_inflowsolver__refreshpatterns
 
-  module procedure p_lam419
+  module procedure p_lam422
     real(8) :: base_
     integer(4) :: bp_
     real(8) :: zz1
@@ -5248,9 +5400,9 @@ contains
   end if
   zres = (self%c_this%ext_inflows_%conv_factor%a%a(a1) * (ts_val_ + base_))
   return
-  end procedure p_lam419
+  end procedure p_lam422
 
-  module procedure p_lam420
+  module procedure p_lam423
     real(8) :: factor_
     integer(4) :: pm_
     real(8) :: zz1
@@ -5298,7 +5450,7 @@ contains
   end if
   zres = factor_
   return
-  end procedure p_lam420
+  end procedure p_lam423
 
   module procedure p_inflow_inflowsolver__computeall
     integer(4), target :: h_tmp_
@@ -5311,7 +5463,7 @@ contains
     integer(4) :: zz1
     integer(4) :: np_
     class(t_fn119), pointer :: row_value_
-    class(t_lam419), pointer :: zz2
+    class(t_lam422), pointer :: zz2
     integer(4) :: i_
     integer(8) :: ui_2_
     real(8) :: q_
@@ -5360,7 +5512,7 @@ contains
     real(8) :: zz21
     real(8), pointer :: zz22
     class(t_fn119), pointer :: dwffactor_
-    class(t_lam420), pointer :: zz23
+    class(t_lam423), pointer :: zz23
     integer(4) :: i_6_
     integer(8) :: ui_7_
     real(8) :: q_2_
@@ -6060,155 +6212,5 @@ contains
   end if
   self%pollut_idx => zz15
   end procedure p_inflow_extinflowsoa__copyfrom_extinflowsoa
-
-  module procedure p_inflow_extinflowsoa__assign
-    class(t_inflow_extinflowsoa), pointer :: zz1
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%count = s_%count
-  call cpp_vec_i_assign_vect(self%node_idx, s_%node_idx)
-  if (associated(cpp_exc)) return
-  call cpp_vec_i_assign_vect(self%ts_idx, s_%ts_idx)
-  if (associated(cpp_exc)) return
-  call cpp_vec_i_assign_vect(self%base_pat_idx, s_%base_pat_idx)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%baseline, s_%baseline)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%scale_factor, s_%scale_factor)
-  if (associated(cpp_exc)) return
-  call cpp_vec_d_assign_vect(self%conv_factor, s_%conv_factor)
-  if (associated(cpp_exc)) return
-  call cpp_vec_i_assign_vect(self%kind, s_%kind)
-  if (associated(cpp_exc)) return
-  call cpp_vec_i_assign_vect(self%pollut_idx, s_%pollut_idx)
-  if (associated(cpp_exc)) return
-  end procedure p_inflow_extinflowsoa__assign
-
-  module procedure p_inflow_extinflowsoa__movefrom
-    class(t_inflow_extinflowsoa), pointer :: zz1
-    class(cpp_vec_i), pointer :: zz2
-    class(cpp_vec_i), pointer :: zz3
-    class(cpp_vec_i), pointer :: zz4
-    class(cpp_vec_d), pointer :: zz5
-    class(cpp_vec_d), pointer :: zz6
-    class(cpp_vec_d), pointer :: zz7
-    class(cpp_vec_i), pointer :: zz8
-    class(cpp_vec_i), pointer :: zz9
-  zz1 => self
-  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
-    return
-  end if
-  self%count = s_%count
-  self%node_idx => s_%node_idx
-  zz2 => cpp_vec_i_new_0()
-  s_%node_idx => zz2
-  self%ts_idx => s_%ts_idx
-  zz3 => cpp_vec_i_new_0()
-  s_%ts_idx => zz3
-  self%base_pat_idx => s_%base_pat_idx
-  zz4 => cpp_vec_i_new_0()
-  s_%base_pat_idx => zz4
-  self%baseline => s_%baseline
-  zz5 => cpp_vec_d_new_0()
-  s_%baseline => zz5
-  self%scale_factor => s_%scale_factor
-  zz6 => cpp_vec_d_new_0()
-  s_%scale_factor => zz6
-  self%conv_factor => s_%conv_factor
-  zz7 => cpp_vec_d_new_0()
-  s_%conv_factor => zz7
-  self%kind => s_%kind
-  zz8 => cpp_vec_i_new_0()
-  s_%kind => zz8
-  self%pollut_idx => s_%pollut_idx
-  zz9 => cpp_vec_i_new_0()
-  s_%pollut_idx => zz9
-  end procedure p_inflow_extinflowsoa__movefrom
-
-  module procedure p_inflow_extinflowsoa__movenew
-    class(t_inflow_extinflowsoa), pointer :: o_
-    class(t_inflow_extinflowsoa), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_inflow_extinflowsoa__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_inflow_extinflowsoa__movefrom(o_, s_)
-  zres => o_
-  return
-  end procedure p_inflow_extinflowsoa__movenew
-
-  module procedure p_inflow_dwfinflowsoa__ctor_raw
-  end procedure p_inflow_dwfinflowsoa__ctor_raw
-
-  module procedure p_inflow_dwfinflowsoa__init_rdwfinflowsoa
-    class(cpp_vec_i), pointer :: zz1
-    class(cpp_vec_d), pointer :: zz2
-    class(cpp_vec_i), pointer :: zz3
-    class(cpp_vec_i), pointer :: zz4
-    class(cpp_vec_i), pointer :: zz5
-    class(cpp_vec_i), pointer :: zz6
-    class(cpp_vec_b), pointer :: zz7
-    class(cpp_vec_i), pointer :: zz8
-    class(cpp_vec_i), pointer :: zz9
-  self%count = p_%count
-  zz1 => cpp_vec_i_clone(p_%node_idx)
-  if (associated(cpp_exc)) return
-  self%node_idx => zz1
-  zz2 => cpp_vec_d_clone(p_%avg_value)
-  if (associated(cpp_exc)) return
-  self%avg_value => zz2
-  zz3 => cpp_vec_i_clone(p_%pat_monthly)
-  if (associated(cpp_exc)) return
-  self%pat_monthly => zz3
-  zz4 => cpp_vec_i_clone(p_%pat_daily)
-  if (associated(cpp_exc)) return
-  self%pat_daily => zz4
-  zz5 => cpp_vec_i_clone(p_%pat_hourly)
-  if (associated(cpp_exc)) return
-  self%pat_hourly => zz5
-  zz6 => cpp_vec_i_clone(p_%pat_weekend)
-  if (associated(cpp_exc)) return
-  self%pat_weekend => zz6
-  zz7 => cpp_vec_b_clone(p_%is_flow)
-  if (associated(cpp_exc)) return
-  self%is_flow => zz7
-  zz8 => cpp_vec_i_clone(p_%pollut_idx)
-  if (associated(cpp_exc)) return
-  self%pollut_idx => zz8
-  zz9 => cpp_vec_i_clone(p_%msx_idx)
-  if (associated(cpp_exc)) return
-  self%msx_idx => zz9
-  end procedure p_inflow_dwfinflowsoa__init_rdwfinflowsoa
-
-  module procedure p_inflow_dwfinflowsoa__new_rdwfinflowsoa
-    class(t_inflow_dwfinflowsoa), pointer :: o_
-    class(t_inflow_dwfinflowsoa), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_inflow_dwfinflowsoa__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_inflow_dwfinflowsoa__init_rdwfinflowsoa(o_, p_)
-  if (associated(cpp_exc)) return
-  zres => o_
-  return
-  end procedure p_inflow_dwfinflowsoa__new_rdwfinflowsoa
-
-  module procedure p_inflow_dwfinflowsoa__init_mdwfinflowsoa
-  call p_inflow_dwfinflowsoa__movefrom(self, p_)
-  end procedure p_inflow_dwfinflowsoa__init_mdwfinflowsoa
-
-  module procedure p_inflow_dwfinflowsoa__new_mdwfinflowsoa
-    class(t_inflow_dwfinflowsoa), pointer :: o_
-    class(t_inflow_dwfinflowsoa), pointer :: zz1
-  zres => null()
-  allocate(zz1)
-  call p_inflow_dwfinflowsoa__ctor_raw(zz1, cpp_raw_v)
-  o_ => zz1
-  call p_inflow_dwfinflowsoa__init_mdwfinflowsoa(o_, p_)
-  zres => o_
-  return
-  end procedure p_inflow_dwfinflowsoa__new_mdwfinflowsoa
 
 end submodule swmm6_engine_032

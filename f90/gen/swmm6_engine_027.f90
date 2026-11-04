@@ -4,11 +4,163 @@ submodule (swmm6_engine) swmm6_engine_027
   implicit none
 contains
 
+  module procedure p_lam321
+    type(cpp_cptr) :: e_
+    type(cpp_cptr) :: zz1
+    type(cpp_cptr) :: zz2
+    logical :: zz3
+  zz1 = cpp_r_lit("OPENSWMM_FV_DT_TRACE")
+  zz2 = cpp_r_getenv(zz1)
+  e_ = zz2
+  zz3 = (.not. cpp_cptr_isnull(e_))
+  if (zz3) then
+    zz3 = (int(int(int(e_%b%a(e_%o + 0), 4), 1), 4) == 49)
+  end if
+  zres = zz3
+  return
+  end procedure p_lam321
+
+  module procedure p_lam322
+    integer(8) :: uc_
+    real(8) :: h_
+    logical :: tpa_c_
+    class(t_fv_fvgeometry), pointer :: g_
+    class(t_fv_fvgeometry), pointer :: zz1
+    logical :: zz2
+    logical :: zz3
+    logical :: zz4
+    real(8), pointer :: zz5
+    real(8) :: zz6
+    real(8) :: zz7
+    real(8) :: zz8
+  uc_ = int(a1, 8)
+  self%c_dx_ref = cpp_m_min_d_d(self%c_dx_ref, self%c_this%mesh_%cell_dx%a%a(uc_))
+  h_ = self%c_this%state_%cell_h%a%a(uc_)
+  tpa_c_ = p_fv_explicitfvsolver__tpacell(self%c_this, uc_)
+  if (((.not. tpa_c_) .and. (h_ <= s_fv_kernels__f__kdrydepth))) then
+    return
+  end if
+  zz1 => h_uas_fv_fvgeometry(self%c_this%mesh_%geom%a%a(int(self%c_this%mesh_%cell_geom%a%a(uc_), 8))%p)
+  g_ => zz1
+  zz4 = (iand(int(self%c_fmode, 4), 255_4) == 1)
+  if (zz4) then
+    zz3 = tpa_c_
+    if (.not. zz3) then
+      zz2 = (.not. (iand(int(g_%is_open, 4), 255_4) /= 0))
+      if (zz2) then
+        zz2 = (h_ >= g_%y_crown)
+      end if
+      zz3 = zz2
+    end if
+    zz4 = zz3
+  end if
+  if (zz4) then
+    self%c_speed = cpp_m_max_d_d(self%c_speed, abs(self%c_this%cell_u_%a%a(uc_)))
+    return
+  end if
+  zz8 = self%c_speed
+  zz7 = abs(self%c_this%cell_u_%a%a(uc_))
+  zz6 = self%c_this%state_%cell_a%a%a(uc_)
+  if (tpa_c_) then
+    zz5 => g_%ft_slot
+  else
+    zz5 => self%c_this%cell_t_%a%a(uc_)
+  end if
+  self%c_speed = cpp_m_max_d_d(zz8, (zz7 + p_fv_kernels__f__celerity(zz6, zz5)))
+  return
+  end procedure p_lam322
+
+  module procedure p_lam324
+    class(t_fv_fvgeometry), pointer :: zz1
+  if (((a1 < 0) .or. (a2 <= self%c_h_max))) then
+    return
+  end if
+  self%c_h_max = a2
+  zz1 => h_uas_fv_fvgeometry(self%c_this%mesh_%geom%a%a(int(self%c_this%mesh_%cell_geom%a%a(int(a1, 8)), 8))%p)
+  self%c_gm%p => zz1
+  return
+  end procedure p_lam324
+
+  module procedure p_lam323
+    integer(8) :: uf_2_
+    integer(4), target :: cl_2_
+    integer(4), target :: cr_2_
+    integer(4) :: nd_2_
+    real(8), pointer :: h_max_
+    type(cpp_slot), pointer :: gm_
+    class(t_fn85), pointer :: consider_
+    class(t_lam324), pointer :: zz1
+    integer(4) :: other_2_
+    integer(4), pointer :: zz2
+    class(t_fv_fvgeometry), pointer :: zz3
+    class(t_fv_fvgeometry), pointer :: zz4
+    real(8) :: zz5
+    class(t_fv_fvgeometry), pointer :: zz6
+    real(8) :: zz7
+    class(t_fv_fvgeometry), pointer :: zz8
+    real(8) :: zz9
+  if (self%c_node_owns_dt) then
+    self%c_this%dt_argmin_node_ = (self%c_this%dt_argmin_node_ + 1_8)
+    return
+  end if
+  if ((self%c_trace_face < 0)) then
+    return
+  end if
+  uf_2_ = int(self%c_trace_face, 8)
+  cl_2_ = self%c_this%mesh_%face_cl%a%a(uf_2_)
+  cr_2_ = self%c_this%mesh_%face_cr%a%a(uf_2_)
+  nd_2_ = self%c_this%mesh_%face_node%a%a(uf_2_)
+  allocate(h_max_)
+  h_max_ = 0.0_8
+  allocate(gm_)
+  gm_%p => null()
+  allocate(zz1)
+  zz1%c_h_max => h_max_
+  zz1%c_gm => gm_
+  zz1%c_this => self%c_this
+  consider_ => zz1
+  if ((cl_2_ >= 0)) then
+    call consider_%invoke(cl_2_, self%c_this%state_%cell_h%a%a(int(cl_2_, 8)))
+  end if
+  if ((cr_2_ >= 0)) then
+    call consider_%invoke(cr_2_, self%c_this%state_%cell_h%a%a(int(cr_2_, 8)))
+  end if
+  if ((nd_2_ >= 0)) then
+    if ((cl_2_ >= 0)) then
+      zz2 => cl_2_
+    else
+      zz2 => cr_2_
+    end if
+    other_2_ = zz2
+    if ((other_2_ >= 0)) then
+      call consider_%invoke(other_2_, (self%c_this%state_%node_head%a%a(int(nd_2_, 8)) - self%c_this%mesh_%face_zb%a%a(uf_2_)))
+    end if
+  end if
+  zz3 => h_uas_fv_fvgeometry(gm_%p)
+  if ((.not. (.not. (.not. associated(zz3))))) then
+    return
+  end if
+  zz5 = h_max_
+  zz4 => h_uas_fv_fvgeometry(gm_%p)
+  if ((zz5 >= zz4%y_full)) then
+    self%c_this%dt_argmin_pressurized_ = (self%c_this%dt_argmin_pressurized_ + 1_8)
+  else
+    zz9 = h_max_
+    zz8 => h_uas_fv_fvgeometry(gm_%p)
+    if ((zz9 >= zz8%y_crown)) then
+      self%c_this%dt_argmin_band_ = (self%c_this%dt_argmin_band_ + 1_8)
+    else
+      self%c_this%dt_argmin_free_ = (self%c_this%dt_argmin_free_ + 1_8)
+    end if
+  end if
+  return
+  end procedure p_lam323
+
   module procedure p_fv_explicitfvsolver__censusdt
     class(t_perf_gatedtimer), pointer :: x_pt_
     class(t_perf_gatedtimer), pointer :: zz1
     real(8) :: dt_
-    class(t_lam320), pointer :: zz2
+    class(t_lam321), pointer :: zz2
     logical :: zz3
     integer(4), pointer :: trace_face_
     real(8) :: trace_dx_
@@ -26,7 +178,7 @@ contains
     integer(1) :: fmode_
     integer(4) :: zz4
     class(t_fn74), pointer :: consider_cell_
-    class(t_lam321), pointer :: zz5
+    class(t_lam322), pointer :: zz5
     integer(4) :: other_
     integer(4), pointer :: zz6
     integer(4) :: far_
@@ -54,7 +206,7 @@ contains
     real(8) :: dt_f_
     logical, pointer :: node_owns_dt_
     class(t_fn3), pointer :: count_argmin_
-    class(t_lam322), pointer :: zz21
+    class(t_lam323), pointer :: zz21
     integer(8) :: zz22
     integer(8) :: uf_3_
     integer(4), target :: cl_3_
@@ -941,12 +1093,12 @@ contains
   self%total_flux_ = zz3
   end procedure p_fv_explicitfvsolver__computefluxes
 
-  module procedure p_lam324
+  module procedure p_lam325
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam324
+  end procedure p_lam325
 
-  module procedure p_lam325
+  module procedure p_lam326
     real(8) :: volume_
     integer(4) :: p_
     integer(4) :: f_2_
@@ -980,7 +1132,7 @@ contains
   end do
   zres = volume_
   return
-  end procedure p_lam325
+  end procedure p_lam326
 
   module procedure p_fv_explicitfvsolver__limitpositivity
     class(t_perf_gatedtimer), pointer :: x_pt_
@@ -1016,12 +1168,12 @@ contains
     real(8) :: zz17
     integer(4) :: c_
     integer(8) :: uc_
-    class(t_lam324), pointer :: zz18
+    class(t_lam325), pointer :: zz18
     type(cpp_iter_b) :: zz19
     type(cpp_iter_b) :: zz20
     logical :: zz21
     logical :: zz22
-    class(t_lam325), pointer :: zz23
+    class(t_lam326), pointer :: zz23
     class(*), pointer :: zz24
     class(t_fv_fvstepforcing), pointer :: zz25
     integer(4) :: n_
@@ -1249,10 +1401,10 @@ contains
   end do
   end procedure p_fv_explicitfvsolver__limitpositivity
 
-  module procedure p_lam326
+  module procedure p_lam327
   zres = self%c_dt
   return
-  end procedure p_lam326
+  end procedure p_lam327
 
   module procedure p_fv_explicitfvsolver__relaxnodefluxes
     class(t_perf_gatedtimer), pointer :: x_pt_
@@ -1264,7 +1416,7 @@ contains
     logical :: zz3
     integer(4) :: n_
     logical :: zz4
-    class(t_lam326), pointer :: zz5
+    class(t_lam327), pointer :: zz5
     class(*), pointer :: zz6
     class(cpp_vec_i), pointer :: zz7
   zz1 => p_perf_gatedtimer__new_rd(s_perf__f__sec_fv_nodesolve)
@@ -1433,7 +1585,7 @@ contains
   end do
   end procedure p_fv_explicitfvsolver__relaxonenode
 
-  module procedure p_lam327
+  module procedure p_lam328
     integer(8) :: up0_
     integer(4) :: f0_
     integer(8) :: uf0_2_
@@ -1536,9 +1688,9 @@ contains
   self%c_this%state_%node_head%a%a(self%c_un) = cpp_m_max_d_d(self%c_invert, eta_c_)
   zres = .true.
   return
-  end procedure p_lam327
+  end procedure p_lam328
 
-  module procedure p_lam328
+  module procedure p_lam329
     real(8) :: r_
     integer(4) :: p_2_
     integer(8) :: up_
@@ -1589,9 +1741,9 @@ contains
   end if
   zres = r_
   return
-  end procedure p_lam328
+  end procedure p_lam329
 
-  module procedure p_lam329
+  module procedure p_lam330
     real(8) :: keep_
     integer(4) :: p_3_
     integer(8) :: up_2_
@@ -1637,9 +1789,9 @@ contains
   end do
   self%c_this%state_%node_head%a%a(self%c_un) = keep_
   return
-  end procedure p_lam329
+  end procedure p_lam330
 
-  module procedure p_lam330
+  module procedure p_lam331
     real(8) :: resist_
     integer(4) :: p_4_
     integer(8) :: up_3_
@@ -1691,7 +1843,7 @@ contains
   end do
   zres = resist_
   return
-  end procedure p_lam330
+  end procedure p_lam331
 
   module procedure p_fv_explicitfvsolver__solvealgebraicnode
     integer(8) :: un_
@@ -1727,16 +1879,16 @@ contains
     real(8) :: q_ext_
     real(8) :: zz13
     class(t_fn5), pointer :: prescribedegree1_
-    class(t_lam327), pointer :: zz14
+    class(t_lam328), pointer :: zz14
     real(8), pointer :: h_best_
     real(8), pointer :: r_best_
     real(8), pointer :: h_last_
     class(t_fn106), pointer :: residual_
-    class(t_lam328), pointer :: zz15
+    class(t_lam329), pointer :: zz15
     class(t_fn3), pointer :: finalize_
-    class(t_lam329), pointer :: zz16
+    class(t_lam330), pointer :: zz16
     class(t_fn106), pointer :: resistat_
-    class(t_lam330), pointer :: zz17
+    class(t_lam331), pointer :: zz17
     real(8) :: full_
     real(8) :: top_
     real(8) :: zz18
@@ -2422,7 +2574,7 @@ contains
   return
   end procedure p_fv_explicitfvsolver__injectdivertedlateral
 
-  module procedure p_lam331
+  module procedure p_lam332
     integer(8) :: un_
     real(8) :: spill_
     integer(4) :: p_
@@ -2453,11 +2605,11 @@ contains
     self%c_this%flood_vol_%a%a(un_) = zz2
   end if
   return
-  end procedure p_lam331
+  end procedure p_lam332
 
   module procedure p_fv_explicitfvsolver__booklateralspills
     class(t_fn74), pointer :: book_
-    class(t_lam331), pointer :: zz1
+    class(t_lam332), pointer :: zz1
     class(cpp_vec_i), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -2808,6 +2960,24 @@ contains
   call p_perf__f__count(3_8, n_inv_)
   end procedure p_fv_explicitfvsolver__updatecells
 
+  module procedure p_lam333
+    real(8) :: sum_
+    integer(4) :: p_
+    integer(8) :: up_
+    real(8) :: zz1
+  sum_ = 0.0_8
+  p_ = self%c_this%mesh_%node_face_ptr%a%a(a1)
+  do
+    if (.not. ((p_ < self%c_this%mesh_%node_face_ptr%a%a((a1 + 1_8))))) exit
+    up_ = int(p_, 8)
+    zz1 = (sum_ + (self%c_this%mesh_%node_face_sign%a%a(up_) * self%c_this%f_mass_%a%a(int(self%c_this%mesh_%node_face_idx%a%a(up_), 8))))
+    sum_ = zz1
+    p_ = (p_ + 1)
+  end do
+  zres = (sum_ * self%c_dt)
+  return
+  end procedure p_lam333
+
   module procedure p_fv_explicitfvsolver__updatenodes
     class(cpp_vec_i), pointer :: x__r1_
     integer(8) :: x__i2_
@@ -2816,7 +2986,8 @@ contains
     class(t_perf_gatedtimer), pointer :: x_pt_
     class(t_perf_gatedtimer), pointer :: zz1
     integer(4) :: nn_
-    class(cpp_sysexception), pointer :: zz2
+    class(t_lam333), pointer :: zz2
+    class(*), pointer :: zz3
     integer(4) :: n_
     integer(8) :: un_2_
     integer(4) :: face_
@@ -2825,25 +2996,25 @@ contains
     integer(4) :: e_
     integer(4) :: p_2_
     integer(8) :: up_2_
-    real(8) :: zz3
     real(8) :: zz4
+    real(8) :: zz5
     integer(4) :: p2_
     integer(8) :: up2_
     real(8) :: q_
-    real(8) :: zz5
     real(8) :: zz6
-    real(8), pointer :: zz7
-    logical :: zz8
-    real(8), pointer :: zz9
+    real(8) :: zz7
+    real(8), pointer :: zz8
+    logical :: zz9
     real(8), pointer :: zz10
+    real(8), pointer :: zz11
     real(8) :: q_lat_
-    real(8) :: zz11
     real(8) :: zz12
-    integer(4) :: zz13
+    real(8) :: zz13
+    integer(4) :: zz14
     real(8) :: v_prev_
     real(8), target :: vol_
-    real(8) :: zz14
     real(8) :: zz15
+    real(8) :: zz16
     real(8), target :: depth_
   if (self%water_tracking_) then
     x__r1_ => self%active_faces_
@@ -2860,9 +3031,12 @@ contains
   zz1 => p_perf_gatedtimer__new_rd(s_perf__f__sec_fv_nodeupdate)
   x_pt_ => zz1
   nn_ = p_fv_networkmeshdata__n_nodes(self%mesh_)
-  zz2 => cpp_sysexception_new("NotImplementedException", "TODO default argument with no expression")
-  cpp_exc => zz2
-  return
+  allocate(zz2)
+  zz2%c_this => self
+  zz2%c_dt = dt_
+  zz3 => zz2
+  call p_fv_explicitfvsolver__refreshdummyflows(self, dt_, forcing_, zz3, .true.)
+  if (associated(cpp_exc)) return
   call p_fv_explicitfvsolver__booklateralspills(self, null())
   if (associated(cpp_exc)) return
   n_ = 0
@@ -2883,53 +3057,53 @@ contains
     do
       if (.not. ((p_2_ < e_))) exit
       up_2_ = int(p_2_, 8)
-      zz3 = (sum_faces_ + (self%mesh_%node_face_sign%a%a(up_2_) * self%f_mass_%a%a(int(self%mesh_%node_face_idx%a%a(up_2_), 8))))
-      sum_faces_ = zz3
+      zz4 = (sum_faces_ + (self%mesh_%node_face_sign%a%a(up_2_) * self%f_mass_%a%a(int(self%mesh_%node_face_idx%a%a(up_2_), 8))))
+      sum_faces_ = zz4
       p_2_ = (p_2_ + 1)
     end do
-    zz4 = (self%node_exch_%a%a(un_2_) + (sum_faces_ * dt_))
-    self%node_exch_%a%a(un_2_) = zz4
+    zz5 = (self%node_exch_%a%a(un_2_) + (sum_faces_ * dt_))
+    self%node_exch_%a%a(un_2_) = zz5
     p2_ = b_
     do
       if (.not. ((p2_ < e_))) exit
       up2_ = int(p2_, 8)
       q_ = (self%mesh_%node_face_sign%a%a(up2_) * self%f_mass_%a%a(int(self%mesh_%node_face_idx%a%a(up2_), 8)))
       if ((q_ > 0.0_8)) then
-        zz5 = (self%node_in_%a%a(un_2_) + (q_ * dt_))
-        self%node_in_%a%a(un_2_) = zz5
+        zz6 = (self%node_in_%a%a(un_2_) + (q_ * dt_))
+        self%node_in_%a%a(un_2_) = zz6
       else
-        zz6 = (self%node_out_%a%a(un_2_) - (q_ * dt_))
-        self%node_out_%a%a(un_2_) = zz6
+        zz7 = (self%node_out_%a%a(un_2_) - (q_ * dt_))
+        self%node_out_%a%a(un_2_) = zz7
       end if
       p2_ = (p2_ + 1)
     end do
     call p_fv_explicitfvsolver__bookdivertedlateral(self, un_2_, dt_, forcing_)
-    zz8 = (.not. cpp_ptr_d_isnull(forcing_%node_fixed_head))
-    if (zz8) then
-      zz7 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
-      zz8 = cpp_double_isfinite(zz7)
+    zz9 = (.not. cpp_ptr_d_isnull(forcing_%node_fixed_head))
+    if (zz9) then
+      zz8 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
+      zz9 = cpp_double_isfinite(zz8)
     end if
-    if (zz8) then
-      zz10 => self%state_%node_head%a%a(un_2_)
-      zz9 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
-      zz10 = zz9
+    if (zz9) then
+      zz11 => self%state_%node_head%a%a(un_2_)
+      zz10 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
+      zz11 = zz10
       goto 104
     end if
-    zz11 = p_fv_explicitfvsolver__nodelateral(self, forcing_, un_2_)
-    q_lat_ = ((zz11 + self%node_qstruct_%a%a(un_2_)) + p_fv_explicitfvsolver__nodeqdummy(self, un_2_))
+    zz12 = p_fv_explicitfvsolver__nodelateral(self, forcing_, un_2_)
+    q_lat_ = ((zz12 + self%node_qstruct_%a%a(un_2_)) + p_fv_explicitfvsolver__nodeqdummy(self, un_2_))
     if (p_fv_explicitfvsolver__algebraicactive(self, n_)) then
-      zz13 = n_
-      zz12 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, (self%node_carry_%a%a(un_2_) + (dt_ * (sum_faces_ + q_lat_))), dt_, forcing_)
-      call p_fv_explicitfvsolver__settlealgebraicnode(self, zz13, zz12)
+      zz14 = n_
+      zz13 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, (self%node_carry_%a%a(un_2_) + (dt_ * (sum_faces_ + q_lat_))), dt_, forcing_)
+      call p_fv_explicitfvsolver__settlealgebraicnode(self, zz14, zz13)
       goto 104
     end if
     v_prev_ = self%state_%node_volume%a%a(un_2_)
-    zz14 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, (v_prev_ + (dt_ * (sum_faces_ + q_lat_))), dt_, forcing_)
-    vol_ = zz14
+    zz15 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, (v_prev_ + (dt_ * (sum_faces_ + q_lat_))), dt_, forcing_)
+    vol_ = zz15
     if ((vol_ < 0.0_8)) then
       if (self%water_tracking_) then
-        zz15 = (self%water_%node_deficit%a%a(un_2_) - vol_)
-        self%water_%node_deficit%a%a(un_2_) = zz15
+        zz16 = (self%water_%node_deficit%a%a(un_2_) - vol_)
+        self%water_%node_deficit%a%a(un_2_) = zz16
       end if
       vol_ = 0.0_8
     end if
@@ -3615,7 +3789,7 @@ contains
   return
   end procedure p_fv_explicitfvsolver__nodestabledt
 
-  module procedure p_lam332
+  module procedure p_lam334
     integer(4) :: k_
   if ((a1 >= 1E29_8)) then
     zres = (self%c_k_cap - 1)
@@ -3624,7 +3798,7 @@ contains
   k_ = cpp_conv_d2i(cpp_math_floor_d(cpp_math_log2_d((a1 / self%c_dt_min))))
   zres = cpp_m_min_i_i(cpp_m_max_i_i(k_, 0), (self%c_k_cap - 1))
   return
-  end procedure p_lam332
+  end procedure p_lam334
 
   module procedure p_fv_explicitfvsolver__assigntiers
     class(t_perf_gatedtimer), pointer :: x_pt_
@@ -3658,7 +3832,7 @@ contains
     real(8) :: h_
     integer(4), pointer :: k_cap_
     class(t_fn198), pointer :: tier_of_
-    class(t_lam332), pointer :: zz8
+    class(t_lam334), pointer :: zz8
     integer(4) :: c_2_
     integer(8) :: uc_3_
     integer(4) :: zz9
@@ -4194,12 +4368,12 @@ contains
   return
   end procedure p_fv_explicitfvsolver__assigntiers
 
-  module procedure p_lam333
+  module procedure p_lam335
   zres = (real(shiftl(1, iand(iand(int(self%c_this%node_tier_%a%a(int(a1, 8)), 4), 255_4), 31)), 8) * self%c_dt0)
   return
-  end procedure p_lam333
+  end procedure p_lam335
 
-  module procedure p_lam334
+  module procedure p_lam336
     integer(8) :: index_
     logical :: zz1
   index_ = int(a3, 8)
@@ -4211,14 +4385,14 @@ contains
     call cpp_vec_l_push_back(a2, index_)
   end if
   return
-  end procedure p_lam334
+  end procedure p_lam336
 
-  module procedure p_lam335
+  module procedure p_lam337
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam335
+  end procedure p_lam337
 
-  module procedure p_lam336
+  module procedure p_lam338
     real(8) :: volume_2_
     integer(4) :: p_
     integer(4) :: f_3_
@@ -4252,7 +4426,7 @@ contains
   end do
   zres = volume_2_
   return
-  end procedure p_lam336
+  end procedure p_lam338
 
   module procedure p_fv_explicitfvsolver__firefaces
     class(t_perf_gatedtimer), pointer :: x_pt_
@@ -4275,7 +4449,7 @@ contains
     integer(4) :: f_
     integer(4) :: nd_
     logical :: zz6
-    class(t_lam333), pointer :: zz7
+    class(t_lam335), pointer :: zz7
     class(*), pointer :: zz8
     class(cpp_vec_i), pointer :: zz9
     class(cpp_vec_d), pointer :: zz10
@@ -4292,7 +4466,7 @@ contains
     integer(8) :: x__i8_n_
     integer(8) :: node_2_
     class(t_fn199), pointer :: record_export_
-    class(t_lam334), pointer :: zz14
+    class(t_lam336), pointer :: zz14
     class(cpp_vec_i), pointer :: x__r9_
     integer(8) :: x__i10_
     integer(8) :: x__i10_n_
@@ -4309,12 +4483,12 @@ contains
     integer(8) :: zz20
     integer(8) :: c_2_
     integer(8), pointer :: zz21
-    class(t_lam335), pointer :: zz22
+    class(t_lam337), pointer :: zz22
     type(cpp_iter_b) :: zz23
     type(cpp_iter_b) :: zz24
     logical :: zz25
     logical :: zz26
-    class(t_lam336), pointer :: zz27
+    class(t_lam338), pointer :: zz27
     class(*), pointer :: zz28
     class(t_fv_fvstepforcing), pointer :: zz29
     integer(8), target :: i_4_
@@ -4720,7 +4894,7 @@ contains
   end do
   end procedure p_fv_explicitfvsolver__firefaces
 
-  module procedure p_lam337
+  module procedure p_lam339
     integer(8) :: uc_
     real(8) :: dt_
     class(t_fv_fvgeometry), pointer :: g_
@@ -4916,11 +5090,11 @@ contains
   self%c_this%state_%cell_q%a%a(uc_) = q_new_
   self%c_this%cell_u_%a%a(uc_) = (q_new_ / a_new_)
   return
-  end procedure p_lam337
+  end procedure p_lam339
 
   module procedure p_fv_explicitfvsolver__firecells
     class(t_fn74), pointer :: update_cell_
-    class(t_lam337), pointer :: zz1
+    class(t_lam339), pointer :: zz1
     integer(4) :: n_
     class(t_perf_counterbatch), pointer :: counters_
     class(t_perf_counterbatch), pointer :: zz2
@@ -4960,8 +5134,14 @@ contains
   end do
   end procedure p_fv_explicitfvsolver__firecells
 
+  module procedure p_lam340
+  zres = self%c_this%acc_nvol_%a%a(a1)
+  return
+  end procedure p_lam340
+
   module procedure p_fv_explicitfvsolver__firenodes
-    class(cpp_sysexception), pointer :: zz1
+    class(t_lam340), pointer :: zz1
+    class(*), pointer :: zz2
     class(cpp_vec_i), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_
@@ -4969,21 +5149,23 @@ contains
     integer(8) :: un_2_
     real(8) :: dt_
     real(8) :: drained_
-    real(8), pointer :: zz2
-    logical :: zz3
-    real(8), pointer :: zz4
+    real(8), pointer :: zz3
+    logical :: zz4
     real(8), pointer :: zz5
+    real(8), pointer :: zz6
     real(8) :: q_lat_
-    real(8) :: zz6
     real(8) :: zz7
+    real(8) :: zz8
     real(8) :: v_prev_
     real(8), target :: vol_
-    real(8) :: zz8
     real(8) :: zz9
+    real(8) :: zz10
     real(8), target :: depth_
-  zz1 => cpp_sysexception_new("NotImplementedException", "TODO default argument with no expression")
-  cpp_exc => zz1
-  return
+  allocate(zz1)
+  zz1%c_this => self
+  zz2 => zz1
+  call p_fv_explicitfvsolver__refreshdummyflows(self, dt0_, forcing_, zz2, .true.)
+  if (associated(cpp_exc)) return
   if (self%water_tracking_) then
     call p_fv_explicitfvsolver__bookstructurewater(self, dt0_, forcing_)
   end if
@@ -5000,31 +5182,31 @@ contains
     drained_ = self%acc_nvol_%a%a(un_2_)
     self%acc_nvol_%a%a(un_2_) = 0.0_8
     call p_fv_explicitfvsolver__bookdivertedlateral(self, un_2_, dt_, forcing_)
-    zz3 = (.not. cpp_ptr_d_isnull(forcing_%node_fixed_head))
-    if (zz3) then
-      zz2 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
-      zz3 = cpp_double_isfinite(zz2)
+    zz4 = (.not. cpp_ptr_d_isnull(forcing_%node_fixed_head))
+    if (zz4) then
+      zz3 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
+      zz4 = cpp_double_isfinite(zz3)
     end if
-    if (zz3) then
-      zz5 => self%state_%node_head%a%a(un_2_)
-      zz4 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
-      zz5 = zz4
+    if (zz4) then
+      zz6 => self%state_%node_head%a%a(un_2_)
+      zz5 => cpp_ptr_d_item_ul(forcing_%node_fixed_head, un_2_)
+      zz6 = zz5
       goto 102
     end if
-    zz6 = p_fv_explicitfvsolver__nodelateral(self, forcing_, un_2_)
-    q_lat_ = ((zz6 + self%node_qstruct_%a%a(un_2_)) + p_fv_explicitfvsolver__nodeqdummy(self, un_2_))
+    zz7 = p_fv_explicitfvsolver__nodelateral(self, forcing_, un_2_)
+    q_lat_ = ((zz7 + self%node_qstruct_%a%a(un_2_)) + p_fv_explicitfvsolver__nodeqdummy(self, un_2_))
     if (p_fv_explicitfvsolver__algebraicactive(self, n_)) then
-      zz7 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, ((self%node_carry_%a%a(un_2_) + drained_) + (dt_ * q_lat_)), dt_, forcing_)
-      call p_fv_explicitfvsolver__settlealgebraicnode(self, n_, zz7)
+      zz8 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, ((self%node_carry_%a%a(un_2_) + drained_) + (dt_ * q_lat_)), dt_, forcing_)
+      call p_fv_explicitfvsolver__settlealgebraicnode(self, n_, zz8)
       goto 102
     end if
     v_prev_ = self%state_%node_volume%a%a(un_2_)
-    zz8 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, ((v_prev_ + drained_) + (dt_ * q_lat_)), dt_, forcing_)
-    vol_ = zz8
+    zz9 = p_fv_explicitfvsolver__capwithdrawal(self, un_2_, ((v_prev_ + drained_) + (dt_ * q_lat_)), dt_, forcing_)
+    vol_ = zz9
     if ((vol_ < 0.0_8)) then
       if (self%water_tracking_) then
-        zz9 = (self%water_%node_deficit%a%a(un_2_) - vol_)
-        self%water_%node_deficit%a%a(un_2_) = zz9
+        zz10 = (self%water_%node_deficit%a%a(un_2_) - vol_)
+        self%water_%node_deficit%a%a(un_2_) = zz10
       end if
       vol_ = 0.0_8
     end if
@@ -5037,7 +5219,7 @@ contains
   end do
   end procedure p_fv_explicitfvsolver__firenodes
 
-  module procedure p_lam338
+  module procedure p_lam341
     integer(4) :: j_
   j_ = 0
   do
@@ -5046,12 +5228,12 @@ contains
   end do
   zres = j_
   return
-  end procedure p_lam338
+  end procedure p_lam341
 
   module procedure p_fv_explicitfvsolver__runmacrocycle
     integer(4) :: k_
     class(t_fn71), pointer :: trailing_zeros_
-    class(t_lam338), pointer :: zz1
+    class(t_lam341), pointer :: zz1
     integer(4) :: s_
     integer(8) :: jf_
     integer(4) :: zz2
@@ -5472,7 +5654,21 @@ contains
   module procedure p_fv_explicitfvsolver__pressview
     class(t_fv_pressurizedview), pointer :: pv_
     class(t_fv_pressurizedview), pointer :: zz1
-    class(t_fv_pressurizedview), pointer :: zz2
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d), pointer :: zz3
+    type(cpp_ptr_d) :: zz4
+    type(cpp_ptr_d), pointer :: zz5
+    type(cpp_ptr_o) :: zz6
+    type(cpp_ptr_o), pointer :: zz7
+    type(cpp_ptr_o) :: zz8
+    type(cpp_ptr_o), pointer :: zz9
+    type(cpp_ptr_o) :: zz10
+    type(cpp_ptr_o), pointer :: zz11
+    type(cpp_ptr_d) :: zz12
+    type(cpp_ptr_d), pointer :: zz13
+    type(cpp_ptr_d) :: zz14
+    type(cpp_ptr_d), pointer :: zz15
+    class(t_fv_pressurizedview), pointer :: zz16
   zres => null()
   allocate(zz1)
   call p_fv_pressurizedview__ctor_x(zz1)
@@ -5481,13 +5677,27 @@ contains
   pv_%state => self%state_
   pv_%opts => self%opts_
   pv_%forcing => forcing_
-  pv_%f_mass = cpp_vec_d_data(self%f_mass_)
-  pv_%f_sstar = cpp_vec_d_data(self%f_sstar_)
-  pv_%f_state_l = cpp_vec_o_data(self%f_state_l_)
-  pv_%f_state_r = cpp_vec_o_data(self%f_state_r_)
-  pv_%f_flux = cpp_vec_o_data(self%f_flux_)
-  pv_%cell_eta = cpp_vec_d_data(self%cell_eta_)
-  pv_%cell_u = cpp_vec_d_data(self%cell_u_)
+  zz3 => pv_%f_mass
+  zz2 = cpp_vec_d_data(self%f_mass_)
+  zz3 = zz2
+  zz5 => pv_%f_sstar
+  zz4 = cpp_vec_d_data(self%f_sstar_)
+  zz5 = zz4
+  zz7 => pv_%f_state_l
+  zz6 = cpp_vec_o_data(self%f_state_l_)
+  zz7 = zz6
+  zz9 => pv_%f_state_r
+  zz8 = cpp_vec_o_data(self%f_state_r_)
+  zz9 = zz8
+  zz11 => pv_%f_flux
+  zz10 = cpp_vec_o_data(self%f_flux_)
+  zz11 = zz10
+  zz13 => pv_%cell_eta
+  zz12 = cpp_vec_d_data(self%cell_eta_)
+  zz13 = zz12
+  zz15 => pv_%cell_u
+  zz14 = cpp_vec_d_data(self%cell_u_)
+  zz15 = zz14
   pv_%active_faces => self%active_faces_
   pv_%cell_active => self%cell_active_
   pv_%node_qstruct => self%node_qstruct_
@@ -5497,8 +5707,8 @@ contains
   pv_%node_lat_div => self%node_lat_div_
   pv_%cell_qlat => self%cell_qlat_
   pv_%uf_grad => self%uf_grad_
-  zz2 => p_fv_pressurizedview__movenew(pv_)
-  zres => zz2
+  zz16 => p_fv_pressurizedview__movenew(pv_)
+  zres => zz16
   return
   end procedure p_fv_explicitfvsolver__pressview
 
@@ -5539,7 +5749,7 @@ contains
   end if
   end procedure p_fv_explicitfvsolver__rksave
 
-  module procedure p_lam339
+  module procedure p_lam342
     integer(8) :: i_
   i_ = 0_8
   do
@@ -5548,9 +5758,9 @@ contains
     i_ = (i_ + 1_8)
   end do
   return
-  end procedure p_lam339
+  end procedure p_lam342
 
-  module procedure p_lam340
+  module procedure p_lam343
     integer(8) :: i_3_
   i_3_ = 0_8
   do
@@ -5559,11 +5769,11 @@ contains
     i_3_ = (i_3_ + 1_8)
   end do
   return
-  end procedure p_lam340
+  end procedure p_lam343
 
   module procedure p_fv_explicitfvsolver__rkaverage
     class(t_fn194), pointer :: avg_
-    class(t_lam339), pointer :: zz1
+    class(t_lam342), pointer :: zz1
     integer(8) :: nc_
     integer(4) :: s_
     integer(8) :: base_
@@ -5578,7 +5788,7 @@ contains
     logical :: zz5
     real(8) :: vol_
     class(t_fn194), pointer :: avg_delta_
-    class(t_lam340), pointer :: zz6
+    class(t_lam343), pointer :: zz6
     integer(4) :: n_2_
     integer(8) :: un_2_
     real(8), pointer :: zz7
@@ -5674,7 +5884,7 @@ contains
   call p_fv_explicitfvsolver__refreshdepths(self)
   end procedure p_fv_explicitfvsolver__rkaverage
 
-  module procedure p_lam341
+  module procedure p_lam344
     logical :: zz1
     logical :: zz2
     integer(1), pointer :: zz3
@@ -5700,7 +5910,7 @@ contains
     a1%press = merge(2_1, 0_1, self%c_this%mw_rh_)
   end if
   return
-  end procedure p_lam341
+  end procedure p_lam344
 
   module procedure p_fv_explicitfvsolver__faceside
     integer(8) :: uf_
@@ -5747,7 +5957,7 @@ contains
     real(8) :: h_star_
     class(t_fv_kernels_facestate), pointer :: zz14
     class(t_fn200), pointer :: finish_
-    class(t_lam341), pointer :: zz15
+    class(t_lam344), pointer :: zz15
     logical :: zz16
     class(t_fv_kernels_closureeval), pointer :: e_
     class(t_fv_kernels_closureeval), pointer :: zz17
@@ -5949,170 +6159,5 @@ contains
   out_%i1 = e_%i1
   call finish_%invoke(out_)
   end procedure p_fv_explicitfvsolver__faceside
-
-  module procedure p_fv_explicitfvsolver__cacheclosure
-    logical :: zz1
-    class(t_fv_kernels_closureeval), pointer :: e_
-    real(8), pointer :: zz2
-    class(t_fv_fvclosure), pointer :: zz3
-    real(8) :: zz4
-    class(t_fv_kernels_closureeval), pointer :: zz5
-    class(t_fv_kernels_closureeval), pointer :: zz6
-    class(t_fv_kernels_closureeval), pointer :: zz7
-    real(8), pointer :: zz8
-    real(8), pointer :: zz9
-    real(8) :: zz10
-  zz1 = (h_ > s_fv_kernels__f__kdrydepth)
-  if (zz1) then
-    zz1 = (.not. p_fv_explicitfvsolver__tpacell(self, uc_))
-  end if
-  if (zz1) then
-    call p_perf__f__count(12_8, 1_8)
-    call p_perf__f__count(13_8, 1_8)
-    call p_perf__f__count(14_8, 1_8)
-    if ((.not. cpp_ptr_d_isnull(radius_))) then
-      zz3 => g_%closure_tbl
-      zz4 = h_
-      zz2 => cpp_ptr_d_deref(radius_)
-      zz5 => p_fv_kernels__f__closureeval__rfvclosure_d_rd(zz3, zz4, zz2)
-      zz7 => zz5
-    else
-      zz6 => p_fv_kernels__f__closureeval__rfvclosure_d(g_%closure_tbl, h_)
-      zz7 => zz6
-    end if
-    e_ => zz7
-    self%cell_ah_%a%a(uc_) = e_%a
-    self%cell_t_%a%a(uc_) = e_%t
-    self%cell_i1_%a%a(uc_) = e_%i1
-  else
-    self%cell_ah_%a%a(uc_) = 0.0_8
-    self%cell_t_%a%a(uc_) = 0.0_8
-    self%cell_i1_%a%a(uc_) = 0.0_8
-    if ((.not. cpp_ptr_d_isnull(radius_))) then
-      zz8 => cpp_ptr_d_deref(radius_)
-      if (p_fv_explicitfvsolver__tpacell(self, uc_)) then
-        zz9 => g_%y_full
-      else
-        zz9 => h_
-      end if
-      zz10 = p_fv_kernels__f__hydradofdepth(g_, zz9)
-      zz8 = zz10
-    end if
-  end if
-  end procedure p_fv_explicitfvsolver__cacheclosure
-
-  module procedure p_lam342
-    integer(8) :: uc_
-    real(8) :: h_
-    real(8) :: u_
-    integer(4) :: cond_
-    real(8) :: dx_c_
-    real(8) :: ul_
-    real(8) :: ur_
-    real(8) :: dsum_
-    class(cpp_arr_i), pointer :: faces_
-    class(cpp_arr_i), pointer :: zz1
-    class(cpp_arr_b), pointer :: sides_
-    class(cpp_arr_b), pointer :: zz2
-    integer(4) :: e_
-    integer(8) :: uf_
-    type(cpp_ptr_i) :: zz3
-    integer(4), pointer :: zz4
-    integer(4) :: nb_
-    type(cpp_ptr_b) :: zz5
-    integer(1), pointer :: zz6
-    integer(4), pointer :: zz7
-    integer(8) :: unb_
-    real(8) :: d_
-    type(cpp_ptr_b) :: zz8
-    integer(1), pointer :: zz9
-    real(8) :: zz10
-    real(8) :: zz11
-    class(t_fv_fvgeometry), pointer :: g_
-    class(t_fv_fvgeometry), pointer :: zz12
-    real(8) :: c_wave_
-    real(8) :: zz13
-    real(8) :: zz14
-    real(8) :: zz15
-    real(8) :: sgn_
-  uc_ = int(a1, 8)
-  self%c_this%uf_grad_%a%a(uc_) = 0.0_8
-  if ((.not. (int(self%c_this%cell_active_%a%a(uc_), 4) /= 0))) then
-    return
-  end if
-  h_ = self%c_this%state_%cell_h%a%a(uc_)
-  if ((h_ <= s_fv_kernels__f__kdrydepth)) then
-    return
-  end if
-  u_ = self%c_this%cell_u_%a%a(uc_)
-  if ((u_ == 0.0_8)) then
-    return
-  end if
-  cond_ = self%c_this%mesh_%cell_conduit%a%a(uc_)
-  dx_c_ = self%c_this%mesh_%cell_dx%a%a(uc_)
-  ul_ = u_
-  ur_ = u_
-  dsum_ = 0.0_8
-  zz1 => cpp_arr_i_new(2_8)
-  zz1%a(0) = self%c_this%mesh_%cell_face0%a%a(uc_)
-  zz1%a(1) = self%c_this%mesh_%cell_face1%a%a(uc_)
-  faces_ => zz1
-  zz2 => cpp_arr_b_new(2_8)
-  zz2%a(0) = self%c_this%mesh_%cell_side0%a%a(uc_)
-  zz2%a(1) = self%c_this%mesh_%cell_side1%a%a(uc_)
-  sides_ => zz2
-  e_ = 0
-  do
-    if (.not. ((e_ < 2))) exit
-    zz3 = cpp_ptr_i_new_ta_l(faces_, 0_8)
-    zz4 => cpp_ptr_i_item_i(zz3, e_)
-    uf_ = int(zz4, 8)
-    zz5 = cpp_ptr_b_new_ta_l(sides_, 0_8)
-    zz6 => cpp_ptr_b_item_i(zz5, e_)
-    if ((int(zz6, 4) == 0)) then
-      zz7 => self%c_this%mesh_%face_cr%a%a(uf_)
-    else
-      zz7 => self%c_this%mesh_%face_cl%a%a(uf_)
-    end if
-    nb_ = zz7
-    if ((nb_ < 0)) then
-      goto 102
-    end if
-    unb_ = int(nb_, 8)
-    if ((self%c_this%mesh_%cell_conduit%a%a(unb_) /= cond_)) then
-      goto 102
-    end if
-    d_ = (0.5_8 * (dx_c_ + self%c_this%mesh_%cell_dx%a%a(unb_)))
-    zz8 = cpp_ptr_b_new_ta_l(sides_, 0_8)
-    zz9 => cpp_ptr_b_item_i(zz8, e_)
-    if ((int(zz9, 4) == 0)) then
-      ur_ = self%c_this%cell_u_%a%a(unb_)
-      zz10 = (dsum_ + d_)
-      dsum_ = zz10
-    else
-      ul_ = self%c_this%cell_u_%a%a(unb_)
-      zz11 = (dsum_ + d_)
-      dsum_ = zz11
-    end if
-    102 continue
-    e_ = (e_ + 1)
-  end do
-  if ((dsum_ <= 0.0_8)) then
-    return
-  end if
-  zz12 => h_uas_fv_fvgeometry(self%c_this%mesh_%geom%a%a(int(self%c_this%mesh_%cell_geom%a%a(uc_), 8))%p)
-  g_ => zz12
-  if (p_fv_explicitfvsolver__tpacell(self%c_this, uc_)) then
-    zz15 = p_fv_kernels__f__celerity(self%c_this%state_%cell_a%a%a(uc_), g_%ft_slot)
-  else
-    zz14 = self%c_this%state_%cell_a%a%a(uc_)
-    zz13 = p_fv_kernels__f__widthofdepth(g_, h_)
-    zz15 = p_fv_kernels__f__celerity(zz14, zz13)
-  end if
-  c_wave_ = zz15
-  sgn_ = merge(1.0_8, (-1.0_8), (u_ > 0.0_8))
-  self%c_this%uf_grad_%a%a(uc_) = ((c_wave_ * sgn_) * abs(((ur_ - ul_) / dsum_)))
-  return
-  end procedure p_lam342
 
 end submodule swmm6_engine_027

@@ -4,6 +4,36 @@ submodule (swmm6_engine) swmm6_engine_055
   implicit none
 contains
 
+  module procedure p_transport_ardengine__new
+    class(t_transport_ardengine), pointer :: o_
+    class(t_transport_ardengine), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_transport_ardengine__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_transport_ardengine__init_d(o_)
+  zres => o_
+  return
+  end procedure p_transport_ardengine__new
+
+  module procedure p_transport_ardengine__ctor_x
+  call p_transport_ardengine__ctor_raw(self, cpp_raw_v)
+  call p_transport_ardengine__init_d(self)
+  end procedure p_transport_ardengine__ctor_x
+
+  module procedure p_transport_ardengine__clone
+    class(t_transport_ardengine), pointer :: o_
+    class(t_transport_ardengine), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_transport_ardengine__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_transport_ardengine__copyfrom_ardengine(o_, self)
+  if (associated(cpp_exc)) return
+  zres => o_
+  return
+  end procedure p_transport_ardengine__clone
+
   module procedure p_transport_ardengine__copyfrom_ardengine
     class(t_fv_networkmeshdata), pointer :: zz1
     class(t_fv_networkmeshdata), pointer :: zz2
@@ -1647,14 +1677,14 @@ contains
   return
   end procedure p_transport_heat__f__netfluxout
 
-  module procedure p_lam928
+  module procedure p_lam933
     real(8) :: zz1
     real(8) :: zz2
   zz1 = p_transport_heat__f__netfluxout(self%c_ctx, a1, a2)
   zz2 = p_transport_heat__f__netfluxout(self%c_ctx, a1, (a2 + s_transport_heat__f__kprobec))
   zres = p_transport_heat__f__relaxt(zz1, zz2, s_transport_heat__f__kprobec, (a3 * s_transport_heat__f__ksqfttosqm), (a4 * s_transport_heat__f__kcufttocum), self%c_dt, self%c_rho, self%c_cp)
   return
-  end procedure p_lam928
+  end procedure p_lam933
 
   module procedure p_transport_heat__f__applyheatfluxes
     logical :: bed_on_
@@ -1666,7 +1696,7 @@ contains
     real(8) :: cp_
     integer(4) :: unit_sys_
     class(t_fn133), pointer :: step_
-    class(t_lam928), pointer :: zz3
+    class(t_lam933), pointer :: zz3
     integer(4) :: nn_
     integer(4) :: i_
     integer(8) :: ui_
@@ -2577,28 +2607,28 @@ contains
   return
   end procedure p_transport_heat__anon_transport_components_heatfluxm_a97a792b
 
-  module procedure p_lam900
+  module procedure p_lam905
   call p_transport__anon_transport_components_heatmodule_hea_0924b309(a1, a3, a4)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam900
+  end procedure p_lam905
 
-  module procedure p_lam901
+  module procedure p_lam906
     class(cpp_str), pointer :: zz1
   zres => null()
   zz1 => p_transport__anon_transport_components_heatmodule_hea_1af556ae(a1)
   if (associated(cpp_exc)) return
   zres => zz1
   return
-  end procedure p_lam901
+  end procedure p_lam906
 
   module procedure p_transport__f__registerheatcomponent
     class(t_components_processcomponentregistry), pointer :: zz1
     class(cpp_str), pointer :: zz2
     type(cpp_cptr) :: zz3
     class(cpp_str), pointer :: zz4
-    class(t_lam900), pointer :: zz5
-    class(t_lam901), pointer :: zz6
+    class(t_lam905), pointer :: zz5
+    class(t_lam906), pointer :: zz6
   zz1 => p_components_processcomponentregistry__instance()
   if (associated(cpp_exc)) return
   zz2 => cpp_str_new_cptr(s_transport__anon_transport_components_heatmodule_hea_7938aee3)
@@ -2816,14 +2846,14 @@ contains
   return
   end procedure p_transport__anon_transport_components_heatmodule_hea_764c3400
 
-  module procedure p_lam929
+  module procedure p_lam934
   zres = int(cpp_r_toupper(iand(int(a1, 4), 255_4)), 1)
   return
-  end procedure p_lam929
+  end procedure p_lam934
 
   module procedure p_transport__anon_transport_components_heatmodule_hea_b553a19d
     class(cpp_str), pointer :: s_l_
-    class(t_lam929), pointer :: zz1
+    class(t_lam934), pointer :: zz1
     type(cpp_iter_b) :: zz2
     type(cpp_iter_b) :: zz3
     type(cpp_iter_b) :: zz4
@@ -3490,7 +3520,7 @@ contains
   return
   end procedure p_transport__anon_transport_components_heatmodule_hea_8396002c
 
-  module procedure p_lam930
+  module procedure p_lam935
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_str), pointer :: zz3
@@ -3545,9 +3575,9 @@ contains
   a3 = self%c_v_2
   zres = .true.
   return
-  end procedure p_lam930
+  end procedure p_lam935
 
-  module procedure p_lam931
+  module procedure p_lam936
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_str), pointer :: zz3
@@ -3576,9 +3606,9 @@ contains
     a1 = self%c_v_2
   end if
   return
-  end procedure p_lam931
+  end procedure p_lam936
 
-  module procedure p_lam932
+  module procedure p_lam937
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_str), pointer :: zz3
@@ -3607,12 +3637,12 @@ contains
   end if
   a1 = self%c_v_3
   return
-  end procedure p_lam932
+  end procedure p_lam937
 
-  module procedure p_lam933
+  module procedure p_lam938
   zres = a1
   return
-  end procedure p_lam933
+  end procedure p_lam938
 
   module procedure p_transport__anon_transport_components_heatmodule_hea_0924b309
     class(t_heatconfigdata), pointer :: zz1
@@ -3814,9 +3844,9 @@ contains
     class(cpp_str), pointer :: zz163
     class(cpp_str), pointer :: zz164
     class(t_fn261), pointer :: ranged_
-    class(t_lam930), pointer :: zz165
+    class(t_lam935), pointer :: zz165
     class(t_fn129), pointer :: nonneg_
-    class(t_lam931), pointer :: zz166
+    class(t_lam936), pointer :: zz166
     type(cpp_cptr) :: zz167
     type(cpp_cptr) :: zz168
     real(8), pointer :: zz169
@@ -3965,7 +3995,7 @@ contains
     real(8) :: zz295
     logical :: zz296
     class(t_fn129), pointer :: positive_
-    class(t_lam932), pointer :: zz297
+    class(t_lam937), pointer :: zz297
     type(cpp_cptr) :: zz298
     type(cpp_cptr) :: zz299
     type(cpp_cptr) :: zz300
@@ -4362,7 +4392,7 @@ contains
     logical :: zz651
     type(cpp_iter_z) :: zz652
     type(cpp_iter_z) :: zz653
-    class(t_lam933), pointer :: zz654
+    class(t_lam938), pointer :: zz654
     logical :: zz655
     logical :: zz656
     type(cpp_cptr) :: zz657

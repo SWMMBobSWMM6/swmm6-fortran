@@ -4,7 +4,7 @@ submodule (swmm6_engine) swmm6_engine_044
   implicit none
 contains
 
-  module procedure p_lam719
+  module procedure p_lam723
     class(cpp_str), pointer :: zz1
     class(cpp_str), pointer :: zz2
   if (cpp_str_empty(a1%original)) then
@@ -16,11 +16,11 @@ contains
   if (associated(cpp_exc)) return
   call cpp_str_movefrom(zz2, zz1)
   return
-  end procedure p_lam719
+  end procedure p_lam723
 
   module procedure p_input__f__resolve_external_file_slots
     class(t_fn86), pointer :: resolve_
-    class(t_lam719), pointer :: zz1
+    class(t_lam723), pointer :: zz1
     class(t_filesspec), pointer :: f_
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
@@ -309,7 +309,7 @@ contains
   return
   end procedure p_input__f__conduit_true_length
 
-  module procedure p_lam720
+  module procedure p_lam724
     logical :: zz1
     logical :: zz2
     logical :: zz3
@@ -375,30 +375,10 @@ contains
   end if
   zres = start_
   return
-  end procedure p_lam720
-
-  module procedure p_lam722
-  self%c_m = int(a1, 4)
-  return
-  end procedure p_lam722
-
-  module procedure p_lam723
-  self%c_sep1 = int(a1, 1)
-  return
-  end procedure p_lam723
-
-  module procedure p_lam724
-  self%c_d = int(a1, 4)
-  return
   end procedure p_lam724
 
-  module procedure p_lam725
-  self%c_sep2 = int(a1, 1)
-  return
-  end procedure p_lam725
-
   module procedure p_lam726
-  self%c_y = int(a1, 4)
+  self%c_m = int(a1, 4)
   return
   end procedure p_lam726
 
@@ -422,7 +402,27 @@ contains
   return
   end procedure p_lam730
 
-  module procedure p_lam721
+  module procedure p_lam731
+  self%c_sep1 = int(a1, 1)
+  return
+  end procedure p_lam731
+
+  module procedure p_lam732
+  self%c_d = int(a1, 4)
+  return
+  end procedure p_lam732
+
+  module procedure p_lam733
+  self%c_sep2 = int(a1, 1)
+  return
+  end procedure p_lam733
+
+  module procedure p_lam734
+  self%c_y = int(a1, 4)
+  return
+  end procedure p_lam734
+
+  module procedure p_lam725
     type(cpp_cptr) :: zz1
     type(cpp_cptr) :: zz2
     logical :: zz3
@@ -432,28 +432,28 @@ contains
     integer(1), pointer :: sep1_
     integer(1), pointer :: sep2_
     type(cpp_cptr) :: zz4
-    class(t_lam722), pointer :: zz5
+    class(t_lam726), pointer :: zz5
     class(cpp_refl), pointer :: zz6
-    class(t_lam723), pointer :: zz7
+    class(t_lam727), pointer :: zz7
     class(cpp_refi), pointer :: zz8
-    class(t_lam724), pointer :: zz9
+    class(t_lam728), pointer :: zz9
     class(cpp_refl), pointer :: zz10
-    class(t_lam725), pointer :: zz11
+    class(t_lam729), pointer :: zz11
     class(cpp_refi), pointer :: zz12
-    class(t_lam726), pointer :: zz13
+    class(t_lam730), pointer :: zz13
     class(cpp_refl), pointer :: zz14
     integer(4) :: zz15
     type(cpp_cptr) :: mon_
     class(cpp_arr_i), pointer :: zz16
     type(cpp_cptr) :: zz17
     type(cpp_cptr) :: zz18
-    class(t_lam727), pointer :: zz19
+    class(t_lam731), pointer :: zz19
     class(cpp_refi), pointer :: zz20
-    class(t_lam728), pointer :: zz21
+    class(t_lam732), pointer :: zz21
     class(cpp_refl), pointer :: zz22
-    class(t_lam729), pointer :: zz23
+    class(t_lam733), pointer :: zz23
     class(cpp_refi), pointer :: zz24
-    class(t_lam730), pointer :: zz25
+    class(t_lam734), pointer :: zz25
     class(cpp_refl), pointer :: zz26
     integer(4) :: zz27
     class(cpp_arr_o), pointer :: zz28
@@ -645,24 +645,24 @@ contains
   a2 = enc_
   zres = .true.
   return
-  end procedure p_lam721
+  end procedure p_lam725
 
-  module procedure p_lam732
+  module procedure p_lam736
   self%c_hr = a1
   return
-  end procedure p_lam732
+  end procedure p_lam736
 
-  module procedure p_lam733
+  module procedure p_lam737
   self%c_min = a1
   return
-  end procedure p_lam733
+  end procedure p_lam737
 
-  module procedure p_lam734
+  module procedure p_lam738
   self%c_sec = a1
   return
-  end procedure p_lam734
+  end procedure p_lam738
 
-  module procedure p_lam731
+  module procedure p_lam735
     type(cpp_cptr), target :: endp_
     real(8) :: hrs_
     real(8) :: zz1
@@ -671,11 +671,11 @@ contains
     integer(4), pointer :: min_
     integer(4), pointer :: sec_
     type(cpp_cptr) :: zz3
-    class(t_lam732), pointer :: zz4
+    class(t_lam736), pointer :: zz4
     class(cpp_refi), pointer :: zz5
-    class(t_lam733), pointer :: zz6
+    class(t_lam737), pointer :: zz6
     class(cpp_refi), pointer :: zz7
-    class(t_lam734), pointer :: zz8
+    class(t_lam738), pointer :: zz8
     class(cpp_refi), pointer :: zz9
     integer(4) :: zz10
   endp_ = cpp_cptr()
@@ -720,7 +720,7 @@ contains
   a2 = p_datetime__f__encodetime(hr_, min_, sec_)
   zres = .true.
   return
-  end procedure p_lam731
+  end procedure p_lam735
 
   module procedure p_input__f__load_external_timeseries_files_postparseresolver
     integer(8) :: t_
@@ -808,11 +808,11 @@ contains
     integer(8) :: zz64
     real(8) :: last_date_
     class(t_fn244), pointer :: next_tok_
-    class(t_lam720), pointer :: zz65
+    class(t_lam724), pointer :: zz65
     class(t_fn245), pointer :: parse_file_date_
-    class(t_lam721), pointer :: zz66
+    class(t_lam725), pointer :: zz66
     class(t_fn245), pointer :: parse_file_time_
-    class(t_lam731), pointer :: zz67
+    class(t_lam735), pointer :: zz67
     type(cpp_cptr) :: line_
     type(cpp_cptr) :: zz68
     type(cpp_cptr) :: zz69
@@ -1378,7 +1378,7 @@ contains
   return
   end procedure p_input__f__nws_detect_online_postparseresolver
 
-  module procedure p_lam735
+  module procedure p_lam739
     integer(4) :: zz1
     integer(4), pointer :: zz2
   zz2 => self%c_spec%interval_sec
@@ -1390,26 +1390,6 @@ contains
     self%c_spec%fmt = a1
   end if
   zres = (self%c_spec%interval_sec > 0)
-  return
-  end procedure p_lam735
-
-  module procedure p_lam736
-  self%c_sn2 = a1
-  return
-  end procedure p_lam736
-
-  module procedure p_lam737
-  self%c_div = a1
-  return
-  end procedure p_lam737
-
-  module procedure p_lam738
-  self%c_div = a1
-  return
-  end procedure p_lam738
-
-  module procedure p_lam739
-  self%c_year = a1
   return
   end procedure p_lam739
 
@@ -1444,9 +1424,29 @@ contains
   end procedure p_lam745
 
   module procedure p_lam746
-  self%c_sn2 = a1
+  self%c_div = a1
   return
   end procedure p_lam746
+
+  module procedure p_lam747
+  self%c_year = a1
+  return
+  end procedure p_lam747
+
+  module procedure p_lam748
+  self%c_sn2 = a1
+  return
+  end procedure p_lam748
+
+  module procedure p_lam749
+  self%c_div = a1
+  return
+  end procedure p_lam749
+
+  module procedure p_lam750
+  self%c_sn2 = a1
+  return
+  end procedure p_lam750
 
   module procedure p_input__f__nws_detect_format_postparseresolver
     class(t_input_nwsfilespec), pointer :: spec_
@@ -1467,11 +1467,11 @@ contains
     class(t_input_nwsfilespec), pointer :: zz7
     integer(8) :: len_
     class(t_fn246), pointer :: accept_
-    class(t_lam735), pointer :: zz8
+    class(t_lam739), pointer :: zz8
     type(cpp_cptr) :: zz9
-    class(t_lam736), pointer :: zz10
+    class(t_lam740), pointer :: zz10
     class(cpp_refl), pointer :: zz11
-    class(t_lam737), pointer :: zz12
+    class(t_lam741), pointer :: zz12
     class(cpp_refi), pointer :: zz13
     integer(4) :: zz14
     logical :: zz15
@@ -1479,9 +1479,9 @@ contains
     class(t_input_nwsfilespec), pointer :: zz17
     type(cpp_cptr) :: zz18
     type(cpp_cptr) :: zz19
-    class(t_lam738), pointer :: zz20
+    class(t_lam742), pointer :: zz20
     class(cpp_refi), pointer :: zz21
-    class(t_lam739), pointer :: zz22
+    class(t_lam743), pointer :: zz22
     class(cpp_refi), pointer :: zz23
     integer(4) :: zz24
     logical :: zz25
@@ -1489,9 +1489,9 @@ contains
     logical :: zz27
     class(t_input_nwsfilespec), pointer :: zz28
     type(cpp_cptr) :: zz29
-    class(t_lam740), pointer :: zz30
+    class(t_lam744), pointer :: zz30
     class(cpp_refl), pointer :: zz31
-    class(t_lam741), pointer :: zz32
+    class(t_lam745), pointer :: zz32
     class(cpp_refi), pointer :: zz33
     integer(4) :: zz34
     logical :: zz35
@@ -1499,9 +1499,9 @@ contains
     class(t_input_nwsfilespec), pointer :: zz37
     type(cpp_cptr) :: zz38
     type(cpp_cptr) :: zz39
-    class(t_lam742), pointer :: zz40
+    class(t_lam746), pointer :: zz40
     class(cpp_refi), pointer :: zz41
-    class(t_lam743), pointer :: zz42
+    class(t_lam747), pointer :: zz42
     class(cpp_refi), pointer :: zz43
     integer(4) :: zz44
     logical :: zz45
@@ -1509,16 +1509,16 @@ contains
     logical :: zz47
     class(t_input_nwsfilespec), pointer :: zz48
     type(cpp_cptr) :: zz49
-    class(t_lam744), pointer :: zz50
+    class(t_lam748), pointer :: zz50
     class(cpp_refl), pointer :: zz51
-    class(t_lam745), pointer :: zz52
+    class(t_lam749), pointer :: zz52
     class(cpp_refi), pointer :: zz53
     integer(4) :: zz54
     logical :: zz55
     logical :: zz56
     class(t_input_nwsfilespec), pointer :: zz57
     type(cpp_cptr) :: zz58
-    class(t_lam746), pointer :: zz59
+    class(t_lam750), pointer :: zz59
     class(cpp_refl), pointer :: zz60
     integer(4) :: zz61
     type(cpp_cptr) :: zz62
@@ -1712,17 +1712,17 @@ contains
   end select
   end procedure p_input__f__nws_condition_postparseresolver
 
-  module procedure p_lam747
+  module procedure p_lam751
   self%c_x = a1
   return
-  end procedure p_lam747
+  end procedure p_lam751
 
   module procedure p_input__f__nws_read_online_value_postparseresolver
     type(cpp_cptr) :: zz1
     real(4), pointer :: x_
     integer(4) :: n_
     type(cpp_cptr) :: zz2
-    class(t_lam747), pointer :: zz3
+    class(t_lam751), pointer :: zz3
     class(cpp_reff), pointer :: zz4
     integer(4) :: zz5
     integer(4) :: zz6
@@ -1753,7 +1753,7 @@ contains
   return
   end procedure p_input__f__nws_read_online_value_postparseresolver
 
-  module procedure p_lam748
+  module procedure p_lam752
     real(8) :: when_
     real(8) :: zz1
   zz1 = p_datetime__f__addseconds(a1, (((3600.0_8 * real(a2, 8)) + (60.0_8 * real(a3, 8))) - real(self%c_spec%time_offset, 8)))
@@ -1769,26 +1769,6 @@ contains
   end if
   call cpp_vec_d_push_back(self%c_series%x, when_)
   call cpp_vec_d_push_back(self%c_series%y, real(a4, 8))
-  return
-  end procedure p_lam748
-
-  module procedure p_lam749
-  self%c_y = a1
-  return
-  end procedure p_lam749
-
-  module procedure p_lam750
-  self%c_m = a1
-  return
-  end procedure p_lam750
-
-  module procedure p_lam751
-  self%c_d = a1
-  return
-  end procedure p_lam751
-
-  module procedure p_lam752
-  self%c_n = a1
   return
   end procedure p_lam752
 
@@ -1808,131 +1788,151 @@ contains
   end procedure p_lam755
 
   module procedure p_lam756
-  self%c_y = a1
+  self%c_n = a1
   return
   end procedure p_lam756
 
   module procedure p_lam757
-  self%c_m = a1
+  self%c_y = a1
   return
   end procedure p_lam757
 
   module procedure p_lam758
-  self%c_d = a1
+  self%c_m = a1
   return
   end procedure p_lam758
 
   module procedure p_lam759
-  self%c_y = a1
+  self%c_d = a1
   return
   end procedure p_lam759
 
   module procedure p_lam760
-  self%c_m = a1
+  self%c_y = a1
   return
   end procedure p_lam760
 
   module procedure p_lam761
-  self%c_d = a1
+  self%c_m = a1
   return
   end procedure p_lam761
 
   module procedure p_lam762
-  self%c_hour_2 = a1
+  self%c_d = a1
   return
   end procedure p_lam762
 
   module procedure p_lam763
-  self%c_minute_2 = a1
+  self%c_y = a1
   return
   end procedure p_lam763
 
   module procedure p_lam764
-  self%c_v = a1
+  self%c_m = a1
   return
   end procedure p_lam764
 
   module procedure p_lam765
-  self%c_flag1 = int(a1, 1)
+  self%c_d = a1
   return
   end procedure p_lam765
 
   module procedure p_lam766
-  self%c_flag2 = int(a1, 1)
+  self%c_hour_2 = a1
   return
   end procedure p_lam766
 
   module procedure p_lam767
-  self%c_hour_2 = a1
+  self%c_minute_2 = a1
   return
   end procedure p_lam767
 
   module procedure p_lam768
-  self%c_minute_2 = a1
+  self%c_v = a1
   return
   end procedure p_lam768
 
   module procedure p_lam769
-  self%c_v = a1
+  self%c_flag1 = int(a1, 1)
   return
   end procedure p_lam769
 
   module procedure p_lam770
-  self%c_flag1 = int(a1, 1)
+  self%c_flag2 = int(a1, 1)
   return
   end procedure p_lam770
 
   module procedure p_lam771
-  self%c_flag2 = int(a1, 1)
+  self%c_hour_2 = a1
   return
   end procedure p_lam771
 
   module procedure p_lam772
-  self%c_hour_2 = a1
+  self%c_minute_2 = a1
   return
   end procedure p_lam772
 
   module procedure p_lam773
-  self%c_minute_2 = a1
+  self%c_v = a1
   return
   end procedure p_lam773
 
   module procedure p_lam774
-  self%c_v = a1
+  self%c_flag1 = int(a1, 1)
   return
   end procedure p_lam774
 
   module procedure p_lam775
-  self%c_flag1 = int(a1, 1)
+  self%c_flag2 = int(a1, 1)
   return
   end procedure p_lam775
 
   module procedure p_lam776
-  self%c_flag2 = int(a1, 1)
+  self%c_hour_2 = a1
   return
   end procedure p_lam776
 
   module procedure p_lam777
-  self%c_hour_2 = a1
+  self%c_minute_2 = a1
   return
   end procedure p_lam777
 
   module procedure p_lam778
-  self%c_minute_2 = a1
+  self%c_v = a1
   return
   end procedure p_lam778
 
+  module procedure p_lam779
+  self%c_flag1 = int(a1, 1)
+  return
+  end procedure p_lam779
+
+  module procedure p_lam780
+  self%c_flag2 = int(a1, 1)
+  return
+  end procedure p_lam780
+
+  module procedure p_lam781
+  self%c_hour_2 = a1
+  return
+  end procedure p_lam781
+
+  module procedure p_lam782
+  self%c_minute_2 = a1
+  return
+  end procedure p_lam782
+
   module procedure p_input__f__nws_read_file_postparseresolver
+    real(8), pointer :: first_date_
     real(8), pointer :: last_date_
     integer(8), pointer :: periods_precip_
-    real(8), pointer :: first_date_
     integer(4) :: zz1
     type(cpp_cptr) :: line_
     type(cpp_cptr) :: zz2
     integer(4) :: condition_
     real(8) :: accum_start_
     class(t_fn247), pointer :: emit_
-    class(t_lam748), pointer :: zz3
+    class(t_lam752), pointer :: zz3
     integer(4) :: i_
     type(cpp_cptr) :: zz4
     type(cpp_cptr) :: zz5
@@ -1944,42 +1944,42 @@ contains
     integer(4) :: k_
     type(cpp_cptr) :: zz6
     type(cpp_cptr) :: zz7
-    class(t_lam749), pointer :: zz8
+    class(t_lam753), pointer :: zz8
     class(cpp_refi), pointer :: zz9
-    class(t_lam750), pointer :: zz10
+    class(t_lam754), pointer :: zz10
     class(cpp_refi), pointer :: zz11
-    class(t_lam751), pointer :: zz12
+    class(t_lam755), pointer :: zz12
     class(cpp_refi), pointer :: zz13
-    class(t_lam752), pointer :: zz14
+    class(t_lam756), pointer :: zz14
     class(cpp_refi), pointer :: zz15
     integer(4) :: zz16
     integer(4) :: name_length_
     type(cpp_cptr) :: zz17
     type(cpp_cptr) :: zz18
-    class(t_lam753), pointer :: zz19
+    class(t_lam757), pointer :: zz19
     class(cpp_refi), pointer :: zz20
-    class(t_lam754), pointer :: zz21
+    class(t_lam758), pointer :: zz21
     class(cpp_refi), pointer :: zz22
-    class(t_lam755), pointer :: zz23
+    class(t_lam759), pointer :: zz23
     class(cpp_refi), pointer :: zz24
     integer(4) :: zz25
     integer(4) :: zz26
     type(cpp_cptr) :: zz27
     type(cpp_cptr) :: zz28
-    class(t_lam756), pointer :: zz29
+    class(t_lam760), pointer :: zz29
     class(cpp_refi), pointer :: zz30
-    class(t_lam757), pointer :: zz31
+    class(t_lam761), pointer :: zz31
     class(cpp_refi), pointer :: zz32
-    class(t_lam758), pointer :: zz33
+    class(t_lam762), pointer :: zz33
     class(cpp_refi), pointer :: zz34
     integer(4) :: zz35
     type(cpp_cptr) :: zz36
     type(cpp_cptr) :: zz37
-    class(t_lam759), pointer :: zz38
+    class(t_lam763), pointer :: zz38
     class(cpp_refi), pointer :: zz39
-    class(t_lam760), pointer :: zz40
+    class(t_lam764), pointer :: zz40
     class(cpp_refi), pointer :: zz41
-    class(t_lam761), pointer :: zz42
+    class(t_lam765), pointer :: zz42
     class(cpp_refi), pointer :: zz43
     integer(4) :: zz44
     real(8) :: date1_
@@ -1991,51 +1991,51 @@ contains
     integer(4), pointer :: minute_2_
     type(cpp_cptr) :: zz46
     type(cpp_cptr) :: zz47
-    class(t_lam762), pointer :: zz48
+    class(t_lam766), pointer :: zz48
     class(cpp_refi), pointer :: zz49
-    class(t_lam763), pointer :: zz50
+    class(t_lam767), pointer :: zz50
     class(cpp_refi), pointer :: zz51
-    class(t_lam764), pointer :: zz52
+    class(t_lam768), pointer :: zz52
     class(cpp_refl), pointer :: zz53
-    class(t_lam765), pointer :: zz54
+    class(t_lam769), pointer :: zz54
     class(cpp_refi), pointer :: zz55
-    class(t_lam766), pointer :: zz56
+    class(t_lam770), pointer :: zz56
     class(cpp_refi), pointer :: zz57
     integer(4) :: zz58
     integer(4) :: zz59
     type(cpp_cptr) :: zz60
     type(cpp_cptr) :: zz61
-    class(t_lam767), pointer :: zz62
+    class(t_lam771), pointer :: zz62
     class(cpp_refi), pointer :: zz63
-    class(t_lam768), pointer :: zz64
+    class(t_lam772), pointer :: zz64
     class(cpp_refi), pointer :: zz65
-    class(t_lam769), pointer :: zz66
+    class(t_lam773), pointer :: zz66
     class(cpp_refl), pointer :: zz67
-    class(t_lam770), pointer :: zz68
+    class(t_lam774), pointer :: zz68
     class(cpp_refi), pointer :: zz69
-    class(t_lam771), pointer :: zz70
+    class(t_lam775), pointer :: zz70
     class(cpp_refi), pointer :: zz71
     integer(4) :: zz72
     integer(4) :: zz73
     type(cpp_cptr) :: zz74
     type(cpp_cptr) :: zz75
-    class(t_lam772), pointer :: zz76
+    class(t_lam776), pointer :: zz76
     class(cpp_refi), pointer :: zz77
-    class(t_lam773), pointer :: zz78
+    class(t_lam777), pointer :: zz78
     class(cpp_refi), pointer :: zz79
-    class(t_lam774), pointer :: zz80
+    class(t_lam778), pointer :: zz80
     class(cpp_refl), pointer :: zz81
-    class(t_lam775), pointer :: zz82
+    class(t_lam779), pointer :: zz82
     class(cpp_refi), pointer :: zz83
-    class(t_lam776), pointer :: zz84
+    class(t_lam780), pointer :: zz84
     class(cpp_refi), pointer :: zz85
     integer(4) :: zz86
     integer(4) :: zz87
     type(cpp_cptr) :: zz88
     type(cpp_cptr) :: zz89
-    class(t_lam777), pointer :: zz90
+    class(t_lam781), pointer :: zz90
     class(cpp_refi), pointer :: zz91
-    class(t_lam778), pointer :: zz92
+    class(t_lam782), pointer :: zz92
     class(cpp_refi), pointer :: zz93
     integer(4) :: zz94
     integer(4) :: zz95
@@ -2053,12 +2053,12 @@ contains
     integer(4) :: j_
     real(8) :: zz102
     class(cpp_object), pointer :: zz103
+  allocate(first_date_)
+  first_date_ = first_date__ref_
   allocate(last_date_)
   last_date_ = last_date__ref_
   allocate(periods_precip_)
   periods_precip_ = periods_precip__ref_
-  allocate(first_date_)
-  first_date_ = first_date__ref_
   zz1 = 0
   zz2 = cpp_r_buf_i(4096)
   line_ = zz2
@@ -2367,9 +2367,9 @@ contains
   101 continue
   zz103 => cpp_exc
   cpp_exc => null()
+  first_date__ref_ = first_date_
   last_date__ref_ = last_date_
   periods_precip__ref_ = periods_precip_
-  first_date__ref_ = first_date_
   if (associated(zz103)) then
     cpp_exc => zz103
     return
@@ -2379,40 +2379,40 @@ contains
   end if
   end procedure p_input__f__nws_read_file_postparseresolver
 
-  module procedure p_lam779
-  self%c_yr = a1
-  return
-  end procedure p_lam779
-
-  module procedure p_lam780
-  self%c_mo = a1
-  return
-  end procedure p_lam780
-
-  module procedure p_lam781
-  self%c_dy = a1
-  return
-  end procedure p_lam781
-
-  module procedure p_lam782
-  self%c_hr = a1
-  return
-  end procedure p_lam782
-
   module procedure p_lam783
-  self%c_mn = a1
+  self%c_yr = a1
   return
   end procedure p_lam783
 
   module procedure p_lam784
-  self%c_val = a1
+  self%c_mo = a1
   return
   end procedure p_lam784
 
   module procedure p_lam785
-  zres = (self%c_series%x%a%a(a1) < self%c_series%x%a%a(a2))
+  self%c_dy = a1
   return
   end procedure p_lam785
+
+  module procedure p_lam786
+  self%c_hr = a1
+  return
+  end procedure p_lam786
+
+  module procedure p_lam787
+  self%c_mn = a1
+  return
+  end procedure p_lam787
+
+  module procedure p_lam788
+  self%c_val = a1
+  return
+  end procedure p_lam788
+
+  module procedure p_lam789
+  zres = (self%c_series%x%a%a(a1) < self%c_series%x%a%a(a2))
+  return
+  end procedure p_lam789
 
   module procedure p_input__f__load_external_rain_files_impl_postparseresolver
     integer(4) :: n_gages_
@@ -2482,17 +2482,17 @@ contains
     logical :: zz35
     logical :: zz36
     type(cpp_cptr) :: zz37
-    class(t_lam779), pointer :: zz38
+    class(t_lam783), pointer :: zz38
     class(cpp_refi), pointer :: zz39
-    class(t_lam780), pointer :: zz40
+    class(t_lam784), pointer :: zz40
     class(cpp_refi), pointer :: zz41
-    class(t_lam781), pointer :: zz42
+    class(t_lam785), pointer :: zz42
     class(cpp_refi), pointer :: zz43
-    class(t_lam782), pointer :: zz44
+    class(t_lam786), pointer :: zz44
     class(cpp_refi), pointer :: zz45
-    class(t_lam783), pointer :: zz46
+    class(t_lam787), pointer :: zz46
     class(cpp_refi), pointer :: zz47
-    class(t_lam784), pointer :: zz48
+    class(t_lam788), pointer :: zz48
     class(cpp_reff), pointer :: zz49
     integer(4) :: zz50
     logical :: zz51
@@ -2512,7 +2512,7 @@ contains
     class(cpp_arr_l), pointer :: zz60
     type(cpp_iter_l) :: zz61
     integer(8) :: zz62
-    class(t_lam785), pointer :: zz63
+    class(t_lam789), pointer :: zz63
     integer(8) :: zz64
     class(cpp_vec_d), pointer :: sx_
     class(cpp_vec_d), pointer :: zz65
@@ -5070,12 +5070,12 @@ contains
   end do
   end procedure p_input__f__handle_subcatchments
 
-  module procedure p_lam786
+  module procedure p_lam790
     integer(8) :: zz1
   zz1 = cpp_str_rfind_cptr_ul(self%c_rt, a1, 0_8)
   zres = (zz1 == 0_8)
   return
-  end procedure p_lam786
+  end procedure p_lam790
 
   module procedure p_input__f__handle_subareas
     class(cpp_vec_o), pointer :: x__r1_
@@ -5120,7 +5120,7 @@ contains
     class(cpp_str), pointer :: zz33
     class(cpp_str), pointer :: zz34
     class(t_fn139), pointer :: has_prefix_
-    class(t_lam786), pointer :: zz35
+    class(t_lam790), pointer :: zz35
     integer(4) :: mode_
     type(cpp_cptr) :: zz36
     logical :: zz37
@@ -5774,23 +5774,23 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_input__f__ensure_subcatch_capacity_catchmenthandler
 
-  module procedure p_lam787
+  module procedure p_lam791
   if ((ieor(cpp_vec_b_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_b_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam787
+  end procedure p_lam791
 
-  module procedure p_lam788
+  module procedure p_lam792
   if ((ieor(cpp_vec_i_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_i_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam788
+  end procedure p_lam792
 
-  module procedure p_lam789
+  module procedure p_lam793
     class(*), pointer :: zz1
     integer(8) :: zz2
   if ((ieor(cpp_vec_o_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
@@ -5800,9 +5800,9 @@ contains
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam789
+  end procedure p_lam793
 
-  module procedure p_lam790
+  module procedure p_lam794
     class(t_filepathpair), pointer :: zz1
     class(*), pointer :: zz2
     integer(8) :: zz3
@@ -5814,69 +5814,69 @@ contains
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam790
+  end procedure p_lam794
 
-  module procedure p_lam791
+  module procedure p_lam795
   if ((ieor(cpp_vec_d_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_d_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam791
+  end procedure p_lam795
 
-  module procedure p_lam792
+  module procedure p_lam796
   if ((ieor(cpp_vec_l_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_l_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam792
+  end procedure p_lam796
 
-  module procedure p_lam793
+  module procedure p_lam797
   if ((ieor(cpp_vec_b_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_b_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam793
+  end procedure p_lam797
 
-  module procedure p_lam794
+  module procedure p_lam798
   if ((ieor(cpp_vec_z_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_z_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam794
+  end procedure p_lam798
 
-  module procedure p_lam795
+  module procedure p_lam799
   if ((ieor(cpp_vec_b_size(a1), (-9223372036854775807_8 - 1_8)) < ieor(self%c_n, (-9223372036854775807_8 - 1_8)))) then
     call cpp_vec_b_resize_ul_t(a1, self%c_n, a2)
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam795
+  end procedure p_lam799
 
   module procedure p_input__f__ensure_gage_capacity_catchmenthandler
     integer(8) :: n_
     class(cpp_arr_o), pointer :: grow_
     class(cpp_arr_o), pointer :: zz1
-    class(t_lam787), pointer :: zz2
+    class(t_lam791), pointer :: zz2
     class(*), pointer :: zz3
-    class(t_lam788), pointer :: zz4
+    class(t_lam792), pointer :: zz4
     class(*), pointer :: zz5
-    class(t_lam789), pointer :: zz6
+    class(t_lam793), pointer :: zz6
     class(*), pointer :: zz7
-    class(t_lam790), pointer :: zz8
+    class(t_lam794), pointer :: zz8
     class(*), pointer :: zz9
-    class(t_lam791), pointer :: zz10
+    class(t_lam795), pointer :: zz10
     class(*), pointer :: zz11
-    class(t_lam792), pointer :: zz12
+    class(t_lam796), pointer :: zz12
     class(*), pointer :: zz13
-    class(t_lam793), pointer :: zz14
+    class(t_lam797), pointer :: zz14
     class(*), pointer :: zz15
-    class(t_lam794), pointer :: zz16
+    class(t_lam798), pointer :: zz16
     class(*), pointer :: zz17
-    class(t_lam795), pointer :: zz18
+    class(t_lam799), pointer :: zz18
     class(*), pointer :: zz19
     class(t_fn248), pointer :: zz20
     class(t_fn31), pointer :: zz21
@@ -6074,7 +6074,7 @@ contains
   end if
   end procedure p_input__f__ensure_gage_capacity_catchmenthandler
 
-  module procedure p_lam796
+  module procedure p_lam800
     class(cpp_str), pointer :: zz1
     class(*), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
@@ -6086,13 +6086,13 @@ contains
     call cpp_str_clear(self%c_current_block)
   end if
   return
-  end procedure p_lam796
+  end procedure p_lam800
 
   module procedure p_input__f__handle_controls
     class(cpp_str), pointer :: current_block_
     class(cpp_str), pointer :: zz1
     class(t_fn3), pointer :: flush_block_
-    class(t_lam796), pointer :: zz2
+    class(t_lam800), pointer :: zz2
     class(cpp_vec_o), pointer :: x__r1_
     integer(8) :: x__i2_
     integer(8) :: x__i2_n_

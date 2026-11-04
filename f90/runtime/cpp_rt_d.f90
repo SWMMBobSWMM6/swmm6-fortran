@@ -202,6 +202,10 @@ module cpp_rt_d
     integer(8) :: srcpos = 0                     ! the file offset past the bytes read (FileStream.Position)
     logical :: srcseek = .true.
     integer(8) :: gcountv = 0
+    ! an ifstream opened on a directory: libstdc++ opens it (open(2) of a directory for reading succeeds) and the
+    ! first read fails with EISDIR, which basic_filebuf::underflow throws as ios_base::failure and the extraction
+    ! catches: badbit and failbit, not eofbit (C# Cpp.IStream.dir)
+    logical :: dir = .false.
   end type cpp_istream
 
   type, extends(cpp_istream) :: cpp_istringstream
@@ -1256,6 +1260,23 @@ contains
     end if
   end function d_open_fd
 
+  !> Whether path names a directory (open(2) for reading and fstat, as libstdc++'s filebuf::open would see it).
+  recursive function d_dir_path(path) result(isd)
+    character(len=*), intent(in) :: path
+    logical :: isd
+    character(len=:), allocatable :: full
+    integer :: err
+    integer(c_int) :: fd, r
+    integer(8) :: mode, sz
+    isd = .false.
+    full = d_fullpath(path, err)
+    if (err /= 0) return
+    fd = d_c_open(full // c_null_char, ior(O_RDONLY, O_CLOEXEC), 438_c_int)
+    if (fd < 0) return
+    if (d_fstat(fd, mode, sz)) isd = d_isdir(mode)
+    r = d_c_close(fd)
+  end function d_dir_path
+
   recursive subroutine d_close_fd(fd)
     integer(c_int), intent(in) :: fd
     integer(c_int) :: r
@@ -2069,7 +2090,7 @@ contains
     zres => self
     n = int(int(a2, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (n /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 1_8, n)) return
@@ -2088,7 +2109,7 @@ contains
     zres => self
     n = int(int(a2, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (n /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 8_8, n)) return
@@ -2107,7 +2128,7 @@ contains
     zres => self
     n = int(int(a2, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (n /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 4_8, n)) return
@@ -2126,7 +2147,7 @@ contains
     zres => self
     n = int(int(a2, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (n /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 4_8, n)) return
@@ -2145,7 +2166,7 @@ contains
     zres => self
     n = int(int(a2, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (n /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 8_8, n)) return
@@ -2403,6 +2424,11 @@ contains
       return
     end if
     ok = .false.
+    if (self%dir) then
+      self%badbit = .true.
+      self%failbit = .true.
+      return
+    end if
     if (self%src < 0) return
     if (.not. associated(self%buf)) then
       self%buf => cpp_arr_b_new(STREAM_BUF)
@@ -2427,6 +2453,12 @@ contains
     ok = self%len > 0
   end function d_fill
 
+  !> A read found no more input: the end of the input sets eofbit; a failed read (dir) set badbit instead.
+  recursive subroutine d_atend(self)
+    class(cpp_istream), intent(inout) :: self
+    if (.not. self%dir) self%eofbit = .true.
+  end subroutine d_atend
+
   recursive function d_cur(self) result(c)
     class(cpp_istream), intent(in) :: self
     integer :: c
@@ -2445,7 +2477,7 @@ contains
     zres = -1
     if (.not. d_fill(self)) then
       if (associated(cpp_exc)) return
-      self%eofbit = .true.
+      call d_atend(self)
       return
     end if
     zres = d_cur(self)
@@ -2458,7 +2490,7 @@ contains
     zres = -1
     if (.not. d_fill(self)) then
       if (associated(cpp_exc)) return
-      self%eofbit = .true.
+      call d_atend(self)
       self%failbit = .true.
       return
     end if
@@ -2537,7 +2569,7 @@ contains
     if (associated(cpp_exc)) return
     self%gcountv = got
     if (got < a2) then
-      self%eofbit = .true.
+      call d_atend(self)
       self%failbit = .true.
     end if
   end function cpp_istream_read_cptr_l
@@ -2577,7 +2609,7 @@ contains
     if (associated(cpp_exc)) return
     g = int(int(self%gcountv, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (g /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 1_8, g)) return
@@ -2599,7 +2631,7 @@ contains
     if (associated(cpp_exc)) return
     g = int(int(self%gcountv, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (g /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 8_8, g)) return
@@ -2621,7 +2653,7 @@ contains
     if (associated(cpp_exc)) return
     g = int(int(self%gcountv, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (g /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 4_8, g)) return
@@ -2643,7 +2675,7 @@ contains
     if (associated(cpp_exc)) return
     g = int(int(self%gcountv, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (g /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 4_8, g)) return
@@ -2665,7 +2697,7 @@ contains
     if (associated(cpp_exc)) return
     g = int(int(self%gcountv, 4), 8)
     if (.not. associated(a1%a)) then
-      call d_throw_nre()
+      if (g /= 0) call d_throw_nre()     ! no bytes at a null pointer (an empty vector's data()) are no bytes
       return
     end if
     if (.not. d_span_ok(size(a1%a%a, kind=8), a1%o, 8_8, g)) return
@@ -2692,7 +2724,7 @@ contains
       if (.not. d_fill(self)) then
         zres = .false.
         if (associated(cpp_exc)) return
-        self%eofbit = .true.
+        call d_atend(self)
         if (.not. any) self%failbit = .true.
         zres = any
         return
@@ -2754,9 +2786,9 @@ contains
     if (associated(cpp_exc)) return
     if (n == 0) then
       self%failbit = .true.
-      if (.not. d_fill(self)) self%eofbit = .true.
+      if (.not. d_fill(self)) call d_atend(self)
     else if (.not. d_fill(self)) then
-      self%eofbit = .true.
+      call d_atend(self)
     end if
   end subroutine d_token
 
@@ -2784,7 +2816,7 @@ contains
     do
       if (.not. d_fill(self)) then
         if (associated(cpp_exc)) return
-        self%eofbit = .true.
+        call d_atend(self)
         exit
       end if
       if (.not. d_isws(d_cur(self))) exit
@@ -2792,34 +2824,113 @@ contains
     end do
   end function cpp_istream_manip_ws
 
+  !> is >> v for a double, as libstdc++ does it (C# Cpp.IStream.Get(ref double)): the sentry (a stream not good
+  !> extracts nothing; white space skipped; at the end of the input eof and fail, v unchanged); num_get's
+  !> _M_extract_float takes the characters a C-locale number can have (a sign, one of any leading zeros, digits, one
+  !> '.', and an 'e' after a digit with its sign), stopping at the first other one, which stays in the stream ("0x10"
+  !> is read as 0, then x10 is left); the gnu __convert_to_v converts them with strtod: not all of them converted
+  !> (nothing, "1e", "inf") is failbit with v = 0, an overflow (+-inf) is failbit with v = +-DBL_MAX, an underflow
+  !> is no error. eofbit when the number ends the input.
   recursive function cpp_istream_get_dr(self, a1) result(zres)
     class(cpp_istream), intent(inout), target :: self
     real(8), intent(inout) :: a1
     class(cpp_istream), pointer :: zres
-    integer(1), allocatable :: t(:)
+    integer(1), allocatable :: t(:), g(:)
     integer(8) :: n
     class(cpp_arr_b), pointer :: b
     type(cpp_cptr) :: p, e
     real(8) :: r
+    integer :: c
+    logical :: more, mant, dec, sci
     zres => self
-    call d_token(self, t, n)
-    if (associated(cpp_exc)) return
-    if (n == 0) then
-      a1 = 0
+    if (self%failbit .or. self%eofbit .or. self%badbit) then
+      self%failbit = .true.
       return
     end if
+    call d_skipws(self)
+    if (associated(cpp_exc)) return
+    if (.not. d_fill(self)) then
+      if (associated(cpp_exc)) return
+      call d_atend(self)
+      self%failbit = .true.
+      return
+    end if
+    allocate(t(0:63))
+    n = 0
+    more = .true.
+    c = d_cur(self)
+    mant = .false.
+    dec = .false.
+    sci = .false.
+    if (c == 43 .or. c == 45) then
+      call put(c)
+      call nxt()
+    end if
+    do while (more .and. c == 48)
+      if (.not. mant) then
+        call put(48)
+        mant = .true.
+      end if
+      call nxt()
+    end do
+    do while (more)
+      if (c >= 48 .and. c <= 57) then
+        call put(c)
+        mant = .true.
+      else if (c == 46 .and. .not. dec .and. .not. sci) then
+        call put(46)
+        dec = .true.
+      else if ((c == 101 .or. c == 69) .and. .not. sci .and. mant) then
+        call put(101)
+        sci = .true.
+        call nxt()
+        if (.not. more) exit
+        if (c == 43 .or. c == 45) then
+          call put(c)
+        else
+          cycle                                  ! look at this character again
+        end if
+      else
+        exit
+      end if
+      call nxt()
+    end do
+    if (associated(cpp_exc)) return
+    if (.not. more) call d_atend(self)
     b => cpp_arr_b_new(n + 1)
-    b%a(0:n - 1) = t(0:n - 1)
+    if (n > 0) b%a(0:n - 1) = t(0:n - 1)
     p = cpp_cptr(b=b, o=0)
     e = p
     r = cpp_r_strtod_cptr_cptrr(p, e)
     if (associated(cpp_exc)) return
-    if (e%o /= n) then
+    if (e%o == 0 .or. e%o /= n) then
       self%failbit = .true.
       a1 = 0
-      return
+    else if (r > huge(r)) then
+      self%failbit = .true.
+      a1 = huge(r)
+    else if (r < -huge(r)) then
+      self%failbit = .true.
+      a1 = -huge(r)
+    else
+      a1 = r
     end if
-    a1 = r
+  contains
+    recursive subroutine put(ch)
+      integer, intent(in) :: ch
+      if (n >= size(t, kind=8)) then
+        allocate(g(0:2 * n - 1))
+        g(0:n - 1) = t(0:n - 1)
+        call move_alloc(g, t)
+      end if
+      t(n) = int(ch, 1)
+      n = n + 1
+    end subroutine put
+    recursive subroutine nxt()
+      self%pos = self%pos + 1
+      more = d_fill(self)
+      if (more) c = d_cur(self)
+    end subroutine nxt
   end function cpp_istream_get_dr
 
   recursive function cpp_istream_get_fr(self, a1) result(zres)
@@ -3105,6 +3216,16 @@ contains
       call d_close_fd(self%src)
       self%src = -1
     end if
+    self%dir = .false.
+    if (d_dir_path(d_snet(a1))) then
+      ! libstdc++ opens a directory for reading; every read then fails (cpp_istream%dir)
+      self%dir = .true.
+      self%srcpos = 0
+      self%failbit = .false.
+      self%pos = 0
+      self%len = 0
+      return
+    end if
     fd = d_open_fd(d_snet(a1), O_RDONLY)
     if (fd < 0) then
       self%src = -1
@@ -3129,13 +3250,14 @@ contains
   recursive function cpp_ifstream_is_open(self) result(zres)
     class(cpp_ifstream), intent(inout), target :: self
     logical :: zres
-    zres = self%src >= 0
+    zres = self%src >= 0 .or. self%dir
   end function cpp_ifstream_is_open
 
   recursive subroutine cpp_ifstream_close(self)
     class(cpp_ifstream), intent(inout), target :: self
     if (self%src >= 0) call d_close_fd(self%src)
     self%src = -1
+    self%dir = .false.
   end subroutine cpp_ifstream_close
 
   recursive subroutine cpp_ifstream_dispose(self)
@@ -3157,7 +3279,9 @@ contains
     self%buf => a1%buf
     self%pos = a1%pos
     self%len = a1%len
+    self%dir = a1%dir
     a1%src = -1
+    a1%dir = .false.
   end subroutine cpp_ifstream_movefrom
 
   ! ============================================================================================ Streams

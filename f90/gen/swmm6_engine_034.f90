@@ -1124,14 +1124,14 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_lid_lidsolver_lidrptfile__dispose
 
-  module procedure p_lam424
+  module procedure p_lam427
   call p_detail_completedsourcearchive__op_call__rd_rd_rd_rd_8e779acb(self%c_a, a1%s, a1%ks, a1%imdmax, a1%imd, a1%f, a1%fu, a1%fumax, a1%lu, a1%t, a1%saturated)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam424
+  end procedure p_lam427
 
-  module procedure p_lam423
-    class(t_lam424), pointer :: zz1
+  module procedure p_lam426
+    class(t_lam427), pointer :: zz1
     class(*), pointer :: zz2
     class(t_detail_completedsourcearchive), pointer :: zz3
     class(cpp_vec_o), pointer :: zz4
@@ -1180,10 +1180,10 @@ contains
     if (associated(cpp_exc)) return
   end if
   return
-  end procedure p_lam423
+  end procedure p_lam426
 
   module procedure p_lid_lidsolver__checkpoint
-    class(t_lam423), pointer :: zz1
+    class(t_lam426), pointer :: zz1
     class(*), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
   if (model_) then
@@ -1210,7 +1210,7 @@ contains
   end if
   end procedure p_lid_lidsolver__checkpoint
 
-  module procedure p_lam425
+  module procedure p_lam428
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(cpp_runtimeerror), pointer :: zz3
@@ -1223,11 +1223,11 @@ contains
     return
   end if
   return
-  end procedure p_lam425
+  end procedure p_lam428
 
   module procedure p_lid_lidsolver__validatecheckpoint
     class(t_fn69), pointer :: require_
-    class(t_lam425), pointer :: zz1
+    class(t_lam428), pointer :: zz1
     logical :: zz2
     logical :: zz3
     logical :: zz4
@@ -1695,7 +1695,13 @@ contains
     call p_lidnodelayer__ctor_x(zz19)
     zz19%kind = 0
     zz20 => cpp_arr_d_new(7_8)
-    zz20%a(0:6) = [real(8) :: 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8]
+    zz20%a(0) = s_%a(0_8)
+    zz20%a(1) = s_%a(1_8)
+    zz20%a(2) = 0.0_8
+    zz20%a(3) = 0.0_8
+    zz20%a(4) = 0.0_8
+    zz20%a(5) = 0.0_8
+    zz20%a(6) = 0.0_8
     zz19%params => zz20
     zz21 => cpp_vec_o_new_0(h_mk_lidlayertreatment, 2)
     zz19%treatment => zz21
@@ -1721,7 +1727,13 @@ contains
     call p_lidnodelayer__ctor_x(zz29)
     zz29%kind = 2
     zz30 => cpp_arr_d_new(7_8)
-    zz30%a(0:6) = [real(8) :: 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8]
+    zz30%a(0) = p_%a(0_8)
+    zz30%a(1) = ((p_%a(1_8) / (1.0_8 + p_%a(1_8))) * (1.0_8 - p_%a(2_8)))
+    zz30%a(2) = p_%a(3_8)
+    zz30%a(3) = 0.0_8
+    zz30%a(4) = 0.0_8
+    zz30%a(5) = 0.0_8
+    zz30%a(6) = 0.0_8
     zz29%params => zz30
     zz31 => cpp_vec_o_new_0(h_mk_lidlayertreatment, 2)
     zz29%treatment => zz31
@@ -1763,7 +1775,13 @@ contains
     call p_lidnodelayer__ctor_x(zz45)
     zz45%kind = 2
     zz46 => cpp_arr_d_new(7_8)
-    zz46%a(0:6) = [real(8) :: 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8]
+    zz46%a(0) = g_%a(0_8)
+    zz46%a(1) = (g_%a(1_8) / (1.0_8 + g_%a(1_8)))
+    zz46%a(2) = 1000000000000.0_8
+    zz46%a(3) = 0.0_8
+    zz46%a(4) = 0.0_8
+    zz46%a(5) = 0.0_8
+    zz46%a(6) = 0.0_8
     zz45%params => zz46
     zz47 => cpp_vec_o_new_0(h_mk_lidlayertreatment, 2)
     zz45%treatment => zz47
@@ -1780,7 +1798,13 @@ contains
     call p_lidnodelayer__ctor_x(zz52)
     zz52%kind = 3
     zz53 => cpp_arr_d_new(7_8)
-    zz53%a(0:6) = [real(8) :: 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8, 0.0_8]
+    zz53%a(0) = g_%a(2_8)
+    zz53%a(1) = g_%a(3_8)
+    zz53%a(2) = 0.0_8
+    zz53%a(3) = 0.0_8
+    zz53%a(4) = 0.0_8
+    zz53%a(5) = 0.0_8
+    zz53%a(6) = 0.0_8
     zz52%params => zz53
     zz54 => cpp_vec_o_new_0(h_mk_lidlayertreatment, 2)
     zz52%treatment => zz54
@@ -2060,29 +2084,29 @@ contains
   return
   end procedure p_lidnode__f__thickness
 
-  module procedure p_lam427
+  module procedure p_lam430
     class(t_lidnodeconfig), pointer :: c_2_
     class(t_lidnodeconfig), pointer :: zz1
   zz1 => h_uas_lidnodeconfig(a1)
   c_2_ => zz1
   zres = (c_2_%control >= 0)
   return
-  end procedure p_lam427
+  end procedure p_lam430
 
-  module procedure p_lam428
+  module procedure p_lam431
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam428
+  end procedure p_lam431
 
-  module procedure p_lam429
+  module procedure p_lam432
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam429
+  end procedure p_lam432
 
-  module procedure p_lam430
+  module procedure p_lam433
   zres = (a1 /= 0.0_8)
   return
-  end procedure p_lam430
+  end procedure p_lam433
 
   module procedure p_lidnode__f__validate
     integer(4) :: c_
@@ -2119,7 +2143,7 @@ contains
     class(cpp_vec_o), pointer :: zz21
     class(t_storagedata), pointer :: st_
     logical :: has_lid_
-    class(t_lam427), pointer :: zz22
+    class(t_lam430), pointer :: zz22
     type(cpp_iter_o) :: zz23
     type(cpp_iter_o) :: zz24
     logical :: zz25
@@ -2165,7 +2189,7 @@ contains
     class(cpp_vec_o), pointer :: zz59
     logical :: zz60
     logical :: zz61
-    class(t_lam428), pointer :: zz62
+    class(t_lam431), pointer :: zz62
     type(cpp_iter_b) :: zz63
     type(cpp_iter_b) :: zz64
     logical :: zz65
@@ -2173,7 +2197,7 @@ contains
     logical :: zz67
     logical :: zz68
     logical :: zz69
-    class(t_lam429), pointer :: zz70
+    class(t_lam432), pointer :: zz70
     type(cpp_iter_b) :: zz71
     type(cpp_iter_b) :: zz72
     logical :: zz73
@@ -2204,7 +2228,7 @@ contains
     class(cpp_arr_d), pointer :: zz95
     logical :: zz96
     logical :: zz97
-    class(t_lam430), pointer :: zz98
+    class(t_lam433), pointer :: zz98
     type(cpp_iter_d) :: zz99
     type(cpp_iter_d) :: zz100
     logical :: zz101
@@ -3041,17 +3065,17 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_lidnode__f__finishstep
 
-  module procedure p_lam431
+  module procedure p_lam434
     class(t_lidnodestate), pointer :: s_
     class(t_lidnodestate), pointer :: zz1
   zz1 => h_uas_lidnodestate(a1)
   s_ => zz1
   zres = s_%richards_mesh_routed
   return
-  end procedure p_lam431
+  end procedure p_lam434
 
   module procedure p_lidnode__f__resetports
-    class(t_lam431), pointer :: zz1
+    class(t_lam434), pointer :: zz1
     type(cpp_iter_o) :: zz2
     type(cpp_iter_o) :: zz3
     logical :: zz4
@@ -3734,14 +3758,14 @@ contains
   end do
   end procedure p_lidnode__f__readnodes
 
-  module procedure p_lam432
+  module procedure p_lam435
     class(t_lidnodeoutlet), pointer :: a_
     class(t_lidnodeoutlet), pointer :: zz1
   zz1 => h_uas_lidnodeoutlet(a1)
   a_ => zz1
   zres = (a_%link == self%c___cap3)
   return
-  end procedure p_lam432
+  end procedure p_lam435
 
   module procedure p_lidnode__f__readoutlets
     class(cpp_vec_o), pointer :: x__r1_
@@ -3789,7 +3813,7 @@ contains
     class(cpp_pair), pointer :: zz35
     class(cpp_vec_o), pointer :: out_
     integer(4) :: x__cap3_
-    class(t_lam432), pointer :: zz36
+    class(t_lam435), pointer :: zz36
     type(cpp_iter_o) :: zz37
     type(cpp_iter_o) :: zz38
     logical :: zz39
@@ -3928,100 +3952,102 @@ contains
     class(t_lidnodecell), pointer :: zz5
     integer(4) :: i_
     class(*), pointer :: zz6
-    integer(8) :: zz7
+    type(cpp_ptr_o) :: zz7
+    integer(8) :: zz8
     real(8) :: v_
-    class(t_lidwatertransfer), pointer :: zz8
-    class(*), pointer :: zz9
-    class(cpp_vec_o), pointer :: zz10
-    class(t_lidwatertransfer), pointer :: zz11
-    class(*), pointer :: zz12
-    class(cpp_vec_o), pointer :: zz13
+    class(t_lidwatertransfer), pointer :: zz9
+    class(*), pointer :: zz10
+    class(cpp_vec_o), pointer :: zz11
+    class(t_lidwatertransfer), pointer :: zz12
+    class(*), pointer :: zz13
+    class(cpp_vec_o), pointer :: zz14
     class(t_lidnodecell), pointer :: first_
-    type(cpp_slot), pointer :: zz14
-    class(t_lidnodecell), pointer :: zz15
+    type(cpp_slot), pointer :: zz15
+    class(t_lidnodecell), pointer :: zz16
     real(8) :: capacity_
     real(8) :: capture_
-    real(8) :: zz16
-    class(t_lidwatertransfer), pointer :: zz17
-    class(*), pointer :: zz18
-    class(cpp_vec_o), pointer :: zz19
-    real(8) :: zz20
+    real(8) :: zz17
+    class(t_lidwatertransfer), pointer :: zz18
+    class(*), pointer :: zz19
+    class(cpp_vec_o), pointer :: zz20
     real(8) :: zz21
+    real(8) :: zz22
     real(8) :: evap_
     class(cpp_vec_o), pointer :: x__r5_
     integer(8) :: x__i6_
     integer(8) :: x__i6_n_
     class(t_lidnodecell), pointer :: c_2_
-    class(t_lidnodecell), pointer :: zz22
+    class(t_lidnodecell), pointer :: zz23
     real(8) :: take_
-    real(8) :: zz23
     real(8) :: zz24
     real(8) :: zz25
-    class(t_lidwatertransfer), pointer :: zz26
-    class(*), pointer :: zz27
-    integer(8) :: zz28
-    integer(4), pointer :: zz29
-    class(*), pointer :: zz30
-    class(cpp_vec_o), pointer :: zz31
+    real(8) :: zz26
+    class(t_lidwatertransfer), pointer :: zz27
+    class(*), pointer :: zz28
+    type(cpp_ptr_o) :: zz29
+    integer(8) :: zz30
+    integer(4), pointer :: zz31
+    class(*), pointer :: zz32
+    class(cpp_vec_o), pointer :: zz33
     real(8) :: remaining_
     real(8) :: step_
     class(cpp_vec_d), pointer :: transfer_
-    class(cpp_vec_d), pointer :: zz32
+    class(cpp_vec_d), pointer :: zz34
     integer(8) :: i_2_
     class(t_lidnodecell), pointer :: c_3_
-    class(t_lidnodecell), pointer :: zz33
-    real(8) :: q_
-    logical :: zz34
-    class(t_lidnodecell), pointer :: below_
     class(t_lidnodecell), pointer :: zz35
+    real(8) :: q_
+    logical :: zz36
+    class(t_lidnodecell), pointer :: below_
+    class(t_lidnodecell), pointer :: zz37
     class(t_greenamptstate), pointer :: trial_
-    class(t_greenamptstate), pointer :: zz36
+    class(t_greenamptstate), pointer :: zz38
     real(8) :: factor_
     real(8) :: head_
     logical :: wet_from_below_
-    real(8) :: zz37
-    real(8) :: deficit_
-    real(8) :: zz38
     real(8) :: zz39
+    real(8) :: deficit_
+    real(8) :: zz40
+    real(8) :: zz41
     real(8) :: v_2_
     class(t_lidnodecell), pointer :: below_2_
-    class(t_lidnodecell), pointer :: zz40
-    logical :: zz41
+    class(t_lidnodecell), pointer :: zz42
+    logical :: zz43
     class(t_greenamptstate), pointer :: ga_
     real(8) :: accepted_
-    real(8) :: zz42
+    real(8) :: zz44
     integer(8) :: i_3_
     class(t_lidnodecell), pointer :: c_4_
-    class(t_lidnodecell), pointer :: zz43
+    class(t_lidnodecell), pointer :: zz45
     integer(4) :: dest_
-    class(t_lidnodecell), pointer :: zz44
-    logical :: zz45
-    class(t_lidwatertransfer), pointer :: zz46
-    class(*), pointer :: zz47
-    class(cpp_vec_o), pointer :: zz48
-    real(8) :: zz49
+    class(t_lidnodecell), pointer :: zz46
+    logical :: zz47
+    class(t_lidwatertransfer), pointer :: zz48
+    class(*), pointer :: zz49
+    class(cpp_vec_o), pointer :: zz50
+    real(8) :: zz51
     class(t_lidnodecell), pointer :: below_3_
-    class(t_lidnodecell), pointer :: zz50
-    logical :: zz51
-    real(8) :: zz52
-    real(8) :: zz53
+    class(t_lidnodecell), pointer :: zz52
+    logical :: zz53
+    real(8) :: zz54
+    real(8) :: zz55
     class(cpp_vec_o), pointer :: x__r7_
     integer(8) :: x__i8_
     integer(8) :: x__i8_n_
     class(t_lidnodecell), pointer :: c_5_
-    class(t_lidnodecell), pointer :: zz54
-    real(8) :: zz55
-    real(8) :: zz56
-    real(8) :: roundoff_
-    class(cpp_arr_d), pointer :: zz57
+    class(t_lidnodecell), pointer :: zz56
+    real(8) :: zz57
     real(8) :: zz58
-    logical :: zz59
+    real(8) :: roundoff_
+    class(cpp_arr_d), pointer :: zz59
     real(8) :: zz60
-    real(8), pointer :: zz61
+    logical :: zz61
     real(8) :: zz62
     real(8), pointer :: zz63
-    logical :: zz64
-    logical :: zz65
+    real(8) :: zz64
+    real(8), pointer :: zz65
+    logical :: zz66
+    logical :: zz67
   zz1 => p_perf_processtimer__new_processphase(22_8)
   if (associated(cpp_exc)) return
   process_timer_ => zz1
@@ -4071,85 +4097,87 @@ contains
       c_ => zz5
       if ((c_%top <= ctx_%nodes%depth%a%a(int(n_, 8)))) then
         zz6 => c_
-        zz7 = cpp_mem_diff_t_ptrt__o(zz6, cpp_vec_o_data(state_%cells), h_mk_lidnodecell, 2)
-        i_ = int(zz7, 4)
+        zz7 = cpp_vec_o_data(state_%cells)
+        zz8 = cpp_mem_diff_t_ptrt__o(zz6, zz7, h_mk_lidnodecell, 2)
+        i_ = int(zz8, 4)
         v_ = ((c_%field_capacity - c_%theta) * c_%geometric_volume)
         if ((v_ > 0.0_8)) then
-          zz10 => state_%quality_transfers
-          allocate(zz8)
-          call p_lidwatertransfer__ctor_x(zz8)
-          zz8%from = (-1)
-          zz8%to = i_
-          zz8%volume = v_
-          zz9 => zz8
-          call cpp_vec_o_push_back(zz10, zz9)
+          zz11 => state_%quality_transfers
+          allocate(zz9)
+          call p_lidwatertransfer__ctor_x(zz9)
+          zz9%from = (-1)
+          zz9%to = i_
+          zz9%volume = v_
+          zz10 => zz9
+          call cpp_vec_o_push_back(zz11, zz10)
         else if ((v_ < 0.0_8)) then
-          zz13 => state_%quality_transfers
-          allocate(zz11)
-          call p_lidwatertransfer__ctor_x(zz11)
-          zz11%from = i_
-          zz11%to = (-1)
-          zz11%volume = (-v_)
-          zz12 => zz11
-          call cpp_vec_o_push_back(zz13, zz12)
+          zz14 => state_%quality_transfers
+          allocate(zz12)
+          call p_lidwatertransfer__ctor_x(zz12)
+          zz12%from = i_
+          zz12%to = (-1)
+          zz12%volume = (-v_)
+          zz13 => zz12
+          call cpp_vec_o_push_back(zz14, zz13)
         end if
         c_%theta = c_%field_capacity
       end if
       x__i4_ = (x__i4_ + 1_8)
     end do
-    zz14 => cpp_vec_o_front(state_%cells)
-    zz15 => h_uas_lidnodecell(zz14%p)
-    first_ => zz15
+    zz15 => cpp_vec_o_front(state_%cells)
+    zz16 => h_uas_lidnodecell(zz15%p)
+    first_ => zz16
     capacity_ = cpp_m_max_d_d(0.0_8, ((first_%porosity - first_%theta) * first_%geometric_volume))
     capture_ = cpp_m_min_d_d((cpp_m_max_d_d(0.0_8, ctx_%nodes%lat_flow%a%a(int(n_, 8))) * dt_), capacity_)
     if ((first_%geometric_volume > 0.0_8)) then
-      zz16 = (first_%theta + (capture_ / first_%geometric_volume))
-      first_%theta = zz16
+      zz17 = (first_%theta + (capture_ / first_%geometric_volume))
+      first_%theta = zz17
     end if
     state_%captured_flow = (capture_ / dt_)
     if ((capture_ > 0.0_8)) then
-      zz19 => state_%quality_transfers
-      allocate(zz17)
-      call p_lidwatertransfer__ctor_x(zz17)
-      zz17%from = (-2)
-      zz17%to = 0
-      zz17%volume = capture_
-      zz18 => zz17
-      call cpp_vec_o_push_back(zz19, zz18)
+      zz20 => state_%quality_transfers
+      allocate(zz18)
+      call p_lidwatertransfer__ctor_x(zz18)
+      zz18%from = (-2)
+      zz18%to = 0
+      zz18%volume = capture_
+      zz19 => zz18
+      call cpp_vec_o_push_back(zz20, zz19)
     end if
-    zz20 = (state_%treated_volume + capture_)
-    state_%treated_volume = zz20
-    zz21 = (ctx_%nodes%lat_flow%a%a(int(n_, 8)) - state_%captured_flow)
-    ctx_%nodes%lat_flow%a%a(int(n_, 8)) = zz21
+    zz21 = (state_%treated_volume + capture_)
+    state_%treated_volume = zz21
+    zz22 = (ctx_%nodes%lat_flow%a%a(int(n_, 8)) - state_%captured_flow)
+    ctx_%nodes%lat_flow%a%a(int(n_, 8)) = zz22
     evap_ = cpp_m_max_d_d(0.0_8, (((evaporation_ * st_%evap_frac%a%a(int(r_, 8))) * first_%area) * dt_))
     x__r5_ => state_%cells
     x__i6_ = 0_8
     x__i6_n_ = int(x__r5_%n, 8)
     do
       if (.not. ((x__i6_ < x__i6_n_))) exit
-      zz22 => h_uas_lidnodecell(x__r5_%a%a(x__i6_)%p)
-      c_2_ => zz22
+      zz23 => h_uas_lidnodecell(x__r5_%a%a(x__i6_)%p)
+      c_2_ => zz23
       take_ = cpp_m_min_d_d(evap_, cpp_m_max_d_d(0.0_8, ((c_2_%theta - c_2_%wilting_point) * c_2_%geometric_volume)))
       if ((c_2_%geometric_volume > 0.0_8)) then
-        zz23 = (c_2_%theta - (take_ / c_2_%geometric_volume))
-        c_2_%theta = zz23
+        zz24 = (c_2_%theta - (take_ / c_2_%geometric_volume))
+        c_2_%theta = zz24
       end if
-      zz24 = (state_%evap_volume + take_)
-      state_%evap_volume = zz24
-      zz25 = (evap_ - take_)
-      evap_ = zz25
+      zz25 = (state_%evap_volume + take_)
+      state_%evap_volume = zz25
+      zz26 = (evap_ - take_)
+      evap_ = zz26
       if ((take_ > 0.0_8)) then
-        zz31 => state_%quality_transfers
-        allocate(zz26)
-        call p_lidwatertransfer__ctor_x(zz26)
-        zz29 => zz26%from
-        zz27 => c_2_
-        zz28 = cpp_mem_diff_t_ptrt__o(zz27, cpp_vec_o_data(state_%cells), h_mk_lidnodecell, 2)
-        zz29 = int(zz28, 4)
-        zz26%to = (-3)
-        zz26%volume = take_
-        zz30 => zz26
-        call cpp_vec_o_push_back(zz31, zz30)
+        zz33 => state_%quality_transfers
+        allocate(zz27)
+        call p_lidwatertransfer__ctor_x(zz27)
+        zz31 => zz27%from
+        zz28 => c_2_
+        zz29 = cpp_vec_o_data(state_%cells)
+        zz30 = cpp_mem_diff_t_ptrt__o(zz28, zz29, h_mk_lidnodecell, 2)
+        zz31 = int(zz30, 4)
+        zz27%to = (-3)
+        zz27%volume = take_
+        zz32 => zz27
+        call cpp_vec_o_push_back(zz33, zz32)
       end if
       x__i6_ = (x__i6_ + 1_8)
     end do
@@ -4157,28 +4185,28 @@ contains
     do
       if (.not. ((remaining_ > 0.0_8))) exit
       step_ = cpp_m_min_d_d(remaining_, 1.0_8)
-      zz32 => cpp_vec_d_new_ul_t(cpp_vec_o_size(state_%cells), 0.0_8)
+      zz34 => cpp_vec_d_new_ul_t(cpp_vec_o_size(state_%cells), 0.0_8)
       if (associated(cpp_exc)) return
-      transfer_ => zz32
+      transfer_ => zz34
       i_2_ = 0_8
       do
         if (.not. ((ieor(i_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8))))) exit
-        zz33 => h_uas_lidnodecell(state_%cells%a%a(i_2_)%p)
-        c_3_ => zz33
+        zz35 => h_uas_lidnodecell(state_%cells%a%a(i_2_)%p)
+        c_3_ => zz35
         if ((c_3_%top <= ctx_%nodes%depth%a%a(int(n_, 8)))) then
           goto 112
         end if
         q_ = 0.0_8
-        zz34 = (c_3_%kind == 0)
-        if (zz34) then
-          zz34 = (ieor((i_2_ + 1_8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8)))
+        zz36 = (c_3_%kind == 0)
+        if (zz36) then
+          zz36 = (ieor((i_2_ + 1_8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8)))
         end if
-        if (zz34) then
-          zz35 => h_uas_lidnodecell(state_%cells%a%a((i_2_ + 1_8))%p)
-          below_ => zz35
+        if (zz36) then
+          zz37 => h_uas_lidnodecell(state_%cells%a%a((i_2_ + 1_8))%p)
+          below_ => zz37
           if ((state_%infiltration_cell == int((i_2_ + 1_8), 4))) then
-            zz36 => p_greenamptstate__new_rgreenamptstate(state_%surface_infil)
-            trial_ => zz36
+            zz38 => p_greenamptstate__new_rgreenamptstate(state_%surface_infil)
+            trial_ => zz38
             factor_ = ctx_%climate_state%infil_factor
             head_ = ((c_3_%theta / c_3_%porosity) * (c_3_%top - c_3_%bottom))
             wet_from_below_ = (ctx_%nodes%depth%a%a(int(n_, 8)) > (below_%top - trial_%lu))
@@ -4186,8 +4214,8 @@ contains
               trial_%saturated = .false.
             end if
             if (((factor_ > 0.0_8) .and. ((head_ > 0.0_8) .or. (.not. wet_from_below_)))) then
-              zz37 = p_infil__f__grnampt_getinfil(trial_, 0.0_8, head_, step_, 3, factor_, cpp_m_max_d_d(ctx_%climate_state%recovery_factor, 1E-12_8))
-              q_ = (zz37 * c_3_%area)
+              zz39 = p_infil__f__grnampt_getinfil(trial_, 0.0_8, head_, step_, 3, factor_, cpp_m_max_d_d(ctx_%climate_state%recovery_factor, 1E-12_8))
+              q_ = (zz39 * c_3_%area)
             end if
             state_%surface_infil%t = trial_%t
             state_%surface_infil%saturated = trial_%saturated
@@ -4202,32 +4230,32 @@ contains
             q_ = (below_%conductivity * c_3_%area)
           end if
         else if ((c_3_%theta > c_3_%field_capacity)) then
-          zz39 = c_3_%conductivity
+          zz41 = c_3_%conductivity
           if ((c_3_%kind == 1)) then
-            zz38 = cpp_math_exp_d(((-c_3_%conductivity_slope) * cpp_m_max_d_d(0.0_8, (c_3_%porosity - c_3_%theta))))
+            zz40 = cpp_math_exp_d(((-c_3_%conductivity_slope) * cpp_m_max_d_d(0.0_8, (c_3_%porosity - c_3_%theta))))
           else
-            zz38 = 1.0_8
+            zz40 = 1.0_8
           end if
-          q_ = ((zz39 * zz38) * c_3_%area)
+          q_ = ((zz41 * zz40) * c_3_%area)
         end if
         v_2_ = cpp_m_min_d_d((q_ * step_), cpp_m_max_d_d(0.0_8, ((c_3_%theta - c_3_%field_capacity) * c_3_%geometric_volume)))
         if ((ieor((i_2_ + 1_8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8)))) then
-          zz40 => h_uas_lidnodecell(state_%cells%a%a((i_2_ + 1_8))%p)
-          below_2_ => zz40
+          zz42 => h_uas_lidnodecell(state_%cells%a%a((i_2_ + 1_8))%p)
+          below_2_ => zz42
           if ((below_2_%bottom >= ctx_%nodes%depth%a%a(int(n_, 8)))) then
             v_2_ = cpp_m_min_d_d(v_2_, cpp_m_max_d_d(0.0_8, ((below_2_%porosity - below_2_%theta) * below_2_%geometric_volume)))
           end if
         end if
         transfer_%a%a(i_2_) = v_2_
-        zz41 = (c_3_%kind == 0)
-        if (zz41) then
-          zz41 = (state_%infiltration_cell == int((i_2_ + 1_8), 4))
+        zz43 = (c_3_%kind == 0)
+        if (zz43) then
+          zz43 = (state_%infiltration_cell == int((i_2_ + 1_8), 4))
         end if
-        if (zz41) then
+        if (zz43) then
           ga_ => state_%surface_infil
           accepted_ = (v_2_ / c_3_%area)
-          zz42 = (ga_%f + accepted_)
-          ga_%f = zz42
+          zz44 = (ga_%f + accepted_)
+          ga_%f = zz44
           ga_%fu = cpp_m_min_d_d(ga_%fumax, (ga_%fu + accepted_))
         end if
         112 continue
@@ -4236,44 +4264,44 @@ contains
       i_3_ = 0_8
       do
         if (.not. ((ieor(i_3_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8))))) exit
-        zz43 => h_uas_lidnodecell(state_%cells%a%a(i_3_)%p)
-        c_4_ => zz43
-        zz45 = (ieor((i_3_ + 1_8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8)))
-        if (zz45) then
-          zz44 => h_uas_lidnodecell(state_%cells%a%a((i_3_ + 1_8))%p)
-          zz45 = (zz44%bottom >= ctx_%nodes%depth%a%a(int(n_, 8)))
+        zz45 => h_uas_lidnodecell(state_%cells%a%a(i_3_)%p)
+        c_4_ => zz45
+        zz47 = (ieor((i_3_ + 1_8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8)))
+        if (zz47) then
+          zz46 => h_uas_lidnodecell(state_%cells%a%a((i_3_ + 1_8))%p)
+          zz47 = (zz46%bottom >= ctx_%nodes%depth%a%a(int(n_, 8)))
         end if
-        dest_ = merge(int((i_3_ + 1_8), 4), (-1), zz45)
+        dest_ = merge(int((i_3_ + 1_8), 4), (-1), zz47)
         if ((transfer_%a%a(i_3_) > 0.0_8)) then
-          zz48 => state_%quality_transfers
-          allocate(zz46)
-          call p_lidwatertransfer__ctor_x(zz46)
-          zz46%from = int(i_3_, 4)
-          zz46%to = dest_
-          zz46%volume = transfer_%a%a(i_3_)
-          zz47 => zz46
-          call cpp_vec_o_push_back(zz48, zz47)
+          zz50 => state_%quality_transfers
+          allocate(zz48)
+          call p_lidwatertransfer__ctor_x(zz48)
+          zz48%from = int(i_3_, 4)
+          zz48%to = dest_
+          zz48%volume = transfer_%a%a(i_3_)
+          zz49 => zz48
+          call cpp_vec_o_push_back(zz50, zz49)
         end if
         if ((c_4_%geometric_volume > 0.0_8)) then
-          zz49 = (c_4_%theta - (transfer_%a%a(i_3_) / c_4_%geometric_volume))
-          c_4_%theta = zz49
+          zz51 = (c_4_%theta - (transfer_%a%a(i_3_) / c_4_%geometric_volume))
+          c_4_%theta = zz51
         end if
         if ((ieor((i_3_ + 1_8), (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(state_%cells), (-9223372036854775807_8 - 1_8)))) then
-          zz50 => h_uas_lidnodecell(state_%cells%a%a((i_3_ + 1_8))%p)
-          below_3_ => zz50
-          zz51 = (below_3_%bottom >= ctx_%nodes%depth%a%a(int(n_, 8)))
-          if (zz51) then
-            zz51 = (below_3_%geometric_volume > 0.0_8)
+          zz52 => h_uas_lidnodecell(state_%cells%a%a((i_3_ + 1_8))%p)
+          below_3_ => zz52
+          zz53 = (below_3_%bottom >= ctx_%nodes%depth%a%a(int(n_, 8)))
+          if (zz53) then
+            zz53 = (below_3_%geometric_volume > 0.0_8)
           end if
-          if (zz51) then
-            zz52 = (below_3_%theta + (transfer_%a%a(i_3_) / below_3_%geometric_volume))
-            below_3_%theta = zz52
+          if (zz53) then
+            zz54 = (below_3_%theta + (transfer_%a%a(i_3_) / below_3_%geometric_volume))
+            below_3_%theta = zz54
           end if
         end if
         i_3_ = (i_3_ + 1_8)
       end do
-      zz53 = (remaining_ - step_)
-      remaining_ = zz53
+      zz55 = (remaining_ - step_)
+      remaining_ = zz55
     end do
     state_%held_volume = 0.0_8
     x__r7_ => state_%cells
@@ -4281,47 +4309,47 @@ contains
     x__i8_n_ = int(x__r7_%n, 8)
     do
       if (.not. ((x__i8_ < x__i8_n_))) exit
-      zz54 => h_uas_lidnodecell(x__r7_%a%a(x__i8_)%p)
-      c_5_ => zz54
-      zz55 = (state_%held_volume + (c_5_%theta * c_5_%geometric_volume))
-      state_%held_volume = zz55
+      zz56 => h_uas_lidnodecell(x__r7_%a%a(x__i8_)%p)
+      c_5_ => zz56
+      zz57 = (state_%held_volume + (c_5_%theta * c_5_%geometric_volume))
+      state_%held_volume = zz57
       x__i8_ = (x__i8_ + 1_8)
     end do
-    zz56 = (ctx_%nodes%volume%a%a(int(n_, 8)) + (((before_ + capture_) - state_%evap_volume) - state_%held_volume))
-    ctx_%nodes%volume%a%a(int(n_, 8)) = zz56
-    zz57 => cpp_arr_d_new(6_8)
-    zz57%a(0) = 1.0_8
-    zz57%a(1) = abs(state_%quality_old_mobile)
-    zz57%a(2) = before_
-    zz57%a(3) = capture_
-    zz57%a(4) = state_%evap_volume
-    zz57%a(5) = state_%held_volume
-    zz58 = cpp_m_max_da(zz57)
-    roundoff_ = (3.552713678800501E-15_8 * zz58)
-    zz59 = (ctx_%nodes%volume%a%a(int(n_, 8)) < 0.0_8)
-    if (zz59) then
-      zz59 = (ctx_%nodes%volume%a%a(int(n_, 8)) >= (-roundoff_))
+    zz58 = (ctx_%nodes%volume%a%a(int(n_, 8)) + (((before_ + capture_) - state_%evap_volume) - state_%held_volume))
+    ctx_%nodes%volume%a%a(int(n_, 8)) = zz58
+    zz59 => cpp_arr_d_new(6_8)
+    zz59%a(0) = 1.0_8
+    zz59%a(1) = abs(state_%quality_old_mobile)
+    zz59%a(2) = before_
+    zz59%a(3) = capture_
+    zz59%a(4) = state_%evap_volume
+    zz59%a(5) = state_%held_volume
+    zz60 = cpp_m_max_da(zz59)
+    roundoff_ = (3.552713678800501E-15_8 * zz60)
+    zz61 = (ctx_%nodes%volume%a%a(int(n_, 8)) < 0.0_8)
+    if (zz61) then
+      zz61 = (ctx_%nodes%volume%a%a(int(n_, 8)) >= (-roundoff_))
     end if
-    if (zz59) then
+    if (zz61) then
       ctx_%nodes%volume%a%a(int(n_, 8)) = 0.0_8
     end if
     ctx_%nodes%full_volume%a%a(int(n_, 8)) = 0.0_8
-    zz61 => ctx_%nodes%full_volume%a%a(int(n_, 8))
-    zz60 = p_node__f__getvolume(ctx_%nodes, n_, ctx_%nodes%full_depth%a%a(int(n_, 8)), ctx_%tables, us_, ctx_%node_subtypes)
-    zz61 = zz60
-    ctx_%nodes%rpt_full_volume%a%a(int(n_, 8)) = ctx_%nodes%full_volume%a%a(int(n_, 8))
-    zz63 => ctx_%nodes%depth%a%a(int(n_, 8))
-    zz62 = p_node__f__getdepth(ctx_%nodes, n_, ctx_%nodes%volume%a%a(int(n_, 8)), ctx_%tables, us_, ctx_%node_subtypes)
+    zz63 => ctx_%nodes%full_volume%a%a(int(n_, 8))
+    zz62 = p_node__f__getvolume(ctx_%nodes, n_, ctx_%nodes%full_depth%a%a(int(n_, 8)), ctx_%tables, us_, ctx_%node_subtypes)
     zz63 = zz62
-    zz64 = ctx_%options%allow_ponding
-    if (zz64) then
-      zz64 = (ctx_%nodes%ponded_area%a%a(int(n_, 8)) > 0.0_8)
-    end if
+    ctx_%nodes%rpt_full_volume%a%a(int(n_, 8)) = ctx_%nodes%full_volume%a%a(int(n_, 8))
+    zz65 => ctx_%nodes%depth%a%a(int(n_, 8))
+    zz64 = p_node__f__getdepth(ctx_%nodes, n_, ctx_%nodes%volume%a%a(int(n_, 8)), ctx_%tables, us_, ctx_%node_subtypes)
     zz65 = zz64
-    if (zz65) then
-      zz65 = (ctx_%nodes%volume%a%a(int(n_, 8)) > ctx_%nodes%full_volume%a%a(int(n_, 8)))
+    zz66 = ctx_%options%allow_ponding
+    if (zz66) then
+      zz66 = (ctx_%nodes%ponded_area%a%a(int(n_, 8)) > 0.0_8)
     end if
-    if (zz65) then
+    zz67 = zz66
+    if (zz67) then
+      zz67 = (ctx_%nodes%volume%a%a(int(n_, 8)) > ctx_%nodes%full_volume%a%a(int(n_, 8)))
+    end if
+    if (zz67) then
       ctx_%nodes%depth%a%a(int(n_, 8)) = (ctx_%nodes%full_depth%a%a(int(n_, 8)) + ((ctx_%nodes%volume%a%a(int(n_, 8)) - ctx_%nodes%full_volume%a%a(int(n_, 8))) / ctx_%nodes%ponded_area%a%a(int(n_, 8))))
     end if
     ctx_%nodes%head%a%a(int(n_, 8)) = (ctx_%nodes%invert_elev%a%a(int(n_, 8)) + ctx_%nodes%depth%a%a(int(n_, 8)))
@@ -4580,14 +4608,14 @@ contains
   state_%infiltration_head = head_
   end procedure p_lidnode__anon_hydrology_lidnode_cpp__f__reconcilein_ec7c6d07
 
-  module procedure p_lam436
+  module procedure p_lam439
     class(t_lidnodestate), pointer :: zz1
   zz1 => h_uas_lidnodestate(self%c_st%lid_state%a%a(int(a1, 8))%p)
   zres = zz1%richards_mesh_pending_finish
   return
-  end procedure p_lam436
+  end procedure p_lam439
 
-  module procedure p_lam437
+  module procedure p_lam440
     class(t_lidporttransfer), pointer :: port_
     class(t_lidporttransfer), pointer :: zz1
     class(t_lidnodecell), pointer :: zz2
@@ -4605,13 +4633,13 @@ contains
   end if
   zres = zz5
   return
-  end procedure p_lam437
+  end procedure p_lam440
 
   module procedure p_lidnode__anon_hydrology_lidnode_cpp__f__finishrows_lidnode
     class(t_storagedata), pointer :: st_
     class(cpp_vec_o), pointer :: mesh_ports_
     class(cpp_vec_o), pointer :: zz1
-    class(t_lam436), pointer :: zz2
+    class(t_lam439), pointer :: zz2
     type(cpp_iter_i) :: zz3
     type(cpp_iter_i) :: zz4
     logical :: zz5
@@ -4654,7 +4682,7 @@ contains
     logical :: zz21
     logical :: zz22
     logical :: port_wetting_
-    class(t_lam437), pointer :: zz23
+    class(t_lam440), pointer :: zz23
     type(cpp_iter_o) :: zz24
     type(cpp_iter_o) :: zz25
     logical :: zz26

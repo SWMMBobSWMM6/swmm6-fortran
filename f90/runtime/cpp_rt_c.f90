@@ -212,6 +212,10 @@ module cpp_rt_c
   integer(1), allocatable, save :: crt_out(:)
   ! strtok's position
   type(cpp_cptr), save :: crt_toknext
+  ! whether the last crt_strtod would have set errno to ERANGE in glibc: an overflow to +-inf, a nonzero number that
+  ! became zero, or a double that is tiny (below DBL_MIN after rounding to 53 bits, the x86 rule) and inexact;
+  ! libstdc++'s std::stod throws out_of_range on it (C# Cpp.R.ERange)
+  logical, save :: crt_erange = .false.
   ! Dbg.Caught: 0 not looked up, 1 off, 2 on
   integer, save :: crt_trace = 0
 
@@ -2452,27 +2456,17 @@ contains
   end function cpp_r_back_i_t1r_t2r__lb
 
   ! ============================================================================================== R: files
-  !> fopen: glibc's, with the same mode string; null when it fails, and (as the C# runtime, whose FileStream refuses
-  !> it) for a stream opened for reading that cannot be read, a directory: the first byte is read and the stream
-  !> put back at its start
+  !> fopen: glibc's, with the same mode string; null when it fails. A directory opened for reading opens, as glibc
+  !> opens it, and every read then fails (fgets null, ferror set, feof not)
   recursive function cpp_r_fopen(a1, a2) result(zres)
     type(cpp_cptr), intent(in) :: a1
     type(cpp_cptr), intent(in) :: a2
     class(cpp_cfile), pointer :: zres
     type(c_ptr) :: fp
-    integer(c_int) :: c
     zres => null()
     if (.not. associated(a1%b) .or. .not. associated(a2%b)) return
     fp = crt_c_fopen(crt_cz(a1), crt_cz(a2))
     if (.not. c_associated(fp)) return
-    if (crt_ub(a2, 0_8) == 114) then          ! 'r'
-      c = crt_c_fgetc(fp)
-      if (c < 0 .and. crt_c_ferror(fp) /= 0) then
-        c = crt_c_fclose(fp)
-        return
-      end if
-      c = crt_c_fseek(fp, 0_c_long, 0_c_int)
-    end if
     allocate(zres)
     zres%fp = fp
   end function cpp_r_fopen
@@ -2506,11 +2500,13 @@ contains
     if (.not. associated(a1)) return
     if (c_associated(a1%fp)) zres = merge(1, 0, crt_c_feof(a1%fp) /= 0)
   end function cpp_r_feof
-  !> ferror: 0 (as the C# runtime)
+  !> ferror: glibc's error indicator (set by a read of a directory)
   recursive function cpp_r_ferror(a1) result(zres)
     class(cpp_cfile), pointer, intent(in) :: a1
     integer(4) :: zres
     zres = 0
+    if (.not. associated(a1)) return
+    if (c_associated(a1%fp)) zres = merge(1, 0, crt_c_ferror(a1%fp) /= 0)
   end function cpp_r_ferror
   !> fileno: 3 (as the C# runtime; the engine only passes it on)
   recursive function cpp_r_fileno(a1) result(zres)

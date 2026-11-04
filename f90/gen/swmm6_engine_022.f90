@@ -27,7 +27,9 @@ contains
   end procedure p_dynwave_dwsolver__isinitialized
 
   module procedure p_dynwave_dwsolver__nodenewsurfareadatamut
-  zres = cpp_vec_d_data(self%xnode_%new_surf_area)
+    type(cpp_ptr_d) :: zz1
+  zz1 = cpp_vec_d_data(self%xnode_%new_surf_area)
+  zres = zz1
   return
   end procedure p_dynwave_dwsolver__nodenewsurfareadatamut
 

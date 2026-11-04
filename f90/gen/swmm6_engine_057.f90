@@ -45,16 +45,20 @@ contains
   module procedure p_transport__anon_transport_components_reactionmodule_6e10660b
     class(t_transport_rxevalenv), pointer :: env_
     class(t_transport_rxevalenv), pointer :: zz1
+    type(cpp_ptr_d) :: zz2
+    type(cpp_ptr_d), pointer :: zz3
     integer(8) :: i_
-    class(t_rxexprspan), pointer :: zz2
-    class(cpp_vec_o), pointer :: zz3
-    real(8) :: zz4
-    real(8), pointer :: zz5
+    class(t_rxexprspan), pointer :: zz4
+    class(cpp_vec_o), pointer :: zz5
+    real(8) :: zz6
+    real(8), pointer :: zz7
   allocate(zz1)
   call p_transport_rxevalenv__ctor_x(zz1)
   zz1%species = species_
   zz1%coefs = coefficients_
-  zz1%terms = cpp_vec_d_data(terms_)
+  zz3 => zz1%terms
+  zz2 = cpp_vec_d_data(terms_)
+  zz3 = zz2
   zz1%hydvar = hydvar_
   zz1%pollutants = pollut_
   env_ => zz1
@@ -62,11 +66,11 @@ contains
   do
     if (.not. ((ieor(i_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_o_size(rx_%term_expr), (-9223372036854775807_8 - 1_8))))) exit
     if ((iand(int(needed_%a%a(i_), 4), 255_4) /= 0)) then
-      zz5 => terms_%a%a(i_)
-      zz3 => rx_%token_pool
-      zz2 => h_uas_rxexprspan(rx_%term_expr%a%a(i_)%p)
-      zz4 = p_transport__f__evalreactionexpression(zz3, zz2, env_)
-      zz5 = zz4
+      zz7 => terms_%a%a(i_)
+      zz5 => rx_%token_pool
+      zz4 => h_uas_rxexprspan(rx_%term_expr%a%a(i_)%p)
+      zz6 = p_transport__f__evalreactionexpression(zz5, zz4, env_)
+      zz7 = zz6
     end if
     i_ = (i_ + 1_8)
   end do
@@ -81,22 +85,26 @@ contains
     class(t_transport_rxratecontext), pointer :: zz2
     class(t_transport_rxevalenv), pointer :: env_
     class(t_transport_rxevalenv), pointer :: zz3
+    type(cpp_ptr_d) :: zz4
+    type(cpp_ptr_d), pointer :: zz5
     integer(8) :: k_
-    real(8), pointer :: zz4
-    real(8), pointer :: zz5
-    class(t_rxexprspan), pointer :: zz6
-    class(cpp_vec_o), pointer :: zz7
-    real(8) :: zz8
-    real(8) :: zz9
+    real(8), pointer :: zz6
+    real(8), pointer :: zz7
+    class(t_rxexprspan), pointer :: zz8
+    class(cpp_vec_o), pointer :: zz9
+    real(8) :: zz10
+    real(8) :: zz11
     class(t_transport_rxevalenv), pointer :: env_2_
-    class(t_transport_rxevalenv), pointer :: zz10
+    class(t_transport_rxevalenv), pointer :: zz12
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d), pointer :: zz14
     integer(8) :: k_2_
-    real(8), pointer :: zz11
-    real(8), pointer :: zz12
-    real(8) :: zz13
-    class(t_rxexprspan), pointer :: zz14
-    class(cpp_vec_o), pointer :: zz15
-    real(8) :: zz16
+    real(8), pointer :: zz15
+    real(8), pointer :: zz16
+    real(8) :: zz17
+    class(t_rxexprspan), pointer :: zz18
+    class(cpp_vec_o), pointer :: zz19
+    real(8) :: zz20
   if ((.not. cpp_cspan_o_empty(contexts_))) then
     zz1 = cpp_algo_fill_n_ptrt_ul_t__d(out_, cpp_vec_i_size(idx_), 0.0_8)
     if (associated(cpp_exc)) return
@@ -112,7 +120,9 @@ contains
       call p_transport_rxevalenv__ctor_x(zz3)
       zz3%species = species_
       zz3%coefs = coefficients_
-      zz3%terms = cpp_vec_d_data(terms_)
+      zz5 => zz3%terms
+      zz4 = cpp_vec_d_data(terms_)
+      zz5 = zz4
       zz3%hydvar = context_%hydvar
       zz3%pollutants = context_%pollutants
       env_ => zz3
@@ -120,13 +130,13 @@ contains
       do
         if (.not. ((ieor(k_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(idx_), (-9223372036854775807_8 - 1_8))))) exit
         if ((context_%forms%a%a(int(idx_%a%a(k_), 8)) == 1)) then
-          zz4 => cpp_ptr_d_item_ul(out_, k_)
-          zz5 => cpp_ptr_d_item_i(context_%kinetic_scale, idx_%a%a(k_))
-          zz7 => rx_%token_pool
-          zz6 => h_uas_rxexprspan(context_%expressions%a%a(int(idx_%a%a(k_), 8))%p)
-          zz8 = p_transport__f__evalreactionexpression(zz7, zz6, env_)
-          zz9 = (zz4 + ((factor_ * zz5) * zz8))
-          zz4 = zz9
+          zz6 => cpp_ptr_d_item_ul(out_, k_)
+          zz7 => cpp_ptr_d_item_i(context_%kinetic_scale, idx_%a%a(k_))
+          zz9 => rx_%token_pool
+          zz8 => h_uas_rxexprspan(context_%expressions%a%a(int(idx_%a%a(k_), 8))%p)
+          zz10 = p_transport__f__evalreactionexpression(zz9, zz8, env_)
+          zz11 = (zz6 + ((factor_ * zz7) * zz10))
+          zz6 = zz11
         end if
         k_ = (k_ + 1_8)
       end do
@@ -135,28 +145,30 @@ contains
     return
   end if
   call p_transport__anon_transport_components_reactionmodule_6e10660b(rx_, species_, hydvar_, pollut_, terms_, needed_, coefficients_)
-  allocate(zz10)
-  call p_transport_rxevalenv__ctor_x(zz10)
-  zz10%species = species_
-  zz10%coefs = coefficients_
-  zz10%terms = cpp_vec_d_data(terms_)
-  zz10%hydvar = hydvar_
-  zz10%pollutants = pollut_
-  env_2_ => zz10
+  allocate(zz12)
+  call p_transport_rxevalenv__ctor_x(zz12)
+  zz12%species = species_
+  zz12%coefs = coefficients_
+  zz14 => zz12%terms
+  zz13 = cpp_vec_d_data(terms_)
+  zz14 = zz13
+  zz12%hydvar = hydvar_
+  zz12%pollutants = pollut_
+  env_2_ => zz12
   k_2_ = 0_8
   do
     if (.not. ((ieor(k_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(idx_), (-9223372036854775807_8 - 1_8))))) exit
-    zz11 => cpp_ptr_d_item_ul(out_, k_2_)
+    zz15 => cpp_ptr_d_item_ul(out_, k_2_)
     if ((.not. cpp_ptr_d_isnull(kinetic_scale_))) then
-      zz12 => cpp_ptr_d_item_i(kinetic_scale_, idx_%a%a(k_2_))
-      zz13 = zz12
+      zz16 => cpp_ptr_d_item_i(kinetic_scale_, idx_%a%a(k_2_))
+      zz17 = zz16
     else
-      zz13 = 1.0_8
+      zz17 = 1.0_8
     end if
-    zz15 => rx_%token_pool
-    zz14 => h_uas_rxexprspan(spans_%a%a(int(idx_%a%a(k_2_), 8))%p)
-    zz16 = p_transport__f__evalreactionexpression(zz15, zz14, env_2_)
-    zz11 = ((factor_ * zz13) * zz16)
+    zz19 => rx_%token_pool
+    zz18 => h_uas_rxexprspan(spans_%a%a(int(idx_%a%a(k_2_), 8))%p)
+    zz20 = p_transport__f__evalreactionexpression(zz19, zz18, env_2_)
+    zz15 = ((factor_ * zz17) * zz20)
     k_2_ = (k_2_ + 1_8)
   end do
   end procedure p_transport__anon_transport_components_reactionmodule_b6291286
@@ -1351,15 +1363,16 @@ contains
     type(cpp_ptr_d) :: zz16
     class(t_transport_rxworkspace), pointer :: zz17
     class(t_transport_rxstepreport), pointer :: zz18
-    real(8) :: zz19
-    type(cpp_cptr) :: zz20
+    type(cpp_ptr_d) :: zz19
+    real(8) :: zz20
+    type(cpp_cptr) :: zz21
     integer(4) :: s_2_
-    real(8), pointer :: zz21
-    type(cpp_cptr) :: zz22
-    class(cpp_str), pointer :: zz23
+    real(8), pointer :: zz22
+    type(cpp_cptr) :: zz23
     class(cpp_str), pointer :: zz24
-    class(*), pointer :: zz25
-    class(cpp_vec_o), pointer :: zz26
+    class(cpp_str), pointer :: zz25
+    class(*), pointer :: zz26
+    class(cpp_vec_o), pointer :: zz27
   rx_ => ctx_%reactions
   ns_ = p_reactiondata__n_species(rx_)
   if ((ns_ == 0)) then
@@ -1402,35 +1415,36 @@ contains
     zz13 = zz12
     s_ = (s_ + 1)
   end do
-  zz15 = cpp_vec_d_data(sc_%block)
+  zz14 = cpp_vec_d_data(sc_%block)
   zz16 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
   zz17 => sc_%ws
-  zz14 = p_reactiondata__coefficients(rx_, (.not. tank_), element_, sc_%coefficients)
+  zz15 = p_reactiondata__coefficients(rx_, (.not. tank_), element_, sc_%coefficients)
   if (associated(cpp_exc)) return
-  zz18 => p_transport_reactionintegrator__step__rreactiondata_b_6afab4a6(rx_, tank_, dt_, zz15, zz16, zz17, pollut_, zz14)
+  zz18 => p_transport_reactionintegrator__step__rreactiondata_b_6afab4a6(rx_, tank_, dt_, zz14, zz16, zz17, pollut_, zz15)
   if (associated(cpp_exc)) return
   rep_ => zz18
   if (rep_%ok) then
-    zz19 = p_transport__f__clampratespecies(rx_, tank_, cpp_vec_d_data(sc_%block), cpp_ptr_d())
-    if ((zz19 > 0.0_8)) then
-      zz20 = cpp_r_lit("a LARD element")
-      call p_transport__f__notenegativeclamp(ctx_, zz20)
+    zz19 = cpp_vec_d_data(sc_%block)
+    zz20 = p_transport__f__clampratespecies(rx_, tank_, zz19, cpp_ptr_d())
+    if ((zz20 > 0.0_8)) then
+      zz21 = cpp_r_lit("a LARD element")
+      call p_transport__f__notenegativeclamp(ctx_, zz21)
     end if
     s_2_ = 0
     do
       if (.not. ((s_2_ < ns_))) exit
-      zz21 => cpp_ptr_d_item_i(species_block_, s_2_)
-      zz21 = sc_%block%a%a(int(s_2_, 8))
+      zz22 => cpp_ptr_d_item_i(species_block_, s_2_)
+      zz22 = sc_%block%a%a(int(s_2_, 8))
       s_2_ = (s_2_ + 1)
     end do
   else if ((.not. rx_%warned_react_failure)) then
     rx_%warned_react_failure = .true.
-    zz26 => ctx_%warnings
-    zz22 = cpp_r_lit("Reaction step failed on a LARD element (element state left unchanged): ")
-    zz23 => cpp_str_new_cptr(zz22)
-    zz24 => cpp_str_cat_str_str(zz23, rep_%error)
-    zz25 => zz24
-    call cpp_vec_o_push_back(zz26, zz25)
+    zz27 => ctx_%warnings
+    zz23 = cpp_r_lit("Reaction step failed on a LARD element (element state left unchanged): ")
+    zz24 => cpp_str_new_cptr(zz23)
+    zz25 => cpp_str_cat_str_str(zz24, rep_%error)
+    zz26 => zz25
+    call cpp_vec_o_push_back(zz27, zz26)
   end if
   end procedure p_transport__f__reactspeciesblock
 
@@ -1839,30 +1853,33 @@ contains
     type(cpp_ptr_d) :: zz29
     type(cpp_ptr_d) :: zz30
     type(cpp_ptr_d) :: zz31
-    class(t_transport_rxworkspace), pointer :: zz32
-    type(cpp_ptr_d) :: zz33
-    class(t_transport_rxstepreport), pointer :: zz34
+    type(cpp_ptr_d) :: zz32
+    class(t_transport_rxworkspace), pointer :: zz33
+    type(cpp_ptr_d) :: zz34
+    class(t_transport_rxstepreport), pointer :: zz35
     real(8) :: v_
-    real(8) :: zz35
+    real(8) :: zz36
     integer(4) :: s_2_
     integer(8) :: us_
-    real(8) :: zz36
     real(8) :: zz37
+    type(cpp_ptr_d) :: zz38
+    type(cpp_ptr_d) :: zz39
+    real(8) :: zz40
     integer(4) :: s_3_
-    real(8) :: zz38
+    real(8) :: zz41
     integer(4) :: s_4_
-    type(cpp_cptr) :: zz39
-    class(cpp_str), pointer :: zz40
-    class(cpp_str), pointer :: zz41
     type(cpp_cptr) :: zz42
     class(cpp_str), pointer :: zz43
     class(cpp_str), pointer :: zz44
-    class(cpp_str), pointer :: zz45
-    type(cpp_cptr) :: zz46
+    type(cpp_cptr) :: zz45
+    class(cpp_str), pointer :: zz46
     class(cpp_str), pointer :: zz47
     class(cpp_str), pointer :: zz48
-    class(*), pointer :: zz49
-    class(cpp_vec_o), pointer :: zz50
+    type(cpp_cptr) :: zz49
+    class(cpp_str), pointer :: zz50
+    class(cpp_str), pointer :: zz51
+    class(*), pointer :: zz52
+    class(cpp_vec_o), pointer :: zz53
   rx_ => ctx_%reactions
   ns_ = p_reactiondata__n_species(rx_)
   if ((ns_ == 0)) then
@@ -1999,48 +2016,51 @@ contains
     else
       zz28 => rx_%pipe_expr
     end if
-    zz30 = cpp_vec_d_data(sc_%block)
-    zz31 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
-    zz32 => sc_%ws
+    zz29 = cpp_vec_d_data(sc_%block)
+    zz32 = cpp_ptr_d_new_ta_l(hydvar_, 0_8)
+    zz33 => sc_%ws
     if (rx_%wall_geometry) then
-      zz29 = cpp_vec_d_data(sc_%wall_scales)
+      zz30 = cpp_vec_d_data(sc_%wall_scales)
+      zz31 = zz30
     else
-      zz29 = cpp_ptr_d()
+      zz31 = cpp_ptr_d()
     end if
-    zz33 = p_reactiondata__coefficients(rx_, (.not. tank_), e_, sc_%coefficients)
+    zz34 = p_reactiondata__coefficients(rx_, (.not. tank_), e_, sc_%coefficients)
     if (associated(cpp_exc)) return
-    zz34 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(rx_, zz27, zz28, dt_, zz30, zz31, zz32, pollut_, zz29, zz33, cpp_cspan_o())
+    zz35 => p_transport_reactionintegrator__step__rreactiondata_r_7027e427(rx_, zz27, zz28, dt_, zz29, zz32, zz33, pollut_, zz31, zz34, cpp_cspan_o())
     if (associated(cpp_exc)) return
-    rep_ => zz34
+    rep_ => zz35
     if (rep_%ok) then
       if ((ieor(ue_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(volume_), (-9223372036854775807_8 - 1_8)))) then
-        zz35 = volume_%a%a(ue_)
+        zz36 = volume_%a%a(ue_)
       else
-        zz35 = 0.0_8
+        zz36 = 0.0_8
       end if
-      v_ = zz35
+      v_ = zz36
       if (book_) then
         s_2_ = 0
         do
           if (.not. ((s_2_ < ns_))) exit
           us_ = int(s_2_, 8)
           if ((.not. (iand(int(rx_%species_is_wall%a%a(us_), 4), 255_4) /= 0))) then
-            zz36 = (led_%reacted%a%a(us_) + ((msx_conc_%a%a((base_ + us_)) - sc_%block%a%a(us_)) * v_))
-            led_%reacted%a%a(us_) = zz36
+            zz37 = (led_%reacted%a%a(us_) + ((msx_conc_%a%a((base_ + us_)) - sc_%block%a%a(us_)) * v_))
+            led_%reacted%a%a(us_) = zz37
           end if
           s_2_ = (s_2_ + 1)
         end do
       end if
-      zz37 = p_transport__f__clampratespecies(rx_, tank_, cpp_vec_d_data(sc_%block), cpp_vec_d_data(sc_%added))
-      if ((zz37 > 0.0_8)) then
+      zz38 = cpp_vec_d_data(sc_%block)
+      zz39 = cpp_vec_d_data(sc_%added)
+      zz40 = p_transport__f__clampratespecies(rx_, tank_, zz38, zz39)
+      if ((zz40 > 0.0_8)) then
         call p_transport__f__notenegativeclamp(ctx_, what_)
         if (book_) then
           s_3_ = 0
           do
             if (.not. ((s_3_ < ns_))) exit
             if ((.not. (iand(int(rx_%species_is_wall%a%a(int(s_3_, 8)), 4), 255_4) /= 0))) then
-              zz38 = (led_%clamped%a%a(int(s_3_, 8)) + (sc_%added%a%a(int(s_3_, 8)) * v_))
-              led_%clamped%a%a(int(s_3_, 8)) = zz38
+              zz41 = (led_%clamped%a%a(int(s_3_, 8)) + (sc_%added%a%a(int(s_3_, 8)) * v_))
+              led_%clamped%a%a(int(s_3_, 8)) = zz41
             end if
             s_3_ = (s_3_ + 1)
           end do
@@ -2054,20 +2074,20 @@ contains
       end do
     else if ((.not. rx_%warned_react_failure)) then
       rx_%warned_react_failure = .true.
-      zz50 => ctx_%warnings
-      zz39 = cpp_r_lit("Reaction step failed at ")
-      zz40 => cpp_str_new_cptr(zz39)
-      zz41 => cpp_str_cat_str_cptr(zz40, what_)
-      zz42 = cpp_r_lit(" index ")
-      zz43 => cpp_str_cat_str_cptr(zz41, zz42)
-      zz44 => cpp_str_to_string_i(e_)
+      zz53 => ctx_%warnings
+      zz42 = cpp_r_lit("Reaction step failed at ")
+      zz43 => cpp_str_new_cptr(zz42)
+      zz44 => cpp_str_cat_str_cptr(zz43, what_)
+      zz45 = cpp_r_lit(" index ")
+      zz46 => cpp_str_cat_str_cptr(zz44, zz45)
+      zz47 => cpp_str_to_string_i(e_)
       if (associated(cpp_exc)) return
-      zz45 => cpp_str_cat_str_str(zz43, zz44)
-      zz46 = cpp_r_lit(" (element state left unchanged): ")
-      zz47 => cpp_str_cat_str_cptr(zz45, zz46)
-      zz48 => cpp_str_cat_str_str(zz47, rep_%error)
-      zz49 => zz48
-      call cpp_vec_o_push_back(zz50, zz49)
+      zz48 => cpp_str_cat_str_str(zz46, zz47)
+      zz49 = cpp_r_lit(" (element state left unchanged): ")
+      zz50 => cpp_str_cat_str_cptr(zz48, zz49)
+      zz51 => cpp_str_cat_str_str(zz50, rep_%error)
+      zz52 => zz51
+      call cpp_vec_o_push_back(zz53, zz52)
     end if
     102 continue
     e_ = (e_ + 1)
@@ -2162,28 +2182,28 @@ contains
   return
   end procedure p_transport__f__reactionboostermass
 
-  module procedure p_lam905
+  module procedure p_lam910
   call p_transport__f__applyreactionsections(a1, a3, a4)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam905
+  end procedure p_lam910
 
-  module procedure p_lam906
+  module procedure p_lam911
     class(cpp_str), pointer :: zz1
   zres => null()
   zz1 => p_transport__f__serializereactionsystem(a1)
   if (associated(cpp_exc)) return
   zres => zz1
   return
-  end procedure p_lam906
+  end procedure p_lam911
 
   module procedure p_transport__f__registerreactionscomponent
     class(t_components_processcomponentregistry), pointer :: zz1
     class(cpp_str), pointer :: zz2
     type(cpp_cptr) :: zz3
     class(cpp_str), pointer :: zz4
-    class(t_lam905), pointer :: zz5
-    class(t_lam906), pointer :: zz6
+    class(t_lam910), pointer :: zz5
+    class(t_lam911), pointer :: zz6
   zz1 => p_components_processcomponentregistry__instance()
   if (associated(cpp_exc)) return
   zz2 => cpp_str_new_cptr(s_transport__anon_transport_components_reactionmodule_4dfa3ea9)
@@ -2295,7 +2315,7 @@ contains
   return
   end procedure p_transport__f__reactionsectiontags
 
-  module procedure p_lam907
+  module procedure p_lam912
     class(t_reactiondata_surfacelaw), pointer :: l_
     class(t_reactiondata_surfacelaw), pointer :: zz1
     class(t_reactiondata_surfacelaw), pointer :: zz2
@@ -2315,9 +2335,9 @@ contains
   end if
   zres = zz6
   return
-  end procedure p_lam907
+  end procedure p_lam912
 
-  module procedure p_lam908
+  module procedure p_lam913
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     class(*), pointer :: zz3
@@ -2328,9 +2348,9 @@ contains
   zz3 => zz2
   call cpp_vec_o_push_back(zz4, zz3)
   return
-  end procedure p_lam908
+  end procedure p_lam913
 
-  module procedure p_lam909
+  module procedure p_lam914
     class(t_reactiondata_surfacelaw), pointer :: l_2_
     class(t_reactiondata_surfacelaw), pointer :: zz1
     class(t_reactiondata_surfacelaw), pointer :: zz2
@@ -2359,9 +2379,9 @@ contains
   end if
   zres = zz9
   return
-  end procedure p_lam909
+  end procedure p_lam914
 
-  module procedure p_lam910
+  module procedure p_lam915
     class(t_reactiondata_wallarea), pointer :: r_
     class(t_reactiondata_wallarea), pointer :: zz1
     logical :: zz2
@@ -2373,9 +2393,9 @@ contains
   end if
   zres = zz2
   return
-  end procedure p_lam910
+  end procedure p_lam915
 
-  module procedure p_lam911
+  module procedure p_lam916
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     type(cpp_cptr) :: zz3
@@ -2396,9 +2416,9 @@ contains
   zz8 => zz7
   call cpp_vec_o_push_back(zz9, zz8)
   return
-  end procedure p_lam911
+  end procedure p_lam916
 
-  module procedure p_lam912
+  module procedure p_lam917
     class(t_reactiondata_lidlaw), pointer :: r_2_
     class(t_reactiondata_lidlaw), pointer :: zz1
     class(t_reactiondata_lidlaw), pointer :: zz2
@@ -2423,12 +2443,12 @@ contains
   end if
   zres = zz7
   return
-  end procedure p_lam912
+  end procedure p_lam917
 
-  module procedure p_lam913
+  module procedure p_lam918
   zres = (iand(int(a1, 4), 255_4) /= 0)
   return
-  end procedure p_lam913
+  end procedure p_lam918
 
   module procedure p_transport__f__applyreactionsections
     type(cpp_cptr) :: zz1
@@ -2511,7 +2531,7 @@ contains
     type(cpp_cptr) :: zz69
     class(cpp_str), pointer :: zz70
     class(*), pointer :: zz71
-    class(t_lam907), pointer :: zz72
+    class(t_lam912), pointer :: zz72
     type(cpp_iter_o) :: zz73
     type(cpp_iter_o) :: zz74
     logical :: zz75
@@ -2541,7 +2561,7 @@ contains
     class(t_reactiondata_surfacelaw), pointer :: zz93
     integer(8) :: pos_
     class(t_fn3), pointer :: fail_
-    class(t_lam908), pointer :: zz94
+    class(t_lam913), pointer :: zz94
     class(cpp_str), pointer :: zz95
     class(cpp_str), pointer :: zz96
     class(cpp_str), pointer :: zz97
@@ -2587,7 +2607,7 @@ contains
     class(t_reactiondata_surfacelaw), pointer :: zz136
     class(t_reactiondata_surfacelaw), pointer :: zz137
     logical :: zz138
-    class(t_lam909), pointer :: zz139
+    class(t_lam914), pointer :: zz139
     type(cpp_iter_o) :: zz140
     type(cpp_iter_o) :: zz141
     logical :: zz142
@@ -2667,7 +2687,7 @@ contains
     class(cpp_str), pointer :: zz208
     class(*), pointer :: zz209
     class(cpp_vec_o), pointer :: rows_
-    class(t_lam910), pointer :: zz210
+    class(t_lam915), pointer :: zz210
     type(cpp_iter_o) :: zz211
     type(cpp_iter_o) :: zz212
     logical :: zz213
@@ -2690,7 +2710,7 @@ contains
     class(cpp_str), pointer :: zz225
     class(cpp_vec_o), pointer :: zz226
     class(t_fn2), pointer :: fail_2_
-    class(t_lam911), pointer :: zz227
+    class(t_lam916), pointer :: zz227
     class(cpp_str), pointer :: zz228
     class(cpp_str), pointer :: zz229
     class(cpp_str), pointer :: zz230
@@ -2751,7 +2771,7 @@ contains
     logical :: zz281
     type(cpp_cptr) :: zz282
     class(cpp_str), pointer :: zz283
-    class(t_lam912), pointer :: zz284
+    class(t_lam917), pointer :: zz284
     type(cpp_iter_o) :: zz285
     type(cpp_iter_o) :: zz286
     logical :: zz287
@@ -2799,7 +2819,7 @@ contains
     type(cpp_cptr) :: zz320
     class(cpp_str), pointer :: zz321
     class(*), pointer :: zz322
-    class(t_lam913), pointer :: zz323
+    class(t_lam918), pointer :: zz323
     type(cpp_iter_b) :: zz324
     type(cpp_iter_b) :: zz325
     logical :: zz326
@@ -3650,7 +3670,7 @@ contains
   if (associated(cpp_exc)) return
   end procedure p_transport__f__applyembeddedreactionsections
 
-  module procedure p_lam914
+  module procedure p_lam919
     integer(4), target :: col_
     class(cpp_str), pointer :: err_
     class(cpp_str), pointer :: zz1
@@ -3690,9 +3710,9 @@ contains
     call cpp_vec_o_push_back(zz13, zz12)
   end if
   return
-  end procedure p_lam914
+  end procedure p_lam919
 
-  module procedure p_lam915
+  module procedure p_lam920
     class(t_reactiondata_wallarea), pointer :: r_
     class(t_reactiondata_wallarea), pointer :: zz1
     logical :: zz2
@@ -3704,7 +3724,7 @@ contains
   end if
   zres = zz2
   return
-  end procedure p_lam915
+  end procedure p_lam920
 
   module procedure p_transport__f__recompilereactionsystem
     class(t_reactiondata), pointer :: rx_
@@ -3734,7 +3754,7 @@ contains
     class(t_transport_rxsymbols), pointer :: zz21
     integer(8) :: n_errors_in_
     class(t_fn161), pointer :: compile_one_
-    class(t_lam914), pointer :: zz22
+    class(t_lam919), pointer :: zz22
     integer(8) :: i_
     class(cpp_str), pointer :: zz23
     class(t_rxexprspan), pointer :: zz24
@@ -3845,7 +3865,7 @@ contains
     class(cpp_str), pointer :: zz108
     class(*), pointer :: zz109
     integer(4), pointer :: node_2_
-    class(t_lam915), pointer :: zz110
+    class(t_lam920), pointer :: zz110
     type(cpp_iter_o) :: zz111
     type(cpp_iter_o) :: zz112
     logical :: zz113
@@ -4199,14 +4219,14 @@ contains
   return
   end procedure p_transport__f__recompilereactionsystem
 
-  module procedure p_lam939
+  module procedure p_lam944
   zres = (((int(a1, 4) == 32) .or. (int(a1, 4) == 9)) .or. (int(a1, 4) == 44))
   return
-  end procedure p_lam939
+  end procedure p_lam944
 
   module procedure p_transport__anon_transport_components_reactionmodule_daeafaa5
     class(t_fn243), pointer :: is_delim_
-    class(t_lam939), pointer :: zz1
+    class(t_lam944), pointer :: zz1
     integer(8) :: i_
     integer(8) :: f_
     logical :: zz2
@@ -5210,7 +5230,7 @@ contains
   end do
   end procedure p_transport__anon_transport_components_reactionmodule_65eb8b98
 
-  module procedure p_lam940
+  module procedure p_lam945
     type(cpp_cptr) :: zz1
     class(cpp_str), pointer :: zz2
     type(cpp_cptr) :: zz3
@@ -5227,9 +5247,9 @@ contains
   zz6 => zz5
   call cpp_vec_o_push_back(zz7, zz6)
   return
-  end procedure p_lam940
+  end procedure p_lam945
 
-  module procedure p_lam941
+  module procedure p_lam946
     real(8), target :: n_
     integer(8) :: zz1
     class(cpp_str), pointer :: zz2
@@ -5261,7 +5281,7 @@ contains
   a1 = (cpp_conv_d2i(n_) - 1)
   zres = .true.
   return
-  end procedure p_lam941
+  end procedure p_lam946
 
   module procedure p_transport__anon_transport_components_reactionmodule_fba1e40e
     class(t_reactiondata), pointer :: rx_
@@ -5274,12 +5294,12 @@ contains
     class(cpp_str), pointer :: zz2
     class(cpp_vec_o), pointer :: zz3
     class(t_fn2), pointer :: fail_
-    class(t_lam940), pointer :: zz4
+    class(t_lam945), pointer :: zz4
     integer(8), pointer :: at_
     class(t_reactiondata_subsurfacelaw), pointer :: law_
     class(t_reactiondata_subsurfacelaw), pointer :: zz5
     class(t_fn262), pointer :: number_
-    class(t_lam941), pointer :: zz6
+    class(t_lam946), pointer :: zz6
     class(cpp_str), pointer :: zz7
     type(cpp_cptr) :: zz8
     class(cpp_str), pointer :: zz9

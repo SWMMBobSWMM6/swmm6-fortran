@@ -2852,25 +2852,25 @@ contains
   call p_richards_job_src_engine_hydrology_richardscolumn_cp_b6b38ff1(self, zz1)
   end procedure h_assign_richards_job_src_engine_hydrology_richardsco_4682c6ca
 
-  module procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch__1
-  zres => p_richards__anon_hydrology_richardscolumn_cpp_batch__1__clone(self)
-  end procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch__1
+  module procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch_false
+  zres => p_richards__anon_hydrology_richardscolumn_cpp_batch_f_c2134853(self)
+  end procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch_false
 
-  module procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_batch__1
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch__1), pointer :: zz1
-  zz1 => h_as_richards__anon_hydrology_richardscolumn_cpp_batch__1(other)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch__1__assign(self, zz1)
-  end procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_batch__1
+  module procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_daef2da3
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_false), pointer :: zz1
+  zz1 => h_as_richards__anon_hydrology_richardscolumn_cpp_batch_false(other)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_f_a6f93901(self, zz1)
+  end procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_daef2da3
 
-  module procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch_0
-  zres => p_richards__anon_hydrology_richardscolumn_cpp_batch_0__clone(self)
-  end procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch_0
+  module procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch_true
+  zres => p_richards__anon_hydrology_richardscolumn_cpp_batch_true__clone(self)
+  end procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_batch_true
 
-  module procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_batch_0
-    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_0), pointer :: zz1
-  zz1 => h_as_richards__anon_hydrology_richardscolumn_cpp_batch_0(other)
-  call p_richards__anon_hydrology_richardscolumn_cpp_batch_0__assign(self, zz1)
-  end procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_batch_0
+  module procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_batch_true
+    class(t_richards__anon_hydrology_richardscolumn_cpp_batch_true), pointer :: zz1
+  zz1 => h_as_richards__anon_hydrology_richardscolumn_cpp_batch_true(other)
+  call p_richards__anon_hydrology_richardscolumn_cpp_batch_t_c82270a5(self, zz1)
+  end procedure h_assign_richards__anon_hydrology_richardscolumn_cpp_batch_true
 
   module procedure h_clone_richards__anon_hydrology_richardscolumn_cpp_b_73430db6
   zres => p_richards__anon_hydrology_richardscolumn_cpp_boundar_9d750e12(self)

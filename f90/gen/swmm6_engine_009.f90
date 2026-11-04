@@ -368,35 +368,42 @@ contains
     real(8) :: v_infil_
     real(8) :: zz10
     type(cpp_ptr_d) :: gw_infil_ptr_
+    type(cpp_ptr_d) :: zz11
     integer(4) :: gw_evap_month_
-    real(8) :: zz11
-    integer(4) :: zz12
+    real(8) :: zz12
+    integer(4) :: zz13
+    type(cpp_ptr_d) :: zz14
+    class(t_groundwater_gwsolver), pointer :: zz15
+    class(t_simulationcontext), pointer :: zz16
+    real(8) :: zz17
+    type(cpp_ptr_d) :: zz18
+    type(cpp_ptr_d) :: zz19
     integer(4) :: i_2_
     integer(8) :: ui_2_
     real(8) :: gw_rate_
-    class(t_groundwater_gwsoa), pointer :: zz13
+    class(t_groundwater_gwsoa), pointer :: zz20
     real(8) :: area_ft2_
-    real(8) :: zz14
-    real(8) :: zz15
-    class(t_groundwater_gwsoa), pointer :: zz16
-    real(8), pointer :: zz17
+    real(8) :: zz21
+    real(8) :: zz22
+    class(t_groundwater_gwsoa), pointer :: zz23
+    real(8), pointer :: zz24
     class(t_groundwater_gwsoa), pointer :: gws_
-    class(t_groundwater_gwsoa), pointer :: zz18
+    class(t_groundwater_gwsoa), pointer :: zz25
     integer(4) :: i_3_
     integer(8) :: ui_3_
     real(8) :: area_ft2_2_
-    real(8) :: zz19
-    real(8) :: zz20
-    real(8) :: zz21
-    real(8) :: zz22
-    real(8) :: zz23
-    real(8) :: zz24
-    real(8) :: flow_cfs_
-    real(8) :: zz25
-    real(8) :: water_table_
     real(8) :: zz26
     real(8) :: zz27
     real(8) :: zz28
+    real(8) :: zz29
+    real(8) :: zz30
+    real(8) :: zz31
+    real(8) :: flow_cfs_
+    real(8) :: zz32
+    real(8) :: water_table_
+    real(8) :: zz33
+    real(8) :: zz34
+    real(8) :: zz35
   ns_ = p_simulationcontext__n_subcatches(self%ctx_)
   zz1 = p_ucf__f__ucf(4, self%ctx_%options)
   ucf_landarea_ = zz1
@@ -486,31 +493,38 @@ contains
     106 continue
     i_ = (i_ + 1)
   end do
-  gw_infil_ptr_ = cpp_vec_d_data(self%gw_infil_rate_)
-  zz11 = p_datetime__f__addseconds(self%ctx_%options%start_date, ((self%new_runoff_ms_ + 1.0_8) / 1000.0_8))
-  zz12 = p_datetime__f__monthofyear(zz11)
-  gw_evap_month_ = zz12
-  call p_groundwater_gwsolver__execute(self%groundwater_, self%ctx_, dt_runoff_, self%ctx_%climate_state%evap_rate, gw_infil_ptr_, cpp_vec_d_data(self%ctx_%subcatches%gw_sw_head), cpp_vec_d_data(self%gw_frac_perv_), cpp_vec_d_data(self%gw_perv_evap_), gw_evap_month_)
+  zz11 = cpp_vec_d_data(self%gw_infil_rate_)
+  gw_infil_ptr_ = zz11
+  zz12 = p_datetime__f__addseconds(self%ctx_%options%start_date, ((self%new_runoff_ms_ + 1.0_8) / 1000.0_8))
+  zz13 = p_datetime__f__monthofyear(zz12)
+  gw_evap_month_ = zz13
+  zz15 => self%groundwater_
+  zz16 => self%ctx_
+  zz17 = self%ctx_%climate_state%evap_rate
+  zz14 = cpp_vec_d_data(self%ctx_%subcatches%gw_sw_head)
+  zz18 = cpp_vec_d_data(self%gw_frac_perv_)
+  zz19 = cpp_vec_d_data(self%gw_perv_evap_)
+  call p_groundwater_gwsolver__execute(zz15, zz16, dt_runoff_, zz17, gw_infil_ptr_, zz14, zz18, zz19, gw_evap_month_)
   if (associated(cpp_exc)) return
   i_2_ = 0
   do
     if (.not. ((i_2_ < ns_))) exit
     ui_2_ = int(i_2_, 8)
-    zz13 => p_groundwater_gwsolver__state__v(self%groundwater_)
-    gw_rate_ = zz13%gw_flow%a%a(ui_2_)
-    zz15 = self%ctx_%subcatches%area%a%a(ui_2_)
-    zz14 = p_ucf__f__ucf(4, self%ctx_%options)
-    area_ft2_ = (zz15 / zz14)
+    zz20 => p_groundwater_gwsolver__state__v(self%groundwater_)
+    gw_rate_ = zz20%gw_flow%a%a(ui_2_)
+    zz22 = self%ctx_%subcatches%area%a%a(ui_2_)
+    zz21 = p_ucf__f__ucf(4, self%ctx_%options)
+    area_ft2_ = (zz22 / zz21)
     self%ctx_%subcatches%gw_flow%a%a(ui_2_) = (gw_rate_ * area_ft2_)
     if ((self%ctx_%subcatches%gw_aquifer%a%a(ui_2_) >= 0)) then
-      zz17 => self%ctx_%subcatches%gw_max_infil_vol%a%a(ui_2_)
-      zz16 => p_groundwater_gwsolver__state__v(self%groundwater_)
-      zz17 = zz16%max_infil_vol%a%a(ui_2_)
+      zz24 => self%ctx_%subcatches%gw_max_infil_vol%a%a(ui_2_)
+      zz23 => p_groundwater_gwsolver__state__v(self%groundwater_)
+      zz24 = zz23%max_infil_vol%a%a(ui_2_)
     end if
     i_2_ = (i_2_ + 1)
   end do
-  zz18 => p_groundwater_gwsolver__state__v(self%groundwater_)
-  gws_ => zz18
+  zz25 => p_groundwater_gwsolver__state__v(self%groundwater_)
+  gws_ => zz25
   i_3_ = 0
   do
     if (.not. ((i_3_ < ns_))) exit
@@ -518,32 +532,32 @@ contains
     if ((self%ctx_%subcatches%gw_aquifer%a%a(ui_3_) < 0)) then
       goto 110
     end if
-    zz20 = self%ctx_%subcatches%area%a%a(ui_3_)
-    zz19 = p_ucf__f__ucf(4, self%ctx_%options)
-    area_ft2_2_ = (zz20 / zz19)
-    zz21 = (self%ctx_%subcatches%stat_gw_infil_vol%a%a(ui_3_) + ((self%gw_infil_rate_%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_infil_vol%a%a(ui_3_) = zz21
-    zz22 = (self%ctx_%subcatches%stat_gw_upper_evap_vol%a%a(ui_3_) + ((gws_%upper_evap%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_upper_evap_vol%a%a(ui_3_) = zz22
-    zz23 = (self%ctx_%subcatches%stat_gw_lower_evap_vol%a%a(ui_3_) + ((gws_%lower_evap%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_lower_evap_vol%a%a(ui_3_) = zz23
-    zz24 = (self%ctx_%subcatches%stat_gw_deep_perc_vol%a%a(ui_3_) + ((gws_%deep_loss%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_deep_perc_vol%a%a(ui_3_) = zz24
+    zz27 = self%ctx_%subcatches%area%a%a(ui_3_)
+    zz26 = p_ucf__f__ucf(4, self%ctx_%options)
+    area_ft2_2_ = (zz27 / zz26)
+    zz28 = (self%ctx_%subcatches%stat_gw_infil_vol%a%a(ui_3_) + ((self%gw_infil_rate_%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_infil_vol%a%a(ui_3_) = zz28
+    zz29 = (self%ctx_%subcatches%stat_gw_upper_evap_vol%a%a(ui_3_) + ((gws_%upper_evap%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_upper_evap_vol%a%a(ui_3_) = zz29
+    zz30 = (self%ctx_%subcatches%stat_gw_lower_evap_vol%a%a(ui_3_) + ((gws_%lower_evap%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_lower_evap_vol%a%a(ui_3_) = zz30
+    zz31 = (self%ctx_%subcatches%stat_gw_deep_perc_vol%a%a(ui_3_) + ((gws_%deep_loss%a%a(ui_3_) * area_ft2_2_) * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_deep_perc_vol%a%a(ui_3_) = zz31
     flow_cfs_ = self%ctx_%subcatches%gw_flow%a%a(ui_3_)
-    zz25 = (self%ctx_%subcatches%stat_gw_flow_vol%a%a(ui_3_) + (flow_cfs_ * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_flow_vol%a%a(ui_3_) = zz25
+    zz32 = (self%ctx_%subcatches%stat_gw_flow_vol%a%a(ui_3_) + (flow_cfs_ * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_flow_vol%a%a(ui_3_) = zz32
     if ((flow_cfs_ > self%ctx_%subcatches%stat_gw_max_flow%a%a(ui_3_))) then
       self%ctx_%subcatches%stat_gw_max_flow%a%a(ui_3_) = flow_cfs_
     end if
     water_table_ = (gws_%lower_depth%a%a(ui_3_) + gws_%bottom_elev%a%a(ui_3_))
-    zz26 = (self%ctx_%subcatches%stat_gw_sum_theta%a%a(ui_3_) + (gws_%theta%a%a(ui_3_) * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_sum_theta%a%a(ui_3_) = zz26
-    zz27 = (self%ctx_%subcatches%stat_gw_sum_depth%a%a(ui_3_) + (water_table_ * dt_runoff_))
-    self%ctx_%subcatches%stat_gw_sum_depth%a%a(ui_3_) = zz27
+    zz33 = (self%ctx_%subcatches%stat_gw_sum_theta%a%a(ui_3_) + (gws_%theta%a%a(ui_3_) * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_sum_theta%a%a(ui_3_) = zz33
+    zz34 = (self%ctx_%subcatches%stat_gw_sum_depth%a%a(ui_3_) + (water_table_ * dt_runoff_))
+    self%ctx_%subcatches%stat_gw_sum_depth%a%a(ui_3_) = zz34
     self%ctx_%subcatches%stat_gw_final_theta%a%a(ui_3_) = gws_%theta%a%a(ui_3_)
     self%ctx_%subcatches%stat_gw_final_depth%a%a(ui_3_) = water_table_
-    zz28 = (self%ctx_%subcatches%stat_gw_time%a%a(ui_3_) + dt_runoff_)
-    self%ctx_%subcatches%stat_gw_time%a%a(ui_3_) = zz28
+    zz35 = (self%ctx_%subcatches%stat_gw_time%a%a(ui_3_) + dt_runoff_)
+    self%ctx_%subcatches%stat_gw_time%a%a(ui_3_) = zz35
     self%ctx_%subcatches%stat_gw_steps%a%a(ui_3_) = (self%ctx_%subcatches%stat_gw_steps%a%a(ui_3_) + 1_8)
     110 continue
     i_3_ = (i_3_ + 1)
@@ -1084,6 +1098,7 @@ contains
   module procedure p_lam108
     class(t_linkdata), pointer :: links_
     type(cpp_ptr_d) :: surf_buf_
+    type(cpp_ptr_d) :: zz1
     integer(8) :: k_
     integer(4) :: j_2_
     integer(8) :: uj_2_
@@ -1091,47 +1106,48 @@ contains
     logical :: bypassed_
     integer(4) :: a_
     integer(4) :: b_
-    logical :: zz1
     logical :: zz2
+    logical :: zz3
     real(8) :: da_
     real(8) :: db_
     real(8) :: ha_
     real(8) :: hb_
     real(8) :: va_
     real(8) :: vb_
-    real(8) :: zz3
-    real(8), pointer :: zz4
-    real(8) :: zz5
-    real(8), pointer :: zz6
-    real(8) :: zz7
+    real(8) :: zz4
+    real(8), pointer :: zz5
+    real(8) :: zz6
+    real(8), pointer :: zz7
     real(8) :: zz8
+    real(8) :: zz9
     real(8) :: q_new_
-    logical :: zz9
+    logical :: zz10
     real(8) :: before_surface_
     real(8) :: before_port_
-    real(8) :: zz10
-    real(8), pointer :: zz11
-    logical :: zz12
-    real(8) :: zz13
+    real(8) :: zz11
+    real(8), pointer :: zz12
+    logical :: zz13
+    real(8) :: zz14
     real(8) :: q_
     integer(4) :: n1_
     integer(4) :: n2_
     integer(8) :: un1_
     integer(8) :: un2_
-    real(8) :: zz14
     real(8) :: zz15
     real(8) :: zz16
     real(8) :: zz17
+    real(8) :: zz18
     real(8) :: dqdh_
     integer(4) :: pr_t4_
     logical :: is_type4_pump_
-    logical :: zz18
-    real(8), pointer :: zz19
-    real(8) :: zz20
-    real(8), pointer :: zz21
-    real(8) :: zz22
+    logical :: zz19
+    real(8), pointer :: zz20
+    real(8) :: zz21
+    real(8), pointer :: zz22
+    real(8) :: zz23
   links_ => a1%links
-  surf_buf_ = p_dynwave_dwsolver__nodenewsurfareadatamut(self%c_dw)
+  zz1 = p_dynwave_dwsolver__nodenewsurfareadatamut(self%c_dw)
+  surf_buf_ = zz1
   k_ = 0_8
   do
     if (.not. ((ieor(k_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(self%c_nc_idx), (-9223372036854775807_8 - 1_8))))) exit
@@ -1142,33 +1158,33 @@ contains
     if ((.not. bypassed_)) then
       a_ = links_%node1%a%a(uj_2_)
       b_ = links_%node2%a%a(uj_2_)
-      zz2 = ((a_ >= 0) .and. (b_ >= 0))
-      if (zz2) then
-        zz1 = p_lidnode__f__active(a1, a_)
-        if (.not. zz1) then
-          zz1 = p_lidnode__f__active(a1, b_)
+      zz3 = ((a_ >= 0) .and. (b_ >= 0))
+      if (zz3) then
+        zz2 = p_lidnode__f__active(a1, a_)
+        if (.not. zz2) then
+          zz2 = p_lidnode__f__active(a1, b_)
         end if
-        zz2 = zz1
+        zz3 = zz2
       end if
-      if (zz2) then
+      if (zz3) then
         da_ = a1%nodes%depth%a%a(int(a_, 8))
         db_ = a1%nodes%depth%a%a(int(b_, 8))
         ha_ = a1%nodes%head%a%a(int(a_, 8))
         hb_ = a1%nodes%head%a%a(int(b_, 8))
         va_ = a1%nodes%old_volume%a%a(int(a_, 8))
         vb_ = a1%nodes%old_volume%a%a(int(b_, 8))
-        zz4 => a1%nodes%depth%a%a(int(a_, 8))
-        zz3 = p_lidnode__f__portdepth(a1, a_, p_lidnode__f__portoffset(a1, j_2_, a_))
-        zz4 = zz3
-        zz6 => a1%nodes%depth%a%a(int(b_, 8))
-        zz5 = p_lidnode__f__portdepth(a1, b_, p_lidnode__f__portoffset(a1, j_2_, b_))
-        zz6 = zz5
+        zz5 => a1%nodes%depth%a%a(int(a_, 8))
+        zz4 = p_lidnode__f__portdepth(a1, a_, p_lidnode__f__portoffset(a1, j_2_, a_))
+        zz5 = zz4
+        zz7 => a1%nodes%depth%a%a(int(b_, 8))
+        zz6 = p_lidnode__f__portdepth(a1, b_, p_lidnode__f__portoffset(a1, j_2_, b_))
+        zz7 = zz6
         a1%nodes%head%a%a(int(a_, 8)) = (a1%nodes%invert_elev%a%a(int(a_, 8)) + a1%nodes%depth%a%a(int(a_, 8)))
         a1%nodes%head%a%a(int(b_, 8)) = (a1%nodes%invert_elev%a%a(int(b_, 8)) + a1%nodes%depth%a%a(int(b_, 8)))
-        zz7 = (a1%nodes%old_volume%a%a(int(a_, 8)) + p_lidnode__f__heldvolume(a1, a_))
-        a1%nodes%old_volume%a%a(int(a_, 8)) = zz7
-        zz8 = (a1%nodes%old_volume%a%a(int(b_, 8)) + p_lidnode__f__heldvolume(a1, b_))
-        a1%nodes%old_volume%a%a(int(b_, 8)) = zz8
+        zz8 = (a1%nodes%old_volume%a%a(int(a_, 8)) + p_lidnode__f__heldvolume(a1, a_))
+        a1%nodes%old_volume%a%a(int(a_, 8)) = zz8
+        zz9 = (a1%nodes%old_volume%a%a(int(b_, 8)) + p_lidnode__f__heldvolume(a1, b_))
+        a1%nodes%old_volume%a%a(int(b_, 8)) = zz9
         call p_hydstruct_structuresolver__computenonconduitflowone(self%c_this%hydstruct_, a1, a2, surf_buf_, j_2_)
         if (associated(cpp_exc)) return
         a1%nodes%depth%a%a(int(a_, 8)) = da_
@@ -1182,11 +1198,11 @@ contains
         if (associated(cpp_exc)) return
       end if
       q_new_ = links_%flow%a%a(uj_2_)
-      zz9 = (a3 > 0)
-      if (zz9) then
-        zz9 = (links_%type%a%a(uj_2_) /= 1_1)
+      zz10 = (a3 > 0)
+      if (zz10) then
+        zz10 = (links_%type%a%a(uj_2_) /= 1_1)
       end if
-      if (zz9) then
+      if (zz10) then
         q_new_ = ((0.5_8 * q_last_) + (0.5_8 * q_new_))
         if (((q_new_ * q_last_) < 0.0_8)) then
           q_new_ = (0.001_8 * merge(1.0_8, (-1.0_8), (q_new_ >= 0.0_8)))
@@ -1202,17 +1218,17 @@ contains
       links_%dqdh%a%a(uj_2_) = 0.0_8
     end if
     before_port_ = links_%flow%a%a(uj_2_)
-    zz11 => links_%flow%a%a(uj_2_)
-    zz10 = p_lidnode__f__exchangeports(a1, j_2_, before_port_, a2)
+    zz12 => links_%flow%a%a(uj_2_)
+    zz11 = p_lidnode__f__exchangeports(a1, j_2_, before_port_, a2)
     if (associated(cpp_exc)) return
-    zz11 = zz10
-    zz12 = (before_port_ /= 0.0_8)
-    if (zz12) then
-      zz12 = (links_%flow%a%a(uj_2_) /= before_port_)
+    zz12 = zz11
+    zz13 = (before_port_ /= 0.0_8)
+    if (zz13) then
+      zz13 = (links_%flow%a%a(uj_2_) /= before_port_)
     end if
-    if (zz12) then
-      zz13 = (links_%dqdh%a%a(uj_2_) * (links_%flow%a%a(uj_2_) / before_port_))
-      links_%dqdh%a%a(uj_2_) = zz13
+    if (zz13) then
+      zz14 = (links_%dqdh%a%a(uj_2_) * (links_%flow%a%a(uj_2_) / before_port_))
+      links_%dqdh%a%a(uj_2_) = zz14
     end if
     q_ = links_%flow%a%a(uj_2_)
     n1_ = links_%node1%a%a(uj_2_)
@@ -1223,31 +1239,31 @@ contains
     un1_ = int(n1_, 8)
     un2_ = int(n2_, 8)
     if ((q_ >= 0.0_8)) then
-      zz14 = (a1%nodes%outflow%a%a(un1_) + q_)
-      a1%nodes%outflow%a%a(un1_) = zz14
-      zz15 = (a1%nodes%inflow%a%a(un2_) + q_)
-      a1%nodes%inflow%a%a(un2_) = zz15
+      zz15 = (a1%nodes%outflow%a%a(un1_) + q_)
+      a1%nodes%outflow%a%a(un1_) = zz15
+      zz16 = (a1%nodes%inflow%a%a(un2_) + q_)
+      a1%nodes%inflow%a%a(un2_) = zz16
     else
-      zz16 = (a1%nodes%inflow%a%a(un1_) - q_)
-      a1%nodes%inflow%a%a(un1_) = zz16
-      zz17 = (a1%nodes%outflow%a%a(un2_) - q_)
-      a1%nodes%outflow%a%a(un2_) = zz17
+      zz17 = (a1%nodes%inflow%a%a(un1_) - q_)
+      a1%nodes%inflow%a%a(un1_) = zz17
+      zz18 = (a1%nodes%outflow%a%a(un2_) - q_)
+      a1%nodes%outflow%a%a(un2_) = zz18
     end if
     if (p_dynwave_dwsolver__isinitialized(self%c_dw)) then
       dqdh_ = links_%dqdh%a%a(uj_2_)
       pr_t4_ = p_linksubtypes__pump_row(self%c_this%ctx_%link_subtypes, j_2_)
-      zz18 = ((links_%type%a%a(uj_2_) == 1_1) .and. (pr_t4_ >= 0))
-      if (zz18) then
-        zz18 = (self%c_this%ctx_%link_subtypes%pumps%curve_type%a%a(int(pr_t4_, 8)) == 4)
+      zz19 = ((links_%type%a%a(uj_2_) == 1_1) .and. (pr_t4_ >= 0))
+      if (zz19) then
+        zz19 = (self%c_this%ctx_%link_subtypes%pumps%curve_type%a%a(int(pr_t4_, 8)) == 4)
       end if
-      is_type4_pump_ = zz18
-      zz19 => p_dynwave_dwsolver__nodesumdqdh(self%c_dw, n1_)
-      zz20 = (zz19 + dqdh_)
-      zz19 = zz20
+      is_type4_pump_ = zz19
+      zz20 => p_dynwave_dwsolver__nodesumdqdh(self%c_dw, n1_)
+      zz21 = (zz20 + dqdh_)
+      zz20 = zz21
       if ((.not. is_type4_pump_)) then
-        zz21 => p_dynwave_dwsolver__nodesumdqdh(self%c_dw, n2_)
-        zz22 = (zz21 + dqdh_)
-        zz21 = zz22
+        zz22 => p_dynwave_dwsolver__nodesumdqdh(self%c_dw, n2_)
+        zz23 = (zz22 + dqdh_)
+        zz22 = zz23
       end if
     end if
     102 continue
@@ -4175,25 +4191,25 @@ contains
     class(t_snow_snowsoa), pointer :: sn_
     class(t_snow_snowsoa), pointer :: zz3
     type(cpp_ptr_d), target :: x_
+    type(cpp_ptr_d) :: zz4
     integer(4) :: i_
     integer(8) :: ui_
-    type(cpp_ptr_d) :: zz4
-    real(8), pointer :: zz5
+    type(cpp_ptr_d) :: zz5
     real(8), pointer :: zz6
-    type(cpp_ptr_d) :: zz7
-    real(8), pointer :: zz8
+    real(8), pointer :: zz7
+    type(cpp_ptr_d) :: zz8
     real(8), pointer :: zz9
-    type(cpp_ptr_d) :: zz10
-    real(8), pointer :: zz11
+    real(8), pointer :: zz10
+    type(cpp_ptr_d) :: zz11
     real(8), pointer :: zz12
-    type(cpp_ptr_d) :: zz13
-    real(8), pointer :: zz14
+    real(8), pointer :: zz13
+    type(cpp_ptr_d) :: zz14
     real(8), pointer :: zz15
+    real(8), pointer :: zz16
     integer(4), target :: model_
     class(cpp_arr_d), pointer :: v6_
-    class(cpp_arr_d), pointer :: zz16
-    logical :: zz17
-    real(8), pointer :: zz18
+    class(cpp_arr_d), pointer :: zz17
+    logical :: zz18
     real(8), pointer :: zz19
     real(8), pointer :: zz20
     real(8), pointer :: zz21
@@ -4202,10 +4218,10 @@ contains
     real(8), pointer :: zz24
     real(8), pointer :: zz25
     real(8), pointer :: zz26
-    logical :: zz27
+    real(8), pointer :: zz27
+    logical :: zz28
     integer(4) :: j_
     integer(8) :: pk_
-    real(8), pointer :: zz28
     real(8), pointer :: zz29
     real(8), pointer :: zz30
     real(8), pointer :: zz31
@@ -4215,29 +4231,30 @@ contains
     real(8), pointer :: zz35
     real(8), pointer :: zz36
     real(8), pointer :: zz37
+    real(8), pointer :: zz38
     integer(4) :: p_
-    type(cpp_ptr_d) :: zz38
-    real(8), pointer :: zz39
+    type(cpp_ptr_d) :: zz39
     real(8), pointer :: zz40
-    real(8) :: zz41
-    real(8), pointer :: zz42
+    real(8), pointer :: zz41
+    real(8) :: zz42
+    real(8), pointer :: zz43
     integer(4) :: p_2_
-    type(cpp_ptr_d) :: zz43
-    real(8), pointer :: zz44
+    type(cpp_ptr_d) :: zz44
     real(8), pointer :: zz45
+    real(8), pointer :: zz46
     integer(4) :: lu_
     integer(4) :: p_3_
     integer(8) :: bu_
     real(8) :: norm_
-    real(8), pointer :: zz46
-    real(8) :: zz47
-    real(8), pointer :: zz48
-    integer(8) :: sw_
+    real(8), pointer :: zz47
+    real(8) :: zz48
     real(8), pointer :: zz49
+    integer(8) :: sw_
     real(8), pointer :: zz50
     real(8), pointer :: zz51
-    real(8) :: zz52
-    real(8), pointer :: zz53
+    real(8), pointer :: zz52
+    real(8) :: zz53
+    real(8), pointer :: zz54
   nsc_ = p_simulationcontext__n_subcatches(self%ctx_)
   np_ = p_simulationcontext__n_pollutants(self%ctx_)
   nlu_ = p_simulationcontext__n_landuses(self%ctx_)
@@ -4252,64 +4269,65 @@ contains
   gw_ => zz2
   zz3 => p_snow_degreedaysnow__state__v(self%snow_)
   sn_ => zz3
-  x_ = cpp_vec_d_data(self%hotstart_runoff_)
+  zz4 = cpp_vec_d_data(self%hotstart_runoff_)
+  x_ = zz4
   i_ = 0
   do
     if (.not. ((i_ < nsc_))) exit
     ui_ = int(i_, 8)
-    zz6 => soa_%depth_imperv0%a%a(ui_)
-    zz4 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
-    zz5 => cpp_ptr_d_deref(zz4)
-    zz6 = zz5
-    zz9 => soa_%depth_imperv1%a%a(ui_)
-    zz7 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
-    zz8 => cpp_ptr_d_deref(zz7)
-    zz9 = zz8
-    zz12 => soa_%depth_perv%a%a(ui_)
-    zz10 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
-    zz11 => cpp_ptr_d_deref(zz10)
-    zz12 = zz11
-    zz15 => sub_%runoff%a%a(ui_)
-    zz13 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
-    zz14 => cpp_ptr_d_deref(zz13)
-    zz15 = zz14
+    zz7 => soa_%depth_imperv0%a%a(ui_)
+    zz5 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
+    zz6 => cpp_ptr_d_deref(zz5)
+    zz7 = zz6
+    zz10 => soa_%depth_imperv1%a%a(ui_)
+    zz8 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
+    zz9 => cpp_ptr_d_deref(zz8)
+    zz10 = zz9
+    zz13 => soa_%depth_perv%a%a(ui_)
+    zz11 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
+    zz12 => cpp_ptr_d_deref(zz11)
+    zz13 = zz12
+    zz16 => sub_%runoff%a%a(ui_)
+    zz14 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
+    zz15 => cpp_ptr_d_deref(zz14)
+    zz16 = zz15
     sub_%ponded_depth%a%a(ui_) = (((soa_%depth_imperv0%a%a(ui_) * soa_%frac_imperv0%a%a(ui_)) + (soa_%depth_imperv1%a%a(ui_) * soa_%frac_imperv1%a%a(ui_))) + (soa_%depth_perv%a%a(ui_) * (1.0_8 - soa_%imperv_pct%a%a(ui_))))
     model_ = 0
-    zz16 => cpp_arr_make__d(6)
-    v6_ => zz16
+    zz17 => cpp_arr_make__d(6)
+    v6_ => zz17
     call p_runoff_runoffsolver__infil_get_state(self%runoff_, i_, model_, cpp_ptr_d_new_ta_l(v6_, 0_8))
     if (associated(cpp_exc)) return
     call p__anon_core_swmmengine_cpp__f__infilfromlegacy_swmmengine(model_, x_, cpp_ptr_d_new_ta_l(v6_, 0_8))
     if (associated(cpp_exc)) return
     call p_runoff_runoffsolver__infil_set_state(self%runoff_, i_, model_, cpp_ptr_d_new_ta_l(v6_, 0_8))
     x_ = cpp_ptr_d_op_add_ptrt_l(x_, 6_8)
-    zz17 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%gw_aquifer), (-9223372036854775807_8 - 1_8)))
-    if (zz17) then
-      zz17 = (sub_%gw_aquifer%a%a(ui_) >= 0)
+    zz18 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%gw_aquifer), (-9223372036854775807_8 - 1_8)))
+    if (zz18) then
+      zz18 = (sub_%gw_aquifer%a%a(ui_) >= 0)
     end if
-    if (zz17) then
-      zz19 => gw_%theta%a%a(ui_)
-      zz18 => cpp_ptr_d_item_i(x_, 0)
-      zz19 = zz18
-      zz21 => gw_%lower_depth%a%a(ui_)
-      zz20 => cpp_ptr_d_item_i(x_, 1)
-      zz21 = (zz20 - gw_%bottom_elev%a%a(ui_))
-      zz23 => gw_%old_flow%a%a(ui_)
-      zz22 => cpp_ptr_d_item_i(x_, 2)
-      zz23 = zz22
-      zz24 => cpp_ptr_d_item_i(x_, 3)
-      if ((zz24 /= (-10000000000.0_8))) then
-        zz26 => gw_%max_infil_vol%a%a(ui_)
-        zz25 => cpp_ptr_d_item_i(x_, 3)
-        zz26 = zz25
+    if (zz18) then
+      zz20 => gw_%theta%a%a(ui_)
+      zz19 => cpp_ptr_d_item_i(x_, 0)
+      zz20 = zz19
+      zz22 => gw_%lower_depth%a%a(ui_)
+      zz21 => cpp_ptr_d_item_i(x_, 1)
+      zz22 = (zz21 - gw_%bottom_elev%a%a(ui_))
+      zz24 => gw_%old_flow%a%a(ui_)
+      zz23 => cpp_ptr_d_item_i(x_, 2)
+      zz24 = zz23
+      zz25 => cpp_ptr_d_item_i(x_, 3)
+      if ((zz25 /= (-10000000000.0_8))) then
+        zz27 => gw_%max_infil_vol%a%a(ui_)
+        zz26 => cpp_ptr_d_item_i(x_, 3)
+        zz27 = zz26
       end if
       x_ = cpp_ptr_d_op_add_ptrt_l(x_, 4_8)
     end if
-    zz27 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%snowpack), (-9223372036854775807_8 - 1_8)))
-    if (zz27) then
-      zz27 = (sub_%snowpack%a%a(ui_) >= 0)
+    zz28 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%snowpack), (-9223372036854775807_8 - 1_8)))
+    if (zz28) then
+      zz28 = (sub_%snowpack%a%a(ui_) >= 0)
     end if
-    if (zz27) then
+    if (zz28) then
       j_ = 0
       do
         if ((.not. (j_ < s_snow__f__n_subareas))) then
@@ -4319,21 +4337,21 @@ contains
         if ((ieor(pk_, (-9223372036854775807_8 - 1_8)) >= ieor(cpp_vec_d_size(sn_%wsnow), (-9223372036854775807_8 - 1_8)))) then
           goto 104
         end if
-        zz29 => sn_%wsnow%a%a(pk_)
-        zz28 => cpp_ptr_d_item_i(x_, 0)
-        zz29 = zz28
-        zz31 => sn_%fw%a%a(pk_)
-        zz30 => cpp_ptr_d_item_i(x_, 1)
-        zz31 = zz30
-        zz33 => sn_%coldc%a%a(pk_)
-        zz32 => cpp_ptr_d_item_i(x_, 2)
-        zz33 = zz32
-        zz35 => sn_%ati%a%a(pk_)
-        zz34 => cpp_ptr_d_item_i(x_, 3)
-        zz35 = zz34
-        zz37 => sn_%awe%a%a(pk_)
-        zz36 => cpp_ptr_d_item_i(x_, 4)
-        zz37 = zz36
+        zz30 => sn_%wsnow%a%a(pk_)
+        zz29 => cpp_ptr_d_item_i(x_, 0)
+        zz30 = zz29
+        zz32 => sn_%fw%a%a(pk_)
+        zz31 => cpp_ptr_d_item_i(x_, 1)
+        zz32 = zz31
+        zz34 => sn_%coldc%a%a(pk_)
+        zz33 => cpp_ptr_d_item_i(x_, 2)
+        zz34 = zz33
+        zz36 => sn_%ati%a%a(pk_)
+        zz35 => cpp_ptr_d_item_i(x_, 3)
+        zz36 = zz35
+        zz38 => sn_%awe%a%a(pk_)
+        zz37 => cpp_ptr_d_item_i(x_, 4)
+        zz38 = zz37
         j_ = (j_ + 1)
         x_ = cpp_ptr_d_op_add_ptrt_l(x_, 5_8)
         104 continue
@@ -4344,22 +4362,22 @@ contains
       p_ = 0
       do
         if (.not. ((p_ < np_))) exit
-        zz42 => sub_%conc%a%a(((ui_ * int(np_, 8)) + int(p_, 8)))
-        zz40 => sub_%conc_old%a%a(((ui_ * int(np_, 8)) + int(p_, 8)))
-        zz38 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
-        zz39 => cpp_ptr_d_deref(zz38)
-        zz41 = zz39
-        zz40 = zz41
-        zz42 = zz41
+        zz43 => sub_%conc%a%a(((ui_ * int(np_, 8)) + int(p_, 8)))
+        zz41 => sub_%conc_old%a%a(((ui_ * int(np_, 8)) + int(p_, 8)))
+        zz39 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
+        zz40 => cpp_ptr_d_deref(zz39)
+        zz42 = zz40
+        zz41 = zz42
+        zz43 = zz42
         p_ = (p_ + 1)
       end do
       p_2_ = 0
       do
         if (.not. ((p_2_ < np_))) exit
-        zz45 => sub_%ponded_qual%a%a(((ui_ * int(np_, 8)) + int(p_2_, 8)))
-        zz43 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
-        zz44 => cpp_ptr_d_deref(zz43)
-        zz45 = zz44
+        zz46 => sub_%ponded_qual%a%a(((ui_ * int(np_, 8)) + int(p_2_, 8)))
+        zz44 = cpp_mv_poststep_ptrtr_i__d(x_, 1)
+        zz45 => cpp_ptr_d_deref(zz44)
+        zz46 = zz45
         p_2_ = (p_2_ + 1)
       end do
       lu_ = 0
@@ -4373,14 +4391,14 @@ contains
           bu_ = p_landuse_surfacequalitysoa__bu_idx(self%surface_quality_, i_, lu_, p_3_)
           norm_ = p__f__buildupnorm_swmmengine(self%ctx_, self%landuse_solver_, ui_, lu_, p_3_)
           if ((ieor(bu_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(self%surface_quality_%buildup), (-9223372036854775807_8 - 1_8)))) then
-            zz48 => self%surface_quality_%buildup%a%a(bu_)
+            zz49 => self%surface_quality_%buildup%a%a(bu_)
             if ((norm_ > 0.0_8)) then
-              zz46 => cpp_ptr_d_deref(x_)
-              zz47 = (zz46 / norm_)
+              zz47 => cpp_ptr_d_deref(x_)
+              zz48 = (zz47 / norm_)
             else
-              zz47 = 0.0_8
+              zz48 = 0.0_8
             end if
-            zz48 = zz47
+            zz49 = zz48
           end if
           p_3_ = (p_3_ + 1)
           x_ = cpp_ptr_d_op_add_ptrt_l(x_, 1_8)
@@ -4390,13 +4408,13 @@ contains
         if ((ieor(sw_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(sub_%sweep_last_swept), (-9223372036854775807_8 - 1_8)))) then
           call cpp_vec_d_resize_ul_t(sub_%sweep_last_date, cpp_vec_d_size(sub_%sweep_last_swept), self%ctx_%options%start_date)
           if (associated(cpp_exc)) return
-          zz50 => sub_%sweep_last_date%a%a(sw_)
-          zz49 => cpp_ptr_d_deref(x_)
-          zz50 = zz49
-          zz53 => sub_%sweep_last_swept%a%a(sw_)
-          zz52 = self%ctx_%options%start_date
-          zz51 => cpp_ptr_d_deref(x_)
-          zz53 = (zz52 - zz51)
+          zz51 => sub_%sweep_last_date%a%a(sw_)
+          zz50 => cpp_ptr_d_deref(x_)
+          zz51 = zz50
+          zz54 => sub_%sweep_last_swept%a%a(sw_)
+          zz53 = self%ctx_%options%start_date
+          zz52 => cpp_ptr_d_deref(x_)
+          zz54 = (zz53 - zz52)
         end if
         x_ = cpp_ptr_d_op_add_ptrt_l(x_, 1_8)
         lu_ = (lu_ + 1)

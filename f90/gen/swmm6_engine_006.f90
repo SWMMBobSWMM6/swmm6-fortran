@@ -115,157 +115,161 @@ contains
     type(cpp_cptr) :: zz89
     class(cpp_str), pointer :: zz90
     class(cpp_str), pointer :: zz91
-    class(cpp_istream), pointer :: zz92
-    type(cpp_cptr) :: zz93
-    class(cpp_str), pointer :: zz94
-    type(cpp_cptr) :: zz95
-    class(cpp_str), pointer :: zz96
+    type(cpp_ptr_d) :: zz92
+    class(cpp_istream), pointer :: zz93
+    type(cpp_cptr) :: zz94
+    class(cpp_str), pointer :: zz95
+    type(cpp_cptr) :: zz96
     class(cpp_str), pointer :: zz97
-    logical :: zz98
+    class(cpp_str), pointer :: zz98
+    logical :: zz99
     class(cpp_str), pointer :: msg_
-    type(cpp_cptr) :: zz99
-    class(cpp_str), pointer :: zz100
+    type(cpp_cptr) :: zz100
+    class(cpp_str), pointer :: zz101
     class(t_subcatchdata), pointer :: sub_
     integer(8) :: skip_doubles_
     integer(4) :: i_
     integer(8) :: ui_
     integer(8) :: nd_
-    logical :: zz101
-    integer(8) :: zz102
-    logical :: zz103
-    integer(8) :: zz104
+    logical :: zz102
+    integer(8) :: zz103
+    logical :: zz104
     integer(8) :: zz105
     integer(8) :: zz106
     integer(8) :: zz107
-    class(cpp_istream), pointer :: zz108
-    type(cpp_cptr) :: zz109
-    class(cpp_str), pointer :: zz110
-    type(cpp_cptr) :: zz111
-    class(cpp_str), pointer :: zz112
+    integer(8) :: zz108
+    class(cpp_istream), pointer :: zz109
+    type(cpp_cptr) :: zz110
+    class(cpp_str), pointer :: zz111
+    type(cpp_cptr) :: zz112
     class(cpp_str), pointer :: zz113
-    class(cpp_istream), pointer :: zz114
-    type(cpp_cptr) :: zz115
-    class(cpp_str), pointer :: zz116
-    type(cpp_cptr) :: zz117
-    class(cpp_str), pointer :: zz118
+    class(cpp_str), pointer :: zz114
+    class(cpp_istream), pointer :: zz115
+    type(cpp_cptr) :: zz116
+    class(cpp_str), pointer :: zz117
+    type(cpp_cptr) :: zz118
     class(cpp_str), pointer :: zz119
+    class(cpp_str), pointer :: zz120
     class(t_nodedata), pointer :: nodes_
     class(t_linkdata), pointer :: links_
     integer(4) :: i_2_
     integer(8) :: ui_2_
     real(4), target :: depth_
     real(4), target :: lat_
-    logical :: zz120
     logical :: zz121
     logical :: zz122
-    real(4), target :: hrt_
     logical :: zz123
+    real(4), target :: hrt_
+    logical :: zz124
     integer(4) :: j_
     real(4), target :: q_
-    logical :: zz124
+    logical :: zz125
     integer(8) :: qi_
-    real(8) :: zz125
-    real(8), pointer :: zz126
+    real(8) :: zz126
+    real(8), pointer :: zz127
     integer(4) :: j_2_
     real(4), target :: q_2_
-    logical :: zz127
+    logical :: zz128
     integer(4) :: i_3_
     integer(8) :: ui_3_
     real(4), target :: flow_
     real(4), target :: depth_2_
     real(4), target :: setting_
-    logical :: zz128
     logical :: zz129
     logical :: zz130
+    logical :: zz131
     integer(4) :: j_3_
     real(4), target :: q_3_
-    logical :: zz131
+    logical :: zz132
     integer(8) :: qi_2_
-    real(8) :: zz132
-    real(8), pointer :: zz133
-    class(t_legacyspeciestrailer), pointer :: zz134
-    class(cpp_vec_o), pointer :: zz135
-    class(cpp_vec_d), pointer :: zz136
+    real(8) :: zz133
+    real(8), pointer :: zz134
+    class(t_legacyspeciestrailer), pointer :: zz135
+    class(cpp_vec_o), pointer :: zz136
     class(cpp_vec_d), pointer :: zz137
     class(cpp_vec_d), pointer :: zz138
+    class(cpp_vec_d), pointer :: zz139
     type(cpp_cptr) :: tag_
-    class(cpp_arr_i), pointer :: zz139
-    type(cpp_cptr) :: zz140
-    class(cpp_istream), pointer :: zz141
-    logical :: zz142
+    class(cpp_arr_i), pointer :: zz140
+    type(cpp_cptr) :: zz141
+    class(cpp_istream), pointer :: zz142
+    logical :: zz143
     integer(4), target :: ns_
     integer(4), target :: nn_
     integer(4), target :: nl_
     integer(4), target :: surf_
     logical :: ok_
-    logical :: zz143
+    logical :: zz144
     class(cpp_vec_o), pointer :: names_
-    class(cpp_vec_o), pointer :: zz144
+    class(cpp_vec_o), pointer :: zz145
     class(cpp_vec_o), pointer :: x__r2_
     integer(8) :: x__i3_
     integer(8) :: x__i3_n_
     class(cpp_str), pointer :: n_
-    class(cpp_str), pointer :: zz145
-    logical :: zz146
+    class(cpp_str), pointer :: zz146
     logical :: zz147
     logical :: zz148
     logical :: zz149
     logical :: zz150
     logical :: zz151
+    logical :: zz152
     integer(8) :: uns_
     class(cpp_vec_d), pointer :: node_
-    class(cpp_vec_d), pointer :: zz152
-    class(cpp_vec_d), pointer :: link_
     class(cpp_vec_d), pointer :: zz153
-    class(cpp_istream), pointer :: zz154
-    class(cpp_istream), pointer :: zz155
-    logical :: zz156
-    logical :: zz157
-    integer(4), target :: nsc_
-    integer(4), target :: nlu_
-    logical :: zz158
+    class(cpp_vec_d), pointer :: link_
+    class(cpp_vec_d), pointer :: zz154
+    type(cpp_ptr_d) :: zz155
+    class(cpp_istream), pointer :: zz156
+    type(cpp_ptr_d) :: zz157
+    class(cpp_istream), pointer :: zz158
     logical :: zz159
     logical :: zz160
+    integer(4), target :: nsc_
+    integer(4), target :: nlu_
+    logical :: zz161
+    logical :: zz162
+    logical :: zz163
     integer(8) :: a_
     class(cpp_arr_o), pointer :: x__r4_
-    class(cpp_arr_o), pointer :: zz161
+    class(cpp_arr_o), pointer :: zz164
     integer(8) :: x__i5_
     integer(8) :: x__i5_n_
     class(cpp_vec_d), pointer :: v_
-    class(cpp_vec_d), pointer :: zz162
-    class(cpp_istream), pointer :: zz163
-    type(cpp_cptr) :: zz164
-    class(cpp_str), pointer :: zz165
-    type(cpp_cptr) :: zz166
-    class(cpp_str), pointer :: zz167
-    class(cpp_str), pointer :: zz168
-    class(t_reactiondata), pointer :: rx_
-    integer(4) :: nm_
-    integer(4) :: zz169
-    integer(8) :: unm_
-    class(cpp_vec_i), pointer :: col_
-    class(cpp_vec_i), pointer :: zz170
-    integer(8) :: s_
+    class(cpp_vec_d), pointer :: zz165
+    type(cpp_ptr_d) :: zz166
+    class(cpp_istream), pointer :: zz167
+    type(cpp_cptr) :: zz168
+    class(cpp_str), pointer :: zz169
+    type(cpp_cptr) :: zz170
     class(cpp_str), pointer :: zz171
     class(cpp_str), pointer :: zz172
+    class(t_reactiondata), pointer :: rx_
+    integer(4) :: nm_
     integer(4) :: zz173
-    integer(4) :: zz174
-    integer(4), pointer :: zz175
-    logical :: zz176
-    type(cpp_cptr) :: zz177
-    class(cpp_str), pointer :: zz178
-    class(cpp_str), pointer :: zz179
-    type(cpp_cptr) :: zz180
-    class(cpp_str), pointer :: zz181
+    integer(8) :: unm_
+    class(cpp_vec_i), pointer :: col_
+    class(cpp_vec_i), pointer :: zz174
+    integer(8) :: s_
+    class(cpp_str), pointer :: zz175
+    class(cpp_str), pointer :: zz176
+    integer(4) :: zz177
+    integer(4) :: zz178
+    integer(4), pointer :: zz179
+    logical :: zz180
+    type(cpp_cptr) :: zz181
+    class(cpp_str), pointer :: zz182
+    class(cpp_str), pointer :: zz183
+    type(cpp_cptr) :: zz184
+    class(cpp_str), pointer :: zz185
     integer(8) :: s_2_
     integer(8) :: m_
     integer(8) :: e_
     integer(8) :: e_2_
-    logical :: zz182
-    logical :: zz183
-    type(cpp_cptr) :: zz184
-    class(cpp_str), pointer :: zz185
-    class(cpp_object), pointer :: zz186
+    logical :: zz186
+    logical :: zz187
+    type(cpp_cptr) :: zz188
+    class(cpp_str), pointer :: zz189
+    class(cpp_object), pointer :: zz190
   if ((.not. cpp_vec_i_empty(ctx_%reactions%lid_controls))) then
     zz2 => s__f__tl_last_io_error_hotstartmanager
     zz1 = cpp_r_lit("LID reaction inventories require a full native engine checkpoint")
@@ -511,29 +515,30 @@ contains
     call cpp_vec_d_clear(runoff_)
     if (((version_ >= 3) .and. (nsub_ > 0))) then
       call cpp_vec_d_resize_ul(runoff_, p_hotstartmanager__legacy_runoff_size(ctx_, nland_))
-      zz92 => cpp_istream_read_ptrt_l__d(file_, cpp_vec_d_data(runoff_), (cpp_vec_d_size(runoff_) * 8_8))
+      zz92 = cpp_vec_d_data(runoff_)
+      zz93 => cpp_istream_read_ptrt_l__d(file_, zz92, (cpp_vec_d_size(runoff_) * 8_8))
       if (associated(cpp_exc)) goto 101
       if (cpp_iosbase_notok(file_)) then
-        zz97 => s__f__tl_last_io_error_hotstartmanager
-        zz93 = cpp_r_lit("Hotstart runoff section truncated in '")
-        zz94 => cpp_str_cat_cptr_str(zz93, path_)
-        zz95 = cpp_r_lit("'")
-        zz96 => cpp_str_cat_str_cptr(zz94, zz95)
-        call cpp_str_movefrom(zz97, zz96)
+        zz98 => s__f__tl_last_io_error_hotstartmanager
+        zz94 = cpp_r_lit("Hotstart runoff section truncated in '")
+        zz95 => cpp_str_cat_cptr_str(zz94, path_)
+        zz96 = cpp_r_lit("'")
+        zz97 => cpp_str_cat_str_cptr(zz95, zz96)
+        call cpp_str_movefrom(zz98, zz97)
         zres = 1
         zz14 = 1
         goto 101
       end if
     end if
   end if
-  zz98 = (nsub_ > 0)
-  if (zz98) then
-    zz98 = ((.not. (.not. (.not. associated(runoff_)))) .or. (version_ < 3))
+  zz99 = (nsub_ > 0)
+  if (zz99) then
+    zz99 = ((.not. (.not. (.not. associated(runoff_)))) .or. (version_ < 3))
   end if
-  if (zz98) then
-    zz99 = cpp_r_lit("USE HOTSTART: subcatchment runoff/infiltration/groundwater/snowpack state was skipped (routing state applied only)")
-    zz100 => cpp_str_new_cptr(zz99)
-    msg_ => zz100
+  if (zz99) then
+    zz100 = cpp_r_lit("USE HOTSTART: subcatchment runoff/infiltration/groundwater/snowpack state was skipped (routing state applied only)")
+    zz101 => cpp_str_new_cptr(zz100)
+    msg_ => zz101
     if ((.not. (.not. associated(warn_cb_)))) then
       call warn_cb_%invoke(msg_)
       if (associated(cpp_exc)) goto 101
@@ -547,55 +552,55 @@ contains
       if (.not. ((i_ < nsub_))) exit
       ui_ = int(i_, 8)
       nd_ = 10_8
-      zz101 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%gw_aquifer), (-9223372036854775807_8 - 1_8)))
-      if (zz101) then
-        zz101 = (sub_%gw_aquifer%a%a(ui_) >= 0)
+      zz102 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%gw_aquifer), (-9223372036854775807_8 - 1_8)))
+      if (zz102) then
+        zz102 = (sub_%gw_aquifer%a%a(ui_) >= 0)
       end if
-      if (zz101) then
-        zz102 = (nd_ + 4_8)
-        nd_ = zz102
+      if (zz102) then
+        zz103 = (nd_ + 4_8)
+        nd_ = zz103
       end if
-      zz103 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%snowpack), (-9223372036854775807_8 - 1_8)))
-      if (zz103) then
-        zz103 = (sub_%snowpack%a%a(ui_) >= 0)
+      zz104 = (ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_i_size(sub_%snowpack), (-9223372036854775807_8 - 1_8)))
+      if (zz104) then
+        zz104 = (sub_%snowpack%a%a(ui_) >= 0)
       end if
-      if (zz103) then
-        zz104 = (nd_ + 15_8)
-        nd_ = zz104
+      if (zz104) then
+        zz105 = (nd_ + 15_8)
+        nd_ = zz105
       end if
       if ((npollut_ > 0)) then
-        zz105 = (nd_ + (2_8 * int(npollut_, 8)))
-        nd_ = zz105
-        zz106 = (nd_ + (int(nland_, 8) * (int(npollut_, 8) + 1_8)))
+        zz106 = (nd_ + (2_8 * int(npollut_, 8)))
         nd_ = zz106
+        zz107 = (nd_ + (int(nland_, 8) * (int(npollut_, 8) + 1_8)))
+        nd_ = zz107
       end if
-      zz107 = (skip_doubles_ + nd_)
-      skip_doubles_ = zz107
+      zz108 = (skip_doubles_ + nd_)
+      skip_doubles_ = zz108
       i_ = (i_ + 1)
     end do
-    zz108 => cpp_istream_seekg(file_, (skip_doubles_ * 8_8), 1)
+    zz109 => cpp_istream_seekg(file_, (skip_doubles_ * 8_8), 1)
     if (associated(cpp_exc)) goto 101
     if (cpp_iosbase_notok(file_)) then
-      zz113 => s__f__tl_last_io_error_hotstartmanager
-      zz109 = cpp_r_lit("Hotstart runoff section truncated in '")
-      zz110 => cpp_str_cat_cptr_str(zz109, path_)
-      zz111 = cpp_r_lit("'")
-      zz112 => cpp_str_cat_str_cptr(zz110, zz111)
-      call cpp_str_movefrom(zz113, zz112)
+      zz114 => s__f__tl_last_io_error_hotstartmanager
+      zz110 = cpp_r_lit("Hotstart runoff section truncated in '")
+      zz111 => cpp_str_cat_cptr_str(zz110, path_)
+      zz112 = cpp_r_lit("'")
+      zz113 => cpp_str_cat_str_cptr(zz111, zz112)
+      call cpp_str_movefrom(zz114, zz113)
       zres = 1
       zz14 = 1
       goto 101
     end if
   else if (((version_ == 2) .and. (nsub_ > 0))) then
-    zz114 => cpp_istream_seekg(file_, ((int(nsub_, 8) * 2_8) * 4_8), 1)
+    zz115 => cpp_istream_seekg(file_, ((int(nsub_, 8) * 2_8) * 4_8), 1)
     if (associated(cpp_exc)) goto 101
     if (cpp_iosbase_notok(file_)) then
-      zz119 => s__f__tl_last_io_error_hotstartmanager
-      zz115 = cpp_r_lit("Hotstart v2 groundwater block truncated in '")
-      zz116 => cpp_str_cat_cptr_str(zz115, path_)
-      zz117 = cpp_r_lit("'")
-      zz118 => cpp_str_cat_str_cptr(zz116, zz117)
-      call cpp_str_movefrom(zz119, zz118)
+      zz120 => s__f__tl_last_io_error_hotstartmanager
+      zz116 = cpp_r_lit("Hotstart v2 groundwater block truncated in '")
+      zz117 => cpp_str_cat_cptr_str(zz116, path_)
+      zz118 = cpp_r_lit("'")
+      zz119 => cpp_str_cat_str_cptr(zz117, zz118)
+      call cpp_str_movefrom(zz120, zz119)
       zres = 1
       zz14 = 1
       goto 101
@@ -609,31 +614,31 @@ contains
     ui_2_ = int(i_2_, 8)
     depth_ = 0.0_4
     lat_ = 0.0_4
-    zz120 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, depth_)
-    if (associated(cpp_exc)) goto 101
-    if ((.not. zz120)) then
-      zres = 1
-      zz14 = 1
-      goto 101
-    end if
-    zz121 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, lat_)
+    zz121 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, depth_)
     if (associated(cpp_exc)) goto 101
     if ((.not. zz121)) then
       zres = 1
       zz14 = 1
       goto 101
     end if
+    zz122 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, lat_)
+    if (associated(cpp_exc)) goto 101
+    if ((.not. zz122)) then
+      zres = 1
+      zz14 = 1
+      goto 101
+    end if
     nodes_%depth%a%a(ui_2_) = real(depth_, 8)
     nodes_%lat_flow%a%a(ui_2_) = real(lat_, 8)
-    zz122 = (version_ >= 4)
-    if (zz122) then
-      zz122 = (nodes_%type%a%a(ui_2_) == 3_1)
+    zz123 = (version_ >= 4)
+    if (zz123) then
+      zz123 = (nodes_%type%a%a(ui_2_) == 3_1)
     end if
-    if (zz122) then
+    if (zz123) then
       hrt_ = 0.0_4
-      zz123 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, hrt_)
+      zz124 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, hrt_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz123)) then
+      if ((.not. zz124)) then
         zres = 1
         zz14 = 1
         goto 101
@@ -646,18 +651,18 @@ contains
     do
       if (.not. ((j_ < npollut_))) exit
       q_ = 0.0_4
-      zz124 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, q_)
+      zz125 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, q_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz124)) then
+      if ((.not. zz125)) then
         zres = 1
         zz14 = 1
         goto 101
       end if
       qi_ = ((ui_2_ * int(npollut_, 8)) + int(j_, 8))
-      zz126 => nodes_%conc%a%a(qi_)
-      zz125 = real(q_, 8)
-      nodes_%conc_old%a%a(qi_) = zz125
-      zz126 = zz125
+      zz127 => nodes_%conc%a%a(qi_)
+      zz126 = real(q_, 8)
+      nodes_%conc_old%a%a(qi_) = zz126
+      zz127 = zz126
       j_ = (j_ + 1)
     end do
     if ((version_ <= 2)) then
@@ -665,9 +670,9 @@ contains
       do
         if (.not. ((j_2_ < npollut_))) exit
         q_2_ = 0.0_4
-        zz127 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, q_2_)
+        zz128 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, q_2_)
         if (associated(cpp_exc)) goto 101
-        if ((.not. zz127)) then
+        if ((.not. zz128)) then
           zres = 1
           zz14 = 1
           goto 101
@@ -684,23 +689,23 @@ contains
     flow_ = 0.0_4
     depth_2_ = 0.0_4
     setting_ = 0.0_4
-    zz128 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, flow_)
-    if (associated(cpp_exc)) goto 101
-    if ((.not. zz128)) then
-      zres = 1
-      zz14 = 1
-      goto 101
-    end if
-    zz129 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, depth_2_)
+    zz129 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, flow_)
     if (associated(cpp_exc)) goto 101
     if ((.not. zz129)) then
       zres = 1
       zz14 = 1
       goto 101
     end if
-    zz130 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, setting_)
+    zz130 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, depth_2_)
     if (associated(cpp_exc)) goto 101
     if ((.not. zz130)) then
+      zres = 1
+      zz14 = 1
+      goto 101
+    end if
+    zz131 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, setting_)
+    if (associated(cpp_exc)) goto 101
+    if ((.not. zz131)) then
       zres = 1
       zz14 = 1
       goto 101
@@ -713,113 +718,115 @@ contains
     do
       if (.not. ((j_3_ < npollut_))) exit
       q_3_ = 0.0_4
-      zz131 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, q_3_)
+      zz132 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_279fca20(file_, q_3_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz131)) then
+      if ((.not. zz132)) then
         zres = 1
         zz14 = 1
         goto 101
       end if
       qi_2_ = ((ui_3_ * int(npollut_, 8)) + int(j_3_, 8))
-      zz133 => links_%conc%a%a(qi_2_)
-      zz132 = real(q_3_, 8)
-      links_%conc_old%a%a(qi_2_) = zz132
-      zz133 = zz132
+      zz134 => links_%conc%a%a(qi_2_)
+      zz133 = real(q_3_, 8)
+      links_%conc_old%a%a(qi_2_) = zz133
+      zz134 = zz133
       j_3_ = (j_3_ + 1)
     end do
     i_3_ = (i_3_ + 1)
   end do
   if ((.not. (.not. associated(species_)))) then
-    allocate(zz134)
-    call p_legacyspeciestrailer__ctor_x(zz134)
-    zz135 => cpp_vec_o_new_0(h_mk_cpp_str, 2)
-    zz134%species => zz135
-    zz136 => cpp_vec_d_new_0()
-    zz134%washoff => zz136
+    allocate(zz135)
+    call p_legacyspeciestrailer__ctor_x(zz135)
+    zz136 => cpp_vec_o_new_0(h_mk_cpp_str, 2)
+    zz135%species => zz136
     zz137 => cpp_vec_d_new_0()
-    zz134%ponded => zz137
+    zz135%washoff => zz137
     zz138 => cpp_vec_d_new_0()
-    zz134%buildup => zz138
-    call p_legacyspeciestrailer__movefrom(species_, zz134)
-    zz139 => cpp_arr_i_new(0_8)
-    zz140 = cpp_r_bufof(15, zz139)
-    tag_ = zz140
-    zz141 => cpp_istream_read_cptr_l(file_, tag_, 15_8)
+    zz135%ponded => zz138
+    zz139 => cpp_vec_d_new_0()
+    zz135%buildup => zz139
+    call p_legacyspeciestrailer__movefrom(species_, zz135)
+    zz140 => cpp_arr_i_new(0_8)
+    zz141 = cpp_r_bufof(15, zz140)
+    tag_ = zz141
+    zz142 => cpp_istream_read_cptr_l(file_, tag_, 15_8)
     if (associated(cpp_exc)) goto 101
-    zz142 = cpp_iosbase_ok(file_)
-    if (zz142) then
-      zz142 = (cpp_r_memcmp(tag_, s__f__kspeciestrailertag_hotstartmanager, 15_8) == 0)
+    zz143 = cpp_iosbase_ok(file_)
+    if (zz143) then
+      zz143 = (cpp_r_memcmp(tag_, s__f__kspeciestrailertag_hotstartmanager, 15_8) == 0)
     end if
-    if (zz142) then
+    if (zz143) then
       ns_ = 0
       nn_ = 0
       nl_ = 0
       surf_ = 0
-      zz143 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, ns_)
+      zz144 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, ns_)
       if (associated(cpp_exc)) goto 101
-      ok_ = ((zz143 .and. (ns_ >= 0)) .and. (ns_ < 100000))
-      zz144 => cpp_vec_o_new_ul(merge(int(ns_, 8), 0_8, ok_), h_mk_cpp_str, 2)
-      names_ => zz144
+      ok_ = ((zz144 .and. (ns_ >= 0)) .and. (ns_ < 100000))
+      zz145 => cpp_vec_o_new_ul(merge(int(ns_, 8), 0_8, ok_), h_mk_cpp_str, 2)
+      names_ => zz145
       x__r2_ => names_
       x__i3_ = 0_8
       x__i3_n_ = int(x__r2_%n, 8)
       do
         if (.not. ((x__i3_ < x__i3_n_))) exit
-        zz145 => h_uas_cpp_str(x__r2_%a%a(x__i3_)%p)
-        n_ => zz145
-        zz147 = ok_
-        if (zz147) then
-          zz146 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(file_, n_)
+        zz146 => h_uas_cpp_str(x__r2_%a%a(x__i3_)%p)
+        n_ => zz146
+        zz148 = ok_
+        if (zz148) then
+          zz147 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(file_, n_)
           if (associated(cpp_exc)) goto 101
-          zz147 = zz146
+          zz148 = zz147
         end if
-        ok_ = zz147
+        ok_ = zz148
         x__i3_ = (x__i3_ + 1_8)
       end do
-      zz149 = ok_
-      if (zz149) then
-        zz148 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nn_)
+      zz150 = ok_
+      if (zz150) then
+        zz149 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nn_)
         if (associated(cpp_exc)) goto 101
-        zz149 = zz148
+        zz150 = zz149
       end if
-      zz151 = zz149
-      if (zz151) then
-        zz150 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nl_)
+      zz152 = zz150
+      if (zz152) then
+        zz151 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nl_)
         if (associated(cpp_exc)) goto 101
-        zz151 = zz150
+        zz152 = zz151
       end if
-      ok_ = zz151
+      ok_ = zz152
       ok_ = ((ok_ .and. (nn_ == nnodes_)) .and. (nl_ == nlinks_))
       uns_ = int(cpp_m_max_i_i(ns_, 0), 8)
-      zz152 => cpp_vec_d_new_ul(merge((int(nn_, 8) * uns_), 0_8, ok_))
-      node_ => zz152
-      zz153 => cpp_vec_d_new_ul(merge((int(nl_, 8) * uns_), 0_8, ok_))
-      link_ => zz153
+      zz153 => cpp_vec_d_new_ul(merge((int(nn_, 8) * uns_), 0_8, ok_))
+      node_ => zz153
+      zz154 => cpp_vec_d_new_ul(merge((int(nl_, 8) * uns_), 0_8, ok_))
+      link_ => zz154
       if (ok_) then
-        zz154 => cpp_istream_read_ptrt_l__d(file_, cpp_vec_d_data(node_), (cpp_vec_d_size(node_) * 8_8))
+        zz155 = cpp_vec_d_data(node_)
+        zz156 => cpp_istream_read_ptrt_l__d(file_, zz155, (cpp_vec_d_size(node_) * 8_8))
         if (associated(cpp_exc)) goto 101
-        zz155 => cpp_istream_read_ptrt_l__d(file_, cpp_vec_d_data(link_), (cpp_vec_d_size(link_) * 8_8))
+        zz157 = cpp_vec_d_data(link_)
+        zz158 => cpp_istream_read_ptrt_l__d(file_, zz157, (cpp_vec_d_size(link_) * 8_8))
         if (associated(cpp_exc)) goto 101
-        zz157 = cpp_iosbase_ok(file_)
-        if (zz157) then
-          zz156 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, surf_)
+        zz160 = cpp_iosbase_ok(file_)
+        if (zz160) then
+          zz159 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, surf_)
           if (associated(cpp_exc)) goto 101
-          zz157 = zz156
+          zz160 = zz159
         end if
-        ok_ = zz157
+        ok_ = zz160
       end if
       if ((ok_ .and. (surf_ == 1))) then
         nsc_ = 0
         nlu_ = 0
-        zz158 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nsc_)
+        zz161 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nsc_)
         if (associated(cpp_exc)) goto 101
-        zz160 = zz158
-        if (zz160) then
-          zz159 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nlu_)
+        zz163 = zz161
+        if (zz163) then
+          zz162 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(file_, nlu_)
           if (associated(cpp_exc)) goto 101
-          zz160 = zz159
+          zz163 = zz162
         end if
-        ok_ = ((zz160 .and. (nsc_ >= 0)) .and. (nlu_ >= 0))
+        ok_ = ((zz163 .and. (nsc_ >= 0)) .and. (nlu_ >= 0))
         if (ok_) then
           species_%n_subcatch = nsc_
           species_%n_landuses = nlu_
@@ -827,18 +834,19 @@ contains
           call cpp_vec_d_resize_ul(species_%washoff, a_)
           call cpp_vec_d_resize_ul(species_%ponded, a_)
           call cpp_vec_d_resize_ul(species_%buildup, (a_ * int(nlu_, 8)))
-          zz161 => cpp_arr_o_new(3_8)
-          zz161%a(0)%p => species_%washoff
-          zz161%a(1)%p => species_%ponded
-          zz161%a(2)%p => species_%buildup
-          x__r4_ => zz161
+          zz164 => cpp_arr_o_new(3_8)
+          zz164%a(0)%p => species_%washoff
+          zz164%a(1)%p => species_%ponded
+          zz164%a(2)%p => species_%buildup
+          x__r4_ => zz164
           x__i5_ = 0_8
           x__i5_n_ = int(size(x__r4_%a), 8)
           do
             if (.not. ((x__i5_ < x__i5_n_))) exit
-            zz162 => h_uas_cpp_vec_d(x__r4_%a(x__i5_)%p)
-            v_ => zz162
-            zz163 => cpp_istream_read_ptrt_l__d(file_, cpp_vec_d_data(v_), (cpp_vec_d_size(v_) * 8_8))
+            zz165 => h_uas_cpp_vec_d(x__r4_%a(x__i5_)%p)
+            v_ => zz165
+            zz166 = cpp_vec_d_data(v_)
+            zz167 => cpp_istream_read_ptrt_l__d(file_, zz166, (cpp_vec_d_size(v_) * 8_8))
             if (associated(cpp_exc)) goto 101
             x__i5_ = (x__i5_ + 1_8)
           end do
@@ -846,12 +854,12 @@ contains
         end if
       end if
       if ((.not. ok_)) then
-        zz168 => s__f__tl_last_io_error_hotstartmanager
-        zz164 = cpp_r_lit("Hotstart reaction species block is malformed in '")
-        zz165 => cpp_str_cat_cptr_str(zz164, path_)
-        zz166 = cpp_r_lit("'")
-        zz167 => cpp_str_cat_str_cptr(zz165, zz166)
-        call cpp_str_movefrom(zz168, zz167)
+        zz172 => s__f__tl_last_io_error_hotstartmanager
+        zz168 = cpp_r_lit("Hotstart reaction species block is malformed in '")
+        zz169 => cpp_str_cat_cptr_str(zz168, path_)
+        zz170 = cpp_r_lit("'")
+        zz171 => cpp_str_cat_str_cptr(zz169, zz170)
+        call cpp_str_movefrom(zz172, zz171)
         zres = 1
         zz14 = 1
         goto 101
@@ -860,39 +868,39 @@ contains
       if (associated(cpp_exc)) goto 101
       rx_ => ctx_%reactions
       if (rx_%configured) then
-        zz169 = p_reactiondata__n_species(rx_)
+        zz173 = p_reactiondata__n_species(rx_)
       else
-        zz169 = 0
+        zz173 = 0
       end if
-      nm_ = zz169
+      nm_ = zz173
       unm_ = int(nm_, 8)
-      zz170 => cpp_vec_i_new_ul_t(uns_, (-1))
+      zz174 => cpp_vec_i_new_ul_t(uns_, (-1))
       if (associated(cpp_exc)) goto 101
-      col_ => zz170
+      col_ => zz174
       s_ = 0_8
       do
         if (.not. ((ieor(s_, (-9223372036854775807_8 - 1_8)) < ieor(uns_, (-9223372036854775807_8 - 1_8))))) exit
-        zz175 => col_%a%a(s_)
+        zz179 => col_%a%a(s_)
         if ((nm_ > 0)) then
-          zz171 => h_uas_cpp_str(names_%a%a(s_)%p)
-          zz172 => cpp_str_clone(zz171)
-          zz173 = p_reactiondata__find_species(rx_, zz172)
-          zz174 = zz173
+          zz175 => h_uas_cpp_str(names_%a%a(s_)%p)
+          zz176 => cpp_str_clone(zz175)
+          zz177 = p_reactiondata__find_species(rx_, zz176)
+          zz178 = zz177
         else
-          zz174 = (-1)
+          zz178 = (-1)
         end if
-        zz175 = zz174
-        zz176 = (col_%a%a(s_) < 0)
-        if (zz176) then
-          zz176 = (.not. (.not. associated(warn_cb_)))
+        zz179 = zz178
+        zz180 = (col_%a%a(s_) < 0)
+        if (zz180) then
+          zz180 = (.not. (.not. associated(warn_cb_)))
         end if
-        if (zz176) then
-          zz177 = cpp_r_lit("USE HOTSTART: reaction species '")
-          zz178 => h_uas_cpp_str(names_%a%a(s_)%p)
-          zz179 => cpp_str_cat_cptr_str(zz177, zz178)
-          zz180 = cpp_r_lit("' is not in the current model; its state is skipped")
-          zz181 => cpp_str_cat_str_cptr(zz179, zz180)
-          call warn_cb_%invoke(zz181)
+        if (zz180) then
+          zz181 = cpp_r_lit("USE HOTSTART: reaction species '")
+          zz182 => h_uas_cpp_str(names_%a%a(s_)%p)
+          zz183 => cpp_str_cat_cptr_str(zz181, zz182)
+          zz184 = cpp_r_lit("' is not in the current model; its state is skipped")
+          zz185 => cpp_str_cat_str_cptr(zz183, zz184)
+          call warn_cb_%invoke(zz185)
           if (associated(cpp_exc)) goto 101
         end if
         s_ = (s_ + 1_8)
@@ -928,14 +936,14 @@ contains
         end do
       end if
     else
-      zz183 = cpp_iosbase_ok(file_)
-      if (zz183) then
-        zz183 = (.not. (.not. associated(warn_cb_)))
+      zz187 = cpp_iosbase_ok(file_)
+      if (zz187) then
+        zz187 = (.not. (.not. associated(warn_cb_)))
       end if
-      if (zz183) then
-        zz184 = cpp_r_lit("USE HOTSTART: unrecognised data after the routing records was ignored")
-        zz185 => cpp_str_new_cptr(zz184)
-        call warn_cb_%invoke(zz185)
+      if (zz187) then
+        zz188 = cpp_r_lit("USE HOTSTART: unrecognised data after the routing records was ignored")
+        zz189 => cpp_str_new_cptr(zz188)
+        call warn_cb_%invoke(zz189)
         if (associated(cpp_exc)) goto 101
       end if
     end if
@@ -945,14 +953,14 @@ contains
   zz14 = 1
   goto 101
   101 continue
-  zz186 => cpp_exc
+  zz190 => cpp_exc
   cpp_exc => null()
   if (associated(x__dtor1_)) then
     call x__dtor1_%dispose()
     if (associated(cpp_exc)) return
   end if
-  if (associated(zz186)) then
-    cpp_exc => zz186
+  if (associated(zz190)) then
+    cpp_exc => zz190
     return
   end if
   if (zz14 == 1) then
@@ -1162,65 +1170,69 @@ contains
     type(cpp_cptr) :: zz41
     class(cpp_str), pointer :: zz42
     class(cpp_str), pointer :: zz43
-    class(cpp_ostream), pointer :: zz44
+    type(cpp_ptr_d) :: zz44
+    class(cpp_ostream), pointer :: zz45
     class(t_nodedata), pointer :: nodes_
     class(t_linkdata), pointer :: links_
     integer(4) :: i_
     integer(8) :: ui_
-    logical :: zz45
     logical :: zz46
-    real(4) :: zz47
-    logical :: zz48
+    logical :: zz47
+    real(4) :: zz48
+    logical :: zz49
     integer(4) :: j_
     integer(8) :: qi_
     real(4) :: q_
-    real(4) :: zz49
-    logical :: zz50
+    real(4) :: zz50
+    logical :: zz51
     integer(4) :: i_2_
     integer(8) :: ui_2_
-    logical :: zz51
     logical :: zz52
     logical :: zz53
+    logical :: zz54
     integer(4) :: j_2_
     integer(8) :: qi_2_
     real(4) :: q_2_
-    real(4) :: zz54
-    logical :: zz55
+    real(4) :: zz55
+    logical :: zz56
     class(t_reactiondata), pointer :: rx_
     integer(4) :: nm_
-    integer(4) :: zz56
+    integer(4) :: zz57
     integer(8) :: unm_
-    logical :: zz57
     logical :: zz58
-    class(cpp_ostream), pointer :: zz59
-    logical :: zz60
+    logical :: zz59
+    class(cpp_ostream), pointer :: zz60
+    logical :: zz61
     integer(4) :: m_
-    class(cpp_str), pointer :: zz61
-    logical :: zz62
+    class(cpp_str), pointer :: zz62
     logical :: zz63
     logical :: zz64
-    class(cpp_ostream), pointer :: zz65
-    class(cpp_ostream), pointer :: zz66
+    logical :: zz65
+    type(cpp_ptr_d) :: zz66
+    class(cpp_ostream), pointer :: zz67
+    type(cpp_ptr_d) :: zz68
+    class(cpp_ostream), pointer :: zz69
     class(t_msxsurfacedata), pointer :: s_
     logical :: surf_
-    logical :: zz67
-    logical :: zz68
-    logical :: zz69
     logical :: zz70
     logical :: zz71
+    logical :: zz72
+    logical :: zz73
+    logical :: zz74
     class(cpp_arr_o), pointer :: x__r2_
-    class(cpp_arr_o), pointer :: zz72
+    class(cpp_arr_o), pointer :: zz75
     integer(8) :: x__i3_
     integer(8) :: x__i3_n_
     class(cpp_vec_d), pointer :: v_
-    class(cpp_vec_d), pointer :: zz73
-    class(cpp_ostream), pointer :: zz74
-    type(cpp_cptr) :: zz75
-    class(cpp_str), pointer :: zz76
-    type(cpp_cptr) :: zz77
-    class(cpp_str), pointer :: zz78
-    class(cpp_str), pointer :: zz79
-    class(cpp_object), pointer :: zz80
+    class(cpp_vec_d), pointer :: zz76
+    type(cpp_ptr_d) :: zz77
+    class(cpp_ostream), pointer :: zz78
+    type(cpp_cptr) :: zz79
+    class(cpp_str), pointer :: zz80
+    type(cpp_cptr) :: zz81
+    class(cpp_str), pointer :: zz82
+    class(cpp_str), pointer :: zz83
+    class(cpp_object), pointer :: zz84
   if ((.not. cpp_vec_i_empty(ctx_%reactions%lid_controls))) then
     zz2 => s__f__tl_last_io_error_hotstartmanager
     zz1 = cpp_r_lit("LID reaction inventories require a full native engine checkpoint")
@@ -1340,7 +1352,8 @@ contains
       zz14 = 1
       goto 101
     end if
-    zz44 => cpp_ostream_write_ptrt_l__d(file_, cpp_vec_d_data(runoff_), (cpp_vec_d_size(runoff_) * 8_8))
+    zz44 = cpp_vec_d_data(runoff_)
+    zz45 => cpp_ostream_write_ptrt_l__d(file_, zz44, (cpp_vec_d_size(runoff_) * 8_8))
     if (associated(cpp_exc)) goto 101
   end if
   nodes_ => ctx_%nodes
@@ -1349,17 +1362,17 @@ contains
   do
     if (.not. ((i_ < nnodes_))) exit
     ui_ = int(i_, 8)
-    zz45 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(nodes_%depth%a%a(ui_), 4))
+    zz46 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(nodes_%depth%a%a(ui_), 4))
     if (associated(cpp_exc)) goto 101
-    zz46 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(nodes_%lat_flow%a%a(ui_), 4))
+    zz47 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(nodes_%lat_flow%a%a(ui_), 4))
     if (associated(cpp_exc)) goto 101
     if ((nodes_%type%a%a(ui_) == 3_1)) then
       if ((ieor(ui_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(nodes_%hrt), (-9223372036854775807_8 - 1_8)))) then
-        zz47 = real(nodes_%hrt%a%a(ui_), 4)
+        zz48 = real(nodes_%hrt%a%a(ui_), 4)
       else
-        zz47 = 0.0_4
+        zz48 = 0.0_4
       end if
-      zz48 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, zz47)
+      zz49 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, zz48)
       if (associated(cpp_exc)) goto 101
     end if
     j_ = 0
@@ -1367,12 +1380,12 @@ contains
       if (.not. ((j_ < npollut_))) exit
       qi_ = ((ui_ * int(npollut_, 8)) + int(j_, 8))
       if ((ieor(qi_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(nodes_%conc), (-9223372036854775807_8 - 1_8)))) then
-        zz49 = real(nodes_%conc%a%a(qi_), 4)
+        zz50 = real(nodes_%conc%a%a(qi_), 4)
       else
-        zz49 = 0.0_4
+        zz50 = 0.0_4
       end if
-      q_ = zz49
-      zz50 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, q_)
+      q_ = zz50
+      zz51 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, q_)
       if (associated(cpp_exc)) goto 101
       j_ = (j_ + 1)
     end do
@@ -1382,23 +1395,23 @@ contains
   do
     if (.not. ((i_2_ < nlinks_))) exit
     ui_2_ = int(i_2_, 8)
-    zz51 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(links_%flow%a%a(ui_2_), 4))
+    zz52 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(links_%flow%a%a(ui_2_), 4))
     if (associated(cpp_exc)) goto 101
-    zz52 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(links_%depth%a%a(ui_2_), 4))
+    zz53 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(links_%depth%a%a(ui_2_), 4))
     if (associated(cpp_exc)) goto 101
-    zz53 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(links_%setting%a%a(ui_2_), 4))
+    zz54 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, real(links_%setting%a%a(ui_2_), 4))
     if (associated(cpp_exc)) goto 101
     j_2_ = 0
     do
       if (.not. ((j_2_ < npollut_))) exit
       qi_2_ = ((ui_2_ * int(npollut_, 8)) + int(j_2_, 8))
       if ((ieor(qi_2_, (-9223372036854775807_8 - 1_8)) < ieor(cpp_vec_d_size(links_%conc), (-9223372036854775807_8 - 1_8)))) then
-        zz54 = real(links_%conc%a%a(qi_2_), 4)
+        zz55 = real(links_%conc%a%a(qi_2_), 4)
       else
-        zz54 = 0.0_4
+        zz55 = 0.0_4
       end if
-      q_2_ = zz54
-      zz55 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, q_2_)
+      q_2_ = zz55
+      zz56 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_9a809f6a(file_, q_2_)
       if (associated(cpp_exc)) goto 101
       j_2_ = (j_2_ + 1)
     end do
@@ -1406,82 +1419,85 @@ contains
   end do
   rx_ => ctx_%reactions
   if (rx_%configured) then
-    zz56 = p_reactiondata__n_species(rx_)
+    zz57 = p_reactiondata__n_species(rx_)
   else
-    zz56 = 0
+    zz57 = 0
   end if
-  nm_ = zz56
+  nm_ = zz57
   unm_ = int(nm_, 8)
-  zz57 = (nm_ > 0)
-  if (zz57) then
-    zz57 = (cpp_vec_d_size(rx_%msx_node_conc) == (int(nnodes_, 8) * unm_))
-  end if
-  zz58 = zz57
+  zz58 = (nm_ > 0)
   if (zz58) then
-    zz58 = (cpp_vec_d_size(rx_%msx_link_conc) == (int(nlinks_, 8) * unm_))
+    zz58 = (cpp_vec_d_size(rx_%msx_node_conc) == (int(nnodes_, 8) * unm_))
   end if
-  if (zz58) then
-    zz59 => cpp_ostream_write_cptr_l(file_, s__f__kspeciestrailertag_hotstartmanager, 15_8)
+  zz59 = zz58
+  if (zz59) then
+    zz59 = (cpp_vec_d_size(rx_%msx_link_conc) == (int(nlinks_, 8) * unm_))
+  end if
+  if (zz59) then
+    zz60 => cpp_ostream_write_cptr_l(file_, s__f__kspeciestrailertag_hotstartmanager, 15_8)
     if (associated(cpp_exc)) goto 101
-    zz60 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, nm_)
+    zz61 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, nm_)
     if (associated(cpp_exc)) goto 101
     m_ = 0
     do
       if (.not. ((m_ < nm_))) exit
-      zz61 => h_uas_cpp_str(rx_%species_name%a%a(int(m_, 8))%p)
-      zz62 = p__anon_core_hotstartmanager_cpp__f__write_string_hot_ed6dab3d(file_, zz61)
+      zz62 => h_uas_cpp_str(rx_%species_name%a%a(int(m_, 8))%p)
+      zz63 = p__anon_core_hotstartmanager_cpp__f__write_string_hot_ed6dab3d(file_, zz62)
       if (associated(cpp_exc)) goto 101
       m_ = (m_ + 1)
     end do
-    zz63 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, nnodes_)
+    zz64 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, nnodes_)
     if (associated(cpp_exc)) goto 101
-    zz64 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, nlinks_)
+    zz65 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, nlinks_)
     if (associated(cpp_exc)) goto 101
-    zz65 => cpp_ostream_write_ptrt_l__d(file_, cpp_vec_d_data(rx_%msx_node_conc), (cpp_vec_d_size(rx_%msx_node_conc) * 8_8))
+    zz66 = cpp_vec_d_data(rx_%msx_node_conc)
+    zz67 => cpp_ostream_write_ptrt_l__d(file_, zz66, (cpp_vec_d_size(rx_%msx_node_conc) * 8_8))
     if (associated(cpp_exc)) goto 101
-    zz66 => cpp_ostream_write_ptrt_l__d(file_, cpp_vec_d_data(rx_%msx_link_conc), (cpp_vec_d_size(rx_%msx_link_conc) * 8_8))
+    zz68 = cpp_vec_d_data(rx_%msx_link_conc)
+    zz69 => cpp_ostream_write_ptrt_l__d(file_, zz68, (cpp_vec_d_size(rx_%msx_link_conc) * 8_8))
     if (associated(cpp_exc)) goto 101
     s_ => rx_%surface
-    zz67 = p_msxsurfacedata__active(s_)
-    if (zz67) then
-      zz67 = (s_%n_species == nm_)
+    zz70 = p_msxsurfacedata__active(s_)
+    if (zz70) then
+      zz70 = (s_%n_species == nm_)
     end if
-    zz68 = zz67
-    if (zz68) then
-      zz68 = (s_%n_subcatch == nsub_)
+    zz71 = zz70
+    if (zz71) then
+      zz71 = (s_%n_subcatch == nsub_)
     end if
-    surf_ = zz68
-    zz69 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, merge(1, 0, surf_))
+    surf_ = zz71
+    zz72 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, merge(1, 0, surf_))
     if (associated(cpp_exc)) goto 101
     if (surf_) then
-      zz70 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, s_%n_subcatch)
+      zz73 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, s_%n_subcatch)
       if (associated(cpp_exc)) goto 101
-      zz71 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, s_%n_landuses)
+      zz74 = p__anon_core_hotstartmanager_cpp__f__write_pod__rbasi_8ddf73f6(file_, s_%n_landuses)
       if (associated(cpp_exc)) goto 101
-      zz72 => cpp_arr_o_new(3_8)
-      zz72%a(0)%p => s_%washoff_conc
-      zz72%a(1)%p => s_%ponded_qual
-      zz72%a(2)%p => s_%buildup
-      x__r2_ => zz72
+      zz75 => cpp_arr_o_new(3_8)
+      zz75%a(0)%p => s_%washoff_conc
+      zz75%a(1)%p => s_%ponded_qual
+      zz75%a(2)%p => s_%buildup
+      x__r2_ => zz75
       x__i3_ = 0_8
       x__i3_n_ = int(size(x__r2_%a), 8)
       do
         if (.not. ((x__i3_ < x__i3_n_))) exit
-        zz73 => h_uas_cpp_vec_d(x__r2_%a(x__i3_)%p)
-        v_ => zz73
-        zz74 => cpp_ostream_write_ptrt_l__d(file_, cpp_vec_d_data(v_), (cpp_vec_d_size(v_) * 8_8))
+        zz76 => h_uas_cpp_vec_d(x__r2_%a(x__i3_)%p)
+        v_ => zz76
+        zz77 = cpp_vec_d_data(v_)
+        zz78 => cpp_ostream_write_ptrt_l__d(file_, zz77, (cpp_vec_d_size(v_) * 8_8))
         if (associated(cpp_exc)) goto 101
         x__i3_ = (x__i3_ + 1_8)
       end do
     end if
   end if
   if (cpp_iosbase_notok(file_)) then
-    zz79 => s__f__tl_last_io_error_hotstartmanager
-    zz75 = cpp_r_lit("Hotstart body write failed for '")
-    zz76 => cpp_str_cat_cptr_str(zz75, path_)
-    zz77 = cpp_r_lit("'")
-    zz78 => cpp_str_cat_str_cptr(zz76, zz77)
-    call cpp_str_movefrom(zz79, zz78)
+    zz83 => s__f__tl_last_io_error_hotstartmanager
+    zz79 = cpp_r_lit("Hotstart body write failed for '")
+    zz80 => cpp_str_cat_cptr_str(zz79, path_)
+    zz81 = cpp_r_lit("'")
+    zz82 => cpp_str_cat_str_cptr(zz80, zz81)
+    call cpp_str_movefrom(zz83, zz82)
     zres = 1
     zz14 = 1
     goto 101
@@ -1491,14 +1507,14 @@ contains
   zz14 = 1
   goto 101
   101 continue
-  zz80 => cpp_exc
+  zz84 => cpp_exc
   cpp_exc => null()
   if (associated(x__dtor1_)) then
     call x__dtor1_%dispose()
     if (associated(cpp_exc)) return
   end if
-  if (associated(zz80)) then
-    cpp_exc => zz80
+  if (associated(zz84)) then
+    cpp_exc => zz84
     return
   end if
   if (zz14 == 1) then
@@ -2538,84 +2554,84 @@ contains
     class(cpp_istream), pointer :: zz18
     class(cpp_vec_b), pointer :: raw_
     class(cpp_vec_b), pointer :: zz19
-    class(cpp_istream), pointer :: zz20
-    type(cpp_cptr) :: zz21
-    class(cpp_str), pointer :: zz22
-    type(cpp_cptr) :: zz23
-    class(cpp_str), pointer :: zz24
+    type(cpp_ptr_b) :: zz20
+    class(cpp_istream), pointer :: zz21
+    type(cpp_cptr) :: zz22
+    class(cpp_str), pointer :: zz23
+    type(cpp_cptr) :: zz24
     class(cpp_str), pointer :: zz25
+    class(cpp_str), pointer :: zz26
     integer(4) :: stored_crc_
     class(cpp_arr_i), pointer :: x__b2_
-    class(cpp_arr_i), pointer :: zz26
-    type(cpp_ptr_i) :: zz27
-    type(cpp_ptr_i) :: zz28
+    class(cpp_arr_i), pointer :: zz27
+    type(cpp_ptr_b) :: zz28
+    type(cpp_ptr_i) :: zz29
+    type(cpp_ptr_i) :: zz30
+    type(cpp_ptr_i) :: zz31
     integer(4) :: computed_crc_
-    type(cpp_cptr) :: zz29
-    class(cpp_str), pointer :: zz30
-    type(cpp_cptr) :: zz31
-    class(cpp_str), pointer :: zz32
-    class(cpp_str), pointer :: zz33
+    type(cpp_ptr_b) :: zz32
+    type(cpp_cptr) :: zz33
+    class(cpp_str), pointer :: zz34
+    type(cpp_cptr) :: zz35
+    class(cpp_str), pointer :: zz36
+    class(cpp_str), pointer :: zz37
     class(cpp_str), pointer :: body_
-    type(cpp_cptr) :: zz34
-    class(cpp_str), pointer :: zz35
+    type(cpp_ptr_b) :: zz38
+    type(cpp_cptr) :: zz39
+    class(cpp_str), pointer :: zz40
     class(cpp_istringstream), pointer :: is_
-    class(cpp_istringstream), pointer :: zz36
+    class(cpp_istringstream), pointer :: zz41
     type(cpp_cptr) :: magic_
-    class(cpp_arr_i), pointer :: zz37
-    type(cpp_cptr) :: zz38
-    class(cpp_istream), pointer :: zz39
-    type(cpp_cptr) :: zz40
-    logical :: zz41
-    type(cpp_cptr) :: zz42
-    class(cpp_str), pointer :: zz43
-    type(cpp_cptr) :: zz44
-    class(cpp_str), pointer :: zz45
-    class(cpp_str), pointer :: zz46
-    logical :: zz47
-    logical :: zz48
+    class(cpp_arr_i), pointer :: zz42
+    type(cpp_cptr) :: zz43
+    class(cpp_istream), pointer :: zz44
+    type(cpp_cptr) :: zz45
+    logical :: zz46
+    type(cpp_cptr) :: zz47
+    class(cpp_str), pointer :: zz48
     type(cpp_cptr) :: zz49
     class(cpp_str), pointer :: zz50
     class(cpp_str), pointer :: zz51
-    type(cpp_cptr) :: zz52
-    class(cpp_str), pointer :: zz53
-    class(cpp_str), pointer :: zz54
-    type(cpp_cptr) :: zz55
+    logical :: zz52
+    logical :: zz53
+    type(cpp_cptr) :: zz54
+    class(cpp_str), pointer :: zz55
     class(cpp_str), pointer :: zz56
-    class(cpp_str), pointer :: zz57
-    logical :: zz58
-    logical :: zz59
-    logical :: zz60
-    logical :: zz61
-    logical :: zz62
-    integer(4), target :: node_count_
+    type(cpp_cptr) :: zz57
+    class(cpp_str), pointer :: zz58
+    class(cpp_str), pointer :: zz59
+    type(cpp_cptr) :: zz60
+    class(cpp_str), pointer :: zz61
+    class(cpp_str), pointer :: zz62
     logical :: zz63
+    logical :: zz64
+    logical :: zz65
+    logical :: zz66
+    logical :: zz67
+    integer(4), target :: node_count_
+    logical :: zz68
     class(cpp_vec_o), pointer :: x__r3_
     integer(8) :: x__i4_
     integer(8) :: x__i4_n_
     class(t_hotstartnoderecord), pointer :: n_
-    class(t_hotstartnoderecord), pointer :: zz64
-    logical :: zz65
-    logical :: zz66
-    logical :: zz67
-    logical :: zz68
-    logical :: zz69
-    integer(4), target :: count_
+    class(t_hotstartnoderecord), pointer :: zz69
     logical :: zz70
     logical :: zz71
     logical :: zz72
     logical :: zz73
     logical :: zz74
-    class(cpp_vec_o), pointer :: x__r5_
-    integer(8) :: x__i6_
-    integer(8) :: x__i6_n_
-    class(t_hotstartlidcellrecord), pointer :: c_
-    class(t_hotstartlidcellrecord), pointer :: zz75
-    integer(4), target :: layer_
+    integer(4), target :: count_
+    logical :: zz75
     logical :: zz76
     logical :: zz77
     logical :: zz78
     logical :: zz79
-    logical :: zz80
+    class(cpp_vec_o), pointer :: x__r5_
+    integer(8) :: x__i6_
+    integer(8) :: x__i6_n_
+    class(t_hotstartlidcellrecord), pointer :: c_
+    class(t_hotstartlidcellrecord), pointer :: zz80
+    integer(4), target :: layer_
     logical :: zz81
     logical :: zz82
     logical :: zz83
@@ -2634,26 +2650,26 @@ contains
     logical :: zz96
     logical :: zz97
     logical :: zz98
-    integer(4), target :: count_2_
     logical :: zz99
     logical :: zz100
+    logical :: zz101
+    logical :: zz102
+    logical :: zz103
+    integer(4), target :: count_2_
+    logical :: zz104
+    logical :: zz105
     class(cpp_vec_d), pointer :: x__r7_
     integer(8) :: x__i8_
     integer(8) :: x__i8_n_
     real(8), pointer :: mass_
-    logical :: zz101
-    logical :: zz102
+    logical :: zz106
+    logical :: zz107
     integer(4), target :: count_3_
-    logical :: zz103
+    logical :: zz108
     class(cpp_vec_d), pointer :: x__r9_
     integer(8) :: x__i10_
     integer(8) :: x__i10_n_
     real(8), pointer :: value_
-    logical :: zz104
-    logical :: zz105
-    logical :: zz106
-    logical :: zz107
-    logical :: zz108
     logical :: zz109
     logical :: zz110
     logical :: zz111
@@ -2665,156 +2681,161 @@ contains
     logical :: zz117
     logical :: zz118
     logical :: zz119
-    integer(4), target :: count_4_
     logical :: zz120
     logical :: zz121
     logical :: zz122
+    logical :: zz123
+    logical :: zz124
+    integer(4), target :: count_4_
+    logical :: zz125
+    logical :: zz126
+    logical :: zz127
     class(cpp_vec_d), pointer :: x__r11_
     integer(8) :: x__i12_
     integer(8) :: x__i12_n_
     real(8), pointer :: value_2_
-    logical :: zz123
-    logical :: zz124
+    logical :: zz128
+    logical :: zz129
     integer(4), target :: link_count_
-    logical :: zz125
+    logical :: zz130
     class(cpp_vec_o), pointer :: x__r13_
     integer(8) :: x__i14_
     integer(8) :: x__i14_n_
     class(t_hotstartlinkrecord), pointer :: l_
-    class(t_hotstartlinkrecord), pointer :: zz126
-    logical :: zz127
-    logical :: zz128
-    logical :: zz129
-    logical :: zz130
-    logical :: zz131
-    integer(4), target :: sub_count_
+    class(t_hotstartlinkrecord), pointer :: zz131
     logical :: zz132
+    logical :: zz133
+    logical :: zz134
+    logical :: zz135
+    logical :: zz136
+    integer(4), target :: sub_count_
+    logical :: zz137
     class(cpp_vec_o), pointer :: x__r15_
     integer(8) :: x__i16_
     integer(8) :: x__i16_n_
     class(t_hotstartsubcatchrecord), pointer :: s_
-    class(t_hotstartsubcatchrecord), pointer :: zz133
-    logical :: zz134
-    logical :: zz135
-    logical :: zz136
-    integer(4), target :: im_
-    logical :: zz137
-    integer(4) :: k_
-    type(cpp_ptr_d) :: zz138
-    real(8), pointer :: zz139
+    class(t_hotstartsubcatchrecord), pointer :: zz138
+    logical :: zz139
     logical :: zz140
     logical :: zz141
+    integer(4), target :: im_
     logical :: zz142
+    integer(4) :: k_
+    type(cpp_ptr_d) :: zz143
+    real(8), pointer :: zz144
+    logical :: zz145
+    logical :: zz146
+    logical :: zz147
     integer(4), target :: ns_
-    logical :: zz143
+    logical :: zz148
     class(cpp_vec_o), pointer :: x__r17_
     integer(8) :: x__i18_
     integer(8) :: x__i18_n_
     class(cpp_str), pointer :: name_
-    class(cpp_str), pointer :: zz144
-    logical :: zz145
+    class(cpp_str), pointer :: zz149
+    logical :: zz150
     class(cpp_vec_d), pointer :: x__r19_
     integer(8) :: x__i20_
     integer(8) :: x__i20_n_
     real(8), pointer :: v_
-    logical :: zz146
+    logical :: zz151
     class(cpp_vec_d), pointer :: x__r21_
     integer(8) :: x__i22_
     integer(8) :: x__i22_n_
     real(8), pointer :: v_2_
-    logical :: zz147
-    logical :: zz148
-    logical :: zz149
+    logical :: zz152
+    logical :: zz153
+    logical :: zz154
     integer(8) :: nc_
     class(cpp_vec_d), pointer :: x__r23_
     integer(8) :: x__i24_
     integer(8) :: x__i24_n_
     real(8), pointer :: v_3_
-    logical :: zz150
+    logical :: zz155
     class(cpp_vec_d), pointer :: x__r25_
     integer(8) :: x__i26_
     integer(8) :: x__i26_n_
     real(8), pointer :: v_4_
-    logical :: zz151
+    logical :: zz156
     class(cpp_vec_d), pointer :: x__r27_
     integer(8) :: x__i28_
     integer(8) :: x__i28_n_
     real(8), pointer :: v_5_
-    logical :: zz152
+    logical :: zz157
     integer(4), target :: nl_
-    logical :: zz153
+    logical :: zz158
     class(cpp_vec_d), pointer :: x__r29_
     integer(8) :: x__i30_
     integer(8) :: x__i30_n_
     real(8), pointer :: v_6_
-    logical :: zz154
+    logical :: zz159
     integer(4), target :: ns_2_
-    logical :: zz155
+    logical :: zz160
     class(cpp_vec_o), pointer :: x__r31_
     integer(8) :: x__i32_
     integer(8) :: x__i32_n_
     class(cpp_str), pointer :: n_2_
-    class(cpp_str), pointer :: zz156
-    logical :: zz157
+    class(cpp_str), pointer :: zz161
+    logical :: zz162
     integer(8) :: want_
     class(cpp_vec_d), pointer :: x__r33_
     integer(8) :: x__i34_
     integer(8) :: x__i34_n_
     real(8), pointer :: v_7_
-    logical :: zz158
+    logical :: zz163
     class(cpp_vec_d), pointer :: x__r35_
     integer(8) :: x__i36_
     integer(8) :: x__i36_n_
     real(8), pointer :: v_8_
-    logical :: zz159
+    logical :: zz164
     integer(4) :: terms_
     integer(8) :: row_
     integer(4) :: term_
-    logical :: zz160
+    logical :: zz165
     integer(4), target :: count_5_
-    logical :: zz161
+    logical :: zz166
     class(cpp_vec_o), pointer :: x__r37_
     integer(8) :: x__i38_
     integer(8) :: x__i38_n_
     class(cpp_vec_d), pointer :: row_2_
-    class(cpp_vec_d), pointer :: zz162
+    class(cpp_vec_d), pointer :: zz167
     integer(4), target :: size_
-    logical :: zz163
-    logical :: zz164
+    logical :: zz168
+    logical :: zz169
     class(cpp_vec_d), pointer :: x__r39_
     integer(8) :: x__i40_
     integer(8) :: x__i40_n_
     real(8), pointer :: value_3_
-    logical :: zz165
-    integer(4), target :: size_2_
-    logical :: zz166
-    type(cpp_cptr) :: zz167
-    class(cpp_istream), pointer :: zz168
-    integer(4), target :: size_3_
-    logical :: zz169
     logical :: zz170
+    integer(4), target :: size_2_
     logical :: zz171
     type(cpp_cptr) :: zz172
     class(cpp_istream), pointer :: zz173
-    integer(4), target :: size_4_
+    integer(4), target :: size_3_
     logical :: zz174
-    type(cpp_cptr) :: zz175
-    class(cpp_istream), pointer :: zz176
-    integer(4), target :: size_5_
-    logical :: zz177
-    logical :: zz178
+    logical :: zz175
+    logical :: zz176
+    type(cpp_cptr) :: zz177
+    class(cpp_istream), pointer :: zz178
+    integer(4), target :: size_4_
     logical :: zz179
     type(cpp_cptr) :: zz180
     class(cpp_istream), pointer :: zz181
-    integer(4), target :: size_6_
+    integer(4), target :: size_5_
     logical :: zz182
-    type(cpp_cptr) :: zz183
-    class(cpp_istream), pointer :: zz184
-    integer(4), target :: clock_schema_
-    logical :: zz185
-    logical :: zz186
+    logical :: zz183
+    logical :: zz184
+    type(cpp_cptr) :: zz185
+    class(cpp_istream), pointer :: zz186
+    integer(4), target :: size_6_
     logical :: zz187
-    class(cpp_object), pointer :: zz188
+    type(cpp_cptr) :: zz188
+    class(cpp_istream), pointer :: zz189
+    integer(4), target :: clock_schema_
+    logical :: zz190
+    logical :: zz191
+    logical :: zz192
+    class(cpp_object), pointer :: zz193
   zz1 => p_io__f__utf8_path(path_)
   zz2 => cpp_ifstream_new_fspath_i(zz1, 4)
   if (associated(cpp_exc)) return
@@ -2855,130 +2876,135 @@ contains
   if (associated(cpp_exc)) goto 101
   zz19 => cpp_vec_b_new_ul(file_size_)
   raw_ => zz19
-  zz20 => cpp_istream_read_ptrt_l__b(file_, cpp_vec_b_data(raw_), file_size_)
+  zz20 = cpp_vec_b_data(raw_)
+  zz21 => cpp_istream_read_ptrt_l__b(file_, zz20, file_size_)
   if (associated(cpp_exc)) goto 101
   if (cpp_iosbase_notok(file_)) then
-    zz25 => s__f__tl_last_io_error_hotstartmanager
-    zz21 = cpp_r_lit("Read error on '")
-    zz22 => cpp_str_cat_cptr_str(zz21, path_)
-    zz23 = cpp_r_lit("'")
-    zz24 => cpp_str_cat_str_cptr(zz22, zz23)
-    call cpp_str_movefrom(zz25, zz24)
+    zz26 => s__f__tl_last_io_error_hotstartmanager
+    zz22 = cpp_r_lit("Read error on '")
+    zz23 => cpp_str_cat_cptr_str(zz22, path_)
+    zz24 = cpp_r_lit("'")
+    zz25 => cpp_str_cat_str_cptr(zz23, zz24)
+    call cpp_str_movefrom(zz26, zz25)
     zres = .false.
     zz5 = 1
     goto 101
   end if
   stored_crc_ = 0
-  zz26 => cpp_arr_i_new(1_8)
-  zz26%a(0) = stored_crc_
-  x__b2_ => zz26
-  zz27 = cpp_mem_memcpy_ptrt_ptru_ul__ib(cpp_ptr_i_new_ta_l(x__b2_, 0_8), cpp_ptr_b_op_sub_ptrt_l(cpp_ptr_b_op_add_ptrt_l(cpp_vec_b_data(raw_), file_size_), 4_8), 4_8)
-  zz28 = zz27
+  zz27 => cpp_arr_i_new(1_8)
+  zz27%a(0) = stored_crc_
+  x__b2_ => zz27
+  zz29 = cpp_ptr_i_new_ta_l(x__b2_, 0_8)
+  zz28 = cpp_vec_b_data(raw_)
+  zz30 = cpp_mem_memcpy_ptrt_ptru_ul__ib(zz29, cpp_ptr_b_op_sub_ptrt_l(cpp_ptr_b_op_add_ptrt_l(zz28, file_size_), 4_8), 4_8)
+  zz31 = zz30
   stored_crc_ = x__b2_%a(0)
-  computed_crc_ = p_hotstartmanager__crc32(cpp_cptr_from_ptruc(cpp_vec_b_data(raw_)), (file_size_ - 4_8))
+  zz32 = cpp_vec_b_data(raw_)
+  computed_crc_ = p_hotstartmanager__crc32(cpp_cptr_from_ptruc(zz32), (file_size_ - 4_8))
   if ((stored_crc_ /= computed_crc_)) then
-    zz33 => s__f__tl_last_io_error_hotstartmanager
-    zz29 = cpp_r_lit("CRC32 checksum mismatch in '")
-    zz30 => cpp_str_cat_cptr_str(zz29, path_)
-    zz31 = cpp_r_lit("' (corrupt or truncated file)")
-    zz32 => cpp_str_cat_str_cptr(zz30, zz31)
-    call cpp_str_movefrom(zz33, zz32)
+    zz37 => s__f__tl_last_io_error_hotstartmanager
+    zz33 = cpp_r_lit("CRC32 checksum mismatch in '")
+    zz34 => cpp_str_cat_cptr_str(zz33, path_)
+    zz35 = cpp_r_lit("' (corrupt or truncated file)")
+    zz36 => cpp_str_cat_str_cptr(zz34, zz35)
+    call cpp_str_movefrom(zz37, zz36)
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz34 = cpp_bytes_view_ptrt__b(cpp_vec_b_data(raw_))
-  zz35 => cpp_str_new_cptr_ul(zz34, (file_size_ - 4_8))
-  body_ => zz35
-  zz36 => cpp_istringstream_new_str_i(body_, 4)
-  is_ => zz36
-  zz37 => cpp_arr_i_new(0_8)
-  zz38 = cpp_r_bufof(16, zz37)
-  magic_ = zz38
-  zz39 => cpp_istream_read_cptr_l(is_, magic_, 16_8)
+  zz38 = cpp_vec_b_data(raw_)
+  zz39 = cpp_bytes_view_ptrt__b(zz38)
+  zz40 => cpp_str_new_cptr_ul(zz39, (file_size_ - 4_8))
+  body_ => zz40
+  zz41 => cpp_istringstream_new_str_i(body_, 4)
+  is_ => zz41
+  zz42 => cpp_arr_i_new(0_8)
+  zz43 = cpp_r_bufof(16, zz42)
+  magic_ = zz43
+  zz44 => cpp_istream_read_cptr_l(is_, magic_, 16_8)
   if (associated(cpp_exc)) goto 101
-  zz41 = cpp_iosbase_notok(is_)
-  if (.not. zz41) then
-    zz40 = cpp_r_lit("OPENSWMM_HS_V1")
-    zz41 = (cpp_r_memcmp(magic_, zz40, 15_8) /= 0)
+  zz46 = cpp_iosbase_notok(is_)
+  if (.not. zz46) then
+    zz45 = cpp_r_lit("OPENSWMM_HS_V1")
+    zz46 = (cpp_r_memcmp(magic_, zz45, 15_8) /= 0)
   end if
-  if (zz41) then
-    zz46 => s__f__tl_last_io_error_hotstartmanager
-    zz42 = cpp_r_lit("Invalid magic number in '")
-    zz43 => cpp_str_cat_cptr_str(zz42, path_)
-    zz44 = cpp_r_lit("'")
-    zz45 => cpp_str_cat_str_cptr(zz43, zz44)
-    call cpp_str_movefrom(zz46, zz45)
+  if (zz46) then
+    zz51 => s__f__tl_last_io_error_hotstartmanager
+    zz47 = cpp_r_lit("Invalid magic number in '")
+    zz48 => cpp_str_cat_cptr_str(zz47, path_)
+    zz49 = cpp_r_lit("'")
+    zz50 => cpp_str_cat_str_cptr(zz48, zz49)
+    call cpp_str_movefrom(zz51, zz50)
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz47 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, hs_%header%version)
+  zz52 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, hs_%header%version)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz47)) then
+  if ((.not. zz52)) then
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz48 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(1, (-2147483647 - 1)))
-  if (.not. zz48) then
-    zz48 = (ieor(hs_%header%version, (-2147483647 - 1)) > ieor(19, (-2147483647 - 1)))
+  zz53 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(1, (-2147483647 - 1)))
+  if (.not. zz53) then
+    zz53 = (ieor(hs_%header%version, (-2147483647 - 1)) > ieor(19, (-2147483647 - 1)))
   end if
-  if (zz48) then
-    zz57 => s__f__tl_last_io_error_hotstartmanager
-    zz49 = cpp_r_lit("Unsupported hot start version ")
-    zz50 => cpp_str_to_string_u(hs_%header%version)
+  if (zz53) then
+    zz62 => s__f__tl_last_io_error_hotstartmanager
+    zz54 = cpp_r_lit("Unsupported hot start version ")
+    zz55 => cpp_str_to_string_u(hs_%header%version)
     if (associated(cpp_exc)) goto 101
-    zz51 => cpp_str_cat_cptr_str(zz49, zz50)
-    zz52 = cpp_r_lit(" in '")
-    zz53 => cpp_str_cat_str_cptr(zz51, zz52)
-    zz54 => cpp_str_cat_str_str(zz53, path_)
-    zz55 = cpp_r_lit("'")
-    zz56 => cpp_str_cat_str_cptr(zz54, zz55)
-    call cpp_str_movefrom(zz57, zz56)
+    zz56 => cpp_str_cat_cptr_str(zz54, zz55)
+    zz57 = cpp_r_lit(" in '")
+    zz58 => cpp_str_cat_str_cptr(zz56, zz57)
+    zz59 => cpp_str_cat_str_str(zz58, path_)
+    zz60 = cpp_r_lit("'")
+    zz61 => cpp_str_cat_str_cptr(zz59, zz60)
+    call cpp_str_movefrom(zz62, zz61)
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz58 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_72be2130(is_, hs_%header%timestamp)
+  zz63 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_72be2130(is_, hs_%header%timestamp)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz58)) then
+  if ((.not. zz63)) then
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz59 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%header%sim_time)
+  zz64 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%header%sim_time)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz59)) then
+  if ((.not. zz64)) then
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz60 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%header%start_date)
+  zz65 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%header%start_date)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz60)) then
+  if ((.not. zz65)) then
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz61 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%header%end_date)
+  zz66 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%header%end_date)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz61)) then
+  if ((.not. zz66)) then
     zres = .false.
     zz5 = 1
     goto 101
   end if
-  zz62 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, hs_%header%crs)
+  zz67 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, hs_%header%crs)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz62)) then
+  if ((.not. zz67)) then
     zres = .false.
     zz5 = 1
     goto 101
   end if
   node_count_ = 0
-  zz63 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, node_count_)
+  zz68 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, node_count_)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz63)) then
+  if ((.not. zz68)) then
     zres = .false.
     zz5 = 1
     goto 101
@@ -2989,40 +3015,40 @@ contains
   x__i4_n_ = int(x__r3_%n, 8)
   do
     if (.not. ((x__i4_ < x__i4_n_))) exit
-    zz64 => h_uas_hotstartnoderecord(x__r3_%a%a(x__i4_)%p)
-    n_ => zz64
-    zz65 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, n_%id)
+    zz69 => h_uas_hotstartnoderecord(x__r3_%a%a(x__i4_)%p)
+    n_ => zz69
+    zz70 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, n_%id)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz65)) then
+    if ((.not. zz70)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz66 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%depth)
+    zz71 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%depth)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz66)) then
+    if ((.not. zz71)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz67 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%head)
+    zz72 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%head)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz67)) then
+    if ((.not. zz72)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz68 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%volume)
+    zz73 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%volume)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz68)) then
+    if ((.not. zz73)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(3, (-2147483647 - 1)))) then
-      zz69 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%age)
+      zz74 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%age)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz69)) then
+      if ((.not. zz74)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3030,28 +3056,28 @@ contains
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(8, (-2147483647 - 1)))) then
       count_ = 0
-      zz70 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_)
+      zz75 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_)
       if (associated(cpp_exc)) goto 101
-      zz71 = (.not. zz70)
-      if (.not. zz71) then
-        zz71 = (ieor(iand(int(count_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 44_8), (-9223372036854775807_8 - 1_8)))
+      zz76 = (.not. zz75)
+      if (.not. zz76) then
+        zz76 = (ieor(iand(int(count_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 44_8), (-9223372036854775807_8 - 1_8)))
       end if
-      zz73 = zz71
-      if (.not. zz73) then
-        zz72 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%lid_treated_volume)
+      zz78 = zz76
+      if (.not. zz78) then
+        zz77 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, n_%lid_treated_volume)
         if (associated(cpp_exc)) goto 101
-        zz73 = (.not. zz72)
+        zz78 = (.not. zz77)
       end if
-      if (zz73) then
+      if (zz78) then
         zres = .false.
         zz5 = 1
         goto 101
       end if
-      zz74 = (.not. cpp_double_isfinite(n_%lid_treated_volume))
-      if (.not. zz74) then
-        zz74 = (n_%lid_treated_volume < 0.0_8)
+      zz79 = (.not. cpp_double_isfinite(n_%lid_treated_volume))
+      if (.not. zz79) then
+        zz79 = (n_%lid_treated_volume < 0.0_8)
       end if
-      if (zz74) then
+      if (zz79) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3062,96 +3088,96 @@ contains
       x__i6_n_ = int(x__r5_%n, 8)
       do
         if (.not. ((x__i6_ < x__i6_n_))) exit
-        zz75 => h_uas_hotstartlidcellrecord(x__r5_%a%a(x__i6_)%p)
-        c_ => zz75
+        zz80 => h_uas_hotstartlidcellrecord(x__r5_%a%a(x__i6_)%p)
+        c_ => zz80
         layer_ = 0
-        zz76 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(is_, layer_)
+        zz81 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_b43f3e5e(is_, layer_)
         if (associated(cpp_exc)) goto 101
-        zz78 = (.not. zz76)
-        if (.not. zz78) then
-          zz77 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%bottom)
+        zz83 = (.not. zz81)
+        if (.not. zz83) then
+          zz82 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%bottom)
           if (associated(cpp_exc)) goto 101
-          zz78 = (.not. zz77)
+          zz83 = (.not. zz82)
         end if
-        zz80 = zz78
-        if (.not. zz80) then
-          zz79 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%top)
+        zz85 = zz83
+        if (.not. zz85) then
+          zz84 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%top)
           if (associated(cpp_exc)) goto 101
-          zz80 = (.not. zz79)
+          zz85 = (.not. zz84)
         end if
-        zz82 = zz80
-        if (.not. zz82) then
-          zz81 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%porosity)
+        zz87 = zz85
+        if (.not. zz87) then
+          zz86 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%porosity)
           if (associated(cpp_exc)) goto 101
-          zz82 = (.not. zz81)
+          zz87 = (.not. zz86)
         end if
-        zz84 = zz82
-        if (.not. zz84) then
-          zz83 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%volume)
+        zz89 = zz87
+        if (.not. zz89) then
+          zz88 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%volume)
           if (associated(cpp_exc)) goto 101
-          zz84 = (.not. zz83)
+          zz89 = (.not. zz88)
         end if
-        zz86 = zz84
-        if (.not. zz86) then
-          zz85 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%theta)
+        zz91 = zz89
+        if (.not. zz91) then
+          zz90 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, c_%theta)
           if (associated(cpp_exc)) goto 101
-          zz86 = (.not. zz85)
+          zz91 = (.not. zz90)
         end if
-        if (zz86) then
+        if (zz91) then
           zres = .false.
           zz5 = 1
           goto 101
         end if
         c_%layer = layer_
-        zz87 = (.not. cpp_double_isfinite(c_%bottom))
-        if (.not. zz87) then
-          zz87 = (.not. cpp_double_isfinite(c_%top))
-        end if
-        zz88 = zz87
-        if (.not. zz88) then
-          zz88 = (.not. cpp_double_isfinite(c_%porosity))
-        end if
-        zz89 = zz88
-        if (.not. zz89) then
-          zz89 = (.not. cpp_double_isfinite(c_%volume))
-        end if
-        zz90 = zz89
-        if (.not. zz90) then
-          zz90 = (.not. cpp_double_isfinite(c_%theta))
-        end if
-        zz91 = zz90
-        if (.not. zz91) then
-          zz91 = (c_%bottom < 0.0_8)
-        end if
-        zz92 = zz91
+        zz92 = (.not. cpp_double_isfinite(c_%bottom))
         if (.not. zz92) then
-          zz92 = (c_%top <= c_%bottom)
+          zz92 = (.not. cpp_double_isfinite(c_%top))
         end if
         zz93 = zz92
         if (.not. zz93) then
-          zz93 = (c_%porosity <= 0.0_8)
+          zz93 = (.not. cpp_double_isfinite(c_%porosity))
         end if
         zz94 = zz93
         if (.not. zz94) then
-          zz94 = (c_%porosity > 1.0_8)
+          zz94 = (.not. cpp_double_isfinite(c_%volume))
         end if
         zz95 = zz94
         if (.not. zz95) then
-          zz95 = (c_%theta < 0.0_8)
+          zz95 = (.not. cpp_double_isfinite(c_%theta))
         end if
         zz96 = zz95
         if (.not. zz96) then
-          zz96 = (c_%theta > c_%porosity)
+          zz96 = (c_%bottom < 0.0_8)
         end if
         zz97 = zz96
         if (.not. zz97) then
-          zz97 = (c_%volume <= 0.0_8)
+          zz97 = (c_%top <= c_%bottom)
         end if
         zz98 = zz97
         if (.not. zz98) then
-          zz98 = (c_%layer < 1)
+          zz98 = (c_%porosity <= 0.0_8)
         end if
-        if (zz98) then
+        zz99 = zz98
+        if (.not. zz99) then
+          zz99 = (c_%porosity > 1.0_8)
+        end if
+        zz100 = zz99
+        if (.not. zz100) then
+          zz100 = (c_%theta < 0.0_8)
+        end if
+        zz101 = zz100
+        if (.not. zz101) then
+          zz101 = (c_%theta > c_%porosity)
+        end if
+        zz102 = zz101
+        if (.not. zz102) then
+          zz102 = (c_%volume <= 0.0_8)
+        end if
+        zz103 = zz102
+        if (.not. zz103) then
+          zz103 = (c_%layer < 1)
+        end if
+        if (zz103) then
           zres = .false.
           zz5 = 1
           goto 101
@@ -3161,13 +3187,13 @@ contains
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(9, (-2147483647 - 1)))) then
       count_2_ = 0
-      zz99 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_2_)
+      zz104 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_2_)
       if (associated(cpp_exc)) goto 101
-      zz100 = (.not. zz99)
-      if (.not. zz100) then
-        zz100 = (ieor(iand(int(count_2_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 8_8), (-9223372036854775807_8 - 1_8)))
+      zz105 = (.not. zz104)
+      if (.not. zz105) then
+        zz105 = (ieor(iand(int(count_2_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 8_8), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz100) then
+      if (zz105) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3179,13 +3205,13 @@ contains
       do
         if (.not. ((x__i8_ < x__i8_n_))) exit
         mass_ => x__r7_%a%a(x__i8_)
-        zz101 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, mass_)
+        zz106 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, mass_)
         if (associated(cpp_exc)) goto 101
-        zz102 = (.not. zz101)
-        if (.not. zz102) then
-          zz102 = (.not. cpp_double_isfinite(mass_))
+        zz107 = (.not. zz106)
+        if (.not. zz107) then
+          zz107 = (.not. cpp_double_isfinite(mass_))
         end if
-        if ((zz102 .or. (mass_ < 0.0_8))) then
+        if ((zz107 .or. (mass_ < 0.0_8))) then
           zres = .false.
           zz5 = 1
           goto 101
@@ -3195,9 +3221,9 @@ contains
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(10, (-2147483647 - 1)))) then
       count_3_ = 0
-      zz103 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_3_)
+      zz108 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_3_)
       if (associated(cpp_exc)) goto 101
-      if (((.not. zz103) .or. ((count_3_ /= 0) .and. (count_3_ /= 11)))) then
+      if (((.not. zz108) .or. ((count_3_ /= 0) .and. (count_3_ /= 11)))) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3209,76 +3235,76 @@ contains
       do
         if (.not. ((x__i10_ < x__i10_n_))) exit
         value_ => x__r9_%a%a(x__i10_)
-        zz104 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, value_)
+        zz109 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, value_)
         if (associated(cpp_exc)) goto 101
-        zz105 = (.not. zz104)
-        if (.not. zz105) then
-          zz105 = (.not. cpp_double_isfinite(value_))
+        zz110 = (.not. zz109)
+        if (.not. zz110) then
+          zz110 = (.not. cpp_double_isfinite(value_))
         end if
-        if (zz105) then
+        if (zz110) then
           zres = .false.
           zz5 = 1
           goto 101
         end if
         x__i10_ = (x__i10_ + 1_8)
       end do
-      zz119 = (count_3_ /= 0)
-      if (zz119) then
-        zz106 = (n_%lid_infiltration%a%a(0_8) < 0.0_8)
-        if (.not. zz106) then
-          zz106 = (n_%lid_infiltration%a%a(1_8) <= 0.0_8)
-        end if
-        zz107 = zz106
-        if (.not. zz107) then
-          zz107 = (n_%lid_infiltration%a%a(2_8) <= 0.0_8)
-        end if
-        zz108 = zz107
-        if (.not. zz108) then
-          zz108 = (n_%lid_infiltration%a%a(2_8) > 1.0_8)
-        end if
-        zz109 = zz108
-        if (.not. zz109) then
-          zz109 = (n_%lid_infiltration%a%a(3_8) < 0.0_8)
-        end if
-        zz110 = zz109
-        if (.not. zz110) then
-          zz110 = (n_%lid_infiltration%a%a(3_8) > n_%lid_infiltration%a%a(2_8))
-        end if
-        zz111 = zz110
+      zz124 = (count_3_ /= 0)
+      if (zz124) then
+        zz111 = (n_%lid_infiltration%a%a(0_8) < 0.0_8)
         if (.not. zz111) then
-          zz111 = (n_%lid_infiltration%a%a(4_8) < 0.0_8)
+          zz111 = (n_%lid_infiltration%a%a(1_8) <= 0.0_8)
         end if
         zz112 = zz111
         if (.not. zz112) then
-          zz112 = (n_%lid_infiltration%a%a(5_8) < 0.0_8)
+          zz112 = (n_%lid_infiltration%a%a(2_8) <= 0.0_8)
         end if
         zz113 = zz112
         if (.not. zz113) then
-          zz113 = (n_%lid_infiltration%a%a(5_8) > n_%lid_infiltration%a%a(6_8))
+          zz113 = (n_%lid_infiltration%a%a(2_8) > 1.0_8)
         end if
         zz114 = zz113
         if (.not. zz114) then
-          zz114 = (n_%lid_infiltration%a%a(6_8) <= 0.0_8)
+          zz114 = (n_%lid_infiltration%a%a(3_8) < 0.0_8)
         end if
         zz115 = zz114
         if (.not. zz115) then
-          zz115 = (n_%lid_infiltration%a%a(7_8) <= 0.0_8)
+          zz115 = (n_%lid_infiltration%a%a(3_8) > n_%lid_infiltration%a%a(2_8))
         end if
         zz116 = zz115
         if (.not. zz116) then
-          zz116 = (n_%lid_infiltration%a%a(9_8) < 0.0_8)
+          zz116 = (n_%lid_infiltration%a%a(4_8) < 0.0_8)
         end if
-        zz118 = zz116
+        zz117 = zz116
+        if (.not. zz117) then
+          zz117 = (n_%lid_infiltration%a%a(5_8) < 0.0_8)
+        end if
+        zz118 = zz117
         if (.not. zz118) then
-          zz117 = (n_%lid_infiltration%a%a(10_8) /= 0.0_8)
-          if (zz117) then
-            zz117 = (n_%lid_infiltration%a%a(10_8) /= 1.0_8)
-          end if
-          zz118 = zz117
+          zz118 = (n_%lid_infiltration%a%a(5_8) > n_%lid_infiltration%a%a(6_8))
         end if
         zz119 = zz118
+        if (.not. zz119) then
+          zz119 = (n_%lid_infiltration%a%a(6_8) <= 0.0_8)
+        end if
+        zz120 = zz119
+        if (.not. zz120) then
+          zz120 = (n_%lid_infiltration%a%a(7_8) <= 0.0_8)
+        end if
+        zz121 = zz120
+        if (.not. zz121) then
+          zz121 = (n_%lid_infiltration%a%a(9_8) < 0.0_8)
+        end if
+        zz123 = zz121
+        if (.not. zz123) then
+          zz122 = (n_%lid_infiltration%a%a(10_8) /= 0.0_8)
+          if (zz122) then
+            zz122 = (n_%lid_infiltration%a%a(10_8) /= 1.0_8)
+          end if
+          zz123 = zz122
+        end if
+        zz124 = zz123
       end if
-      if (zz119) then
+      if (zz124) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3286,17 +3312,17 @@ contains
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(11, (-2147483647 - 1)))) then
       count_4_ = 0
-      zz120 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_4_)
+      zz125 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_4_)
       if (associated(cpp_exc)) goto 101
-      zz121 = (.not. zz120)
-      if (.not. zz121) then
-        zz121 = (ieor(iand(int(count_4_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 8_8), (-9223372036854775807_8 - 1_8)))
+      zz126 = (.not. zz125)
+      if (.not. zz126) then
+        zz126 = (ieor(iand(int(count_4_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 8_8), (-9223372036854775807_8 - 1_8)))
       end if
-      zz122 = zz121
-      if (.not. zz122) then
-        zz122 = (cpp_urem4(count_4_, 8) /= 0)
+      zz127 = zz126
+      if (.not. zz127) then
+        zz127 = (cpp_urem4(count_4_, 8) /= 0)
       end if
-      if (zz122) then
+      if (zz127) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3308,13 +3334,13 @@ contains
       do
         if (.not. ((x__i12_ < x__i12_n_))) exit
         value_2_ => x__r11_%a%a(x__i12_)
-        zz123 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, value_2_)
+        zz128 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, value_2_)
         if (associated(cpp_exc)) goto 101
-        zz124 = (.not. zz123)
-        if (.not. zz124) then
-          zz124 = (.not. cpp_double_isfinite(value_2_))
+        zz129 = (.not. zz128)
+        if (.not. zz129) then
+          zz129 = (.not. cpp_double_isfinite(value_2_))
         end if
-        if (zz124) then
+        if (zz129) then
           zres = .false.
           zz5 = 1
           goto 101
@@ -3325,9 +3351,9 @@ contains
     x__i4_ = (x__i4_ + 1_8)
   end do
   link_count_ = 0
-  zz125 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, link_count_)
+  zz130 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, link_count_)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz125)) then
+  if ((.not. zz130)) then
     zres = .false.
     zz5 = 1
     goto 101
@@ -3338,40 +3364,40 @@ contains
   x__i14_n_ = int(x__r13_%n, 8)
   do
     if (.not. ((x__i14_ < x__i14_n_))) exit
-    zz126 => h_uas_hotstartlinkrecord(x__r13_%a%a(x__i14_)%p)
-    l_ => zz126
-    zz127 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, l_%id)
+    zz131 => h_uas_hotstartlinkrecord(x__r13_%a%a(x__i14_)%p)
+    l_ => zz131
+    zz132 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, l_%id)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz127)) then
+    if ((.not. zz132)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz128 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%flow)
+    zz133 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%flow)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz128)) then
+    if ((.not. zz133)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz129 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%depth)
+    zz134 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%depth)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz129)) then
+    if ((.not. zz134)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz130 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%volume)
+    zz135 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%volume)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz130)) then
+    if ((.not. zz135)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(3, (-2147483647 - 1)))) then
-      zz131 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%age)
+      zz136 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, l_%age)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz131)) then
+      if ((.not. zz136)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3380,9 +3406,9 @@ contains
     x__i14_ = (x__i14_ + 1_8)
   end do
   sub_count_ = 0
-  zz132 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, sub_count_)
+  zz137 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, sub_count_)
   if (associated(cpp_exc)) goto 101
-  if ((.not. zz132)) then
+  if ((.not. zz137)) then
     zres = .false.
     zz5 = 1
     goto 101
@@ -3393,34 +3419,34 @@ contains
   x__i16_n_ = int(x__r15_%n, 8)
   do
     if (.not. ((x__i16_ < x__i16_n_))) exit
-    zz133 => h_uas_hotstartsubcatchrecord(x__r15_%a%a(x__i16_)%p)
-    s_ => zz133
-    zz134 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, s_%id)
+    zz138 => h_uas_hotstartsubcatchrecord(x__r15_%a%a(x__i16_)%p)
+    s_ => zz138
+    zz139 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, s_%id)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz134)) then
+    if ((.not. zz139)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz135 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%runoff)
+    zz140 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%runoff)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz135)) then
+    if ((.not. zz140)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz136 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%gwater)
+    zz141 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%gwater)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz136)) then
+    if ((.not. zz141)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(2, (-2147483647 - 1)))) then
       im_ = 0
-      zz137 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, im_)
+      zz142 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, im_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz137)) then
+      if ((.not. zz142)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3429,27 +3455,27 @@ contains
       k_ = 0
       do
         if (.not. ((k_ < 6))) exit
-        zz138 = cpp_ptr_d_new_ta_l(s_%infil, 0_8)
-        zz139 => cpp_ptr_d_item_i(zz138, k_)
-        zz140 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, zz139)
+        zz143 = cpp_ptr_d_new_ta_l(s_%infil, 0_8)
+        zz144 => cpp_ptr_d_item_i(zz143, k_)
+        zz145 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, zz144)
         if (associated(cpp_exc)) goto 101
-        if ((.not. zz140)) then
+        if ((.not. zz145)) then
           zres = .false.
           zz5 = 1
           goto 101
         end if
         k_ = (k_ + 1)
       end do
-      zz141 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%gw_theta)
+      zz146 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%gw_theta)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz141)) then
+      if ((.not. zz146)) then
         zres = .false.
         zz5 = 1
         goto 101
       end if
-      zz142 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%gw_lower_depth)
+      zz147 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, s_%gw_lower_depth)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz142)) then
+      if ((.not. zz147)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3462,9 +3488,9 @@ contains
   call cpp_vec_d_clear(hs_%link_species)
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(4, (-2147483647 - 1)))) then
     ns_ = 0
-    zz143 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, ns_)
+    zz148 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, ns_)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz143)) then
+    if ((.not. zz148)) then
       zres = .false.
       zz5 = 1
       goto 101
@@ -3475,11 +3501,11 @@ contains
     x__i18_n_ = int(x__r17_%n, 8)
     do
       if (.not. ((x__i18_ < x__i18_n_))) exit
-      zz144 => h_uas_cpp_str(x__r17_%a%a(x__i18_)%p)
-      name_ => zz144
-      zz145 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, name_)
+      zz149 => h_uas_cpp_str(x__r17_%a%a(x__i18_)%p)
+      name_ => zz149
+      zz150 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, name_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz145)) then
+      if ((.not. zz150)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3494,9 +3520,9 @@ contains
     do
       if (.not. ((x__i20_ < x__i20_n_))) exit
       v_ => x__r19_%a%a(x__i20_)
-      zz146 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_)
+      zz151 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz146)) then
+      if ((.not. zz151)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3509,9 +3535,9 @@ contains
     do
       if (.not. ((x__i22_ < x__i22_n_))) exit
       v_2_ => x__r21_%a%a(x__i22_)
-      zz147 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_2_)
+      zz152 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_2_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz147)) then
+      if ((.not. zz152)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3526,16 +3552,16 @@ contains
   call cpp_vec_d_clear(hs_%gw_theta_sigma)
   call cpp_vec_d_clear(hs_%gw_ledger)
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(5, (-2147483647 - 1)))) then
-    zz148 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, hs_%gw_n_cells)
+    zz153 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, hs_%gw_n_cells)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz148)) then
+    if ((.not. zz153)) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
-    zz149 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, hs_%gw_m_layers)
+    zz154 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, hs_%gw_m_layers)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz149)) then
+    if ((.not. zz154)) then
       zres = .false.
       zz5 = 1
       goto 101
@@ -3550,9 +3576,9 @@ contains
     do
       if (.not. ((x__i24_ < x__i24_n_))) exit
       v_3_ => x__r23_%a%a(x__i24_)
-      zz150 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_3_)
+      zz155 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_3_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz150)) then
+      if ((.not. zz155)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3565,9 +3591,9 @@ contains
     do
       if (.not. ((x__i26_ < x__i26_n_))) exit
       v_4_ => x__r25_%a%a(x__i26_)
-      zz151 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_4_)
+      zz156 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_4_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz151)) then
+      if ((.not. zz156)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3580,9 +3606,9 @@ contains
     do
       if (.not. ((x__i28_ < x__i28_n_))) exit
       v_5_ => x__r27_%a%a(x__i28_)
-      zz152 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_5_)
+      zz157 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_5_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz152)) then
+      if ((.not. zz157)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3590,9 +3616,9 @@ contains
       x__i28_ = (x__i28_ + 1_8)
     end do
     nl_ = 0
-    zz153 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, nl_)
+    zz158 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, nl_)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz153)) then
+    if ((.not. zz158)) then
       zres = .false.
       zz5 = 1
       goto 101
@@ -3604,9 +3630,9 @@ contains
     do
       if (.not. ((x__i30_ < x__i30_n_))) exit
       v_6_ => x__r29_%a%a(x__i30_)
-      zz154 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_6_)
+      zz159 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_6_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz154)) then
+      if ((.not. zz159)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3620,9 +3646,9 @@ contains
   call cpp_vec_d_clear(hs_%gw_species_ledger)
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(6, (-2147483647 - 1)))) then
     ns_2_ = 0
-    zz155 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, ns_2_)
+    zz160 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, ns_2_)
     if (associated(cpp_exc)) goto 101
-    if ((.not. zz155)) then
+    if ((.not. zz160)) then
       zres = .false.
       zz5 = 1
       goto 101
@@ -3633,11 +3659,11 @@ contains
     x__i32_n_ = int(x__r31_%n, 8)
     do
       if (.not. ((x__i32_ < x__i32_n_))) exit
-      zz156 => h_uas_cpp_str(x__r31_%a%a(x__i32_)%p)
-      n_2_ => zz156
-      zz157 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, n_2_)
+      zz161 => h_uas_cpp_str(x__r31_%a%a(x__i32_)%p)
+      n_2_ => zz161
+      zz162 = p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a(is_, n_2_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz157)) then
+      if ((.not. zz162)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3653,9 +3679,9 @@ contains
     do
       if (.not. ((x__i34_ < x__i34_n_))) exit
       v_7_ => x__r33_%a%a(x__i34_)
-      zz158 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_7_)
+      zz163 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_7_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz158)) then
+      if ((.not. zz163)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3668,9 +3694,9 @@ contains
     do
       if (.not. ((x__i36_ < x__i36_n_))) exit
       v_8_ => x__r35_%a%a(x__i36_)
-      zz159 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_8_)
+      zz164 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, v_8_)
       if (associated(cpp_exc)) goto 101
-      if ((.not. zz159)) then
+      if ((.not. zz164)) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3685,9 +3711,9 @@ contains
       term_ = 0
       do
         if (.not. ((term_ < terms_))) exit
-        zz160 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%gw_species_ledger%a%a(((row_ * int(s_hotstartfile__kgwspeciesledgerterms, 8)) + int(term_, 8))))
+        zz165 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, hs_%gw_species_ledger%a%a(((row_ * int(s_hotstartfile__kgwspeciesledgerterms, 8)) + int(term_, 8))))
         if (associated(cpp_exc)) goto 101
-        if ((.not. zz160)) then
+        if ((.not. zz165)) then
           zres = .false.
           zz5 = 1
           goto 101
@@ -3700,9 +3726,9 @@ contains
   call cpp_vec_o_clear(hs_%gw_interface)
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(12, (-2147483647 - 1)))) then
     count_5_ = 0
-    zz161 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_5_)
+    zz166 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, count_5_)
     if (associated(cpp_exc)) goto 101
-    if (((.not. zz161) .or. (ieor(count_5_, (-2147483647 - 1)) > ieor(64, (-2147483647 - 1))))) then
+    if (((.not. zz166) .or. (ieor(count_5_, (-2147483647 - 1)) > ieor(64, (-2147483647 - 1))))) then
       zres = .false.
       zz5 = 1
       goto 101
@@ -3713,16 +3739,16 @@ contains
     x__i38_n_ = int(x__r37_%n, 8)
     do
       if (.not. ((x__i38_ < x__i38_n_))) exit
-      zz162 => h_uas_cpp_vec_d(x__r37_%a%a(x__i38_)%p)
-      row_2_ => zz162
+      zz167 => h_uas_cpp_vec_d(x__r37_%a%a(x__i38_)%p)
+      row_2_ => zz167
       size_ = 0
-      zz163 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_)
+      zz168 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_)
       if (associated(cpp_exc)) goto 101
-      zz164 = (.not. zz163)
-      if (.not. zz164) then
-        zz164 = (ieor(iand(int(size_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 8_8), (-9223372036854775807_8 - 1_8)))
+      zz169 = (.not. zz168)
+      if (.not. zz169) then
+        zz169 = (ieor(iand(int(size_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(cpp_udiv8(file_size_, 8_8), (-9223372036854775807_8 - 1_8)))
       end if
-      if (zz164) then
+      if (zz169) then
         zres = .false.
         zz5 = 1
         goto 101
@@ -3734,9 +3760,9 @@ contains
       do
         if (.not. ((x__i40_ < x__i40_n_))) exit
         value_3_ => x__r39_%a%a(x__i40_)
-        zz165 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, value_3_)
+        zz170 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_f5418aa9(is_, value_3_)
         if (associated(cpp_exc)) goto 101
-        if ((.not. zz165)) then
+        if ((.not. zz170)) then
           zres = .false.
           zz5 = 1
           goto 101
@@ -3748,16 +3774,16 @@ contains
   end if
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(14, (-2147483647 - 1)))) then
     size_2_ = 0
-    zz166 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_2_)
+    zz171 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_2_)
     if (associated(cpp_exc)) goto 101
-    if ((((.not. zz166) .or. (ieor(size_2_, (-2147483647 - 1)) > ieor(67108864, (-2147483647 - 1)))) .or. (ieor(iand(int(size_2_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
+    if ((((.not. zz171) .or. (ieor(size_2_, (-2147483647 - 1)) > ieor(67108864, (-2147483647 - 1)))) .or. (ieor(iand(int(size_2_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     call cpp_str_resize(hs_%snow_state, iand(int(size_2_, 8), 4294967295_8), 0)
-    zz167 = cpp_str_data(hs_%snow_state)
-    zz168 => cpp_istream_read_cptr_l(is_, zz167, iand(int(size_2_, 8), 4294967295_8))
+    zz172 = cpp_str_data(hs_%snow_state)
+    zz173 => cpp_istream_read_cptr_l(is_, zz172, iand(int(size_2_, 8), 4294967295_8))
     if (associated(cpp_exc)) goto 101
     if ((.not. cpp_iosbase_good(is_))) then
       zres = .false.
@@ -3767,25 +3793,25 @@ contains
   end if
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(15, (-2147483647 - 1)))) then
     size_3_ = 0
-    zz169 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_3_)
+    zz174 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_3_)
     if (associated(cpp_exc)) goto 101
-    zz171 = (.not. zz169)
-    if (.not. zz171) then
-      zz170 = (size_3_ == 0)
-      if (zz170) then
-        zz170 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(16, (-2147483647 - 1)))
+    zz176 = (.not. zz174)
+    if (.not. zz176) then
+      zz175 = (size_3_ == 0)
+      if (zz175) then
+        zz175 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(16, (-2147483647 - 1)))
       end if
-      zz171 = zz170
+      zz176 = zz175
     end if
-    if (((zz171 .or. (ieor(size_3_, (-2147483647 - 1)) > ieor(536870912, (-2147483647 - 1)))) .or. (ieor(iand(int(size_3_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
+    if (((zz176 .or. (ieor(size_3_, (-2147483647 - 1)) > ieor(536870912, (-2147483647 - 1)))) .or. (ieor(iand(int(size_3_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     call cpp_str_resize(hs_%engine_checkpoint, iand(int(size_3_, 8), 4294967295_8), 0)
     if ((ieor(size_3_, (-2147483647 - 1)) > ieor(0, (-2147483647 - 1)))) then
-      zz172 = cpp_str_data(hs_%engine_checkpoint)
-      zz173 => cpp_istream_read_cptr_l(is_, zz172, iand(int(size_3_, 8), 4294967295_8))
+      zz177 = cpp_str_data(hs_%engine_checkpoint)
+      zz178 => cpp_istream_read_cptr_l(is_, zz177, iand(int(size_3_, 8), 4294967295_8))
       if (associated(cpp_exc)) goto 101
       if ((.not. cpp_iosbase_good(is_))) then
         zres = .false.
@@ -3796,17 +3822,17 @@ contains
   end if
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(16, (-2147483647 - 1)))) then
     size_4_ = 0
-    zz174 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_4_)
+    zz179 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_4_)
     if (associated(cpp_exc)) goto 101
-    if ((((.not. zz174) .or. (ieor(size_4_, (-2147483647 - 1)) > ieor(268435456, (-2147483647 - 1)))) .or. (ieor(iand(int(size_4_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
+    if ((((.not. zz179) .or. (ieor(size_4_, (-2147483647 - 1)) > ieor(268435456, (-2147483647 - 1)))) .or. (ieor(iand(int(size_4_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     call cpp_str_resize(hs_%surface_state, iand(int(size_4_, 8), 4294967295_8), 0)
     if ((ieor(size_4_, (-2147483647 - 1)) > ieor(0, (-2147483647 - 1)))) then
-      zz175 = cpp_str_data(hs_%surface_state)
-      zz176 => cpp_istream_read_cptr_l(is_, zz175, iand(int(size_4_, 8), 4294967295_8))
+      zz180 = cpp_str_data(hs_%surface_state)
+      zz181 => cpp_istream_read_cptr_l(is_, zz180, iand(int(size_4_, 8), 4294967295_8))
       if (associated(cpp_exc)) goto 101
       if ((.not. cpp_iosbase_good(is_))) then
         zres = .false.
@@ -3817,24 +3843,24 @@ contains
   end if
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(17, (-2147483647 - 1)))) then
     size_5_ = 0
-    zz177 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_5_)
+    zz182 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_5_)
     if (associated(cpp_exc)) goto 101
-    zz179 = (.not. zz177)
-    if (.not. zz179) then
-      zz178 = (size_5_ == 0)
-      if (zz178) then
-        zz178 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(18, (-2147483647 - 1)))
+    zz184 = (.not. zz182)
+    if (.not. zz184) then
+      zz183 = (size_5_ == 0)
+      if (zz183) then
+        zz183 = (ieor(hs_%header%version, (-2147483647 - 1)) < ieor(18, (-2147483647 - 1)))
       end if
-      zz179 = zz178
+      zz184 = zz183
     end if
-    if (((zz179 .or. (ieor(size_5_, (-2147483647 - 1)) > ieor(67108864, (-2147483647 - 1)))) .or. (ieor(iand(int(size_5_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
+    if (((zz184 .or. (ieor(size_5_, (-2147483647 - 1)) > ieor(67108864, (-2147483647 - 1)))) .or. (ieor(iand(int(size_5_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     call cpp_str_resize(hs_%gw_transport_state, iand(int(size_5_, 8), 4294967295_8), 0)
-    zz180 = cpp_str_data(hs_%gw_transport_state)
-    zz181 => cpp_istream_read_cptr_l(is_, zz180, iand(int(size_5_, 8), 4294967295_8))
+    zz185 = cpp_str_data(hs_%gw_transport_state)
+    zz186 => cpp_istream_read_cptr_l(is_, zz185, iand(int(size_5_, 8), 4294967295_8))
     if (associated(cpp_exc)) goto 101
     if ((.not. cpp_iosbase_good(is_))) then
       zres = .false.
@@ -3844,17 +3870,17 @@ contains
   end if
   if ((ieor(hs_%header%version, (-2147483647 - 1)) >= ieor(18, (-2147483647 - 1)))) then
     size_6_ = 0
-    zz182 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_6_)
+    zz187 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, size_6_)
     if (associated(cpp_exc)) goto 101
-    if ((((.not. zz182) .or. (ieor(size_6_, (-2147483647 - 1)) > ieor(67108864, (-2147483647 - 1)))) .or. (ieor(iand(int(size_6_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
+    if ((((.not. zz187) .or. (ieor(size_6_, (-2147483647 - 1)) > ieor(67108864, (-2147483647 - 1)))) .or. (ieor(iand(int(size_6_, 8), 4294967295_8), (-9223372036854775807_8 - 1_8)) > ieor(file_size_, (-9223372036854775807_8 - 1_8))))) then
       zres = .false.
       zz5 = 1
       goto 101
     end if
     call cpp_str_resize(hs_%fv_dry_state, iand(int(size_6_, 8), 4294967295_8), 0)
     if ((size_6_ /= 0)) then
-      zz183 = cpp_str_data(hs_%fv_dry_state)
-      zz184 => cpp_istream_read_cptr_l(is_, zz183, iand(int(size_6_, 8), 4294967295_8))
+      zz188 = cpp_str_data(hs_%fv_dry_state)
+      zz189 => cpp_istream_read_cptr_l(is_, zz188, iand(int(size_6_, 8), 4294967295_8))
       if (associated(cpp_exc)) goto 101
       if ((.not. cpp_iosbase_good(is_))) then
         zres = .false.
@@ -3865,17 +3891,17 @@ contains
   end if
   if ((hs_%header%version == 19)) then
     clock_schema_ = 0
-    zz185 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, clock_schema_)
+    zz190 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, clock_schema_)
     if (associated(cpp_exc)) goto 101
-    zz186 = ((.not. zz185) .or. (clock_schema_ /= 1))
-    if (.not. zz186) then
-      zz186 = cpp_str_empty(hs_%engine_checkpoint)
+    zz191 = ((.not. zz190) .or. (clock_schema_ /= 1))
+    if (.not. zz191) then
+      zz191 = cpp_str_empty(hs_%engine_checkpoint)
     end if
-    zz187 = zz186
-    if (.not. zz187) then
-      zz187 = cpp_str_empty(hs_%gw_transport_state)
+    zz192 = zz191
+    if (.not. zz192) then
+      zz192 = cpp_str_empty(hs_%gw_transport_state)
     end if
-    if (zz187) then
+    if (zz192) then
       zres = .false.
       zz5 = 1
       goto 101
@@ -3886,14 +3912,14 @@ contains
   zz5 = 1
   goto 101
   101 continue
-  zz188 => cpp_exc
+  zz193 => cpp_exc
   cpp_exc => null()
   if (associated(x__dtor1_)) then
     call x__dtor1_%dispose()
     if (associated(cpp_exc)) return
   end if
-  if (associated(zz188)) then
-    cpp_exc => zz188
+  if (associated(zz193)) then
+    cpp_exc => zz193
     return
   end if
   if (zz5 == 1) then
@@ -4145,8 +4171,11 @@ contains
     logical :: zz1
     class(cpp_vec_b), pointer :: buf_
     class(cpp_vec_b), pointer :: zz2
-    class(cpp_istream), pointer :: zz3
-    class(cpp_str), pointer :: zz4
+    type(cpp_ptr_b) :: zz3
+    class(cpp_istream), pointer :: zz4
+    type(cpp_ptr_b) :: zz5
+    type(cpp_ptr_b) :: zz6
+    class(cpp_str), pointer :: zz7
   len_ = 0
   zz1 = p__anon_core_hotstartmanager_cpp__f__read_pod__rbasic_d3c8d171(is_, len_)
   if (associated(cpp_exc)) return
@@ -4160,13 +4189,16 @@ contains
   end if
   zz2 => cpp_vec_b_new_ul(iand(int(len_, 8), 4294967295_8))
   buf_ => zz2
-  zz3 => cpp_istream_read_ptrt_l__b(is_, cpp_vec_b_data(buf_), iand(int(len_, 8), 4294967295_8))
+  zz3 = cpp_vec_b_data(buf_)
+  zz4 => cpp_istream_read_ptrt_l__b(is_, zz3, iand(int(len_, 8), 4294967295_8))
   if (associated(cpp_exc)) return
   if ((.not. cpp_iosbase_good(is_))) then
     zres = .false.
     return
   end if
-  zz4 => cpp_str_assign_ptrc_ptrc(s_, cpp_vec_b_data(buf_), cpp_ptr_b_op_add_ptrt_l(cpp_vec_b_data(buf_), iand(int((len_ - 1), 8), 4294967295_8)))
+  zz5 = cpp_vec_b_data(buf_)
+  zz6 = cpp_vec_b_data(buf_)
+  zz7 => cpp_str_assign_ptrc_ptrc(s_, zz5, cpp_ptr_b_op_add_ptrt_l(zz6, iand(int((len_ - 1), 8), 4294967295_8)))
   zres = .true.
   return
   end procedure p__anon_core_hotstartmanager_cpp__f__read_string_hots_6ef7530a

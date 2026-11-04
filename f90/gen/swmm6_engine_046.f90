@@ -2543,26 +2543,6 @@ contains
   end if
   end procedure p_input__f__ensure_spatial_capacity_nodeshandler
 
-  module procedure p_lam802
-  self%c_hours = a1
-  return
-  end procedure p_lam802
-
-  module procedure p_lam803
-  self%c_minutes = a1
-  return
-  end procedure p_lam803
-
-  module procedure p_lam804
-  self%c_seconds = a1
-  return
-  end procedure p_lam804
-
-  module procedure p_lam805
-  self%c_consumed = a1
-  return
-  end procedure p_lam805
-
   module procedure p_lam806
   self%c_hours = a1
   return
@@ -2574,29 +2554,49 @@ contains
   end procedure p_lam807
 
   module procedure p_lam808
-  self%c_consumed = a1
+  self%c_seconds = a1
   return
   end procedure p_lam808
 
   module procedure p_lam809
-  self%c_h = a1
+  self%c_consumed = a1
   return
   end procedure p_lam809
 
   module procedure p_lam810
-  self%c_m_3 = a1
+  self%c_hours = a1
   return
   end procedure p_lam810
 
   module procedure p_lam811
-  self%c_seconds_2 = a1
+  self%c_minutes = a1
   return
   end procedure p_lam811
 
   module procedure p_lam812
-  self%c_tail = int(a1, 1)
+  self%c_consumed = a1
   return
   end procedure p_lam812
+
+  module procedure p_lam813
+  self%c_h = a1
+  return
+  end procedure p_lam813
+
+  module procedure p_lam814
+  self%c_m_3 = a1
+  return
+  end procedure p_lam814
+
+  module procedure p_lam815
+  self%c_seconds_2 = a1
+  return
+  end procedure p_lam815
+
+  module procedure p_lam816
+  self%c_tail = int(a1, 1)
+  return
+  end procedure p_lam816
 
   module procedure p_input__f__handle_options
     class(t_simulationoptions), pointer :: opt_
@@ -2844,22 +2844,22 @@ contains
     integer(4) :: fields_
     type(cpp_cptr) :: zz210
     type(cpp_cptr) :: zz211
-    class(t_lam802), pointer :: zz212
+    class(t_lam806), pointer :: zz212
     class(cpp_refi), pointer :: zz213
-    class(t_lam803), pointer :: zz214
+    class(t_lam807), pointer :: zz214
     class(cpp_refi), pointer :: zz215
-    class(t_lam804), pointer :: zz216
+    class(t_lam808), pointer :: zz216
     class(cpp_refd), pointer :: zz217
-    class(t_lam805), pointer :: zz218
+    class(t_lam809), pointer :: zz218
     class(cpp_refi), pointer :: zz219
     integer(4) :: zz220
     type(cpp_cptr) :: zz221
     type(cpp_cptr) :: zz222
-    class(t_lam806), pointer :: zz223
+    class(t_lam810), pointer :: zz223
     class(cpp_refi), pointer :: zz224
-    class(t_lam807), pointer :: zz225
+    class(t_lam811), pointer :: zz225
     class(cpp_refi), pointer :: zz226
-    class(t_lam808), pointer :: zz227
+    class(t_lam812), pointer :: zz227
     class(cpp_refi), pointer :: zz228
     integer(4) :: zz229
     logical :: zz230
@@ -2903,13 +2903,13 @@ contains
     integer(1), pointer :: tail_
     type(cpp_cptr) :: zz260
     type(cpp_cptr) :: zz261
-    class(t_lam809), pointer :: zz262
+    class(t_lam813), pointer :: zz262
     class(cpp_refi), pointer :: zz263
-    class(t_lam810), pointer :: zz264
+    class(t_lam814), pointer :: zz264
     class(cpp_refi), pointer :: zz265
-    class(t_lam811), pointer :: zz266
+    class(t_lam815), pointer :: zz266
     class(cpp_refd), pointer :: zz267
-    class(t_lam812), pointer :: zz268
+    class(t_lam816), pointer :: zz268
     class(cpp_refi), pointer :: zz269
     integer(4) :: zz270
     logical :: zz271
@@ -6008,28 +6008,8 @@ contains
   end if
   end procedure p_input__f__readlegacynumber_optionshandler
 
-  module procedure p_lam813
-  self%c_month = a1
-  return
-  end procedure p_lam813
-
-  module procedure p_lam814
-  self%c_sep1 = int(a1, 1)
-  return
-  end procedure p_lam814
-
-  module procedure p_lam815
-  self%c_day = a1
-  return
-  end procedure p_lam815
-
-  module procedure p_lam816
-  self%c_sep2 = int(a1, 1)
-  return
-  end procedure p_lam816
-
   module procedure p_lam817
-  self%c_year = a1
+  self%c_month = a1
   return
   end procedure p_lam817
 
@@ -6053,6 +6033,26 @@ contains
   return
   end procedure p_lam821
 
+  module procedure p_lam822
+  self%c_sep1 = int(a1, 1)
+  return
+  end procedure p_lam822
+
+  module procedure p_lam823
+  self%c_day = a1
+  return
+  end procedure p_lam823
+
+  module procedure p_lam824
+  self%c_sep2 = int(a1, 1)
+  return
+  end procedure p_lam824
+
+  module procedure p_lam825
+  self%c_year = a1
+  return
+  end procedure p_lam825
+
   module procedure p_input__f__legacydate_optionshandler
     type(cpp_cptr) :: zz1
     integer(8) :: zz2
@@ -6066,26 +6066,26 @@ contains
     type(cpp_cptr) :: zz4
     type(cpp_cptr) :: zz5
     type(cpp_cptr) :: zz6
-    class(t_lam813), pointer :: zz7
+    class(t_lam817), pointer :: zz7
     class(cpp_refi), pointer :: zz8
-    class(t_lam814), pointer :: zz9
+    class(t_lam818), pointer :: zz9
     class(cpp_refi), pointer :: zz10
-    class(t_lam815), pointer :: zz11
+    class(t_lam819), pointer :: zz11
     class(cpp_refi), pointer :: zz12
-    class(t_lam816), pointer :: zz13
+    class(t_lam820), pointer :: zz13
     class(cpp_refi), pointer :: zz14
-    class(t_lam817), pointer :: zz15
+    class(t_lam821), pointer :: zz15
     class(cpp_refi), pointer :: zz16
     integer(4) :: zz17
     type(cpp_cptr) :: zz18
     type(cpp_cptr) :: zz19
-    class(t_lam818), pointer :: zz20
+    class(t_lam822), pointer :: zz20
     class(cpp_refi), pointer :: zz21
-    class(t_lam819), pointer :: zz22
+    class(t_lam823), pointer :: zz22
     class(cpp_refi), pointer :: zz23
-    class(t_lam820), pointer :: zz24
+    class(t_lam824), pointer :: zz24
     class(cpp_refi), pointer :: zz25
-    class(t_lam821), pointer :: zz26
+    class(t_lam825), pointer :: zz26
     class(cpp_refi), pointer :: zz27
     integer(4) :: zz28
     class(cpp_arr_o), pointer :: zz29

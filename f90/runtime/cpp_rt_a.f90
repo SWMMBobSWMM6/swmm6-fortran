@@ -3684,7 +3684,11 @@ contains
   recursive function cpp_vec_b_data(self) result(zres)
     class(cpp_vec_b), intent(inout), target :: self
     type(cpp_ptr_b) :: zres
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8
   end function cpp_vec_b_data
   recursive function cpp_vec_b_empty(self) result(zres)
@@ -3880,7 +3884,11 @@ contains
   recursive function cpp_vec_d_data(self) result(zres)
     class(cpp_vec_d), intent(inout), target :: self
     type(cpp_ptr_d) :: zres
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8
   end function cpp_vec_d_data
   recursive function cpp_vec_d_empty(self) result(zres)
@@ -4139,7 +4147,11 @@ contains
   recursive function cpp_vec_f_data(self) result(zres)
     class(cpp_vec_f), intent(inout), target :: self
     type(cpp_ptr_f) :: zres
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8
   end function cpp_vec_f_data
   recursive function cpp_vec_f_end(self) result(zres)
@@ -4253,7 +4265,11 @@ contains
   recursive function cpp_vec_i_data(self) result(zres)
     class(cpp_vec_i), intent(inout), target :: self
     type(cpp_ptr_i) :: zres
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8
   end function cpp_vec_i_data
   recursive function cpp_vec_i_empty(self) result(zres)
@@ -4668,7 +4684,11 @@ contains
   recursive function cpp_vec_o_data(self) result(zres)
     class(cpp_vec_o), intent(inout), target :: self
     type(cpp_ptr_o) :: zres
-    zres%a => self%a
+    if (associated(self%a)) then
+      if (allocated(self%a%a)) then
+        if (size(self%a%a) > 0) zres%a => self%a
+      end if
+    end if
     zres%o = 0_8
   end function cpp_vec_o_data
   recursive function cpp_vec_o_emplace_back(self, a1) result(zres)

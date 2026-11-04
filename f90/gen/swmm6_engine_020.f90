@@ -4,6 +4,415 @@ submodule (swmm6_engine) swmm6_engine_020
   implicit none
 contains
 
+  module procedure p_subcatchdata__reserve_to
+    integer(8) :: un_
+    integer(8) :: zz1
+    class(cpp_arr_o), pointer :: r_
+    class(cpp_arr_o), pointer :: zz2
+    class(t_lam241), pointer :: zz3
+    class(*), pointer :: zz4
+    class(t_lam242), pointer :: zz5
+    class(*), pointer :: zz6
+    class(t_lam243), pointer :: zz7
+    class(*), pointer :: zz8
+    class(t_lam244), pointer :: zz9
+    class(*), pointer :: zz10
+    class(t_lam245), pointer :: zz11
+    class(*), pointer :: zz12
+    class(t_fn41), pointer :: zz13
+    class(t_fn41), pointer :: zz14
+    class(t_fn41), pointer :: zz15
+    class(t_fn42), pointer :: zz16
+    class(t_fn42), pointer :: zz17
+    class(t_fn42), pointer :: zz18
+    class(t_fn42), pointer :: zz19
+    class(t_fn42), pointer :: zz20
+    class(t_fn42), pointer :: zz21
+    class(t_fn42), pointer :: zz22
+    class(t_fn42), pointer :: zz23
+    class(t_fn42), pointer :: zz24
+    class(t_fn42), pointer :: zz25
+    class(t_fn42), pointer :: zz26
+    class(t_fn42), pointer :: zz27
+    class(t_fn42), pointer :: zz28
+    class(t_fn42), pointer :: zz29
+    class(t_fn41), pointer :: zz30
+    class(t_fn42), pointer :: zz31
+    class(t_fn41), pointer :: zz32
+    class(t_fn42), pointer :: zz33
+    class(t_fn42), pointer :: zz34
+    class(t_fn42), pointer :: zz35
+    class(t_fn42), pointer :: zz36
+    class(t_fn42), pointer :: zz37
+    class(t_fn42), pointer :: zz38
+    class(t_fn42), pointer :: zz39
+    class(t_fn42), pointer :: zz40
+    class(t_fn42), pointer :: zz41
+    class(t_fn42), pointer :: zz42
+    class(t_fn42), pointer :: zz43
+    class(t_fn42), pointer :: zz44
+    class(t_fn42), pointer :: zz45
+    class(t_fn42), pointer :: zz46
+    class(t_fn42), pointer :: zz47
+    class(t_fn42), pointer :: zz48
+    class(t_fn42), pointer :: zz49
+    class(t_fn42), pointer :: zz50
+    class(t_fn42), pointer :: zz51
+    class(t_fn42), pointer :: zz52
+    class(t_fn42), pointer :: zz53
+    class(t_fn42), pointer :: zz54
+    class(t_fn42), pointer :: zz55
+    class(t_fn42), pointer :: zz56
+    class(t_fn46), pointer :: zz57
+    class(t_fn42), pointer :: zz58
+    class(t_fn42), pointer :: zz59
+    class(t_fn42), pointer :: zz60
+    class(t_fn42), pointer :: zz61
+    class(t_fn42), pointer :: zz62
+    class(t_fn42), pointer :: zz63
+    class(t_fn42), pointer :: zz64
+    class(t_fn42), pointer :: zz65
+    class(t_fn42), pointer :: zz66
+    class(t_fn42), pointer :: zz67
+    class(t_fn42), pointer :: zz68
+    class(t_fn42), pointer :: zz69
+    class(t_fn42), pointer :: zz70
+    class(t_fn42), pointer :: zz71
+    class(t_fn42), pointer :: zz72
+    class(t_fn42), pointer :: zz73
+    class(t_fn42), pointer :: zz74
+    class(t_fn42), pointer :: zz75
+    class(t_fn42), pointer :: zz76
+    class(t_fn41), pointer :: zz77
+    class(t_fn41), pointer :: zz78
+    class(t_fn42), pointer :: zz79
+    class(t_fn42), pointer :: zz80
+    class(t_fn42), pointer :: zz81
+    class(t_fn42), pointer :: zz82
+    class(t_fn42), pointer :: zz83
+    class(t_fn42), pointer :: zz84
+    class(t_fn42), pointer :: zz85
+    class(t_fn42), pointer :: zz86
+    class(t_fn42), pointer :: zz87
+    class(t_fn42), pointer :: zz88
+    class(t_fn42), pointer :: zz89
+    class(t_fn41), pointer :: zz90
+    class(t_fn42), pointer :: zz91
+    class(t_fn42), pointer :: zz92
+    class(t_fn42), pointer :: zz93
+    class(t_fn42), pointer :: zz94
+    class(t_fn42), pointer :: zz95
+    class(t_fn42), pointer :: zz96
+    class(t_fn42), pointer :: zz97
+    class(t_fn42), pointer :: zz98
+    class(t_fn42), pointer :: zz99
+    class(t_fn49), pointer :: zz100
+    class(t_fn49), pointer :: zz101
+    class(t_fn49), pointer :: zz102
+    class(t_fn49), pointer :: zz103
+    class(t_fn47), pointer :: zz104
+  if ((n_ <= 0)) then
+    return
+  end if
+  un_ = int(n_, 8)
+  zz1 = cpp_vec_i_capacity(self%outlet_node)
+  if ((ieor(zz1, (-9223372036854775807_8 - 1_8)) >= ieor(un_, (-9223372036854775807_8 - 1_8)))) then
+    return
+  end if
+  zz2 => cpp_arr_o_new(5_8)
+  allocate(zz3)
+  zz3%c_un = un_
+  zz4 => zz3
+  zz2%a(0)%p => zz4
+  allocate(zz5)
+  zz5%c_un = un_
+  zz6 => zz5
+  zz2%a(1)%p => zz6
+  allocate(zz7)
+  zz7%c_un = un_
+  zz8 => zz7
+  zz2%a(2)%p => zz8
+  allocate(zz9)
+  zz9%c_un = un_
+  zz10 => zz9
+  zz2%a(3)%p => zz10
+  allocate(zz11)
+  zz11%c_un = un_
+  zz12 => zz11
+  zz2%a(4)%p => zz12
+  r_ => zz2
+  zz13 => h_uas_fn41(r_%a(0)%p)
+  call zz13%invoke(self%outlet_node)
+  if (associated(cpp_exc)) return
+  zz14 => h_uas_fn41(r_%a(0)%p)
+  call zz14%invoke(self%outlet_subcatch)
+  if (associated(cpp_exc)) return
+  zz15 => h_uas_fn41(r_%a(0)%p)
+  call zz15%invoke(self%gage)
+  if (associated(cpp_exc)) return
+  zz16 => h_uas_fn42(r_%a(1)%p)
+  call zz16%invoke(self%area)
+  if (associated(cpp_exc)) return
+  zz17 => h_uas_fn42(r_%a(1)%p)
+  call zz17%invoke(self%width)
+  if (associated(cpp_exc)) return
+  zz18 => h_uas_fn42(r_%a(1)%p)
+  call zz18%invoke(self%slope)
+  if (associated(cpp_exc)) return
+  zz19 => h_uas_fn42(r_%a(1)%p)
+  call zz19%invoke(self%curb_length)
+  if (associated(cpp_exc)) return
+  zz20 => h_uas_fn42(r_%a(1)%p)
+  call zz20%invoke(self%rain_scale_factor)
+  if (associated(cpp_exc)) return
+  zz21 => h_uas_fn42(r_%a(1)%p)
+  call zz21%invoke(self%snow_scale_factor)
+  if (associated(cpp_exc)) return
+  zz22 => h_uas_fn42(r_%a(1)%p)
+  call zz22%invoke(self%frac_imperv)
+  if (associated(cpp_exc)) return
+  zz23 => h_uas_fn42(r_%a(1)%p)
+  call zz23%invoke(self%frac_imperv_no_store)
+  if (associated(cpp_exc)) return
+  zz24 => h_uas_fn42(r_%a(1)%p)
+  call zz24%invoke(self%pct_zero)
+  if (associated(cpp_exc)) return
+  zz25 => h_uas_fn42(r_%a(1)%p)
+  call zz25%invoke(self%subarea_runoff_rate)
+  if (associated(cpp_exc)) return
+  zz26 => h_uas_fn42(r_%a(1)%p)
+  call zz26%invoke(self%n_imperv)
+  if (associated(cpp_exc)) return
+  zz27 => h_uas_fn42(r_%a(1)%p)
+  call zz27%invoke(self%n_perv)
+  if (associated(cpp_exc)) return
+  zz28 => h_uas_fn42(r_%a(1)%p)
+  call zz28%invoke(self%ds_imperv)
+  if (associated(cpp_exc)) return
+  zz29 => h_uas_fn42(r_%a(1)%p)
+  call zz29%invoke(self%ds_perv)
+  if (associated(cpp_exc)) return
+  zz30 => h_uas_fn41(r_%a(0)%p)
+  call zz30%invoke(self%subarea_routing)
+  if (associated(cpp_exc)) return
+  zz31 => h_uas_fn42(r_%a(1)%p)
+  call zz31%invoke(self%pct_routed)
+  if (associated(cpp_exc)) return
+  zz32 => h_uas_fn41(r_%a(0)%p)
+  call zz32%invoke(self%infil_model)
+  if (associated(cpp_exc)) return
+  zz33 => h_uas_fn42(r_%a(1)%p)
+  call zz33%invoke(self%infil_p1)
+  if (associated(cpp_exc)) return
+  zz34 => h_uas_fn42(r_%a(1)%p)
+  call zz34%invoke(self%infil_p2)
+  if (associated(cpp_exc)) return
+  zz35 => h_uas_fn42(r_%a(1)%p)
+  call zz35%invoke(self%infil_p3)
+  if (associated(cpp_exc)) return
+  zz36 => h_uas_fn42(r_%a(1)%p)
+  call zz36%invoke(self%infil_p4)
+  if (associated(cpp_exc)) return
+  zz37 => h_uas_fn42(r_%a(1)%p)
+  call zz37%invoke(self%infil_p5)
+  if (associated(cpp_exc)) return
+  zz38 => h_uas_fn42(r_%a(1)%p)
+  call zz38%invoke(self%runoff)
+  if (associated(cpp_exc)) return
+  zz39 => h_uas_fn42(r_%a(1)%p)
+  call zz39%invoke(self%rainfall)
+  if (associated(cpp_exc)) return
+  zz40 => h_uas_fn42(r_%a(1)%p)
+  call zz40%invoke(self%evap_loss)
+  if (associated(cpp_exc)) return
+  zz41 => h_uas_fn42(r_%a(1)%p)
+  call zz41%invoke(self%infil_loss)
+  if (associated(cpp_exc)) return
+  zz42 => h_uas_fn42(r_%a(1)%p)
+  call zz42%invoke(self%ponded_depth)
+  if (associated(cpp_exc)) return
+  zz43 => h_uas_fn42(r_%a(1)%p)
+  call zz43%invoke(self%gw_flow)
+  if (associated(cpp_exc)) return
+  zz44 => h_uas_fn42(r_%a(1)%p)
+  call zz44%invoke(self%snow_depth)
+  if (associated(cpp_exc)) return
+  zz45 => h_uas_fn42(r_%a(1)%p)
+  call zz45%invoke(self%lid_drain_flow)
+  if (associated(cpp_exc)) return
+  zz46 => h_uas_fn42(r_%a(1)%p)
+  call zz46%invoke(self%old_runoff)
+  if (associated(cpp_exc)) return
+  zz47 => h_uas_fn42(r_%a(1)%p)
+  call zz47%invoke(self%old_gw_flow)
+  if (associated(cpp_exc)) return
+  zz48 => h_uas_fn42(r_%a(1)%p)
+  call zz48%invoke(self%old_snow_depth)
+  if (associated(cpp_exc)) return
+  zz49 => h_uas_fn42(r_%a(1)%p)
+  call zz49%invoke(self%old_lid_drain_flow)
+  if (associated(cpp_exc)) return
+  zz50 => h_uas_fn42(r_%a(1)%p)
+  call zz50%invoke(self%runon_inflow)
+  if (associated(cpp_exc)) return
+  zz51 => h_uas_fn42(r_%a(1)%p)
+  call zz51%invoke(self%old_runon_inflow)
+  if (associated(cpp_exc)) return
+  zz52 => h_uas_fn42(r_%a(1)%p)
+  call zz52%invoke(self%runon_rate)
+  if (associated(cpp_exc)) return
+  zz53 => h_uas_fn42(r_%a(1)%p)
+  call zz53%invoke(self%gw_sw_head)
+  if (associated(cpp_exc)) return
+  zz54 => h_uas_fn42(r_%a(1)%p)
+  call zz54%invoke(self%gw_node_avail_flow)
+  if (associated(cpp_exc)) return
+  zz55 => h_uas_fn42(r_%a(1)%p)
+  call zz55%invoke(self%gw_max_infil_vol)
+  if (associated(cpp_exc)) return
+  zz56 => h_uas_fn42(r_%a(1)%p)
+  call zz56%invoke(self%outfall_runon_vol)
+  if (associated(cpp_exc)) return
+  zz57 => h_uas_fn46(r_%a(2)%p)
+  call zz57%invoke(self%rpt_flag)
+  zz58 => h_uas_fn42(r_%a(1)%p)
+  call zz58%invoke(self%stat_precip_vol)
+  if (associated(cpp_exc)) return
+  zz59 => h_uas_fn42(r_%a(1)%p)
+  call zz59%invoke(self%stat_gw_time)
+  if (associated(cpp_exc)) return
+  zz60 => h_uas_fn42(r_%a(1)%p)
+  call zz60%invoke(self%stat_runon_vol)
+  if (associated(cpp_exc)) return
+  zz61 => h_uas_fn42(r_%a(1)%p)
+  call zz61%invoke(self%stat_evap_vol)
+  if (associated(cpp_exc)) return
+  zz62 => h_uas_fn42(r_%a(1)%p)
+  call zz62%invoke(self%stat_infil_vol)
+  if (associated(cpp_exc)) return
+  zz63 => h_uas_fn42(r_%a(1)%p)
+  call zz63%invoke(self%stat_imperv_vol)
+  if (associated(cpp_exc)) return
+  zz64 => h_uas_fn42(r_%a(1)%p)
+  call zz64%invoke(self%stat_perv_vol)
+  if (associated(cpp_exc)) return
+  zz65 => h_uas_fn42(r_%a(1)%p)
+  call zz65%invoke(self%stat_runoff_vol)
+  if (associated(cpp_exc)) return
+  zz66 => h_uas_fn42(r_%a(1)%p)
+  call zz66%invoke(self%stat_max_runoff)
+  if (associated(cpp_exc)) return
+  zz67 => h_uas_fn42(r_%a(1)%p)
+  call zz67%invoke(self%stat_gw_infil_vol)
+  if (associated(cpp_exc)) return
+  zz68 => h_uas_fn42(r_%a(1)%p)
+  call zz68%invoke(self%stat_gw_upper_evap_vol)
+  if (associated(cpp_exc)) return
+  zz69 => h_uas_fn42(r_%a(1)%p)
+  call zz69%invoke(self%stat_gw_lower_evap_vol)
+  if (associated(cpp_exc)) return
+  zz70 => h_uas_fn42(r_%a(1)%p)
+  call zz70%invoke(self%stat_gw_deep_perc_vol)
+  if (associated(cpp_exc)) return
+  zz71 => h_uas_fn42(r_%a(1)%p)
+  call zz71%invoke(self%stat_gw_flow_vol)
+  if (associated(cpp_exc)) return
+  zz72 => h_uas_fn42(r_%a(1)%p)
+  call zz72%invoke(self%stat_gw_max_flow)
+  if (associated(cpp_exc)) return
+  zz73 => h_uas_fn42(r_%a(1)%p)
+  call zz73%invoke(self%stat_gw_sum_theta)
+  if (associated(cpp_exc)) return
+  zz74 => h_uas_fn42(r_%a(1)%p)
+  call zz74%invoke(self%stat_gw_sum_depth)
+  if (associated(cpp_exc)) return
+  zz75 => h_uas_fn42(r_%a(1)%p)
+  call zz75%invoke(self%stat_gw_final_theta)
+  if (associated(cpp_exc)) return
+  zz76 => h_uas_fn42(r_%a(1)%p)
+  call zz76%invoke(self%stat_gw_final_depth)
+  if (associated(cpp_exc)) return
+  zz77 => h_uas_fn41(r_%a(0)%p)
+  call zz77%invoke(self%gw_aquifer)
+  if (associated(cpp_exc)) return
+  zz78 => h_uas_fn41(r_%a(0)%p)
+  call zz78%invoke(self%gw_node)
+  if (associated(cpp_exc)) return
+  zz79 => h_uas_fn42(r_%a(1)%p)
+  call zz79%invoke(self%gw_surf_elev)
+  if (associated(cpp_exc)) return
+  zz80 => h_uas_fn42(r_%a(1)%p)
+  call zz80%invoke(self%gw_a1)
+  if (associated(cpp_exc)) return
+  zz81 => h_uas_fn42(r_%a(1)%p)
+  call zz81%invoke(self%gw_b1)
+  if (associated(cpp_exc)) return
+  zz82 => h_uas_fn42(r_%a(1)%p)
+  call zz82%invoke(self%gw_a2)
+  if (associated(cpp_exc)) return
+  zz83 => h_uas_fn42(r_%a(1)%p)
+  call zz83%invoke(self%gw_b2)
+  if (associated(cpp_exc)) return
+  zz84 => h_uas_fn42(r_%a(1)%p)
+  call zz84%invoke(self%gw_a3)
+  if (associated(cpp_exc)) return
+  zz85 => h_uas_fn42(r_%a(1)%p)
+  call zz85%invoke(self%gw_tw)
+  if (associated(cpp_exc)) return
+  zz86 => h_uas_fn42(r_%a(1)%p)
+  call zz86%invoke(self%gw_hstar)
+  if (associated(cpp_exc)) return
+  zz87 => h_uas_fn42(r_%a(1)%p)
+  call zz87%invoke(self%gw_bot_elev)
+  if (associated(cpp_exc)) return
+  zz88 => h_uas_fn42(r_%a(1)%p)
+  call zz88%invoke(self%gw_wt_elev)
+  if (associated(cpp_exc)) return
+  zz89 => h_uas_fn42(r_%a(1)%p)
+  call zz89%invoke(self%gw_upper_moist)
+  if (associated(cpp_exc)) return
+  zz90 => h_uas_fn41(r_%a(0)%p)
+  call zz90%invoke(self%snowpack)
+  if (associated(cpp_exc)) return
+  zz91 => h_uas_fn42(r_%a(1)%p)
+  call zz91%invoke(self%snow_net_imperv)
+  if (associated(cpp_exc)) return
+  zz92 => h_uas_fn42(r_%a(1)%p)
+  call zz92%invoke(self%snow_net_perv)
+  if (associated(cpp_exc)) return
+  zz93 => h_uas_fn42(r_%a(1)%p)
+  call zz93%invoke(self%snow_melt_imperv)
+  if (associated(cpp_exc)) return
+  zz94 => h_uas_fn42(r_%a(1)%p)
+  call zz94%invoke(self%snow_melt_perv)
+  if (associated(cpp_exc)) return
+  zz95 => h_uas_fn42(r_%a(1)%p)
+  call zz95%invoke(self%snow_melt_age_imperv)
+  if (associated(cpp_exc)) return
+  zz96 => h_uas_fn42(r_%a(1)%p)
+  call zz96%invoke(self%snow_melt_age_perv)
+  if (associated(cpp_exc)) return
+  zz97 => h_uas_fn42(r_%a(1)%p)
+  call zz97%invoke(self%total_lid_area_ft2)
+  if (associated(cpp_exc)) return
+  zz98 => h_uas_fn42(r_%a(1)%p)
+  call zz98%invoke(self%lid_return_to_perv_cfs)
+  if (associated(cpp_exc)) return
+  zz99 => h_uas_fn42(r_%a(1)%p)
+  call zz99%invoke(self%lid_drain_runon_cfs)
+  if (associated(cpp_exc)) return
+  zz100 => h_uas_fn49(r_%a(3)%p)
+  call zz100%invoke(self%outlet_name)
+  zz101 => h_uas_fn49(r_%a(3)%p)
+  call zz101%invoke(self%gage_name)
+  zz102 => h_uas_fn49(r_%a(3)%p)
+  call zz102%invoke(self%comments)
+  zz103 => h_uas_fn49(r_%a(3)%p)
+  call zz103%invoke(self%tags)
+  zz104 => h_uas_fn47(r_%a(4)%p)
+  call zz104%invoke(self%stat_gw_steps)
+  end procedure p_subcatchdata__reserve_to
+
   module procedure p_subcatchdata__resize_quality
     integer(8) :: total_
   self%conc_n_pollutants = n_pollutants_
@@ -4217,28 +4626,32 @@ contains
     integer(4) :: k_
     integer(4) :: link_
     logical :: zz14
-    real(8) :: zz15
-    real(8) :: zz16
+    type(cpp_ptr_d) :: zz15
+    integer(4) :: zz16
+    real(8) :: zz17
+    real(8) :: zz18
+    real(8) :: zz19
+    real(8) :: zz20
     real(8) :: dv_
     real(8) :: residual_
     logical :: coupled_
-    logical :: zz17
-    logical :: zz18
-    real(8) :: zz19
+    logical :: zz21
+    logical :: zz22
+    real(8) :: zz23
     real(8) :: tolerance_
-    logical :: zz20
+    logical :: zz24
     type(cpp_cptr) :: detail_
-    type(cpp_cptr) :: zz21
-    type(cpp_cptr) :: zz22
-    class(cpp_str), pointer :: zz23
-    type(cpp_cptr) :: zz24
-    integer(4) :: zz25
-    class(cpp_str), pointer :: zz26
-    class(cpp_runtimeerror), pointer :: zz27
+    type(cpp_cptr) :: zz25
+    type(cpp_cptr) :: zz26
+    class(cpp_str), pointer :: zz27
+    type(cpp_cptr) :: zz28
+    integer(4) :: zz29
+    class(cpp_str), pointer :: zz30
+    class(cpp_runtimeerror), pointer :: zz31
     integer(4) :: i_3_
     integer(8) :: ui_2_
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz28
-    logical :: zz29
+    class(t_dynwave_dwsolver_nodetile), pointer :: zz32
+    logical :: zz33
   steps_ = 0
   converged_ = .false.
   self%dt_gravity_ = (dt_ * s_constants__f__gravity)
@@ -4398,45 +4811,49 @@ contains
           zz14 = (ctx_%links%xsect_shape%a%a(int(link_, 8)) /= 25_2)
         end if
         if (zz14) then
-          zz15 = p_dynwave__f__chamberpipevolumechange_dynamicwave(ctx_, i_2_, link_, self%area1_%a%a(int(link_, 8)), self%area2_%a%a(int(link_, 8)), cpp_vec_d_data(self%aa_y_prev_))
-          zz16 = (pipe_delta_ + zz15)
-          pipe_delta_ = zz16
+          zz16 = i_2_
+          zz17 = self%area1_%a%a(int(link_, 8))
+          zz18 = self%area2_%a%a(int(link_, 8))
+          zz15 = cpp_vec_d_data(self%aa_y_prev_)
+          zz19 = p_dynwave__f__chamberpipevolumechange_dynamicwave(ctx_, zz16, link_, zz17, zz18, zz15)
+          zz20 = (pipe_delta_ + zz19)
+          pipe_delta_ = zz20
         end if
         k_ = (k_ + 1)
       end do
       dv_ = ((0.5_8 * ((ctx_%nodes%old_net_inflow%a%a(int(i_2_, 8)) + ctx_%nodes%inflow%a%a(int(i_2_, 8))) - ctx_%nodes%outflow%a%a(int(i_2_, 8)))) * dt_)
       residual_ = (((ctx_%nodes%old_volume%a%a(int(i_2_, 8)) + dv_) - pipe_delta_) - ctx_%nodes%volume%a%a(int(i_2_, 8)))
-      zz17 = (i_2_ < int(cpp_vec_b_size(ctx_%coupled_node), 4))
-      if (zz17) then
-        zz17 = (iand(int(ctx_%coupled_node%a%a(int(i_2_, 8)), 4), 255_4) /= 0)
+      zz21 = (i_2_ < int(cpp_vec_b_size(ctx_%coupled_node), 4))
+      if (zz21) then
+        zz21 = (iand(int(ctx_%coupled_node%a%a(int(i_2_, 8)), 4), 255_4) /= 0)
       end if
-      coupled_ = zz17
-      zz18 = (ctx_%options%allow_ponding .or. coupled_)
-      if (zz18) then
-        zz18 = (ctx_%nodes%ponded_area%a%a(int(i_2_, 8)) > 0.0_8)
+      coupled_ = zz21
+      zz22 = (ctx_%options%allow_ponding .or. coupled_)
+      if (zz22) then
+        zz22 = (ctx_%nodes%ponded_area%a%a(int(i_2_, 8)) > 0.0_8)
       end if
-      if ((.not. zz18)) then
-        zz19 = (residual_ - (ctx_%nodes%overflow%a%a(int(i_2_, 8)) * dt_))
-        residual_ = zz19
+      if ((.not. zz22)) then
+        zz23 = (residual_ - (ctx_%nodes%overflow%a%a(int(i_2_, 8)) * dt_))
+        residual_ = zz23
       end if
       tolerance_ = cpp_m_max_d_d((4E-07_8 * ((ctx_%nodes%storage_area%a%a(int(i_2_, 8)) + self%xnode_%new_surf_area%a%a(int(i_2_, 8))) + ((0.5_8 * dt_) * self%xnode_%sumdqdh%a%a(int(i_2_, 8))))), cpp_m_max_d_d(1E-08_8, (0.0005_8 * (abs(dv_) + abs(pipe_delta_)))))
-      zz20 = (abs(residual_) > tolerance_)
-      if (.not. zz20) then
-        zz20 = (abs(self%aa_r_prev_%a%a(int(i_2_, 8))) > cpp_m_max_d_d(s_constants__f__fudge, cpp_m_min_d_d(self%head_tol, 0.005_8)))
+      zz24 = (abs(residual_) > tolerance_)
+      if (.not. zz24) then
+        zz24 = (abs(self%aa_r_prev_%a%a(int(i_2_, 8))) > cpp_m_max_d_d(s_constants__f__fudge, cpp_m_min_d_d(self%head_tol, 0.005_8)))
       end if
-      if (zz20) then
-        zz21 = cpp_r_buf_i(256)
-        detail_ = zz21
-        zz22 = cpp_r_lit("Physical junction %s: continuity residual %.9g ft3 (tolerance %.9g), head iteration change %.9g ft; reduce ROUTING_STEP or increase MAX_TRIALS")
-        zz23 => p_nameindex__name_of(ctx_%node_names, i_2_)
+      if (zz24) then
+        zz25 = cpp_r_buf_i(256)
+        detail_ = zz25
+        zz26 = cpp_r_lit("Physical junction %s: continuity residual %.9g ft3 (tolerance %.9g), head iteration change %.9g ft; reduce ROUTING_STEP or increase MAX_TRIALS")
+        zz27 => p_nameindex__name_of(ctx_%node_names, i_2_)
         if (associated(cpp_exc)) return
-        zz24 = cpp_str_c_str(zz23)
-        zz25 = cpp_r_snprintf_cptr_ul_cptr_oa(detail_, 256_8, zz22, zz24, residual_, tolerance_, abs(self%aa_r_prev_%a%a(int(i_2_, 8))))
+        zz28 = cpp_str_c_str(zz27)
+        zz29 = cpp_r_snprintf_cptr_ul_cptr_oa(detail_, 256_8, zz26, zz28, residual_, tolerance_, abs(self%aa_r_prev_%a%a(int(i_2_, 8))))
         if (associated(cpp_exc)) return
-        zz26 => cpp_str_from(detail_)
-        zz27 => cpp_runtimeerror_new_str(zz26)
+        zz30 => cpp_str_from(detail_)
+        zz31 => cpp_runtimeerror_new_str(zz30)
         if (associated(cpp_exc)) return
-        cpp_exc => zz27
+        cpp_exc => zz31
         return
       end if
     end if
@@ -4447,12 +4864,12 @@ contains
     do
       if (.not. ((i_3_ < self%n_nodes_))) exit
       ui_2_ = int(i_3_, 8)
-      zz28 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(ui_2_)%p)
-      zz29 = (.not. (iand(int(zz28%is_outfall, 4), 255_4) /= 0))
-      if (zz29) then
-        zz29 = (.not. (iand(int(self%xnode_%converged%a%a(ui_2_), 4), 255_4) /= 0))
+      zz32 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(ui_2_)%p)
+      zz33 = (.not. (iand(int(zz32%is_outfall, 4), 255_4) /= 0))
+      if (zz33) then
+        zz33 = (.not. (iand(int(self%xnode_%converged%a%a(ui_2_), 4), 255_4) /= 0))
       end if
-      if (zz29) then
+      if (zz33) then
         ctx_%nodes%stat_non_converged_count%a%a(ui_2_) = (ctx_%nodes%stat_non_converged_count%a%a(ui_2_) + 1)
       end if
       i_3_ = (i_3_ + 1)
@@ -5462,8 +5879,9 @@ contains
     class(t_nodedata), pointer :: nodes_
     type(cpp_cptr) :: zz1
     type(cpp_cptr) :: zz2
-    type(cpp_cptr) :: zz3
-    class(t_xsectgroups), pointer :: zz4
+    type(cpp_ptr_b) :: zz3
+    type(cpp_cptr) :: zz4
+    class(t_xsectgroups), pointer :: zz5
     logical :: slot_mode_
     integer(4) :: ci_
     integer(8) :: uci_
@@ -5476,19 +5894,33 @@ contains
     real(8) :: z1_
     real(8) :: z2_
     real(8) :: h1_
-    real(8) :: zz5
-    real(8) :: h2_
     real(8) :: zz6
+    real(8) :: h2_
+    real(8) :: zz7
     real(8) :: y1_
     real(8) :: y2_
     real(8) :: yf_
     real(8) :: ymid_
     integer(4) :: bs_
     logical :: is_open_
-    logical :: zz7
+    logical :: zz8
     real(8) :: ycap_
     integer(4) :: b_tid_
     integer(4) :: b_nth_
+    type(cpp_ptr_d) :: zz9
+    class(t_xsectgroups), pointer :: zz10
+    type(cpp_ptr_d) :: zz11
+    type(cpp_ptr_d) :: zz12
+    type(cpp_ptr_d) :: zz13
+    type(cpp_ptr_d) :: zz14
+    type(cpp_ptr_d) :: zz15
+    type(cpp_ptr_d) :: zz16
+    class(t_xsectgroups), pointer :: zz17
+    type(cpp_ptr_d) :: zz18
+    type(cpp_ptr_d) :: zz19
+    type(cpp_ptr_d) :: zz20
+    type(cpp_ptr_d) :: zz21
+    type(cpp_ptr_d) :: zz22
     integer(4) :: ci_2_
     integer(8) :: uci_2_
     integer(8) :: uj_2_
@@ -5521,10 +5953,10 @@ contains
     real(8) :: cached_yn_
     real(8) :: cached_yc_
     class(t_xsectparams), pointer :: cached_xs_
-    class(t_xsectparams), pointer :: zz8
+    class(t_xsectparams), pointer :: zz23
     logical, pointer :: xs_built_
     class(t_fn103), pointer :: xs_ref_
-    class(t_lam249), pointer :: zz9
+    class(t_lam249), pointer :: zz24
     logical :: both_full_
     logical :: both_wet_
     logical :: both_dry_
@@ -5533,26 +5965,26 @@ contains
     real(8) :: z2_off_eff_
     real(8) :: q_
     class(t_xsectparams), pointer :: xs_
-    class(t_xsectparams), pointer :: zz10
-    real(8) :: zz11
-    real(8) :: zz12
+    class(t_xsectparams), pointer :: zz25
+    real(8) :: zz26
+    real(8) :: zz27
     real(8) :: ycmin_
     class(t_xsectparams), pointer :: xs_2_
-    class(t_xsectparams), pointer :: zz13
-    real(8) :: zz14
-    real(8) :: zz15
+    class(t_xsectparams), pointer :: zz28
+    real(8) :: zz29
+    real(8) :: zz30
     real(8) :: ycmin_2_
     real(8) :: ycmax_
     real(8) :: z1_elev_
     class(t_xsectparams), pointer :: xs_3_
-    class(t_xsectparams), pointer :: zz16
-    real(8) :: zz17
-    real(8) :: zz18
+    class(t_xsectparams), pointer :: zz31
+    real(8) :: zz32
+    real(8) :: zz33
     real(8) :: z2_elev_
     class(t_xsectparams), pointer :: xs_4_
-    class(t_xsectparams), pointer :: zz19
-    real(8) :: zz20
-    real(8) :: zz21
+    class(t_xsectparams), pointer :: zz34
+    real(8) :: zz35
+    real(8) :: zz36
     real(8) :: w1_
     real(8) :: wm_2_
     real(8) :: w2_
@@ -5560,55 +5992,64 @@ contains
     real(8) :: ymid_2_
     real(8) :: w2_2_
     class(t_xsectparams), pointer :: xs_5_
-    class(t_xsectparams), pointer :: zz22
+    class(t_xsectparams), pointer :: zz37
     real(8) :: wm_2_2_
-    real(8) :: zz23
+    real(8) :: zz38
     real(8) :: wmsa_
     real(8) :: wslotm_
-    logical :: zz24
-    logical :: zz25
-    logical :: zz26
-    logical :: zz27
-    real(8) :: zz28
+    logical :: zz39
+    logical :: zz40
+    logical :: zz41
+    logical :: zz42
+    real(8) :: zz43
     real(8) :: z2_elev_2_
     real(8) :: ymid_3_
     real(8) :: w1_2_
     class(t_xsectparams), pointer :: xs_6_
-    class(t_xsectparams), pointer :: zz29
+    class(t_xsectparams), pointer :: zz44
     real(8) :: wm_3_
-    real(8) :: zz30
+    real(8) :: zz45
     real(8) :: wmsa_2_
     real(8) :: wslotm_2_
-    logical :: zz31
-    logical :: zz32
-    logical :: zz33
-    logical :: zz34
-    real(8) :: zz35
+    logical :: zz46
+    logical :: zz47
+    logical :: zz48
+    logical :: zz49
+    real(8) :: zz50
     real(8) :: ymid_4_
     real(8) :: w1_3_
     real(8) :: w2_3_
     real(8) :: wm_4_
     class(t_xsectparams), pointer :: xs_7_
-    class(t_xsectparams), pointer :: zz36
-    real(8) :: zz37
-    real(8), pointer :: zz38
+    class(t_xsectparams), pointer :: zz51
+    real(8) :: zz52
+    real(8), pointer :: zz53
     real(8) :: ymid_5_
     real(8) :: w1_4_
     real(8) :: w2_4_
     real(8) :: wm_5_
     class(t_xsectparams), pointer :: xs_8_
-    class(t_xsectparams), pointer :: zz39
-    real(8) :: zz40
-    real(8), pointer :: zz41
+    class(t_xsectparams), pointer :: zz54
+    real(8) :: zz55
+    real(8), pointer :: zz56
     type(cpp_ptr_d) :: p_d1_
+    type(cpp_ptr_d) :: zz57
     type(cpp_ptr_d) :: p_d2_
+    type(cpp_ptr_d) :: zz58
     type(cpp_ptr_d) :: p_dm_
+    type(cpp_ptr_d) :: zz59
     type(cpp_ptr_d) :: p_a1_
+    type(cpp_ptr_d) :: zz60
     type(cpp_ptr_d) :: p_a2_
+    type(cpp_ptr_d) :: zz61
     type(cpp_ptr_d) :: p_am_
+    type(cpp_ptr_d) :: zz62
     type(cpp_ptr_d) :: p_hm_
+    type(cpp_ptr_d) :: zz63
     type(cpp_ptr_d) :: p_h1_
+    type(cpp_ptr_d) :: zz64
     type(cpp_ptr_d) :: p_wm_
+    type(cpp_ptr_d) :: zz65
     integer(4) :: d_tid_
     integer(4) :: d_nth_
   links_ => ctx_%links
@@ -5619,13 +6060,14 @@ contains
     s_dynwave_dwsolver__s_mask_disabled_19 = cpp_cptr_op_ne(zz2, cpp_cptr())
     s_dynwave_dwsolver__s_mask_disabled_19_done = .true.
   end if
-  zz4 => self%groups_
+  zz5 => self%groups_
   if ((.not. s_dynwave_dwsolver__s_mask_disabled_19)) then
-    zz3 = cpp_cptr_from_ptruc(cpp_vec_b_data(self%bypassed_))
+    zz3 = cpp_vec_b_data(self%bypassed_)
+    zz4 = cpp_cptr_from_ptruc(zz3)
   else
-    zz3 = cpp_cptr()
+    zz4 = cpp_cptr()
   end if
-  call p_xsectgroups__setbypassmask(zz4, zz3)
+  call p_xsectgroups__setbypassmask(zz5, zz4)
   if (associated(cpp_exc)) return
   slot_mode_ = ((self%surcharge_method == 1) .or. (self%surcharge_method == 2))
   ci_ = 0
@@ -5643,10 +6085,10 @@ contains
     inv2_ = self%tile_inv2_elev_%a%a(uci_)
     z1_ = (inv1_ + self%tile_z1_off_%a%a(uci_))
     z2_ = (inv2_ + self%tile_z2_off_%a%a(uci_))
-    zz5 = p_lidnode__f__portdepth(ctx_, int(un1_, 4), self%tile_z1_off_%a%a(uci_))
-    h1_ = cpp_m_max_d_d((zz5 + inv1_), z1_)
-    zz6 = p_lidnode__f__portdepth(ctx_, int(un2_, 4), self%tile_z2_off_%a%a(uci_))
-    h2_ = cpp_m_max_d_d((zz6 + inv2_), z2_)
+    zz6 = p_lidnode__f__portdepth(ctx_, int(un1_, 4), self%tile_z1_off_%a%a(uci_))
+    h1_ = cpp_m_max_d_d((zz6 + inv1_), z1_)
+    zz7 = p_lidnode__f__portdepth(ctx_, int(un2_, 4), self%tile_z2_off_%a%a(uci_))
+    h2_ = cpp_m_max_d_d((zz7 + inv2_), z2_)
     y1_ = cpp_m_max_d_d((h1_ - z1_), s_constants__f__fudge)
     y2_ = cpp_m_max_d_d((h2_ - z2_), s_constants__f__fudge)
     yf_ = self%tile_y_full_%a%a(uci_)
@@ -5663,8 +6105,8 @@ contains
     self%fasnh_%a%a(uj_) = 1.0_8
     if ((.not. slot_mode_)) then
       bs_ = self%tile_xsect_batch_shape_%a%a(uci_)
-      zz7 = p_xsect__f__isopen(bs_)
-      is_open_ = zz7
+      zz8 = p_xsect__f__isopen(bs_)
+      is_open_ = zz8
       ycap_ = merge((s_constants__f__extran_crown_cutoff * yf_), 1E30_8, ((.not. is_open_) .and. (yf_ > 0.0_8)))
       self%wcap_d1_%a%a(uj_) = cpp_m_min_d_d(y1_, ycap_)
       self%wcap_d2_%a%a(uj_) = cpp_m_min_d_d(y2_, ycap_)
@@ -5676,9 +6118,23 @@ contains
   b_tid_ = 0
   b_nth_ = 1
   if ((.not. slot_mode_)) then
-    call p_xsectgroups__computewidthstripleteam(self%groups_, cpp_vec_d_data(self%wcap_d1_), cpp_vec_d_data(self%wcap_d2_), cpp_vec_d_data(self%wcap_dm_), cpp_vec_d_data(self%width1_), cpp_vec_d_data(self%width2_), cpp_vec_d_data(self%width_mid_), self%n_links_, b_tid_, b_nth_)
+    zz10 => self%groups_
+    zz9 = cpp_vec_d_data(self%wcap_d1_)
+    zz11 = cpp_vec_d_data(self%wcap_d2_)
+    zz12 = cpp_vec_d_data(self%wcap_dm_)
+    zz13 = cpp_vec_d_data(self%width1_)
+    zz14 = cpp_vec_d_data(self%width2_)
+    zz15 = cpp_vec_d_data(self%width_mid_)
+    call p_xsectgroups__computewidthstripleteam(zz10, zz9, zz11, zz12, zz13, zz14, zz15, self%n_links_, b_tid_, b_nth_)
   else
-    call p_xsectgroups__computewidthstripleteam(self%groups_, cpp_vec_d_data(self%depth1_), cpp_vec_d_data(self%depth2_), cpp_vec_d_data(self%depth_mid_), cpp_vec_d_data(self%width1_), cpp_vec_d_data(self%width2_), cpp_vec_d_data(self%width_mid_), self%n_links_, b_tid_, b_nth_)
+    zz17 => self%groups_
+    zz16 = cpp_vec_d_data(self%depth1_)
+    zz18 = cpp_vec_d_data(self%depth2_)
+    zz19 = cpp_vec_d_data(self%depth_mid_)
+    zz20 = cpp_vec_d_data(self%width1_)
+    zz21 = cpp_vec_d_data(self%width2_)
+    zz22 = cpp_vec_d_data(self%width_mid_)
+    call p_xsectgroups__computewidthstripleteam(zz17, zz16, zz18, zz19, zz20, zz21, zz22, self%n_links_, b_tid_, b_nth_)
   end if
   if (slot_mode_) then
     ci_2_ = 0
@@ -5733,17 +6189,17 @@ contains
     fasnh_ = 1.0_8
     cached_yn_ = 0.0_8
     cached_yc_ = 0.0_8
-    allocate(zz8)
-    call p_xsectparams__ctor_x(zz8)
-    cached_xs_ => zz8
+    allocate(zz23)
+    call p_xsectparams__ctor_x(zz23)
+    cached_xs_ => zz23
     allocate(xs_built_)
     xs_built_ = .false.
-    allocate(zz9)
-    zz9%c_xs_built => xs_built_
-    zz9%c_cached_xs => cached_xs_
-    zz9%c_ctx => ctx_
-    zz9%c_uj_3 = uj_3_
-    xs_ref_ => zz9
+    allocate(zz24)
+    zz24%c_xs_built => xs_built_
+    zz24%c_cached_xs => cached_xs_
+    zz24%c_ctx => ctx_
+    zz24%c_uj_3 = uj_3_
+    xs_ref_ => zz24
     both_full_ = (iand(merge(1, 0, (y1_2_ >= yf_3_)), merge(1, 0, (y2_2_ >= yf_3_))) /= 0)
     both_wet_ = (iand(merge(1, 0, (y1_2_ > s_constants__f__fudge)), merge(1, 0, (y2_2_ > s_constants__f__fudge))) /= 0)
     both_dry_ = (iand(merge(1, 0, (y1_2_ <= s_constants__f__fudge)), merge(1, 0, (y2_2_ <= s_constants__f__fudge))) /= 0)
@@ -5775,12 +6231,12 @@ contains
       if (both_wet_) then
         if ((self%q1_%a%a(uj_3_) < 0.0_8)) then
           if ((z1_off_eff_ > 0.0_8)) then
-            zz10 => xs_ref_%invoke()
-            xs_ => zz10
-            zz11 = p_dynwave__f__computeynorm_dynamicwave(xs_, beta_j_, qmax_j_, q_)
-            cached_yn_ = zz11
-            zz12 = p_xsect__f__getycrit(xs_, q_)
-            cached_yc_ = zz12
+            zz25 => xs_ref_%invoke()
+            xs_ => zz25
+            zz26 = p_dynwave__f__computeynorm_dynamicwave(xs_, beta_j_, qmax_j_, q_)
+            cached_yn_ = zz26
+            zz27 = p_xsect__f__getycrit(xs_, q_)
+            cached_yc_ = zz27
             ycmin_ = cpp_m_min_d_d(cached_yn_, cached_yc_)
             if ((y1_2_ < ycmin_)) then
               fc_ = 5_1
@@ -5788,12 +6244,12 @@ contains
           end if
         else
           if ((z2_off_eff_ > 0.0_8)) then
-            zz13 => xs_ref_%invoke()
-            xs_2_ => zz13
-            zz14 = p_dynwave__f__computeynorm_dynamicwave(xs_2_, beta_j_, qmax_j_, q_)
-            cached_yn_ = zz14
-            zz15 = p_xsect__f__getycrit(xs_2_, q_)
-            cached_yc_ = zz15
+            zz28 => xs_ref_%invoke()
+            xs_2_ => zz28
+            zz29 = p_dynwave__f__computeynorm_dynamicwave(xs_2_, beta_j_, qmax_j_, q_)
+            cached_yn_ = zz29
+            zz30 = p_xsect__f__getycrit(xs_2_, q_)
+            cached_yc_ = zz30
             ycmin_2_ = cpp_m_min_d_d(cached_yn_, cached_yc_)
             ycmax_ = cpp_m_max_d_d(cached_yn_, cached_yc_)
             if ((y2_2_ < ycmin_2_)) then
@@ -5812,12 +6268,12 @@ contains
         if ((h2_2_ < z1_elev_)) then
           fc_ = 1_1
         else if ((z1_off_eff_ > 0.0_8)) then
-          zz16 => xs_ref_%invoke()
-          xs_3_ => zz16
-          zz17 = p_dynwave__f__computeynorm_dynamicwave(xs_3_, beta_j_, qmax_j_, q_)
-          cached_yn_ = zz17
-          zz18 = p_xsect__f__getycrit(xs_3_, q_)
-          cached_yc_ = zz18
+          zz31 => xs_ref_%invoke()
+          xs_3_ => zz31
+          zz32 = p_dynwave__f__computeynorm_dynamicwave(xs_3_, beta_j_, qmax_j_, q_)
+          cached_yn_ = zz32
+          zz33 = p_xsect__f__getycrit(xs_3_, q_)
+          cached_yc_ = zz33
           fc_ = 5_1
         end if
       else
@@ -5825,12 +6281,12 @@ contains
         if ((h1_2_ < z2_elev_)) then
           fc_ = 2_1
         else if ((z2_off_eff_ > 0.0_8)) then
-          zz19 => xs_ref_%invoke()
-          xs_4_ => zz19
-          zz20 = p_dynwave__f__computeynorm_dynamicwave(xs_4_, beta_j_, qmax_j_, q_)
-          cached_yn_ = zz20
-          zz21 = p_xsect__f__getycrit(xs_4_, q_)
-          cached_yc_ = zz21
+          zz34 => xs_ref_%invoke()
+          xs_4_ => zz34
+          zz35 = p_dynwave__f__computeynorm_dynamicwave(xs_4_, beta_j_, qmax_j_, q_)
+          cached_yn_ = zz35
+          zz36 = p_xsect__f__getycrit(xs_4_, q_)
+          cached_yc_ = zz36
           fc_ = 6_1
         end if
       end if
@@ -5853,23 +6309,23 @@ contains
       h1_2_ = (z1_elev_2_ + y1_2_)
       ymid_2_ = cpp_m_max_d_d((0.5_8 * (y1_2_ + y2_2_)), s_constants__f__fudge)
       w2_2_ = self%width2_%a%a(uj_3_)
-      zz22 => xs_ref_%invoke()
-      xs_5_ => zz22
-      zz23 = p_xsect__f__getwofy(xs_5_, ymid_2_)
-      wm_2_2_ = zz23
+      zz37 => xs_ref_%invoke()
+      xs_5_ => zz37
+      zz38 = p_xsect__f__getwofy(xs_5_, ymid_2_)
+      wm_2_2_ = zz38
       wmsa_ = 0.0_8
       wslotm_ = p_dynwave_dwsolver__getslotwidth(self, ymid_2_, yf_3_, self%tile_w_max_%a%a(uci_3_), self%tile_shape_%a%a(uci_3_))
       if ((wslotm_ > 0.0_8)) then
         wmsa_ = wslotm_
       else
-        zz27 = ((ymid_2_ / yf_3_) >= p_dynwave_dwsolver__getcrowncutoff(self))
-        if (zz27) then
-          zz26 = p_xsect__f__isopen(self%tile_xsect_batch_shape_%a%a(uci_3_))
-          zz27 = (.not. zz26)
+        zz42 = ((ymid_2_ / yf_3_) >= p_dynwave_dwsolver__getcrowncutoff(self))
+        if (zz42) then
+          zz41 = p_xsect__f__isopen(self%tile_xsect_batch_shape_%a%a(uci_3_))
+          zz42 = (.not. zz41)
         end if
-        if (zz27) then
-          zz28 = p_xsect__f__getwofy(xs_5_, (p_dynwave_dwsolver__getcrowncutoff(self) * yf_3_))
-          wmsa_ = zz28
+        if (zz42) then
+          zz43 = p_xsect__f__getwofy(xs_5_, (p_dynwave_dwsolver__getcrowncutoff(self) * yf_3_))
+          wmsa_ = zz43
         else
           wmsa_ = wm_2_2_
         end if
@@ -5890,23 +6346,23 @@ contains
       h2_2_ = (z2_elev_2_ + y2_2_)
       ymid_3_ = cpp_m_max_d_d((0.5_8 * (y1_2_ + y2_2_)), s_constants__f__fudge)
       w1_2_ = self%width1_%a%a(uj_3_)
-      zz29 => xs_ref_%invoke()
-      xs_6_ => zz29
-      zz30 = p_xsect__f__getwofy(xs_6_, ymid_3_)
-      wm_3_ = zz30
+      zz44 => xs_ref_%invoke()
+      xs_6_ => zz44
+      zz45 = p_xsect__f__getwofy(xs_6_, ymid_3_)
+      wm_3_ = zz45
       wmsa_2_ = 0.0_8
       wslotm_2_ = p_dynwave_dwsolver__getslotwidth(self, ymid_3_, yf_3_, self%tile_w_max_%a%a(uci_3_), self%tile_shape_%a%a(uci_3_))
       if ((wslotm_2_ > 0.0_8)) then
         wmsa_2_ = wslotm_2_
       else
-        zz34 = ((ymid_3_ / yf_3_) >= p_dynwave_dwsolver__getcrowncutoff(self))
-        if (zz34) then
-          zz33 = p_xsect__f__isopen(self%tile_xsect_batch_shape_%a%a(uci_3_))
-          zz34 = (.not. zz33)
+        zz49 = ((ymid_3_ / yf_3_) >= p_dynwave_dwsolver__getcrowncutoff(self))
+        if (zz49) then
+          zz48 = p_xsect__f__isopen(self%tile_xsect_batch_shape_%a%a(uci_3_))
+          zz49 = (.not. zz48)
         end if
-        if (zz34) then
-          zz35 = p_xsect__f__getwofy(xs_6_, (p_dynwave_dwsolver__getcrowncutoff(self) * yf_3_))
-          wmsa_2_ = zz35
+        if (zz49) then
+          zz50 = p_xsect__f__getwofy(xs_6_, (p_dynwave_dwsolver__getcrowncutoff(self) * yf_3_))
+          wmsa_2_ = zz50
         else
           wmsa_2_ = wm_3_
         end if
@@ -5929,11 +6385,11 @@ contains
       end if
       self%depth1_%a%a(uj_3_) = s_constants__f__fudge
       self%depth_mid_%a%a(uj_3_) = ymid_4_
-      zz36 => xs_ref_%invoke()
-      xs_7_ => zz36
-      zz38 => self%width_mid_%a%a(uj_3_)
-      zz37 = p_xsect__f__getwofy(xs_7_, ymid_4_)
-      zz38 = zz37
+      zz51 => xs_ref_%invoke()
+      xs_7_ => zz51
+      zz53 => self%width_mid_%a%a(uj_3_)
+      zz52 = p_xsect__f__getwofy(xs_7_, ymid_4_)
+      zz53 = zz52
       goto 107
     case (2_1)
       y2_2_ = s_constants__f__fudge
@@ -5947,11 +6403,11 @@ contains
       end if
       self%depth2_%a%a(uj_3_) = s_constants__f__fudge
       self%depth_mid_%a%a(uj_3_) = ymid_5_
-      zz39 => xs_ref_%invoke()
-      xs_8_ => zz39
-      zz41 => self%width_mid_%a%a(uj_3_)
-      zz40 = p_xsect__f__getwofy(xs_8_, ymid_5_)
-      zz41 = zz40
+      zz54 => xs_ref_%invoke()
+      xs_8_ => zz54
+      zz56 => self%width_mid_%a%a(uj_3_)
+      zz55 = p_xsect__f__getwofy(xs_8_, ymid_5_)
+      zz56 = zz55
       goto 107
     case (0_1)
       surfarea1_ = ((s_constants__f__fudge * length_) / 2.0_8)
@@ -5968,15 +6424,24 @@ contains
     106 continue
     ci_3_ = (ci_3_ + 1)
   end do
-  p_d1_ = cpp_vec_d_data(self%depth1_)
-  p_d2_ = cpp_vec_d_data(self%depth2_)
-  p_dm_ = cpp_vec_d_data(self%depth_mid_)
-  p_a1_ = cpp_vec_d_data(self%area1_)
-  p_a2_ = cpp_vec_d_data(self%area2_)
-  p_am_ = cpp_vec_d_data(self%area_mid_)
-  p_hm_ = cpp_vec_d_data(self%hrad_mid_)
-  p_h1_ = cpp_vec_d_data(self%hrad1_)
-  p_wm_ = cpp_vec_d_data(self%width_mid_)
+  zz57 = cpp_vec_d_data(self%depth1_)
+  p_d1_ = zz57
+  zz58 = cpp_vec_d_data(self%depth2_)
+  p_d2_ = zz58
+  zz59 = cpp_vec_d_data(self%depth_mid_)
+  p_dm_ = zz59
+  zz60 = cpp_vec_d_data(self%area1_)
+  p_a1_ = zz60
+  zz61 = cpp_vec_d_data(self%area2_)
+  p_a2_ = zz61
+  zz62 = cpp_vec_d_data(self%area_mid_)
+  p_am_ = zz62
+  zz63 = cpp_vec_d_data(self%hrad_mid_)
+  p_hm_ = zz63
+  zz64 = cpp_vec_d_data(self%hrad1_)
+  p_h1_ = zz64
+  zz65 = cpp_vec_d_data(self%width_mid_)
+  p_wm_ = zz65
   d_tid_ = 0
   d_nth_ = 1
   call p_xsectgroups__computeareahydradtripleteam(self%groups_, p_d1_, p_d2_, p_dm_, p_a1_, p_a2_, p_am_, p_h1_, p_hm_, self%n_links_, d_tid_, d_nth_)
@@ -5986,361 +6451,5 @@ contains
     call p_dynwave_dwsolver__applytpageometry(self, ctx_)
   end if
   end procedure p_dynwave_dwsolver__computelinkgeometry
-
-  module procedure p_dynwave_dwsolver__recomputeconduitlossone
-    class(t_linkdata), pointer :: links_
-    class(t_conduitdata), pointer :: cd_
-    real(8) :: evap_
-    integer(8) :: uci_
-    integer(4) :: uj_
-    integer(8) :: u_
-    integer(8) :: ucr_
-    integer(1) :: fc_
-    logical :: zz1
-    logical :: zz2
-    logical :: zz3
-    real(8) :: depth_
-    real(8) :: evap_loss_
-    real(8), target :: seep_loss_
-    real(8) :: length_
-    integer(4) :: shape_
-    logical :: gw_two_way_
-    logical :: zz4
-    real(8) :: k_seep_
-    real(8), pointer :: zz5
-    logical :: wantevap_
-    logical :: zz6
-    logical :: wantseep_
-    class(t_xsectparams), pointer :: xs_
-    class(t_xsectparams), pointer :: zz7
-    real(8) :: topwidth_
-    real(8) :: zz8
-    real(8) :: d_seep_
-    logical :: zz9
-    real(8) :: width_
-    real(8) :: zz10
-    real(8) :: zz11
-    real(8) :: zz12
-    real(8) :: zz13
-    real(8) :: total_
-    real(8) :: q_
-  links_ => ctx_%links
-  cd_ => ctx_%link_subtypes%conduits
-  evap_ = self%evap_rate
-  uci_ = int(ci_, 8)
-  uj_ = self%conduit_idx_%a%a(uci_)
-  u_ = int(uj_, 8)
-  ucr_ = int(self%tile_crow_%a%a(uci_), 8)
-  fc_ = links_%flow_class%a%a(u_)
-  zz1 = (((fc_ == 0_1) .or. (fc_ == 1_1)) .or. (fc_ == 2_1))
-  if (.not. zz1) then
-    zz1 = (self%area_mid_%a%a(u_) <= s_constants__f__fudge)
-  end if
-  zz2 = zz1
-  if (.not. zz2) then
-    zz2 = (iand(int(self%tile_is_closed_%a%a(uci_), 4), 255_4) /= 0)
-  end if
-  zz3 = zz2
-  if (.not. zz3) then
-    zz3 = (links_%setting%a%a(u_) == 0.0_8)
-  end if
-  if (zz3) then
-    cd_%evap_loss_rate%a%a(ucr_) = 0.0_8
-    cd_%seep_loss_rate%a%a(ucr_) = 0.0_8
-    return
-  end if
-  depth_ = (0.5_8 * (links_%old_depth%a%a(u_) + links_%depth%a%a(u_)))
-  evap_loss_ = 0.0_8
-  seep_loss_ = 0.0_8
-  if ((depth_ > s_constants__f__fudge)) then
-    length_ = cd_%true_length%a%a(ucr_)
-    if ((length_ <= 0.0_8)) then
-      length_ = cd_%length%a%a(ucr_)
-    end if
-    if ((length_ <= 0.0_8)) then
-      length_ = cd_%mod_length%a%a(ucr_)
-    end if
-    shape_ = links_%xsect_batch_shape%a%a(u_)
-    zz4 = (.not. cpp_vec_b_empty(cd_%gw_coupled))
-    if (zz4) then
-      zz4 = (iand(int(cd_%gw_coupled%a%a(ucr_), 4), 255_4) /= 0)
-    end if
-    gw_two_way_ = zz4
-    if (gw_two_way_) then
-      zz5 => cd_%gw_kc%a%a(ucr_)
-    else
-      zz5 => cd_%seep_rate%a%a(ucr_)
-    end if
-    k_seep_ = zz5
-    zz6 = p_xsect__f__isopen(shape_)
-    wantevap_ = (zz6 .and. (evap_ > 0.0_8))
-    wantseep_ = (k_seep_ > 0.0_8)
-    if ((wantevap_ .or. wantseep_)) then
-      zz7 => p_dynwave__f__buildxsp_dynamicwave(ctx_, u_)
-      xs_ => zz7
-      if (wantevap_) then
-        zz8 = p_xsect__f__getwofy(xs_, depth_)
-        topwidth_ = zz8
-        evap_loss_ = ((topwidth_ * length_) * evap_)
-      end if
-      if (wantseep_) then
-        d_seep_ = depth_
-        zz9 = (shape_ /= 3)
-        if (zz9) then
-          zz9 = (d_seep_ >= xs_%yw_max)
-        end if
-        if (zz9) then
-          d_seep_ = xs_%yw_max
-        end if
-        if ((shape_ == 3)) then
-          zz11 = xs_%w_max
-        else
-          zz10 = p_xsect__f__getwofy(xs_, d_seep_)
-          zz11 = zz10
-        end if
-        width_ = zz11
-        seep_loss_ = ((k_seep_ * width_) * length_)
-        zz12 = (seep_loss_ * ctx_%climate_state%infil_factor)
-        seep_loss_ = zz12
-        if (gw_two_way_) then
-          zz13 = (seep_loss_ * p_hydraulics__f__aquiferseepfactor(depth_, cd_%gw_head_rel%a%a(ucr_), cd_%gw_dc%a%a(ucr_)))
-          seep_loss_ = zz13
-          seep_loss_ = p_hydraulics__f__capaquifergain(seep_loss_, cd_%gw_gain_max%a%a(ucr_))
-        end if
-      end if
-    end if
-    total_ = (evap_loss_ + cpp_m_max_d_d(seep_loss_, 0.0_8))
-    if ((total_ > 0.0_8)) then
-      q_ = (links_%volume%a%a(u_) / (dt_ * real(cd_%barrels%a%a(ucr_), 8)))
-      if ((total_ > q_)) then
-        evap_loss_ = ((evap_loss_ * q_) / total_)
-        if ((seep_loss_ > 0.0_8)) then
-          seep_loss_ = ((seep_loss_ * q_) / total_)
-        end if
-      end if
-    end if
-  end if
-  call p_hydraulics__f__applyseepageforcing(ctx_, u_, seep_loss_)
-  cd_%evap_loss_rate%a%a(ucr_) = evap_loss_
-  cd_%seep_loss_rate%a%a(ucr_) = seep_loss_
-  end procedure p_dynwave_dwsolver__recomputeconduitlossone
-
-  module procedure p_lam250
-    class(cpp_vec_b), pointer :: modes_
-    logical :: zz1
-    logical :: zz2
-    logical :: zz3
-  modes_ => self%c_ctx%forcing%link_seepage_mode
-  zz2 = (ieor(int(a1, 8), (-9223372036854775807_8 - 1_8)) >= ieor(cpp_vec_b_size(modes_), (-9223372036854775807_8 - 1_8)))
-  if (.not. zz2) then
-    zz1 = (modes_%a%a(int(a1, 8)) /= 1_1)
-    if (zz1) then
-      zz1 = (modes_%a%a(int(a1, 8)) /= 2_1)
-    end if
-    zz2 = zz1
-  end if
-  zz3 = zz2
-  if (zz3) then
-    zz3 = ((self%c_cd%evap_loss_rate%a%a(int(a2, 8)) + self%c_cd%seep_loss_rate%a%a(int(a2, 8))) > 0.0_8)
-  end if
-  zres = zz3
-  return
-  end procedure p_lam250
-
-  module procedure p_dynwave_dwsolver__limitconduitlosses
-    class(t_nodedata), pointer :: nodes_
-    class(t_conduitdata), pointer :: cd_
-    class(t_fn104), pointer :: adjustable_
-    class(t_lam250), pointer :: zz1
-    integer(4) :: ci_
-    integer(4) :: j_2_
-    integer(4) :: r_2_
-    logical :: zz2
-    integer(4) :: n1_
-    integer(4) :: n2_
-    real(8) :: rate_
-    real(8) :: share_
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz3
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz4
-    logical :: zz5
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz6
-    real(8) :: zz7
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz8
-    real(8) :: zz9
-    integer(4) :: i_
-    real(8) :: rate_2_
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz10
-    logical :: zz11
-    real(8) :: area_
-    real(8) :: zz12
-    real(8) :: storage_rate_
-    real(8) :: volume_
-    integer(4) :: k_
-    integer(4) :: link_
-    logical :: zz13
-    real(8) :: zz14
-    real(8) :: zz15
-    real(8) :: net_
-    real(8) :: available_
-    integer(4) :: ci_2_
-    integer(4) :: j_3_
-    integer(4) :: r_3_
-    logical :: zz16
-    integer(4) :: n1_2_
-    integer(4) :: n2_2_
-    real(8) :: factor_
-    real(8) :: rate_3_
-    real(8) :: positive_
-    real(8) :: scale_
-    real(8) :: zz17
-    real(8) :: zz18
-    real(8) :: zz19
-    real(8) :: reduction_
-    real(8) :: share_2_
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz20
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz21
-    logical :: zz22
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz23
-    real(8) :: zz24
-    class(t_dynwave_dwsolver_nodetile), pointer :: zz25
-    real(8) :: zz26
-  nodes_ => ctx_%nodes
-  cd_ => ctx_%link_subtypes%conduits
-  allocate(zz1)
-  zz1%c_ctx => ctx_
-  zz1%c_cd => cd_
-  adjustable_ => zz1
-  call cpp_algo_fill_itert_itert_t__d(cpp_vec_d_begin(self%xnode_%conduit_loss), cpp_vec_d_end(self%xnode_%conduit_loss), 0.0_8)
-  if (associated(cpp_exc)) return
-  ci_ = 0
-  do
-    if (.not. ((ci_ < self%n_conduits_))) exit
-    j_2_ = self%tile_uj_%a%a(int(ci_, 8))
-    r_2_ = self%tile_crow_%a%a(int(ci_, 8))
-    zz2 = adjustable_%invoke(j_2_, r_2_)
-    if ((.not. zz2)) then
-      goto 102
-    end if
-    n1_ = self%tile_n1_%a%a(int(ci_, 8))
-    n2_ = self%tile_n2_%a%a(int(ci_, 8))
-    rate_ = ((cd_%evap_loss_rate%a%a(int(r_2_, 8)) + cd_%seep_loss_rate%a%a(int(r_2_, 8))) * self%tile_barrels_d_%a%a(int(ci_, 8)))
-    zz3 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_, 8))%p)
-    zz5 = (.not. (iand(int(zz3%is_outfall, 4), 255_4) /= 0))
-    if (zz5) then
-      zz4 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_, 8))%p)
-      zz5 = (.not. (iand(int(zz4%is_outfall, 4), 255_4) /= 0))
-    end if
-    share_ = merge(0.5_8, 1.0_8, zz5)
-    zz6 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_, 8))%p)
-    if ((.not. (iand(int(zz6%is_outfall, 4), 255_4) /= 0))) then
-      zz7 = (self%xnode_%conduit_loss%a%a(int(n1_, 8)) + (share_ * rate_))
-      self%xnode_%conduit_loss%a%a(int(n1_, 8)) = zz7
-    end if
-    zz8 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_, 8))%p)
-    if ((.not. (iand(int(zz8%is_outfall, 4), 255_4) /= 0))) then
-      zz9 = (self%xnode_%conduit_loss%a%a(int(n2_, 8)) + (share_ * rate_))
-      self%xnode_%conduit_loss%a%a(int(n2_, 8)) = zz9
-    end if
-    102 continue
-    ci_ = (ci_ + 1)
-  end do
-  i_ = 0
-  do
-    if (.not. ((i_ < self%n_nodes_))) exit
-    self%xnode_%loss_factor%a%a(int(i_, 8)) = 1.0_8
-    rate_2_ = self%xnode_%conduit_loss%a%a(int(i_, 8))
-    zz11 = (rate_2_ <= 0.0_8)
-    if (.not. zz11) then
-      zz10 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(i_, 8))%p)
-      zz11 = (iand(int(zz10%is_outfall, 4), 255_4) /= 0)
-    end if
-    if (zz11) then
-      goto 104
-    end if
-    if ((nodes_%storage_area%a%a(int(i_, 8)) > 0.0_8)) then
-      zz12 = self%xnode_%new_surf_area%a%a(int(i_, 8))
-    else
-      zz12 = cpp_m_max_d_d(self%xnode_%new_surf_area%a%a(int(i_, 8)), self%min_surf_area_)
-    end if
-    area_ = zz12
-    storage_rate_ = ((cpp_m_max_d_d(0.0_8, (nodes_%old_depth%a%a(int(i_, 8)) - s_constants__f__fudge)) * area_) / dt_)
-    if ((nodes_%storage_area%a%a(int(i_, 8)) > 0.0_8)) then
-      volume_ = nodes_%old_volume%a%a(int(i_, 8))
-      k_ = self%csr_row_%a%a(int(i_, 8))
-      do
-        if (.not. ((k_ < self%csr_row_%a%a(int((i_ + 1), 8))))) exit
-        link_ = self%csr_link_%a%a(int(k_, 8))
-        zz13 = (ctx_%links%type%a%a(int(link_, 8)) /= 0_1)
-        if (.not. zz13) then
-          zz13 = (ctx_%links%xsect_shape%a%a(int(link_, 8)) == 25_2)
-        end if
-        if (zz13) then
-          goto 106
-        end if
-        zz14 = p_dynwave__f__chamberpipevolumechange_dynamicwave(ctx_, i_, link_, self%area1_%a%a(int(link_, 8)), self%area2_%a%a(int(link_, 8)), cpp_vec_d_data(self%aa_y_prev_))
-        zz15 = (volume_ - zz14)
-        volume_ = zz15
-        106 continue
-        k_ = (k_ + 1)
-      end do
-      storage_rate_ = (volume_ / dt_)
-    end if
-    net_ = ((nodes_%inflow%a%a(int(i_, 8)) - nodes_%outflow%a%a(int(i_, 8))) + rate_2_)
-    available_ = cpp_m_min_d_d((net_ + storage_rate_), ((net_ + nodes_%old_net_inflow%a%a(int(i_, 8))) + (2.0_8 * storage_rate_)))
-    self%xnode_%loss_factor%a%a(int(i_, 8)) = cpp_m_min_d_d(1.0_8, cpp_m_max_d_d(0.0_8, (available_ / rate_2_)))
-    104 continue
-    i_ = (i_ + 1)
-  end do
-  ci_2_ = 0
-  do
-    if (.not. ((ci_2_ < self%n_conduits_))) exit
-    j_3_ = self%tile_uj_%a%a(int(ci_2_, 8))
-    r_3_ = self%tile_crow_%a%a(int(ci_2_, 8))
-    zz16 = adjustable_%invoke(j_3_, r_3_)
-    if ((.not. zz16)) then
-      goto 108
-    end if
-    n1_2_ = self%tile_n1_%a%a(int(ci_2_, 8))
-    n2_2_ = self%tile_n2_%a%a(int(ci_2_, 8))
-    factor_ = cpp_m_min_d_d(self%xnode_%loss_factor%a%a(int(n1_2_, 8)), self%xnode_%loss_factor%a%a(int(n2_2_, 8)))
-    if ((factor_ >= 1.0_8)) then
-      goto 108
-    end if
-    rate_3_ = (cd_%evap_loss_rate%a%a(int(r_3_, 8)) + cd_%seep_loss_rate%a%a(int(r_3_, 8)))
-    positive_ = (cd_%evap_loss_rate%a%a(int(r_3_, 8)) + cpp_m_max_d_d(0.0_8, cd_%seep_loss_rate%a%a(int(r_3_, 8))))
-    if ((cd_%seep_loss_rate%a%a(int(r_3_, 8)) >= 0.0_8)) then
-      zz17 = factor_
-    else
-      zz17 = ((positive_ - (rate_3_ * (1.0_8 - factor_))) / positive_)
-    end if
-    scale_ = zz17
-    zz18 = (cd_%evap_loss_rate%a%a(int(r_3_, 8)) * scale_)
-    cd_%evap_loss_rate%a%a(int(r_3_, 8)) = zz18
-    if ((cd_%seep_loss_rate%a%a(int(r_3_, 8)) > 0.0_8)) then
-      zz19 = (cd_%seep_loss_rate%a%a(int(r_3_, 8)) * scale_)
-      cd_%seep_loss_rate%a%a(int(r_3_, 8)) = zz19
-    end if
-    reduction_ = ((rate_3_ * self%tile_barrels_d_%a%a(int(ci_2_, 8))) * (1.0_8 - factor_))
-    zz20 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_2_, 8))%p)
-    zz22 = (.not. (iand(int(zz20%is_outfall, 4), 255_4) /= 0))
-    if (zz22) then
-      zz21 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_2_, 8))%p)
-      zz22 = (.not. (iand(int(zz21%is_outfall, 4), 255_4) /= 0))
-    end if
-    share_2_ = merge(0.5_8, 1.0_8, zz22)
-    zz23 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n1_2_, 8))%p)
-    if ((.not. (iand(int(zz23%is_outfall, 4), 255_4) /= 0))) then
-      zz24 = (nodes_%outflow%a%a(int(n1_2_, 8)) - (share_2_ * reduction_))
-      nodes_%outflow%a%a(int(n1_2_, 8)) = zz24
-    end if
-    zz25 => h_uas_dynwave_dwsolver_nodetile(self%node_tile_%a%a(int(n2_2_, 8))%p)
-    if ((.not. (iand(int(zz25%is_outfall, 4), 255_4) /= 0))) then
-      zz26 = (nodes_%outflow%a%a(int(n2_2_, 8)) - (share_2_ * reduction_))
-      nodes_%outflow%a%a(int(n2_2_, 8)) = zz26
-    end if
-    108 continue
-    ci_2_ = (ci_2_ + 1)
-  end do
-  end procedure p_dynwave_dwsolver__limitconduitlosses
 
 end submodule swmm6_engine_020

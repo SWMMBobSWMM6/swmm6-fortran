@@ -4,6 +4,156 @@ submodule (swmm6_engine) swmm6_engine_033
   implicit none
 contains
 
+  module procedure p_inflow_extinflowsoa__assign
+    class(t_inflow_extinflowsoa), pointer :: zz1
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%count = s_%count
+  call cpp_vec_i_assign_vect(self%node_idx, s_%node_idx)
+  if (associated(cpp_exc)) return
+  call cpp_vec_i_assign_vect(self%ts_idx, s_%ts_idx)
+  if (associated(cpp_exc)) return
+  call cpp_vec_i_assign_vect(self%base_pat_idx, s_%base_pat_idx)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%baseline, s_%baseline)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%scale_factor, s_%scale_factor)
+  if (associated(cpp_exc)) return
+  call cpp_vec_d_assign_vect(self%conv_factor, s_%conv_factor)
+  if (associated(cpp_exc)) return
+  call cpp_vec_i_assign_vect(self%kind, s_%kind)
+  if (associated(cpp_exc)) return
+  call cpp_vec_i_assign_vect(self%pollut_idx, s_%pollut_idx)
+  if (associated(cpp_exc)) return
+  end procedure p_inflow_extinflowsoa__assign
+
+  module procedure p_inflow_extinflowsoa__movefrom
+    class(t_inflow_extinflowsoa), pointer :: zz1
+    class(cpp_vec_i), pointer :: zz2
+    class(cpp_vec_i), pointer :: zz3
+    class(cpp_vec_i), pointer :: zz4
+    class(cpp_vec_d), pointer :: zz5
+    class(cpp_vec_d), pointer :: zz6
+    class(cpp_vec_d), pointer :: zz7
+    class(cpp_vec_i), pointer :: zz8
+    class(cpp_vec_i), pointer :: zz9
+  zz1 => self
+  if ((associated(zz1, s_) .or. (.not. associated(zz1) .and. .not. associated(s_)))) then
+    return
+  end if
+  self%count = s_%count
+  self%node_idx => s_%node_idx
+  zz2 => cpp_vec_i_new_0()
+  s_%node_idx => zz2
+  self%ts_idx => s_%ts_idx
+  zz3 => cpp_vec_i_new_0()
+  s_%ts_idx => zz3
+  self%base_pat_idx => s_%base_pat_idx
+  zz4 => cpp_vec_i_new_0()
+  s_%base_pat_idx => zz4
+  self%baseline => s_%baseline
+  zz5 => cpp_vec_d_new_0()
+  s_%baseline => zz5
+  self%scale_factor => s_%scale_factor
+  zz6 => cpp_vec_d_new_0()
+  s_%scale_factor => zz6
+  self%conv_factor => s_%conv_factor
+  zz7 => cpp_vec_d_new_0()
+  s_%conv_factor => zz7
+  self%kind => s_%kind
+  zz8 => cpp_vec_i_new_0()
+  s_%kind => zz8
+  self%pollut_idx => s_%pollut_idx
+  zz9 => cpp_vec_i_new_0()
+  s_%pollut_idx => zz9
+  end procedure p_inflow_extinflowsoa__movefrom
+
+  module procedure p_inflow_extinflowsoa__movenew
+    class(t_inflow_extinflowsoa), pointer :: o_
+    class(t_inflow_extinflowsoa), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_inflow_extinflowsoa__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_inflow_extinflowsoa__movefrom(o_, s_)
+  zres => o_
+  return
+  end procedure p_inflow_extinflowsoa__movenew
+
+  module procedure p_inflow_dwfinflowsoa__ctor_raw
+  end procedure p_inflow_dwfinflowsoa__ctor_raw
+
+  module procedure p_inflow_dwfinflowsoa__init_rdwfinflowsoa
+    class(cpp_vec_i), pointer :: zz1
+    class(cpp_vec_d), pointer :: zz2
+    class(cpp_vec_i), pointer :: zz3
+    class(cpp_vec_i), pointer :: zz4
+    class(cpp_vec_i), pointer :: zz5
+    class(cpp_vec_i), pointer :: zz6
+    class(cpp_vec_b), pointer :: zz7
+    class(cpp_vec_i), pointer :: zz8
+    class(cpp_vec_i), pointer :: zz9
+  self%count = p_%count
+  zz1 => cpp_vec_i_clone(p_%node_idx)
+  if (associated(cpp_exc)) return
+  self%node_idx => zz1
+  zz2 => cpp_vec_d_clone(p_%avg_value)
+  if (associated(cpp_exc)) return
+  self%avg_value => zz2
+  zz3 => cpp_vec_i_clone(p_%pat_monthly)
+  if (associated(cpp_exc)) return
+  self%pat_monthly => zz3
+  zz4 => cpp_vec_i_clone(p_%pat_daily)
+  if (associated(cpp_exc)) return
+  self%pat_daily => zz4
+  zz5 => cpp_vec_i_clone(p_%pat_hourly)
+  if (associated(cpp_exc)) return
+  self%pat_hourly => zz5
+  zz6 => cpp_vec_i_clone(p_%pat_weekend)
+  if (associated(cpp_exc)) return
+  self%pat_weekend => zz6
+  zz7 => cpp_vec_b_clone(p_%is_flow)
+  if (associated(cpp_exc)) return
+  self%is_flow => zz7
+  zz8 => cpp_vec_i_clone(p_%pollut_idx)
+  if (associated(cpp_exc)) return
+  self%pollut_idx => zz8
+  zz9 => cpp_vec_i_clone(p_%msx_idx)
+  if (associated(cpp_exc)) return
+  self%msx_idx => zz9
+  end procedure p_inflow_dwfinflowsoa__init_rdwfinflowsoa
+
+  module procedure p_inflow_dwfinflowsoa__new_rdwfinflowsoa
+    class(t_inflow_dwfinflowsoa), pointer :: o_
+    class(t_inflow_dwfinflowsoa), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_inflow_dwfinflowsoa__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_inflow_dwfinflowsoa__init_rdwfinflowsoa(o_, p_)
+  if (associated(cpp_exc)) return
+  zres => o_
+  return
+  end procedure p_inflow_dwfinflowsoa__new_rdwfinflowsoa
+
+  module procedure p_inflow_dwfinflowsoa__init_mdwfinflowsoa
+  call p_inflow_dwfinflowsoa__movefrom(self, p_)
+  end procedure p_inflow_dwfinflowsoa__init_mdwfinflowsoa
+
+  module procedure p_inflow_dwfinflowsoa__new_mdwfinflowsoa
+    class(t_inflow_dwfinflowsoa), pointer :: o_
+    class(t_inflow_dwfinflowsoa), pointer :: zz1
+  zres => null()
+  allocate(zz1)
+  call p_inflow_dwfinflowsoa__ctor_raw(zz1, cpp_raw_v)
+  o_ => zz1
+  call p_inflow_dwfinflowsoa__init_mdwfinflowsoa(o_, p_)
+  zres => o_
+  return
+  end procedure p_inflow_dwfinflowsoa__new_mdwfinflowsoa
+
   module procedure p_inflow_dwfinflowsoa__init_d
     class(cpp_vec_i), pointer :: zz1
     class(cpp_vec_d), pointer :: zz2
@@ -1538,19 +1688,19 @@ contains
   end if
   end procedure p_lid_lidsolver__init
 
-  module procedure p_lam421
+  module procedure p_lam424
     class(*), pointer :: zz1
   zz1 => self%c_trial
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam421
+  end procedure p_lam424
 
   module procedure p_lid_lidsolver__watertrial
     class(t_lid_lidsolver), pointer :: trial_
     class(t_lid_lidsolver), pointer :: zz1
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam421), pointer :: zz2
+    class(t_lam424), pointer :: zz2
     class(cpp_defer), pointer :: zz3
     integer(4) :: zz4
     class(t_lid_lidsolver), pointer :: zz5
@@ -1680,7 +1830,8 @@ contains
     real(8) :: zz16
     class(cpp_str), pointer :: zz17
     class(*), pointer :: zz18
-    integer(8) :: zz19
+    type(cpp_ptr_o) :: zz19
+    integer(8) :: zz20
   zz1 => p_perf_processtimer__new_processphase(21_8)
   if (associated(cpp_exc)) return
   process_timer_ => zz1
@@ -1775,8 +1926,9 @@ contains
       zz17 => h_uas_cpp_str(g_%rpt_path%a%a(uu_)%p)
       if ((.not. cpp_str_empty(zz17))) then
         zz18 => g_
-        zz19 = cpp_mem_diff_t_ptrt__o(zz18, cpp_vec_o_data(self%groups_), h_mk_lid_lidgroupsoa, 2)
-        call p_lid_lidsolver__savelidreport(self, ctx_, int(zz19, 4), g_, uu_, dt_)
+        zz19 = cpp_vec_o_data(self%groups_)
+        zz20 = cpp_mem_diff_t_ptrt__o(zz18, zz19, h_mk_lid_lidgroupsoa, 2)
+        call p_lid_lidsolver__savelidreport(self, ctx_, int(zz20, 4), g_, uu_, dt_)
         if (associated(cpp_exc)) return
       end if
       104 continue
@@ -1834,13 +1986,13 @@ contains
   return
   end procedure p_lid_lidsolver__anywet
 
-  module procedure p_lam422
+  module procedure p_lam425
     class(*), pointer :: zz1
   zz1 => self%c_st
   call cpp_dtor_run(zz1)
   if (associated(cpp_exc)) return
   return
-  end procedure p_lam422
+  end procedure p_lam425
 
   module procedure p_lid_lidsolver__savelidreport
     class(cpp_pair), pointer :: key_
@@ -1856,7 +2008,7 @@ contains
     class(t_lid_lidsolver_lidrptfile), pointer :: st_
     class(t_lid_lidsolver_lidrptfile), pointer :: zz9
     class(cpp_defer), pointer :: x__dtor1_
-    class(t_lam422), pointer :: zz10
+    class(t_lam425), pointer :: zz10
     class(cpp_defer), pointer :: zz11
     integer(4) :: zz12
     class(cpp_str), pointer :: zz13
@@ -3591,10 +3743,10 @@ contains
   self%storagevolume = 0.0_8
   end procedure p_lid__anon_hydrology_lid_cpp_legacylidkernel__swalefluxrates
 
-  module procedure p_lam426
+  module procedure p_lam429
   zres = (((a1 * (self%c_bottom + (self%c_side * a1))) * self%c_this%p%surf_void) / self%c_top)
   return
-  end procedure p_lam426
+  end procedure p_lam429
 
   module procedure p_lid__anon_hydrology_lid_cpp_legacylidkernel__completedswale
     real(8) :: top_
@@ -3602,7 +3754,7 @@ contains
     real(8), pointer :: side_
     real(8), pointer :: bottom_
     class(t_fn106), pointer :: volume_
-    class(t_lam426), pointer :: zz1
+    class(t_lam429), pointer :: zz1
     real(8) :: old_depth_
     real(8), pointer :: zz2
     real(8) :: initial_
