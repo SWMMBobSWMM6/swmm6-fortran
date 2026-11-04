@@ -1,0 +1,4 @@
+f90b: 480 models  PASS 480
+Fortran engine (f90/runswmm6: tools/cs2x/Cs2F90.cs translation of the verified C#, runtime f90/runtime parts A-D,
+gfortran 13 -O2 with the F90.md flags, linked against the system Boehm collector) on the 480 gate models, one at a time.
+The run before the collector (f90a) passed 454; the other 26 long models ran out of memory (lessons/15).

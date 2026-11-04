@@ -1,0 +1,867 @@
+# f90/runtime_parts.txt - which part of the Fortran runtime (A core, B containers, C C runtime, D streams/fs/runner)
+# implements each entry of f90/cs2f90_runtime.txt: name, part, kind, the C# member. A TYPE's bindings belong to its part.
+# Made by the main session from the C# file of each member (Std.cs, Str.cs: A; Containers.cs, StdAlgo.cs, PrimeList.cs,
+# Misc.cs Algo: B; CRuntime.cs, Stash.cs, the rest of Misc.cs, System.Math, System exceptions: C; Streams.cs, Fs.cs: D).
+# Written by Claude (Anthropic) for the SWMM6 ports; see AI-USE.md.
+cpp_action	A	TYPE	System delegate System.Action
+cpp_action_d	A	TYPE	System delegate System.Action<double>
+cpp_action_f	A	TYPE	System delegate System.Action<float>
+cpp_action_i	A	TYPE	System delegate System.Action<int>
+cpp_action_l	A	TYPE	System delegate System.Action<long>
+cpp_arr_b	A	TYPE	array byte[]
+cpp_arr_d	A	TYPE	array double[]
+cpp_arr_f	A	TYPE	array
+cpp_arr_i	A	TYPE	array int[]
+cpp_arr_l	A	TYPE	array long[]
+cpp_arr_o	A	TYPE	array openswmm.xsect.LocateLut[]
+cpp_arr_s	A	TYPE	array short[]
+cpp_arr_z	A	TYPE	array bool[]
+cpp_atomic_d	C	TYPE	Cpp.Atomic<T> as Cpp.Atomic<double>
+cpp_atomic_i	C	TYPE	Cpp.Atomic<T> as Cpp.Atomic<int>
+cpp_atomic_l	C	TYPE	Cpp.Atomic<T> as Cpp.Atomic<ulong>
+cpp_atomic_z	C	TYPE	Cpp.Atomic<T> as Cpp.Atomic<bool>
+cpp_box_z	C	TYPE	Cpp.Box<T> as Cpp.Box<bool>
+cpp_cfile	C	TYPE	Cpp.CFile
+cpp_condvar	C	TYPE	Cpp.CondVar
+cpp_cppexception	A	TYPE	Cpp.CppException
+cpp_cptr	A	TYPE	Cpp.CPtr
+cpp_cspan_o	A	TYPE	Cpp.CSpan<T> as Cpp.CSpan<openswmm.transport.RxRateContext>
+cpp_defer	C	TYPE	Cpp.Defer
+cpp_duration	C	TYPE	Cpp.Duration
+cpp_errorcode	C	TYPE	Cpp.ErrorCode
+cpp_filestatus	D	TYPE	Cpp.FileStatus
+cpp_fromcharsresult	C	TYPE	Cpp.FromCharsResult
+cpp_fspath	D	TYPE	Cpp.FsPath
+cpp_func_b_b	A	TYPE	System delegate System.Func<byte, sbyte>
+cpp_func_b_z	A	TYPE	System delegate System.Func<T, TResult> (erased where o)
+cpp_func_d_d_z	A	TYPE	System delegate System.Func<T1, T2, TResult> (erased where o)
+cpp_func_d_z	A	TYPE	System delegate System.Func<T, TResult> (erased where o)
+cpp_func_i	A	TYPE	System delegate System.Func<int>?
+cpp_func_i_i_z	A	TYPE	System delegate System.Func<int, int, bool>?
+cpp_func_i_l	A	TYPE	System delegate System.Func<int, ulong>?
+cpp_func_i_z	A	TYPE	System delegate System.Func<T, TResult> (erased where o)
+cpp_func_l	A	TYPE	System delegate System.Func<ulong>?
+cpp_func_l_l	A	TYPE	System delegate System.Func<long, ulong>?
+cpp_func_l_l_z	A	TYPE	System delegate System.Func<long, long, bool>?
+cpp_func_o	A	TYPE	System delegate System.Func<TResult> (erased where o)
+cpp_func_o_d_z	A	TYPE	System delegate System.Func<T1, T2, TResult> (erased where o)
+cpp_func_o_l	A	TYPE	System delegate System.Func<T, TResult> (erased where o)
+cpp_func_o_o_z	A	TYPE	System delegate System.Func<T1, T2, TResult> (erased where o)
+cpp_func_o_z	A	TYPE	System delegate System.Func<T, TResult> (erased where o)
+cpp_func_z_z	A	TYPE	System delegate System.Func<T, TResult> (erased where o)
+cpp_hashtable	B	TYPE	Cpp.HashTable<K, E> as Cpp.HashTable<int, Cpp.Pair<int, Cpp.UMap<int, ulong>>>
+cpp_ifstream	D	TYPE	Cpp.IFStream
+cpp_invalidargument	A	TYPE	Cpp.InvalidArgument
+cpp_iosbase	D	TYPE	Cpp.IosBase
+cpp_istream	D	TYPE	Cpp.IStream
+cpp_istringstream	D	TYPE	Cpp.IStringStream
+cpp_iter_b	A	TYPE	Cpp.Iter<T>
+cpp_iter_d	A	TYPE	Cpp.Iter<T>
+cpp_iter_f	A	TYPE	Cpp.Iter<T>
+cpp_iter_i	A	TYPE	Cpp.Iter<T>
+cpp_iter_l	A	TYPE	Cpp.Iter<T> as Cpp.Iter<ulong>
+cpp_iter_o	A	TYPE	Cpp.Iter<T>
+cpp_iter_z	A	TYPE	Cpp.Iter<T>
+cpp_less_d	B	TYPE	Cpp.Less<T>
+cpp_less_i	B	TYPE	Cpp.Less<T>
+cpp_less_o	B	TYPE	Cpp.Less<T>
+cpp_lock	C	TYPE	Cpp.Lock
+cpp_logicerror	A	TYPE	Cpp.LogicError
+cpp_map	B	TYPE	Cpp.Map<K, V> as Cpp.Map<int, openswmm.twoD.BoundaryData.RuntimeOriginal>
+cpp_memptr_o_d	A	TYPE	Cpp.MemPtr<TO, TF> as Cpp.MemPtr<openswmm.surface.ueb.Parameters, double>
+cpp_mit	B	TYPE	Cpp.MIt<E> as Cpp.MIt<Cpp.Pair<Cpp.Str, int>>
+cpp_mutex	C	TYPE	Cpp.Mutex
+cpp_ofstream	D	TYPE	Cpp.OFStream
+cpp_onceflag	C	TYPE	Cpp.OnceFlag
+cpp_opt_d	A	TYPE	Cpp.Opt<T> as Cpp.Opt<double>
+cpp_opt_o	A	TYPE	Cpp.Opt<T> as Cpp.Opt<openswmm.CheckpointInspection.Driver>
+cpp_ostream	D	TYPE	Cpp.OStream
+cpp_ostringstream	D	TYPE	Cpp.OStringStream
+cpp_outofrange	A	TYPE	Cpp.OutOfRange
+cpp_pair	A	TYPE	Cpp.Pair<A, B> as Cpp.Pair<int, double>
+cpp_ptr_b	A	TYPE	Cpp.Ptr<T>
+cpp_ptr_d	A	TYPE	Cpp.Ptr<T> as Cpp.Ptr<double>
+cpp_ptr_f	A	TYPE	Cpp.Ptr<T>
+cpp_ptr_i	A	TYPE	Cpp.Ptr<T>
+cpp_ptr_l	A	TYPE	Cpp.Ptr<T> as Cpp.Ptr<ulong>
+cpp_ptr_o	A	TYPE	Cpp.Ptr<T> as Cpp.Ptr<long[]>
+cpp_ptr_s	A	TYPE	Cpp.Ptr<T>
+cpp_ptr_z	A	TYPE	Cpp.Ptr<T> as Cpp.Ptr<bool>
+cpp_que	B	TYPE	Cpp.Que<T> as Cpp.Que<openswmm.WriteTask>
+cpp_raw	C	TYPE	Cpp.Raw
+cpp_refat_d	A	TYPE	Cpp.RefAt<T>
+cpp_refat_i	A	TYPE	Cpp.RefAt<T>
+cpp_refat_l	A	TYPE	Cpp.RefAt<T>
+cpp_refat_o	A	TYPE	Cpp.RefAt<T>
+cpp_refd	C	TYPE	Cpp.RefD
+cpp_reff	C	TYPE	Cpp.RefF
+cpp_refget_z	A	TYPE	Cpp.RefGet<T>
+cpp_refi	C	TYPE	Cpp.RefI
+cpp_refl	C	TYPE	Cpp.RefL
+cpp_reviter_o	A	TYPE	Cpp.RevIter<T> as Cpp.RevIter<openswmm.controls.Action>
+cpp_runtimeerror	A	TYPE	Cpp.RuntimeError
+cpp_scanslot	C	TYPE	Cpp.ScanSlot
+cpp_set	B	TYPE	Cpp.Set<T> as Cpp.Set<Cpp.Str>
+cpp_slot	A	TYPE	the place of an erased element or of a reference-typed variable whose address is taken: class(*), pointer :: p
+cpp_stk	B	TYPE	Cpp.Stk<T> as Cpp.Stk<openswmm.mathexpr.Token>
+cpp_str	A	TYPE	Cpp.Str
+cpp_sysexception	C	TYPE	System exceptions (name and message)
+cpp_thread	C	TYPE	Cpp.Thread
+cpp_timepoint	C	TYPE	Cpp.TimePoint
+cpp_tupn	C	TYPE	Cpp.TupN
+cpp_u64	A	TYPE	an unsigned vararg: component v
+cpp_umap	B	TYPE	Cpp.UMap<K, V> as Cpp.UMap<int, Cpp.UMap<int, ulong>>
+cpp_umapc	B	TYPE	Cpp.UMapC<K, V, H, E> as Cpp.UMapC<Cpp.Str, int, openswmm.CiHash, openswmm.CiEqual>
+cpp_uset	B	TYPE	Cpp.USet<T> as Cpp.USet<object>
+cpp_variant	A	TYPE	Cpp.Variant
+cpp_vec_b	A	TYPE	Cpp.Vec<T> as Cpp.Vec<sbyte>
+cpp_vec_d	A	TYPE	Cpp.Vec<T> as Cpp.Vec<double>
+cpp_vec_f	A	TYPE	Cpp.Vec<T> as Cpp.Vec<float>
+cpp_vec_i	A	TYPE	Cpp.Vec<T> as Cpp.Vec<int>
+cpp_vec_l	A	TYPE	Cpp.Vec<T> as Cpp.Vec<ulong>
+cpp_vec_o	A	TYPE	Cpp.Vec<T> as Cpp.Vec<openswmm.twoD.RuntimeForcing>
+cpp_vec_s	A	TYPE	Cpp.Vec<T> as Cpp.Vec<openswmm.XsectShape>
+cpp_vec_z	A	TYPE	Cpp.Vec<T> as Cpp.Vec<bool>
+cpp_less_d_d_fn	B	VARIABLE	static field Cpp.Less<T>.Fn of Cpp.Less<double>
+cpp_less_i_i_fn	B	VARIABLE	static field Cpp.Less<T>.Fn of Cpp.Less<int>
+cpp_less_o_pairistr_fn	B	VARIABLE	static field Cpp.Less<T>.Fn of Cpp.Less<Cpp.Pair<int, Cpp.Str>>
+cpp_r_slot	C	VARIABLE	static field Cpp.R.Slot
+cpp_r_stderr_x	C	VARIABLE	static field Cpp.R.stderr_
+cpp_r_stdout_x	C	VARIABLE	static field Cpp.R.stdout_
+cpp_raw_v	C	VARIABLE	static field Cpp.Raw.V
+cpp_std_qnan	C	VARIABLE	static field Cpp.Std.QNaN
+cpp_algo_accumulate_iterd_iterd_d	B	FUNCTION	Cpp.Algo.accumulate(Cpp.Iter<double>, Cpp.Iter<double>, double)
+cpp_algo_all_of__d	B	FUNCTION	Cpp.Algo.all_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.all_of<double>(Cpp.Iter<double>, Cpp.Iter<double>, System.Func<double, bool>)]
+cpp_algo_all_of__o	B	FUNCTION	Cpp.Algo.all_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.all_of<Cpp.Str>(Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>, System.Func<Cpp.Str, bool>)]
+cpp_algo_any_of__b	B	FUNCTION	Cpp.Algo.any_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.any_of<byte>(Cpp.Iter<byte>, Cpp.Iter<byte>, System.Func<byte, bool>)]
+cpp_algo_any_of__d	B	FUNCTION	Cpp.Algo.any_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.any_of<double>(Cpp.Iter<double>, Cpp.Iter<double>, System.Func<double, bool>)]
+cpp_algo_any_of__i	B	FUNCTION	Cpp.Algo.any_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.any_of<int>(Cpp.Iter<int>, Cpp.Iter<int>, System.Func<int, bool>)]
+cpp_algo_any_of__o	B	FUNCTION	Cpp.Algo.any_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.any_of<openswmm.LidNodeConfig>(Cpp.Iter<openswmm.LidNodeConfig>, Cpp.Iter<openswmm.LidNodeConfig>, System.Func<openswmm.LidNodeConfig, bool>)]
+cpp_algo_any_of__z	B	FUNCTION	Cpp.Algo.any_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.any_of<bool>(Cpp.Iter<bool>, Cpp.Iter<bool>, System.Func<bool, bool>)]
+cpp_algo_begin_ta__d	B	FUNCTION	Cpp.Algo.begin<T>(T[])  [as Cpp.Algo.begin<double>(double[])]
+cpp_algo_begin_ta__z	B	FUNCTION	Cpp.Algo.begin<T>(T[])  [as Cpp.Algo.begin<bool>(bool[])]
+cpp_algo_copy_itert_itert_itert__d	B	FUNCTION	Cpp.Algo.copy<T>(Cpp.Iter<T>, Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.copy<double>(Cpp.Iter<double>, Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_algo_copy_n_ptrt_ul_ptrt__d	B	FUNCTION	Cpp.Algo.copy_n<T>(Cpp.Ptr<T>, ulong, Cpp.Ptr<T>)  [as Cpp.Algo.copy_n<double>(Cpp.Ptr<double>, ulong, Cpp.Ptr<double>)]
+cpp_algo_count__b	B	FUNCTION	Cpp.Algo.count<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.count<byte>(Cpp.Iter<byte>, Cpp.Iter<byte>, byte)]
+cpp_algo_end_ta__d	B	FUNCTION	Cpp.Algo.end<T>(T[])  [as Cpp.Algo.end<double>(double[])]
+cpp_algo_end_ta__z	B	FUNCTION	Cpp.Algo.end<T>(T[])  [as Cpp.Algo.end<bool>(bool[])]
+cpp_algo_fill_itert_itert_t__b	B	SUBROUTINE	Cpp.Algo.fill<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.fill<byte>(Cpp.Iter<byte>, Cpp.Iter<byte>, byte)]
+cpp_algo_fill_itert_itert_t__d	B	SUBROUTINE	Cpp.Algo.fill<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.fill<double>(Cpp.Iter<double>, Cpp.Iter<double>, double)]
+cpp_algo_fill_itert_itert_t__f	B	SUBROUTINE	Cpp.Algo.fill<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.fill<float>(Cpp.Iter<float>, Cpp.Iter<float>, float)]
+cpp_algo_fill_itert_itert_t__i	B	SUBROUTINE	Cpp.Algo.fill<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.fill<int>(Cpp.Iter<int>, Cpp.Iter<int>, int)]
+cpp_algo_fill_itert_itert_t__z	B	SUBROUTINE	Cpp.Algo.fill<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.fill<bool>(Cpp.Iter<bool>, Cpp.Iter<bool>, bool)]
+cpp_algo_fill_n_ptrt_ul_t__d	B	FUNCTION	Cpp.Algo.fill_n<T>(Cpp.Ptr<T>, ulong, T)  [as Cpp.Algo.fill_n<double>(Cpp.Ptr<double>, ulong, double)]
+cpp_algo_fill_ptrt_ptrt_t__d	B	SUBROUTINE	Cpp.Algo.fill<T>(Cpp.Ptr<T>, Cpp.Ptr<T>, T)  [as Cpp.Algo.fill<double>(Cpp.Ptr<double>, Cpp.Ptr<double>, double)]
+cpp_algo_find__b	B	FUNCTION	Cpp.Algo.find<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.find<byte>(Cpp.Iter<byte>, Cpp.Iter<byte>, byte)]
+cpp_algo_find__o	B	FUNCTION	Cpp.Algo.find<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.find<Cpp.Str>(Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>, Cpp.Str)]
+cpp_algo_find_if__o	B	FUNCTION	Cpp.Algo.find_if<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.find_if<openswmm.LidLayerTreatment>(Cpp.Iter<openswmm.LidLayerTreatment>, Cpp.Iter<openswmm.LidLayerTreatment>, System.Func<openswmm.LidLayerTreatment, bool>)]
+cpp_algo_iota_iterul_iterul_ul	B	SUBROUTINE	Cpp.Algo.iota(Cpp.Iter<ulong>, Cpp.Iter<ulong>, ulong)
+cpp_algo_is_sorted_itert_itert__d	B	FUNCTION	Cpp.Algo.is_sorted<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.is_sorted<double>(Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_algo_lower_bound_itert_itert_t__d	B	FUNCTION	Cpp.Algo.lower_bound<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.lower_bound<double>(Cpp.Iter<double>, Cpp.Iter<double>, double)]
+cpp_algo_lower_bound_itert_itert_t__i	B	FUNCTION	Cpp.Algo.lower_bound<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.lower_bound<int>(Cpp.Iter<int>, Cpp.Iter<int>, int)]
+cpp_algo_lower_bound_itert_itert_v_functvb__od	B	FUNCTION	Cpp.Algo.lower_bound<T, V>(Cpp.Iter<T>, Cpp.Iter<T>, V, System.Func<T, V, bool>)  [as Cpp.Algo.lower_bound<openswmm.climate.SnowDailyWeather, double>(Cpp.Iter<openswmm.climate.SnowDailyWeather>, Cpp.Iter<openswmm.climate.SnowDailyWeather>, double, System.Func<openswmm.climate.SnowDailyWeather, double, bool>)]
+cpp_algo_max_element_itert_itert__d	B	FUNCTION	Cpp.Algo.max_element<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.max_element<double>(Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_algo_min_element_itert_itert__d	B	FUNCTION	Cpp.Algo.min_element<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.min_element<double>(Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_algo_none_of__i	B	FUNCTION	Cpp.Algo.none_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.none_of<openswmm.ReactionExprForm>(Cpp.Iter<openswmm.ReactionExprForm>, Cpp.Iter<openswmm.ReactionExprForm>, System.Func<openswmm.ReactionExprForm, bool>)]
+cpp_algo_none_of__o	B	FUNCTION	Cpp.Algo.none_of<T>(Cpp.Iter<T>, Cpp.Iter<T>, System.Func<T, bool>)  [as Cpp.Algo.none_of<openswmm.LidNodeConfig>(Cpp.Iter<openswmm.LidNodeConfig>, Cpp.Iter<openswmm.LidNodeConfig>, System.Func<openswmm.LidNodeConfig, bool>)]
+cpp_algo_replace__b	B	SUBROUTINE	Cpp.Algo.replace<T>(Cpp.Iter<T>, Cpp.Iter<T>, T, T)  [as Cpp.Algo.replace<byte>(Cpp.Iter<byte>, Cpp.Iter<byte>, byte, byte)]
+cpp_algo_transform_itert_itert_iteru_functu__bb	B	FUNCTION	Cpp.Algo.transform<T, U>(Cpp.Iter<T>, Cpp.Iter<T>, Cpp.Iter<U>, System.Func<T, U>)  [as Cpp.Algo.transform<byte, byte>(Cpp.Iter<byte>, Cpp.Iter<byte>, Cpp.Iter<byte>, System.Func<byte, byte>)]
+cpp_algo_transform_iteruc_iteruc_iteruc_funcucc	B	FUNCTION	Cpp.Algo.transform(Cpp.Iter<byte>, Cpp.Iter<byte>, Cpp.Iter<byte>, System.Func<byte, sbyte>)
+cpp_algo_unique_itert_itert__i	B	FUNCTION	Cpp.Algo.unique<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.unique<int>(Cpp.Iter<int>, Cpp.Iter<int>)]
+cpp_algo_upper_bound_itert_itert_t__d	B	FUNCTION	Cpp.Algo.upper_bound<T>(Cpp.Iter<T>, Cpp.Iter<T>, T)  [as Cpp.Algo.upper_bound<double>(Cpp.Iter<double>, Cpp.Iter<double>, double)]
+cpp_algo_vecfrom__d	B	FUNCTION	Cpp.Algo.VecFrom<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.VecFrom<double>(Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_algo_vecfrom__i	B	FUNCTION	Cpp.Algo.VecFrom<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.VecFrom<int>(Cpp.Iter<int>, Cpp.Iter<int>)]
+cpp_algo_vecfrom__o	B	FUNCTION	Cpp.Algo.VecFrom<T>(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Algo.VecFrom<Cpp.Str>(Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>)]
+cpp_arr_assign__b	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<byte>(byte[], byte[])]
+cpp_arr_assign__d	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<double>(double[], double[])]
+cpp_arr_assign__i	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<int>(int[], int[])]
+cpp_arr_assign__l	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<long>(long[], long[])]
+cpp_arr_assign__o	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<openswmm.SimulationContext.MaxStats>(openswmm.SimulationContext.MaxStats[], openswmm.SimulationContext.MaxStats[])]
+cpp_arr_assign__s	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<short>(short[], short[])]
+cpp_arr_assign__z	A	SUBROUTINE	Cpp.Arr.Assign<T>(T[], T[])  [as Cpp.Arr.Assign<bool>(bool[], bool[])]
+cpp_arr_b_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_clone__b	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<byte>(byte[])]
+cpp_arr_clone__d	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<double>(double[])]
+cpp_arr_clone__i	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<int>(int[])]
+cpp_arr_clone__l	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<long>(long[])]
+cpp_arr_clone__o	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<openswmm.SimulationContext.MaxStats>(openswmm.SimulationContext.MaxStats[])]
+cpp_arr_clone__s	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<short>(short[])]
+cpp_arr_clone__z	A	FUNCTION	Cpp.Arr.Clone<T>(T[])  [as Cpp.Arr.Clone<bool>(bool[])]
+cpp_arr_d_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_eq__d	A	FUNCTION	Cpp.Arr.Eq<T>(T[], T[])  [as Cpp.Arr.Eq<double>(double[], double[])]
+cpp_arr_f_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_i_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_l_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_make2__d	A	FUNCTION	Cpp.Arr.Make2<T>(int, int)  [as Cpp.Arr.Make2<double>(int, int)]
+cpp_arr_make2__i	A	FUNCTION	Cpp.Arr.Make2<T>(int, int)  [as Cpp.Arr.Make2<int>(int, int)]
+cpp_arr_make2__o	A	FUNCTION	Cpp.Arr.Make2<T>(int, int)  [as Cpp.Arr.Make2<_global.SWMM_TransportCell>(int, int)]
+cpp_arr_make__d	A	FUNCTION	Cpp.Arr.Make<T>(int)  [as Cpp.Arr.Make<double>(int)]
+cpp_arr_make__i	A	FUNCTION	Cpp.Arr.Make<T>(int)  [as Cpp.Arr.Make<int>(int)]
+cpp_arr_make__l	A	FUNCTION	Cpp.Arr.Make<T>(int)  [as Cpp.Arr.Make<long>(int)]
+cpp_arr_make__o	A	FUNCTION	Cpp.Arr.Make<T>(int)  [as Cpp.Arr.Make<openswmm.SimulationContext.MaxStats>(int)]
+cpp_arr_make__z	A	FUNCTION	Cpp.Arr.Make<T>(int)  [as Cpp.Arr.Make<bool>(int)]
+cpp_arr_makewith__o	A	FUNCTION	Cpp.Arr.MakeWith<T>(int, System.Func<T>)  [as Cpp.Arr.MakeWith<bool[]>(int, System.Func<bool[]>)]
+cpp_arr_o_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_o_new_mk	A	FUNCTION	a new array of n slots, each holding a new element made by mk (an array of structs)
+cpp_arr_s_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_arr_z_new	A	FUNCTION	a new array of n elements (zero, or null slots)
+cpp_array_fill_d	A	SUBROUTINE	System.Array.Fill(T[], T)
+cpp_array_fill_l	A	SUBROUTINE	System.Array.Fill(T[], T)
+cpp_atomic_d_compare_exchange	C	FUNCTION	Cpp.Atomic<T>.compare_exchange(ref T, T)  [as Cpp.Atomic<double>.compare_exchange(ref double, double)]
+cpp_atomic_d_new_0	C	FUNCTION	new Cpp.Atomic<T>.Atomic()  [as Cpp.Atomic<double>.Atomic()]
+cpp_atomic_i_new_t	C	FUNCTION	new Cpp.Atomic<T>.Atomic(T)  [as Cpp.Atomic<int>.Atomic(int)]
+cpp_atomic_l_fetch_add	C	FUNCTION	Cpp.Atomic<T>.fetch_add(T, int)  [as Cpp.Atomic<ulong>.fetch_add(ulong, int)]
+cpp_atomic_l_new_0	C	FUNCTION	new Cpp.Atomic<T>.Atomic()  [as Cpp.Atomic<ulong>.Atomic()]
+cpp_atomic_l_new_t	C	FUNCTION	new Cpp.Atomic<T>.Atomic(T)  [as Cpp.Atomic<ulong>.Atomic(ulong)]
+cpp_atomic_z_new_t	C	FUNCTION	new Cpp.Atomic<T>.Atomic(T)  [as Cpp.Atomic<bool>.Atomic(bool)]
+cpp_box_z_of	C	FUNCTION	Cpp.Box<T>.Of(Cpp.RefGet<T>)  [as Cpp.Box<bool>.Of(Cpp.RefGet<bool>)]
+cpp_box_z_v	C	FUNCTION	Cpp.Box<T>.V.get  [as Cpp.Box<bool>.V.get]
+cpp_bytes_view_cptr	C	FUNCTION	Cpp.Bytes.View(Cpp.CPtr)
+cpp_bytes_view_ptrt__b	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<sbyte>(Cpp.Ptr<sbyte>)]
+cpp_bytes_view_ptrt__d	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<double>(Cpp.Ptr<double>)]
+cpp_bytes_view_ptrt__f	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<float>(Cpp.Ptr<float>)]
+cpp_bytes_view_ptrt__i	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<int>(Cpp.Ptr<int>)]
+cpp_bytes_view_ptrt__l	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<ulong>(Cpp.Ptr<ulong>)]
+cpp_bytes_view_ptrt__s	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<openswmm.XsectShape>(Cpp.Ptr<openswmm.XsectShape>)]
+cpp_bytes_view_ptrt__z	C	FUNCTION	Cpp.Bytes.View<T>(Cpp.Ptr<T>)  [as Cpp.Bytes.View<bool>(Cpp.Ptr<bool>)]
+cpp_condvar_new	C	FUNCTION	new Cpp.CondVar.CondVar()
+cpp_conv_d2i	C	FUNCTION	Cpp.Conv.D2I(double)
+cpp_conv_d2l	C	FUNCTION	Cpp.Conv.D2L(double)
+cpp_conv_d2sb	C	FUNCTION	Cpp.Conv.D2SB(double)
+cpp_conv_d2ul	C	FUNCTION	Cpp.Conv.D2UL(double)
+cpp_cppexception_ctor_0	A	SUBROUTINE	ctor Cpp.CppException.CppException()
+cpp_cppexception_what	A	FUNCTION	Cpp.CppException.what()
+cpp_cptr_clone	A	FUNCTION	Cpp.CPtr.Clone()
+cpp_cptr_diff	A	FUNCTION	Cpp.CPtr.Diff(Cpp.CPtr, Cpp.CPtr)
+cpp_cptr_from_ptrc	A	FUNCTION	Cpp.CPtr.implicit operator Cpp.CPtr(Cpp.Ptr<sbyte>)
+cpp_cptr_from_ptruc	A	FUNCTION	Cpp.CPtr.implicit operator Cpp.CPtr(Cpp.Ptr<byte>)
+cpp_cptr_isnull	A	FUNCTION	Cpp.CPtr.IsNull.get
+cpp_cptr_op_add_cptr_i	A	FUNCTION	Cpp.CPtr.operator +(Cpp.CPtr, int)
+cpp_cptr_op_add_cptr_l	A	FUNCTION	Cpp.CPtr.operator +(Cpp.CPtr, long)
+cpp_cptr_op_eq	A	FUNCTION	Cpp.CPtr.operator ==(Cpp.CPtr, Cpp.CPtr)
+cpp_cptr_op_lt	A	FUNCTION	Cpp.CPtr.operator <(Cpp.CPtr, Cpp.CPtr)
+cpp_cptr_op_ne	A	FUNCTION	Cpp.CPtr.operator !=(Cpp.CPtr, Cpp.CPtr)
+cpp_cspan_o_empty	A	FUNCTION	Cpp.CSpan<T>.empty()  [as Cpp.CSpan<openswmm.transport.RxRateContext>.empty()]
+cpp_dbg_caught	C	SUBROUTINE	Cpp.Dbg.Caught(System.Exception)
+cpp_defer_cancel	C	SUBROUTINE	Cpp.Defer.Cancel()
+cpp_defer_new	C	FUNCTION	new Cpp.Defer.Defer(System.Action)
+cpp_double_isfinite	A	FUNCTION	System.Double.IsFinite
+cpp_double_isinfinity	A	FUNCTION	System.Double.IsInfinity
+cpp_double_isnan	A	FUNCTION	System.Double.IsNaN
+cpp_dtor_run	C	SUBROUTINE	Cpp.Dtor.Run(object?)
+cpp_duration_clone	C	FUNCTION	Cpp.Duration.Clone()
+cpp_duration_count	C	FUNCTION	Cpp.Duration.count()
+cpp_errorcode_bool	C	FUNCTION	Cpp.ErrorCode.Bool()
+cpp_errorcode_new	C	FUNCTION	new Cpp.ErrorCode.ErrorCode()
+cpp_file_exists	D	FUNCTION	System.IO.File.Exists(path)
+cpp_fs_create_hard_link	D	SUBROUTINE	Cpp.Fs.create_hard_link(Cpp.FsPath, Cpp.FsPath, Cpp.ErrorCode)
+cpp_fs_equivalent_fspath_fspath	D	FUNCTION	Cpp.Fs.equivalent(Cpp.FsPath, Cpp.FsPath)
+cpp_fs_exists_fspath_errorcode	D	FUNCTION	Cpp.Fs.exists(Cpp.FsPath, Cpp.ErrorCode)
+cpp_fs_file_size_fspath	D	FUNCTION	Cpp.Fs.file_size(Cpp.FsPath)
+cpp_fs_file_size_fspath_errorcode	D	FUNCTION	Cpp.Fs.file_size(Cpp.FsPath, Cpp.ErrorCode)
+cpp_fs_is_directory_fspath	D	FUNCTION	Cpp.Fs.is_directory(Cpp.FsPath)
+cpp_fs_is_regular_file_filestatus	D	FUNCTION	Cpp.Fs.is_regular_file(Cpp.FileStatus)
+cpp_fs_remove_fspath_errorcode	D	FUNCTION	Cpp.Fs.remove(Cpp.FsPath, Cpp.ErrorCode)
+cpp_fs_rename_fspath_fspath_errorcode	D	SUBROUTINE	Cpp.Fs.rename(Cpp.FsPath, Cpp.FsPath, Cpp.ErrorCode)
+cpp_fs_symlink_status_fspath	D	FUNCTION	Cpp.Fs.symlink_status(Cpp.FsPath)
+cpp_fs_symlink_status_fspath_errorcode	D	FUNCTION	Cpp.Fs.symlink_status(Cpp.FsPath, Cpp.ErrorCode)
+cpp_fs_weakly_canonical_fspath	D	FUNCTION	Cpp.Fs.weakly_canonical(Cpp.FsPath)
+cpp_fspath_assign_fspath	D	SUBROUTINE	Cpp.FsPath.Assign(Cpp.FsPath)
+cpp_fspath_c_str	D	FUNCTION	Cpp.FsPath.c_str()
+cpp_fspath_clear	D	SUBROUTINE	Cpp.FsPath.clear()
+cpp_fspath_clone	D	FUNCTION	Cpp.FsPath.Clone()
+cpp_fspath_compare	D	FUNCTION	Cpp.FsPath.compare(Cpp.FsPath)
+cpp_fspath_empty	D	FUNCTION	Cpp.FsPath.empty()
+cpp_fspath_extension	D	FUNCTION	Cpp.FsPath.extension()
+cpp_fspath_generic_string	D	FUNCTION	Cpp.FsPath.generic_string()
+cpp_fspath_is_relative	D	FUNCTION	Cpp.FsPath.is_relative()
+cpp_fspath_join_fspath	D	FUNCTION	Cpp.FsPath.Join(Cpp.FsPath)
+cpp_fspath_lexically_normal	D	FUNCTION	Cpp.FsPath.lexically_normal()
+cpp_fspath_movefrom	D	SUBROUTINE	Cpp.FsPath.MoveFrom(Cpp.FsPath)
+cpp_fspath_new_0	D	FUNCTION	new Cpp.FsPath.FsPath()
+cpp_fspath_new_cptr	D	FUNCTION	new Cpp.FsPath.FsPath(Cpp.CPtr)
+cpp_fspath_new_str	D	FUNCTION	new Cpp.FsPath.FsPath(Cpp.Str)
+cpp_fspath_parent_path	D	FUNCTION	Cpp.FsPath.parent_path()
+cpp_fspath_replace_extension_fspath	D	FUNCTION	Cpp.FsPath.replace_extension(Cpp.FsPath?)
+cpp_fspath_string	D	FUNCTION	Cpp.FsPath.@string()
+cpp_hashtable_begin	B	FUNCTION	Cpp.HashTable<K, E>.begin()  [as Cpp.HashTable<int, Cpp.Pair<int, int>>.begin()]
+cpp_hashtable_clear	B	SUBROUTINE	Cpp.HashTable<K, E>.clear()  [as Cpp.HashTable<Cpp.Str, Cpp.Pair<Cpp.Str, int>>.clear()]
+cpp_hashtable_contains	B	FUNCTION	Cpp.HashTable<K, E>.contains(K)  [as Cpp.HashTable<Cpp.Str, Cpp.Pair<Cpp.Str, Cpp.Str>>.contains(Cpp.Str)]
+cpp_hashtable_count	B	FUNCTION	Cpp.HashTable<K, E>.count(K)  [as Cpp.HashTable<Cpp.Str, Cpp.Pair<Cpp.Str, ulong>>.count(Cpp.Str)]
+cpp_hashtable_end	B	FUNCTION	Cpp.HashTable<K, E>.end()  [as Cpp.HashTable<Cpp.Str, Cpp.Pair<Cpp.Str, int>>.end()]
+cpp_hashtable_erase_mite	B	FUNCTION	Cpp.HashTable<K, E>.erase(Cpp.MIt<E>)  [as Cpp.HashTable<object, object>.erase(Cpp.MIt<object>)]
+cpp_hashtable_find	B	FUNCTION	Cpp.HashTable<K, E>.find(K)  [as Cpp.HashTable<Cpp.Str, Cpp.Pair<Cpp.Str, int>>.find(Cpp.Str)]
+cpp_hashtable_reserve	B	SUBROUTINE	Cpp.HashTable<K, E>.reserve(ulong)  [as Cpp.HashTable<Cpp.Str, Cpp.Pair<Cpp.Str, int>>.reserve(ulong)]
+cpp_hashtable_size	B	FUNCTION	Cpp.HashTable<K, E>.size()  [as Cpp.HashTable<object, object>.size()]
+cpp_ifstream_is_open	D	FUNCTION	Cpp.IFStream.is_open()
+cpp_ifstream_new_fspath_i	D	FUNCTION	new Cpp.IFStream.IFStream(Cpp.FsPath, int)
+cpp_ifstream_new_str_i	D	FUNCTION	new Cpp.IFStream.IFStream(Cpp.Str, int)
+cpp_invalidargument_new_str	A	FUNCTION	new Cpp.InvalidArgument.InvalidArgument(Cpp.Str)
+cpp_iosbase_bad	D	FUNCTION	Cpp.IosBase.bad()
+cpp_iosbase_clear	D	SUBROUTINE	Cpp.IosBase.clear(int)
+cpp_iosbase_eof	D	FUNCTION	Cpp.IosBase.eof()
+cpp_iosbase_good	D	FUNCTION	Cpp.IosBase.good()
+cpp_iosbase_imbue	D	SUBROUTINE	Cpp.IosBase.imbue(object?)
+cpp_iosbase_notok	D	FUNCTION	Cpp.IosBase.notok()
+cpp_iosbase_ok	D	FUNCTION	Cpp.IosBase.ok()
+cpp_istream_gcount	D	FUNCTION	Cpp.IStream.gcount()
+cpp_istream_get_dr	D	FUNCTION	Cpp.IStream.Get(ref double)
+cpp_istream_get_ir	D	FUNCTION	Cpp.IStream.Get(ref int)
+cpp_istream_get_str	D	FUNCTION	Cpp.IStream.Get(Cpp.Str)
+cpp_istream_get_ulr	D	FUNCTION	Cpp.IStream.Get(ref ulong)
+cpp_istream_get_ur	D	FUNCTION	Cpp.IStream.Get(ref uint)
+cpp_istream_manip_ws	D	FUNCTION	Cpp.IStream.Manip_ws()
+cpp_istream_read_cptr_l	D	FUNCTION	Cpp.IStream.read(Cpp.CPtr, long)
+cpp_istream_read_ptrt_l__b	D	FUNCTION	Cpp.IStream.read<T>(Cpp.Ptr<T>, long)  [as Cpp.IStream.read<byte>(Cpp.Ptr<byte>, long)]
+cpp_istream_read_ptrt_l__d	D	FUNCTION	Cpp.IStream.read<T>(Cpp.Ptr<T>, long)  [as Cpp.IStream.read<double>(Cpp.Ptr<double>, long)]
+cpp_istream_read_ptrt_l__f	D	FUNCTION	Cpp.IStream.read<T>(Cpp.Ptr<T>, long)  [as Cpp.IStream.read<float>(Cpp.Ptr<float>, long)]
+cpp_istream_read_ptrt_l__i	D	FUNCTION	Cpp.IStream.read<T>(Cpp.Ptr<T>, long)  [as Cpp.IStream.read<uint>(Cpp.Ptr<uint>, long)]
+cpp_istream_read_ptrt_l__l	D	FUNCTION	Cpp.IStream.read<T>(Cpp.Ptr<T>, long)  [as Cpp.IStream.read<long>(Cpp.Ptr<long>, long)]
+cpp_istream_seekg	D	FUNCTION	Cpp.IStream.seekg(long, int)
+cpp_istream_tellg	D	FUNCTION	Cpp.IStream.tellg()
+cpp_istringstream_new_str	D	FUNCTION	new Cpp.IStringStream.IStringStream(Cpp.Str)
+cpp_istringstream_new_str_i	D	FUNCTION	new Cpp.IStringStream.IStringStream(Cpp.Str, int)
+cpp_iter_b_clone	A	FUNCTION	Cpp.Iter<T>.Clone()  [as Cpp.Iter<byte>.Clone()]
+cpp_iter_b_op_add	A	FUNCTION	Cpp.Iter<T>.operator +(Cpp.Iter<T>, long)  [as Cpp.Iter<byte>.operator +(Cpp.Iter<byte>, long)]
+cpp_iter_b_op_eq	A	FUNCTION	Cpp.Iter<T>.operator ==(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Iter<byte>.operator ==(Cpp.Iter<byte>, Cpp.Iter<byte>)]
+cpp_iter_d_clone	A	FUNCTION	Cpp.Iter<T>.Clone()  [as Cpp.Iter<double>.Clone()]
+cpp_iter_d_deref	A	FUNCTION	Cpp.Iter<T>.Deref.get  [as Cpp.Iter<double>.Deref.get]
+cpp_iter_d_new_ta_l	A	FUNCTION	new Cpp.Iter<T>.Iter(T[], long)  [as Cpp.Iter<double>.Iter(double[], long)]
+cpp_iter_d_op_add	A	FUNCTION	Cpp.Iter<T>.operator +(Cpp.Iter<T>, long)  [as Cpp.Iter<double>.operator +(Cpp.Iter<double>, long)]
+cpp_iter_d_op_eq	A	FUNCTION	Cpp.Iter<T>.operator ==(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Iter<double>.operator ==(Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_iter_d_op_inc	A	FUNCTION	Cpp.Iter<T>.operator ++(Cpp.Iter<T>)  [as Cpp.Iter<double>.operator ++(Cpp.Iter<double>)]
+cpp_iter_d_op_sub_itert_itert	A	FUNCTION	Cpp.Iter<T>.operator -(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Iter<double>.operator -(Cpp.Iter<double>, Cpp.Iter<double>)]
+cpp_iter_i_clone	A	FUNCTION	Cpp.Iter<T>.Clone()  [as Cpp.Iter<int>.Clone()]
+cpp_iter_i_op_add	A	FUNCTION	Cpp.Iter<T>.operator +(Cpp.Iter<T>, long)  [as Cpp.Iter<int>.operator +(Cpp.Iter<int>, long)]
+cpp_iter_i_op_sub_itert_itert	A	FUNCTION	Cpp.Iter<T>.operator -(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Iter<int>.operator -(Cpp.Iter<int>, Cpp.Iter<int>)]
+cpp_iter_i_op_sub_itert_l	A	FUNCTION	Cpp.Iter<T>.operator -(Cpp.Iter<T>, long)  [as Cpp.Iter<int>.operator -(Cpp.Iter<int>, long)]
+cpp_iter_o_clone	A	FUNCTION	Cpp.Iter<T>.Clone()  [as Cpp.Iter<Cpp.Str>.Clone()]
+cpp_iter_o_deref	A	FUNCTION	Cpp.Iter<T>.Deref.get  [as Cpp.Iter<openswmm.climate.SnowDailyWeather>.Deref.get]
+cpp_iter_o_op_add	A	FUNCTION	Cpp.Iter<T>.operator +(Cpp.Iter<T>, long)  [as Cpp.Iter<Cpp.Str>.operator +(Cpp.Iter<Cpp.Str>, long)]
+cpp_iter_o_op_eq	A	FUNCTION	Cpp.Iter<T>.operator ==(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Iter<Cpp.Str>.operator ==(Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>)]
+cpp_iter_o_op_inc	A	FUNCTION	Cpp.Iter<T>.operator ++(Cpp.Iter<T>)  [as Cpp.Iter<openswmm.climate.HourlyMetRecord>.operator ++(Cpp.Iter<openswmm.climate.HourlyMetRecord>)]
+cpp_libm_expm1	C	FUNCTION	Cpp.LibM.expm1(double)
+cpp_libm_fmod	C	FUNCTION	Cpp.LibM.fmod(double, double)
+cpp_libm_hypot	C	FUNCTION	Cpp.LibM.hypot(double, double)
+cpp_libm_log1p	C	FUNCTION	Cpp.LibM.log1p(double)
+cpp_libm_nextafter	C	FUNCTION	Cpp.LibM.nextafter(double, double)
+cpp_libm_remainder	C	FUNCTION	Cpp.LibM.remainder(double, double)
+cpp_libm_round	C	FUNCTION	Cpp.LibM.round(double)
+cpp_lock_new	C	FUNCTION	new Cpp.Lock.Lock()
+cpp_m_clamp_d_d_d	A	FUNCTION	Cpp.M.clamp(double, double, double)
+cpp_m_clamp_i_i_i	A	FUNCTION	Cpp.M.clamp(int, int, int)
+cpp_m_max_d_d	A	FUNCTION	Cpp.M.max(double, double)
+cpp_m_max_da	A	FUNCTION	Cpp.M.max(double[])
+cpp_m_max_i_i	A	FUNCTION	Cpp.M.max(int, int)
+cpp_m_max_ia	A	FUNCTION	Cpp.M.max(int[])
+cpp_m_max_l_l	A	FUNCTION	Cpp.M.max(long, long)
+cpp_m_max_u_u	A	FUNCTION	Cpp.M.max(uint, uint)
+cpp_m_max_ul_ul	A	FUNCTION	Cpp.M.max(ulong, ulong)
+cpp_m_min_d_d	A	FUNCTION	Cpp.M.min(double, double)
+cpp_m_min_da	A	FUNCTION	Cpp.M.min(double[])
+cpp_m_min_i_i	A	FUNCTION	Cpp.M.min(int, int)
+cpp_m_min_uc_uc	A	FUNCTION	Cpp.M.min(byte, byte)
+cpp_m_min_ul_ul	A	FUNCTION	Cpp.M.min(ulong, ulong)
+cpp_map_assign	B	SUBROUTINE	Cpp.Map<K, V>.Assign(Cpp.Map<K, V>)  [as Cpp.Map<int, openswmm.twoD.BoundaryData.RuntimeOriginal>.Assign(Cpp.Map<int, openswmm.twoD.BoundaryData.RuntimeOriginal>)]
+cpp_map_begin	B	FUNCTION	Cpp.Map<K, V>.begin()  [as Cpp.Map<int, Cpp.Vec<Cpp.Pair<int, int>>>.begin()]
+cpp_map_clone	B	FUNCTION	Cpp.Map<K, V>.Clone()  [as Cpp.Map<int, openswmm.twoD.BoundaryData.RuntimeOriginal>.Clone()]
+cpp_map_emplace_k_v	B	FUNCTION	Cpp.Map<K, V>.emplace(K, V)  [as Cpp.Map<Cpp.TupN, int>.emplace(Cpp.TupN, int)]
+cpp_map_empty	B	FUNCTION	Cpp.Map<K, V>.empty()  [as Cpp.Map<int, openswmm.surface.SnowpackConfig>.empty()]
+cpp_map_end	B	FUNCTION	Cpp.Map<K, V>.end()  [as Cpp.Map<Cpp.TupN, int>.end()]
+cpp_map_find	B	FUNCTION	Cpp.Map<K, V>.find(K)  [as Cpp.Map<Cpp.TupN, int>.find(Cpp.TupN)]
+cpp_map_index	B	FUNCTION	Cpp.Map<K, V>.Index(K)  [as Cpp.Map<int, Cpp.Vec<Cpp.Pair<int, int>>>.Index(int)]
+cpp_map_new_funckkb_funcv	B	FUNCTION	new Cpp.Map<K, V>.Map(System.Func<K, K, bool>?, System.Func<V>?)  [as Cpp.Map<int, openswmm.twoD.BoundaryData.RuntimeOriginal>.Map(System.Func<int, int, bool>?, System.Func<openswmm.twoD.BoundaryData.RuntimeOriginal>?)]
+cpp_map_size	B	FUNCTION	Cpp.Map<K, V>.size()  [as Cpp.Map<Cpp.Str, openswmm.components.ProcessComponentEntry>.size()]
+cpp_math_acos_d	C	FUNCTION	System.Math.Acos(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_asin_d	C	FUNCTION	System.Math.Asin(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_atan2_dd	C	FUNCTION	System.Math.Atan2(double, double), as .NET computes it (libm for the transcendental functions)
+cpp_math_atan_d	C	FUNCTION	System.Math.Atan(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_cbrt_d	C	FUNCTION	System.Math.Cbrt(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_ceiling_d	C	FUNCTION	System.Math.Ceiling(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_copysign_dd	C	FUNCTION	System.Math.CopySign(double, double), as .NET computes it (libm for the transcendental functions)
+cpp_math_cos_d	C	FUNCTION	System.Math.Cos(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_cosh_d	C	FUNCTION	System.Math.Cosh(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_exp_d	C	FUNCTION	System.Math.Exp(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_floor_d	C	FUNCTION	System.Math.Floor(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_log10_d	C	FUNCTION	System.Math.Log10(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_log2_d	C	FUNCTION	System.Math.Log2(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_log_d	C	FUNCTION	System.Math.Log(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_pow_dd	C	FUNCTION	System.Math.Pow(double, double), as .NET computes it (libm for the transcendental functions)
+cpp_math_sin_d	C	FUNCTION	System.Math.Sin(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_sinh_d	C	FUNCTION	System.Math.Sinh(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_tan_d	C	FUNCTION	System.Math.Tan(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_tanh_d	C	FUNCTION	System.Math.Tanh(double), as .NET computes it (libm for the transcendental functions)
+cpp_math_truncate_d	C	FUNCTION	System.Math.Truncate(double), as .NET computes it (libm for the transcendental functions)
+cpp_mem_calloc__d	C	FUNCTION	Cpp.Mem.Calloc<T>(ulong, ulong)  [as Cpp.Mem.Calloc<double>(ulong, ulong)]
+cpp_mem_diff_t_ptrt__o	C	FUNCTION	Cpp.Mem.Diff<T>(T, Cpp.Ptr<T>)  [as Cpp.Mem.Diff<openswmm.lid.LIDGroupSoA>(openswmm.lid.LIDGroupSoA, Cpp.Ptr<openswmm.lid.LIDGroupSoA>)]
+cpp_mem_fread_cptr_ul_ul_cfile	C	FUNCTION	Cpp.Mem.fread(Cpp.CPtr, ulong, ulong, Cpp.CFile)
+cpp_mem_fread_ptrt_ul_ul_cfile__f	C	FUNCTION	Cpp.Mem.fread<T>(Cpp.Ptr<T>, ulong, ulong, Cpp.CFile)  [as Cpp.Mem.fread<float>(Cpp.Ptr<float>, ulong, ulong, Cpp.CFile)]
+cpp_mem_fread_ptrt_ul_ul_cfile__i	C	FUNCTION	Cpp.Mem.fread<T>(Cpp.Ptr<T>, ulong, ulong, Cpp.CFile)  [as Cpp.Mem.fread<int>(Cpp.Ptr<int>, ulong, ulong, Cpp.CFile)]
+cpp_mem_free	C	SUBROUTINE	Cpp.Mem.Free(object?)
+cpp_mem_fwrite_cptr_ul_ul_cfile	C	FUNCTION	Cpp.Mem.fwrite(Cpp.CPtr, ulong, ulong, Cpp.CFile)
+cpp_mem_fwrite_ptrt_ul_ul_cfile__f	C	FUNCTION	Cpp.Mem.fwrite<T>(Cpp.Ptr<T>, ulong, ulong, Cpp.CFile)  [as Cpp.Mem.fwrite<float>(Cpp.Ptr<float>, ulong, ulong, Cpp.CFile)]
+cpp_mem_fwrite_ptrt_ul_ul_cfile__i	C	FUNCTION	Cpp.Mem.fwrite<T>(Cpp.Ptr<T>, ulong, ulong, Cpp.CFile)  [as Cpp.Mem.fwrite<int>(Cpp.Ptr<int>, ulong, ulong, Cpp.CFile)]
+cpp_mem_memcpy_ptrt_cptr_ul__b	C	FUNCTION	Cpp.Mem.memcpy<T>(Cpp.Ptr<T>, Cpp.CPtr, ulong)  [as Cpp.Mem.memcpy<sbyte>(Cpp.Ptr<sbyte>, Cpp.CPtr, ulong)]
+cpp_mem_memcpy_ptrt_cptr_ul__d	C	FUNCTION	Cpp.Mem.memcpy<T>(Cpp.Ptr<T>, Cpp.CPtr, ulong)  [as Cpp.Mem.memcpy<double>(Cpp.Ptr<double>, Cpp.CPtr, ulong)]
+cpp_mem_memcpy_ptrt_cptr_ul__f	C	FUNCTION	Cpp.Mem.memcpy<T>(Cpp.Ptr<T>, Cpp.CPtr, ulong)  [as Cpp.Mem.memcpy<float>(Cpp.Ptr<float>, Cpp.CPtr, ulong)]
+cpp_mem_memcpy_ptrt_cptr_ul__i	C	FUNCTION	Cpp.Mem.memcpy<T>(Cpp.Ptr<T>, Cpp.CPtr, ulong)  [as Cpp.Mem.memcpy<int>(Cpp.Ptr<int>, Cpp.CPtr, ulong)]
+cpp_mem_memcpy_ptrt_cptr_ul__l	C	FUNCTION	Cpp.Mem.memcpy<T>(Cpp.Ptr<T>, Cpp.CPtr, ulong)  [as Cpp.Mem.memcpy<ulong>(Cpp.Ptr<ulong>, Cpp.CPtr, ulong)]
+cpp_mem_memcpy_ptrt_cptr_ul__s	C	FUNCTION	Cpp.Mem.memcpy<T>(Cpp.Ptr<T>, Cpp.CPtr, ulong)  [as Cpp.Mem.memcpy<openswmm.XsectShape>(Cpp.Ptr<openswmm.XsectShape>, Cpp.CPtr, ulong)]
+cpp_mem_memcpy_ptrt_ptru_ul__ib	C	FUNCTION	Cpp.Mem.memcpy<T, U>(Cpp.Ptr<T>, Cpp.Ptr<U>, ulong)  [as Cpp.Mem.memcpy<uint, byte>(Cpp.Ptr<uint>, Cpp.Ptr<byte>, ulong)]
+cpp_mem_memcpy_ptrt_ptru_ul__ld	C	FUNCTION	Cpp.Mem.memcpy<T, U>(Cpp.Ptr<T>, Cpp.Ptr<U>, ulong)  [as Cpp.Mem.memcpy<ulong, double>(Cpp.Ptr<ulong>, Cpp.Ptr<double>, ulong)]
+cpp_mit_clone	B	FUNCTION	Cpp.MIt<E>.Clone()  [as Cpp.MIt<object>.Clone()]
+cpp_mit_deref	B	FUNCTION	Cpp.MIt<E>.Deref.get  [as Cpp.MIt<Cpp.Pair<Cpp.Str, int>>.Deref.get]
+cpp_mit_op_eq	B	FUNCTION	Cpp.MIt<E>.operator ==(Cpp.MIt<E>, Cpp.MIt<E>)  [as Cpp.MIt<Cpp.Pair<Cpp.Str, int>>.operator ==(Cpp.MIt<Cpp.Pair<Cpp.Str, int>>, Cpp.MIt<Cpp.Pair<Cpp.Str, int>>)]
+cpp_mit_op_inc	B	FUNCTION	Cpp.MIt<E>.operator ++(Cpp.MIt<E>)  [as Cpp.MIt<Cpp.Pair<int, int>>.operator ++(Cpp.MIt<Cpp.Pair<int, int>>)]
+cpp_mutex_new	C	FUNCTION	new Cpp.Mutex.Mutex()
+cpp_mv_delete	C	SUBROUTINE	Cpp.Mv.Delete(object?)
+cpp_mv_poststep_ptrtr_i__d	C	FUNCTION	Cpp.Mv.PostStep<T>(ref Cpp.Ptr<T>, int)  [as Cpp.Mv.PostStep<double>(ref Cpp.Ptr<double>, int)]
+cpp_ofstream_close	D	SUBROUTINE	Cpp.OFStream.close()
+cpp_ofstream_is_open	D	FUNCTION	Cpp.OFStream.is_open()
+cpp_ofstream_new_0	D	FUNCTION	new Cpp.OFStream.OFStream()
+cpp_ofstream_new_cptr_i	D	FUNCTION	new Cpp.OFStream.OFStream(Cpp.CPtr, int)
+cpp_ofstream_new_fspath_i	D	FUNCTION	new Cpp.OFStream.OFStream(Cpp.FsPath, int)
+cpp_ofstream_open_str_i	D	SUBROUTINE	Cpp.OFStream.open(Cpp.Str, int)
+cpp_onceflag_new	C	FUNCTION	new Cpp.OnceFlag.OnceFlag()
+cpp_opt_d_assign	A	SUBROUTINE	Cpp.Opt<T>.Assign(Cpp.Opt<T>)  [as Cpp.Opt<double>.Assign(Cpp.Opt<double>)]
+cpp_opt_d_clone	A	FUNCTION	Cpp.Opt<T>.Clone()  [as Cpp.Opt<double>.Clone()]
+cpp_opt_d_movefrom	A	SUBROUTINE	Cpp.Opt<T>.MoveFrom(Cpp.Opt<T>)  [as Cpp.Opt<double>.MoveFrom(Cpp.Opt<double>)]
+cpp_opt_d_new_0	A	FUNCTION	new Cpp.Opt<T>.Opt()  [as Cpp.Opt<double>.Opt()]
+cpp_opt_d_new_t	A	FUNCTION	new Cpp.Opt<T>.Opt(T)  [as Cpp.Opt<double>.Opt(double)]
+cpp_opt_d_value_or	A	FUNCTION	Cpp.Opt<T>.value_or(T)  [as Cpp.Opt<double>.value_or(double)]
+cpp_opt_o_assign	A	SUBROUTINE	Cpp.Opt<T>.Assign(Cpp.Opt<T>)  [as Cpp.Opt<openswmm.CheckpointInspection.Driver>.Assign(Cpp.Opt<openswmm.CheckpointInspection.Driver>)]
+cpp_opt_o_clone	A	FUNCTION	Cpp.Opt<T>.Clone()  [as Cpp.Opt<openswmm.CheckpointInspection.Driver>.Clone()]
+cpp_opt_o_emplace	A	FUNCTION	Cpp.Opt<T>.emplace(T)  [as Cpp.Opt<openswmm.msxlid._anon_quality_MsxLidReactions_cpp.PoolScratch>.emplace(openswmm.msxlid._anon_quality_MsxLidReactions_cpp.PoolScratch)]
+cpp_opt_o_new_0	A	FUNCTION	new Cpp.Opt<T>.Opt()  [as Cpp.Opt<openswmm.CheckpointInspection.Driver>.Opt()]
+cpp_opt_o_reset	A	SUBROUTINE	Cpp.Opt<T>.reset()  [as Cpp.Opt<openswmm.perf.GatedTimer>.reset()]
+cpp_opt_o_set	A	SUBROUTINE	Cpp.Opt<T>.Set(T)  [as Cpp.Opt<openswmm.surface.ClimateSite>.Set(openswmm.surface.ClimateSite)]
+cpp_ostream_manip_quoted_cptr	D	FUNCTION	Cpp.OStream.Manip_quoted(Cpp.CPtr)
+cpp_ostream_manip_quoted_str	D	FUNCTION	Cpp.OStream.Manip_quoted(Cpp.Str)
+cpp_ostream_manip_setprecision	D	FUNCTION	Cpp.OStream.Manip_setprecision(long)
+cpp_ostream_put_c	D	FUNCTION	Cpp.OStream.Put(sbyte)
+cpp_ostream_put_cptr	D	FUNCTION	Cpp.OStream.Put(Cpp.CPtr)
+cpp_ostream_put_d	D	FUNCTION	Cpp.OStream.Put(double)
+cpp_ostream_put_i	D	FUNCTION	Cpp.OStream.Put(int)
+cpp_ostream_put_str	D	FUNCTION	Cpp.OStream.Put(Cpp.Str)
+cpp_ostream_put_ul	D	FUNCTION	Cpp.OStream.Put(ulong)
+cpp_ostream_write_cptr_l	D	FUNCTION	Cpp.OStream.write(Cpp.CPtr, long)
+cpp_ostream_write_ptrt_l__d	D	FUNCTION	Cpp.OStream.write<T>(Cpp.Ptr<T>, long)  [as Cpp.OStream.write<double>(Cpp.Ptr<double>, long)]
+cpp_ostream_write_ptrt_l__f	D	FUNCTION	Cpp.OStream.write<T>(Cpp.Ptr<T>, long)  [as Cpp.OStream.write<float>(Cpp.Ptr<float>, long)]
+cpp_ostream_write_ptrt_l__i	D	FUNCTION	Cpp.OStream.write<T>(Cpp.Ptr<T>, long)  [as Cpp.OStream.write<uint>(Cpp.Ptr<uint>, long)]
+cpp_ostream_write_ptrt_l__l	D	FUNCTION	Cpp.OStream.write<T>(Cpp.Ptr<T>, long)  [as Cpp.OStream.write<long>(Cpp.Ptr<long>, long)]
+cpp_ostringstream_new_0	D	FUNCTION	new Cpp.OStringStream.OStringStream()
+cpp_ostringstream_new_i	D	FUNCTION	new Cpp.OStringStream.OStringStream(int)
+cpp_ostringstream_str_0	D	FUNCTION	Cpp.OStringStream.str()
+cpp_outofrange_new_str	A	FUNCTION	new Cpp.OutOfRange.OutOfRange(Cpp.Str)
+cpp_pair_clone	A	FUNCTION	Cpp.Pair<A, B>.Clone()  [as Cpp.Pair<int, int>.Clone()]
+cpp_pair_new_a_b	A	FUNCTION	new Cpp.Pair<A, B>.Pair(A, B)  [as Cpp.Pair<int, openswmm.controls.ControlEngine.PendingAction>.Pair(int, openswmm.controls.ControlEngine.PendingAction)]
+cpp_ptr_b_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<byte>.this[int].get]
+cpp_ptr_b_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<sbyte>.Ptr(sbyte[], long)]
+cpp_ptr_b_op_add_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator +(Cpp.Ptr<T>, long)  [as Cpp.Ptr<byte>.operator +(Cpp.Ptr<byte>, long)]
+cpp_ptr_b_op_sub_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator -(Cpp.Ptr<T>, long)  [as Cpp.Ptr<byte>.operator -(Cpp.Ptr<byte>, long)]
+cpp_ptr_d_deref	A	FUNCTION	Cpp.Ptr<T>.Deref.get  [as Cpp.Ptr<double>.Deref.get]
+cpp_ptr_d_from	A	FUNCTION	Cpp.Ptr<T>.implicit operator Cpp.Ptr<T>(Cpp.Iter<T>)  [as Cpp.Ptr<double>.implicit operator Cpp.Ptr<double>(Cpp.Iter<double>)]
+cpp_ptr_d_isnull	A	FUNCTION	Cpp.Ptr<T>.IsNull.get  [as Cpp.Ptr<double>.IsNull.get]
+cpp_ptr_d_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<double>.this[int].get]
+cpp_ptr_d_item_l	A	FUNCTION	Cpp.Ptr<T>.this[long].get  [as Cpp.Ptr<double>.this[long].get]
+cpp_ptr_d_item_ul	A	FUNCTION	Cpp.Ptr<T>.this[ulong].get  [as Cpp.Ptr<double>.this[ulong].get]
+cpp_ptr_d_new_o_refatt	A	FUNCTION	new Cpp.Ptr<T>.Ptr(object?, Cpp.RefAt<T>)  [as Cpp.Ptr<double>.Ptr(object?, Cpp.RefAt<double>)]
+cpp_ptr_d_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<double>.Ptr(double[], long)]
+cpp_ptr_d_op_add_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator +(Cpp.Ptr<T>, long)  [as Cpp.Ptr<double>.operator +(Cpp.Ptr<double>, long)]
+cpp_ptr_d_op_eq	A	FUNCTION	Cpp.Ptr<T>.operator ==(Cpp.Ptr<T>, Cpp.Ptr<T>)  [as Cpp.Ptr<double>.operator ==(Cpp.Ptr<double>, Cpp.Ptr<double>)]
+cpp_ptr_d_op_ne	A	FUNCTION	Cpp.Ptr<T>.operator !=(Cpp.Ptr<T>, Cpp.Ptr<T>)  [as Cpp.Ptr<double>.operator !=(Cpp.Ptr<double>, Cpp.Ptr<double>)]
+cpp_ptr_d_op_sub_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator -(Cpp.Ptr<T>, long)  [as Cpp.Ptr<double>.operator -(Cpp.Ptr<double>, long)]
+cpp_ptr_f_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<float>.this[int].get]
+cpp_ptr_f_item_ul	A	FUNCTION	Cpp.Ptr<T>.this[ulong].get  [as Cpp.Ptr<float>.this[ulong].get]
+cpp_ptr_f_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<float>.Ptr(float[], long)]
+cpp_ptr_f_op_add_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator +(Cpp.Ptr<T>, long)  [as Cpp.Ptr<float>.operator +(Cpp.Ptr<float>, long)]
+cpp_ptr_i_deref	A	FUNCTION	Cpp.Ptr<T>.Deref.get  [as Cpp.Ptr<int>.Deref.get]
+cpp_ptr_i_isnull	A	FUNCTION	Cpp.Ptr<T>.IsNull.get  [as Cpp.Ptr<openswmm.input.SeriesFileStatus>.IsNull.get]
+cpp_ptr_i_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<int>.this[int].get]
+cpp_ptr_i_item_l	A	FUNCTION	Cpp.Ptr<T>.this[long].get  [as Cpp.Ptr<int>.this[long].get]
+cpp_ptr_i_item_ul	A	FUNCTION	Cpp.Ptr<T>.this[ulong].get  [as Cpp.Ptr<int>.this[ulong].get]
+cpp_ptr_i_new_o_refatt	A	FUNCTION	new Cpp.Ptr<T>.Ptr(object?, Cpp.RefAt<T>)  [as Cpp.Ptr<int>.Ptr(object?, Cpp.RefAt<int>)]
+cpp_ptr_i_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<int>.Ptr(int[], long)]
+cpp_ptr_i_op_add_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator +(Cpp.Ptr<T>, long)  [as Cpp.Ptr<int>.operator +(Cpp.Ptr<int>, long)]
+cpp_ptr_i_op_ne	A	FUNCTION	Cpp.Ptr<T>.operator !=(Cpp.Ptr<T>, Cpp.Ptr<T>)  [as Cpp.Ptr<int>.operator !=(Cpp.Ptr<int>, Cpp.Ptr<int>)]
+cpp_ptr_i_op_sub_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator -(Cpp.Ptr<T>, long)  [as Cpp.Ptr<int>.operator -(Cpp.Ptr<int>, long)]
+cpp_ptr_l_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<long>.this[int].get]
+cpp_ptr_l_new_o_refatt	A	FUNCTION	new Cpp.Ptr<T>.Ptr(object?, Cpp.RefAt<T>)  [as Cpp.Ptr<ulong>.Ptr(object?, Cpp.RefAt<ulong>)]
+cpp_ptr_l_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<ulong>.Ptr(ulong[], long)]
+cpp_ptr_o_deref	A	FUNCTION	Cpp.Ptr<T>.Deref.get  [as Cpp.Ptr<long[]>.Deref.get]
+cpp_ptr_o_isnull	A	FUNCTION	Cpp.Ptr<T>.IsNull.get  [as Cpp.Ptr<long[]>.IsNull.get]
+cpp_ptr_o_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<double[]>.this[int].get]
+cpp_ptr_o_item_l	A	FUNCTION	Cpp.Ptr<T>.this[long].get  [as Cpp.Ptr<double[]>.this[long].get]
+cpp_ptr_o_item_ul	A	FUNCTION	Cpp.Ptr<T>.this[ulong].get  [as Cpp.Ptr<Cpp.CPtr>.this[ulong].get]
+cpp_ptr_o_new_o_refatt	A	FUNCTION	new Cpp.Ptr<T>.Ptr(object?, Cpp.RefAt<T>)  [as Cpp.Ptr<long[]>.Ptr(object?, Cpp.RefAt<long[]>)]
+cpp_ptr_o_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<double[]>.Ptr(double[][], long)]
+cpp_ptr_o_op_add_ptrt_l	A	FUNCTION	Cpp.Ptr<T>.operator +(Cpp.Ptr<T>, long)  [as Cpp.Ptr<Cpp.Ptr<double>>.operator +(Cpp.Ptr<Cpp.Ptr<double>>, long)]
+cpp_ptr_o_op_ne	A	FUNCTION	Cpp.Ptr<T>.operator !=(Cpp.Ptr<T>, Cpp.Ptr<T>)  [as Cpp.Ptr<openswmm.RxToken>.operator !=(Cpp.Ptr<openswmm.RxToken>, Cpp.Ptr<openswmm.RxToken>)]
+cpp_ptr_s_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<short>.this[int].get]
+cpp_ptr_s_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<openswmm.XsectShape>.Ptr(openswmm.XsectShape[], long)]
+cpp_ptr_z_item_i	A	FUNCTION	Cpp.Ptr<T>.this[int].get  [as Cpp.Ptr<bool>.this[int].get]
+cpp_ptr_z_item_ul	A	FUNCTION	Cpp.Ptr<T>.this[ulong].get  [as Cpp.Ptr<bool>.this[ulong].get]
+cpp_ptr_z_new_ta_l	A	FUNCTION	new Cpp.Ptr<T>.Ptr(T[], long)  [as Cpp.Ptr<bool>.Ptr(bool[], long)]
+cpp_que_assign	B	SUBROUTINE	Cpp.Que<T>.Assign(Cpp.Que<T>)  [as Cpp.Que<openswmm.WriteTask>.Assign(Cpp.Que<openswmm.WriteTask>)]
+cpp_que_clone	B	FUNCTION	Cpp.Que<T>.Clone()  [as Cpp.Que<openswmm.WriteTask>.Clone()]
+cpp_que_new	B	FUNCTION	new Cpp.Que<T>.Que()  [as Cpp.Que<openswmm.WriteTask>.Que()]
+cpp_r_atof	C	FUNCTION	Cpp.R.atof(Cpp.CPtr)
+cpp_r_atoi	C	FUNCTION	Cpp.R.atoi(Cpp.CPtr)
+cpp_r_atol	C	FUNCTION	Cpp.R.atol(Cpp.CPtr)
+cpp_r_back_i_t1r__b	C	FUNCTION	Cpp.R.Back<T1>(int, ref T1)  [as Cpp.R.Back<sbyte>(int, ref sbyte)]
+cpp_r_back_i_t1r_t2r__lb	C	FUNCTION	Cpp.R.Back<T1, T2>(int, ref T1, ref T2)  [as Cpp.R.Back<long, sbyte>(int, ref long, ref sbyte)]
+cpp_r_buf_i	C	FUNCTION	Cpp.R.Buf(int)
+cpp_r_bufof	C	FUNCTION	Cpp.R.BufOf(int, int[])
+cpp_r_bufs	C	FUNCTION	Cpp.R.Bufs(int, int)
+cpp_r_copybuf	C	FUNCTION	Cpp.R.CopyBuf(Cpp.CPtr)
+cpp_r_ctime_ptrl	C	FUNCTION	Cpp.R.ctime(Cpp.Ptr<long>)
+cpp_r_difftime	C	FUNCTION	Cpp.R.difftime(long, long)
+cpp_r_fclose	C	FUNCTION	Cpp.R.fclose(Cpp.CFile)
+cpp_r_feof	C	FUNCTION	Cpp.R.feof(Cpp.CFile)
+cpp_r_ferror	C	FUNCTION	Cpp.R.ferror(Cpp.CFile)
+cpp_r_fflush	C	FUNCTION	Cpp.R.fflush(Cpp.CFile)
+cpp_r_fgetc	C	FUNCTION	Cpp.R.fgetc(Cpp.CFile)
+cpp_r_fgets	C	FUNCTION	Cpp.R.fgets(Cpp.CPtr, int, Cpp.CFile)
+cpp_r_fileno	C	FUNCTION	Cpp.R.fileno(Cpp.CFile)
+cpp_r_fopen	C	FUNCTION	Cpp.R.fopen(Cpp.CPtr, Cpp.CPtr)
+cpp_r_fprintf	C	FUNCTION	Cpp.R.fprintf(Cpp.CFile, Cpp.CPtr, params object[])
+cpp_r_freadd1	C	FUNCTION	Cpp.R.freadD1(ref double, Cpp.CFile)
+cpp_r_freadf1	C	FUNCTION	Cpp.R.freadF1(ref float, Cpp.CFile)
+cpp_r_freadi1	C	FUNCTION	Cpp.R.freadI1(ref int, Cpp.CFile)
+cpp_r_fseek_cfile_l_i	C	FUNCTION	Cpp.R.fseek(Cpp.CFile, long, int)
+cpp_r_ftell	C	FUNCTION	Cpp.R.ftell(Cpp.CFile)
+cpp_r_fwrited1	C	FUNCTION	Cpp.R.fwriteD1(double, Cpp.CFile)
+cpp_r_fwritef1	C	FUNCTION	Cpp.R.fwriteF1(float, Cpp.CFile)
+cpp_r_fwritei1	C	FUNCTION	Cpp.R.fwriteI1(int, Cpp.CFile)
+cpp_r_getenv	C	FUNCTION	Cpp.R.getenv(Cpp.CPtr)
+cpp_r_isalnum	C	FUNCTION	Cpp.R.isalnum(int)
+cpp_r_isalpha	C	FUNCTION	Cpp.R.isalpha(int)
+cpp_r_isdigit	C	FUNCTION	Cpp.R.isdigit(int)
+cpp_r_isspace	C	FUNCTION	Cpp.R.isspace(int)
+cpp_r_lit	C	FUNCTION	Cpp.R.Lit(string)
+cpp_r_litn	C	FUNCTION	Cpp.R.LitN(string, int)
+cpp_r_memcmp	C	FUNCTION	Cpp.R.memcmp(Cpp.CPtr, Cpp.CPtr, ulong)
+cpp_r_memcpybuf	C	SUBROUTINE	Cpp.R.memcpyBuf(Cpp.CPtr, Cpp.CPtr)
+cpp_r_refd	C	FUNCTION	Cpp.R.RefD(System.Action<double>)
+cpp_r_reff	C	FUNCTION	Cpp.R.RefF(System.Action<float>)
+cpp_r_refi	C	FUNCTION	Cpp.R.RefI(System.Action<int>)
+cpp_r_refl	C	FUNCTION	Cpp.R.RefL(System.Action<long>)
+cpp_r_rewind	C	SUBROUTINE	Cpp.R.rewind(Cpp.CFile)
+cpp_r_setvbuf	C	FUNCTION	Cpp.R.setvbuf(Cpp.CFile, Cpp.CPtr, int, ulong)
+cpp_r_snprintf_cptr_ul_cptr_oa	C	FUNCTION	Cpp.R.snprintf(Cpp.CPtr, ulong, Cpp.CPtr, params object[])
+cpp_r_sscanf	C	FUNCTION	Cpp.R.sscanf(Cpp.CPtr, Cpp.CPtr, params object[])
+cpp_r_strchr	C	FUNCTION	Cpp.R.strchr(Cpp.CPtr, int)
+cpp_r_strcmp	C	FUNCTION	Cpp.R.strcmp(Cpp.CPtr, Cpp.CPtr)
+cpp_r_strlen	C	FUNCTION	Cpp.R.strlen(Cpp.CPtr)
+cpp_r_strncmp	C	FUNCTION	Cpp.R.strncmp(Cpp.CPtr, Cpp.CPtr, ulong)
+cpp_r_strncpy	C	FUNCTION	Cpp.R.strncpy(Cpp.CPtr, Cpp.CPtr, ulong)
+cpp_r_strrchr	C	FUNCTION	Cpp.R.strrchr(Cpp.CPtr, int)
+cpp_r_strstr	C	FUNCTION	Cpp.R.strstr(Cpp.CPtr, Cpp.CPtr)
+cpp_r_strtod_cptr	C	FUNCTION	Cpp.R.strtod(Cpp.CPtr)
+cpp_r_strtod_cptr_cptrr	C	FUNCTION	Cpp.R.strtod(Cpp.CPtr, ref Cpp.CPtr)
+cpp_r_strtok	C	FUNCTION	Cpp.R.strtok(Cpp.CPtr, Cpp.CPtr)
+cpp_r_strtol0	C	FUNCTION	Cpp.R.strtol0(Cpp.CPtr, int)
+cpp_r_time_ptrl	C	FUNCTION	Cpp.R.time(Cpp.Ptr<long>)
+cpp_r_tolower	C	FUNCTION	Cpp.R.tolower(int)
+cpp_r_toupper	C	FUNCTION	Cpp.R.toupper(int)
+cpp_reviter_o_deref	A	FUNCTION	Cpp.RevIter<T>.Deref.get  [as Cpp.RevIter<openswmm.controls.Action>.Deref.get]
+cpp_reviter_o_op_eq	A	FUNCTION	Cpp.RevIter<T>.operator ==(Cpp.RevIter<T>, Cpp.RevIter<T>)  [as Cpp.RevIter<openswmm.controls.Action>.operator ==(Cpp.RevIter<openswmm.controls.Action>, Cpp.RevIter<openswmm.controls.Action>)]
+cpp_reviter_o_op_inc	A	FUNCTION	Cpp.RevIter<T>.operator ++(Cpp.RevIter<T>)  [as Cpp.RevIter<openswmm.controls.Action>.operator ++(Cpp.RevIter<openswmm.controls.Action>)]
+cpp_runtimeerror_new_str	A	FUNCTION	new Cpp.RuntimeError.RuntimeError(Cpp.Str)
+cpp_set_assign	B	SUBROUTINE	Cpp.Set<T>.Assign(Cpp.Set<T>)  [as Cpp.Set<Cpp.Str>.Assign(Cpp.Set<Cpp.Str>)]
+cpp_set_clone	B	FUNCTION	Cpp.Set<T>.Clone()  [as Cpp.Set<Cpp.Str>.Clone()]
+cpp_set_insert	B	FUNCTION	Cpp.Set<T>.insert(T)  [as Cpp.Set<openswmm.richards.Column>.insert(openswmm.richards.Column)]
+cpp_set_new_functtb	B	FUNCTION	new Cpp.Set<T>.Set(System.Func<T, T, bool>?)  [as Cpp.Set<Cpp.Str>.Set(System.Func<Cpp.Str, Cpp.Str, bool>?)]
+cpp_std_call_once	C	SUBROUTINE	Cpp.Std.call_once(Cpp.OnceFlag, System.Action)
+cpp_std_from_chars_cptr_cptr_dr	C	FUNCTION	Cpp.Std.from_chars(Cpp.CPtr, Cpp.CPtr, ref double)
+cpp_std_from_chars_cptr_cptr_ir	C	FUNCTION	Cpp.Std.from_chars(Cpp.CPtr, Cpp.CPtr, ref int)
+cpp_std_from_chars_cptr_cptr_ur	C	FUNCTION	Cpp.Std.from_chars(Cpp.CPtr, Cpp.CPtr, ref uint)
+cpp_std_get0_pairab__id	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<int, double>(Cpp.Pair<int, double>)]
+cpp_std_get0_pairab__ii	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<int, int>(Cpp.Pair<int, int>)]
+cpp_std_get0_pairab__io	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<int, openswmm.surface.MeshSnowRow>(Cpp.Pair<int, openswmm.surface.MeshSnowRow>)]
+cpp_std_get0_pairab__lo	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<ulong, Cpp.Vec<ulong>>(Cpp.Pair<ulong, Cpp.Vec<ulong>>)]
+cpp_std_get0_pairab__od	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<Cpp.Str, double>(Cpp.Pair<Cpp.Str, double>)]
+cpp_std_get0_pairab__ol	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<Cpp.Str, long>(Cpp.Pair<Cpp.Str, long>)]
+cpp_std_get0_pairab__oo	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<Cpp.Str, openswmm.surface.MeshSnowRow>(Cpp.Pair<Cpp.Str, openswmm.surface.MeshSnowRow>)]
+cpp_std_get0_pairab__os	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<Cpp.Str, openswmm.XsectShape>(Cpp.Pair<Cpp.Str, openswmm.XsectShape>)]
+cpp_std_get0_pairab__oz	C	FUNCTION	Cpp.Std.get0<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get0<Cpp.MIt<Cpp.Pair<Cpp.Str, int>>, bool>(Cpp.Pair<Cpp.MIt<Cpp.Pair<Cpp.Str, int>>, bool>)]
+cpp_std_get1_pairab__id	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<int, double>(Cpp.Pair<int, double>)]
+cpp_std_get1_pairab__ii	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<int, int>(Cpp.Pair<int, int>)]
+cpp_std_get1_pairab__io	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<int, openswmm.surface.MeshSnowRow>(Cpp.Pair<int, openswmm.surface.MeshSnowRow>)]
+cpp_std_get1_pairab__lo	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<ulong, Cpp.Vec<ulong>>(Cpp.Pair<ulong, Cpp.Vec<ulong>>)]
+cpp_std_get1_pairab__od	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<Cpp.Str, double>(Cpp.Pair<Cpp.Str, double>)]
+cpp_std_get1_pairab__ol	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<Cpp.Str, long>(Cpp.Pair<Cpp.Str, long>)]
+cpp_std_get1_pairab__oo	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<Cpp.Str, openswmm.surface.MeshSnowRow>(Cpp.Pair<Cpp.Str, openswmm.surface.MeshSnowRow>)]
+cpp_std_get1_pairab__os	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<Cpp.Str, openswmm.XsectShape>(Cpp.Pair<Cpp.Str, openswmm.XsectShape>)]
+cpp_std_get1_pairab__oz	C	FUNCTION	Cpp.Std.get1<A, B>(Cpp.Pair<A, B>)  [as Cpp.Std.get1<Cpp.MIt<Cpp.Pair<Cpp.Str, int>>, bool>(Cpp.Pair<Cpp.MIt<Cpp.Pair<Cpp.Str, int>>, bool>)]
+cpp_std_nop	C	FUNCTION	Cpp.Std.Nop(object?)
+cpp_std_rethrow	C	SUBROUTINE	Cpp.Std.Rethrow(System.Exception)
+cpp_stdalgo_sort__d	B	SUBROUTINE	Cpp.StdAlgo.Sort<T>(T[], long, long, System.Func<T, T, bool>)  [as Cpp.StdAlgo.Sort<double>(double[], long, long, System.Func<double, double, bool>)]
+cpp_stdalgo_sort__i	B	SUBROUTINE	Cpp.StdAlgo.Sort<T>(T[], long, long, System.Func<T, T, bool>)  [as Cpp.StdAlgo.Sort<int>(int[], long, long, System.Func<int, int, bool>)]
+cpp_stdalgo_sort__l	B	SUBROUTINE	Cpp.StdAlgo.Sort<T>(T[], long, long, System.Func<T, T, bool>)  [as Cpp.StdAlgo.Sort<ulong>(ulong[], long, long, System.Func<ulong, ulong, bool>)]
+cpp_stdalgo_sort__o	B	SUBROUTINE	Cpp.StdAlgo.Sort<T>(T[], long, long, System.Func<T, T, bool>)  [as Cpp.StdAlgo.Sort<openswmm.SimulationContext.Event>(openswmm.SimulationContext.Event[], long, long, System.Func<openswmm.SimulationContext.Event, openswmm.SimulationContext.Event, bool>)]
+cpp_stdalgo_stablesort__i	B	SUBROUTINE	Cpp.StdAlgo.StableSort<T>(T[], long, long, System.Func<T, T, bool>)  [as Cpp.StdAlgo.StableSort<int>(int[], long, long, System.Func<int, int, bool>)]
+cpp_stdalgo_stablesort__o	B	SUBROUTINE	Cpp.StdAlgo.StableSort<T>(T[], long, long, System.Func<T, T, bool>)  [as Cpp.StdAlgo.StableSort<openswmm.DefaultReportPlugin.NodeError_src_engine_plugins_DefaultReportPlugin_cpp_1892>(openswmm.DefaultReportPlugin.NodeError_src_engine_plugins_DefaultReportPlugin_cpp_1892[], long, long, System.Func<openswmm.DefaultReportPlugin.NodeError_src_engine_plugins_DefaultReportPlugin_cpp_1892, openswmm.DefaultReportPlugin.NodeError_src_engine_plugins_DefaultReportPlugin_cpp_1892, bool>)]
+cpp_stk_empty	B	FUNCTION	Cpp.Stk<T>.empty()  [as Cpp.Stk<openswmm.mathexpr.Token>.empty()]
+cpp_stk_new	B	FUNCTION	new Cpp.Stk<T>.Stk()  [as Cpp.Stk<openswmm.mathexpr.Token>.Stk()]
+cpp_stk_pop	B	SUBROUTINE	Cpp.Stk<T>.pop()  [as Cpp.Stk<openswmm.mathexpr.Token>.pop()]
+cpp_stk_push	B	SUBROUTINE	Cpp.Stk<T>.push(T)  [as Cpp.Stk<openswmm.mathexpr.Token>.push(openswmm.mathexpr.Token)]
+cpp_stk_size	B	FUNCTION	Cpp.Stk<T>.size()  [as Cpp.Stk<double>.size()]
+cpp_stk_top	B	FUNCTION	Cpp.Stk<T>.top()  [as Cpp.Stk<openswmm.mathexpr.Token>.top()]
+cpp_str_append_cptr	A	FUNCTION	Cpp.Str.append(Cpp.CPtr)
+cpp_str_append_cptr_ul	A	FUNCTION	Cpp.Str.append(Cpp.CPtr, ulong)
+cpp_str_append_i	A	FUNCTION	Cpp.Str.append(int)
+cpp_str_append_str	A	FUNCTION	Cpp.Str.append(Cpp.Str)
+cpp_str_assign_cptr	A	SUBROUTINE	Cpp.Str.Assign(Cpp.CPtr)
+cpp_str_assign_cptr_ul	A	FUNCTION	Cpp.Str.assign(Cpp.CPtr, ulong)
+cpp_str_assign_ptrc_ptrc	A	FUNCTION	Cpp.Str.assign(Cpp.Ptr<sbyte>, Cpp.Ptr<sbyte>)
+cpp_str_assign_str	A	SUBROUTINE	Cpp.Str.Assign(Cpp.Str)
+cpp_str_back	A	FUNCTION	Cpp.Str.back()
+cpp_str_begin	A	FUNCTION	Cpp.Str.begin()
+cpp_str_c_str	A	FUNCTION	Cpp.Str.c_str()
+cpp_str_cat_cptr_str	A	FUNCTION	Cpp.Str.Cat(Cpp.CPtr, Cpp.Str)
+cpp_str_cat_str_cptr	A	FUNCTION	Cpp.Str.Cat(Cpp.Str, Cpp.CPtr)
+cpp_str_cat_str_i	A	FUNCTION	Cpp.Str.Cat(Cpp.Str, int)
+cpp_str_cat_str_str	A	FUNCTION	Cpp.Str.Cat(Cpp.Str, Cpp.Str)
+cpp_str_clear	A	SUBROUTINE	Cpp.Str.clear()
+cpp_str_clone	A	FUNCTION	Cpp.Str.Clone()
+cpp_str_compare_ul_ul_str	A	FUNCTION	Cpp.Str.compare(ulong, ulong, Cpp.Str)
+cpp_str_data	A	FUNCTION	Cpp.Str.data()
+cpp_str_empty	A	FUNCTION	Cpp.Str.empty()
+cpp_str_end	A	FUNCTION	Cpp.Str.end()
+cpp_str_eqlit	A	FUNCTION	Cpp.Str.EqLit(Cpp.CPtr)
+cpp_str_equals_str	A	FUNCTION	Cpp.Str.Equals(Cpp.Str?)
+cpp_str_erase	A	FUNCTION	Cpp.Str.erase(ulong, ulong)
+cpp_str_find_cptr_ul	A	FUNCTION	Cpp.Str.find(Cpp.CPtr, ulong)
+cpp_str_find_first_not_of_cptr_ul	A	FUNCTION	Cpp.Str.find_first_not_of(Cpp.CPtr, ulong)
+cpp_str_find_first_not_of_i_ul	A	FUNCTION	Cpp.Str.find_first_not_of(int, ulong)
+cpp_str_find_first_of_cptr_ul	A	FUNCTION	Cpp.Str.find_first_of(Cpp.CPtr, ulong)
+cpp_str_find_i_ul	A	FUNCTION	Cpp.Str.find(int, ulong)
+cpp_str_find_last_not_of_cptr_ul	A	FUNCTION	Cpp.Str.find_last_not_of(Cpp.CPtr, ulong)
+cpp_str_find_last_of_i_ul	A	FUNCTION	Cpp.Str.find_last_of(int, ulong)
+cpp_str_from	A	FUNCTION	Cpp.Str.implicit operator Cpp.Str(Cpp.CPtr)
+cpp_str_front	A	FUNCTION	Cpp.Str.front()
+cpp_str_movefrom	A	SUBROUTINE	Cpp.Str.MoveFrom(Cpp.Str)
+cpp_str_new_0	A	FUNCTION	new Cpp.Str.Str()
+cpp_str_new_cptr	A	FUNCTION	new Cpp.Str.Str(Cpp.CPtr)
+cpp_str_new_cptr_ul	A	FUNCTION	new Cpp.Str.Str(Cpp.CPtr, ulong)
+cpp_str_new_str	A	FUNCTION	new Cpp.Str.Str(Cpp.Str)
+cpp_str_new_ul_i	A	FUNCTION	new Cpp.Str.Str(ulong, int)
+cpp_str_pop_back	A	SUBROUTINE	Cpp.Str.pop_back()
+cpp_str_push_back	A	SUBROUTINE	Cpp.Str.push_back(int)
+cpp_str_remove_prefix	A	SUBROUTINE	Cpp.Str.remove_prefix(ulong)
+cpp_str_reserve	A	SUBROUTINE	Cpp.Str.reserve(ulong)
+cpp_str_resize	A	SUBROUTINE	Cpp.Str.resize(ulong, int)
+cpp_str_rfind_cptr_ul	A	FUNCTION	Cpp.Str.rfind(Cpp.CPtr, ulong)
+cpp_str_rfind_i_ul	A	FUNCTION	Cpp.Str.rfind(int, ulong)
+cpp_str_size	A	FUNCTION	Cpp.Str.size()
+cpp_str_starts_with_cptr	A	FUNCTION	Cpp.Str.starts_with(Cpp.CPtr)
+cpp_str_starts_with_str	A	FUNCTION	Cpp.Str.starts_with(Cpp.Str)
+cpp_str_stod	A	FUNCTION	Cpp.Str.stod(Cpp.Str, Cpp.Ptr<ulong>)
+cpp_str_substr	A	FUNCTION	Cpp.Str.substr(ulong, ulong)
+cpp_str_to_string_d	A	FUNCTION	Cpp.Str.to_string(double)
+cpp_str_to_string_i	A	FUNCTION	Cpp.Str.to_string(int)
+cpp_str_to_string_l	A	FUNCTION	Cpp.Str.to_string(long)
+cpp_str_to_string_u	A	FUNCTION	Cpp.Str.to_string(uint)
+cpp_str_to_string_ul	A	FUNCTION	Cpp.Str.to_string(ulong)
+cpp_str_tostring	A	FUNCTION	Cpp.Str.ToString(): the bytes as a Fortran character string
+cpp_streams_getline_istream_str	D	FUNCTION	Cpp.Streams.getline(Cpp.IStream, Cpp.Str)
+cpp_streams_getline_istream_str_c	D	FUNCTION	Cpp.Streams.getline(Cpp.IStream, Cpp.Str, sbyte)
+cpp_sys_hardware_concurrency	C	FUNCTION	Cpp.Sys.hardware_concurrency()
+cpp_sysexception_new	C	FUNCTION	new System.<name>(message): a System exception object
+cpp_thread_new	C	FUNCTION	new Cpp.Thread.Thread()
+cpp_timepoint_clone	C	FUNCTION	Cpp.TimePoint.Clone()
+cpp_timepoint_now	C	FUNCTION	Cpp.TimePoint.now()
+cpp_timepoint_op_sub	C	FUNCTION	Cpp.TimePoint.operator -(Cpp.TimePoint, Cpp.TimePoint)
+cpp_tupn_new_oa	C	FUNCTION	new Cpp.TupN.TupN(params object[])
+cpp_u2d	A	FUNCTION	C# ulong -> double (one rounding)
+cpp_udiv8	A	FUNCTION	unsigned ulong division
+cpp_umap_assign	B	SUBROUTINE	Cpp.UMap<K, V>.Assign(Cpp.UMap<K, V>)  [as Cpp.UMap<int, Cpp.UMap<int, ulong>>.Assign(Cpp.UMap<int, Cpp.UMap<int, ulong>>)]
+cpp_umap_clone	B	FUNCTION	Cpp.UMap<K, V>.Clone()  [as Cpp.UMap<int, Cpp.UMap<int, ulong>>.Clone()]
+cpp_umap_emplace_k_v	B	FUNCTION	Cpp.UMap<K, V>.emplace(K, V)  [as Cpp.UMap<Cpp.Str, int>.emplace(Cpp.Str, int)]
+cpp_umap_index	B	FUNCTION	Cpp.UMap<K, V>.Index(K)  [as Cpp.UMap<Cpp.Str, int>.Index(Cpp.Str)]
+cpp_umap_new_funckul_funckkb_funcv	B	FUNCTION	new Cpp.UMap<K, V>.UMap(System.Func<K, ulong>?, System.Func<K, K, bool>?, System.Func<V>?)  [as Cpp.UMap<int, Cpp.UMap<int, ulong>>.UMap(System.Func<int, ulong>?, System.Func<int, int, bool>?, System.Func<Cpp.UMap<int, ulong>>?)]
+cpp_umap_new_pairkva_funckul_funckkb	B	FUNCTION	new Cpp.UMap<K, V>.UMap(Cpp.Pair<K, V>[], System.Func<K, ulong>?, System.Func<K, K, bool>?)  [as Cpp.UMap<int, Cpp.CPtr>.UMap(Cpp.Pair<int, Cpp.CPtr>[], System.Func<int, ulong>?, System.Func<int, int, bool>?)]
+cpp_umapc_assign	B	SUBROUTINE	Cpp.UMapC<K, V, H, E>.Assign(Cpp.UMapC<K, V, H, E>)  [as Cpp.UMapC<Cpp.Str, int, openswmm.CiHash, openswmm.CiEqual>.Assign(Cpp.UMapC<Cpp.Str, int, openswmm.CiHash, openswmm.CiEqual>)]
+cpp_umapc_clone	B	FUNCTION	Cpp.UMapC<K, V, H, E>.Clone()  [as Cpp.UMapC<Cpp.Str, int, openswmm.CiHash, openswmm.CiEqual>.Clone()]
+cpp_umapc_new_funcv	B	FUNCTION	new Cpp.UMapC<K, V, H, E>.UMapC(System.Func<V>?)  [as Cpp.UMapC<Cpp.Str, int, openswmm.CiHash, openswmm.CiEqual>.UMapC(System.Func<int>?)]
+cpp_urem4	A	FUNCTION	unsigned uint remainder
+cpp_urem8	A	FUNCTION	unsigned ulong remainder
+cpp_uset_insert	B	FUNCTION	Cpp.USet<T>.insert(T)  [as Cpp.USet<object>.insert(object)]
+cpp_uset_new_functul_functtb	B	FUNCTION	new Cpp.USet<T>.USet(System.Func<T, ulong>?, System.Func<T, T, bool>?)  [as Cpp.USet<object>.USet(System.Func<object, ulong>?, System.Func<object, object, bool>?)]
+cpp_variant_assign	A	SUBROUTINE	Cpp.Variant.Assign(Cpp.Variant)
+cpp_variant_clone	A	FUNCTION	Cpp.Variant.Clone()
+cpp_variant_movefrom	A	SUBROUTINE	Cpp.Variant.MoveFrom(Cpp.Variant)
+cpp_variant_new_0	A	FUNCTION	new Cpp.Variant.Variant()
+cpp_variant_set_b	A	SUBROUTINE	Cpp.Variant.Set(bool)
+cpp_variant_set_d	A	SUBROUTINE	Cpp.Variant.Set(double)
+cpp_variant_set_i	A	SUBROUTINE	Cpp.Variant.Set(int)
+cpp_variant_set_str	A	SUBROUTINE	Cpp.Variant.Set(Cpp.Str)
+cpp_vec_b_assign_itert_itert	A	SUBROUTINE	Cpp.Vec<T>.assign(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Vec<sbyte>.assign(Cpp.Iter<sbyte>, Cpp.Iter<sbyte>)]
+cpp_vec_b_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<byte>.assign(ulong, byte)]
+cpp_vec_b_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<sbyte>.Assign(Cpp.Vec<sbyte>)]
+cpp_vec_b_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<byte>.begin()]
+cpp_vec_b_capacity	A	FUNCTION	Cpp.Vec<T>.capacity()  [as Cpp.Vec<openswmm.LinkType>.capacity()]
+cpp_vec_b_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<byte>.clear()]
+cpp_vec_b_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<sbyte>.Clone()]
+cpp_vec_b_data	A	FUNCTION	Cpp.Vec<T>.data()  [as Cpp.Vec<byte>.data()]
+cpp_vec_b_empty	A	FUNCTION	Cpp.Vec<T>.empty()  [as Cpp.Vec<byte>.empty()]
+cpp_vec_b_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<byte>.end()]
+cpp_vec_b_eq	A	FUNCTION	Cpp.Vec<T>.Eq(Cpp.Vec<T>, Cpp.Vec<T>)  [as Cpp.Vec<byte>.Eq(Cpp.Vec<byte>, Cpp.Vec<byte>)]
+cpp_vec_b_erase_itert	A	FUNCTION	Cpp.Vec<T>.erase(Cpp.Iter<T>)  [as Cpp.Vec<byte>.erase(Cpp.Iter<byte>)]
+cpp_vec_b_insert_itert_t	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, T)  [as Cpp.Vec<byte>.insert(Cpp.Iter<byte>, byte)]
+cpp_vec_b_movefrom_vect	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(Cpp.Vec<T>)  [as Cpp.Vec<byte>.MoveFrom(Cpp.Vec<byte>)]
+cpp_vec_b_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<sbyte>.Vec()]
+cpp_vec_b_new_ul	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong)  [as Cpp.Vec<byte>.Vec(ulong)]
+cpp_vec_b_new_ul_t	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong, T)  [as Cpp.Vec<byte>.Vec(ulong, byte)]
+cpp_vec_b_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<openswmm.NodeCoupling2DType>.push_back(openswmm.NodeCoupling2DType)]
+cpp_vec_b_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<openswmm.LinkType>.reserve(ulong)]
+cpp_vec_b_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<sbyte>.resize(ulong)]
+cpp_vec_b_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<openswmm.LinkType>.resize(ulong, openswmm.LinkType)]
+cpp_vec_b_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<openswmm.RainSource>.shrink_to_fit()]
+cpp_vec_b_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<byte>.size()]
+cpp_vec_d_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<double>.assign(ulong, double)]
+cpp_vec_d_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<double>.Assign(Cpp.Vec<double>)]
+cpp_vec_d_back	A	FUNCTION	Cpp.Vec<T>.back()  [as Cpp.Vec<double>.back()]
+cpp_vec_d_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<double>.begin()]
+cpp_vec_d_capacity	A	FUNCTION	Cpp.Vec<T>.capacity()  [as Cpp.Vec<double>.capacity()]
+cpp_vec_d_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<double>.clear()]
+cpp_vec_d_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<double>.Clone()]
+cpp_vec_d_data	A	FUNCTION	Cpp.Vec<T>.data()  [as Cpp.Vec<double>.data()]
+cpp_vec_d_empty	A	FUNCTION	Cpp.Vec<T>.empty()  [as Cpp.Vec<double>.empty()]
+cpp_vec_d_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<double>.end()]
+cpp_vec_d_eq	A	FUNCTION	Cpp.Vec<T>.Eq(Cpp.Vec<T>, Cpp.Vec<T>)  [as Cpp.Vec<double>.Eq(Cpp.Vec<double>, Cpp.Vec<double>)]
+cpp_vec_d_erase_itert	A	FUNCTION	Cpp.Vec<T>.erase(Cpp.Iter<T>)  [as Cpp.Vec<double>.erase(Cpp.Iter<double>)]
+cpp_vec_d_front	A	FUNCTION	Cpp.Vec<T>.front()  [as Cpp.Vec<double>.front()]
+cpp_vec_d_insert_itert_ptrt_ptrt	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, Cpp.Ptr<T>, Cpp.Ptr<T>)  [as Cpp.Vec<double>.insert(Cpp.Iter<double>, Cpp.Ptr<double>, Cpp.Ptr<double>)]
+cpp_vec_d_insert_itert_t	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, T)  [as Cpp.Vec<double>.insert(Cpp.Iter<double>, double)]
+cpp_vec_d_insert_itert_ta	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, T[])  [as Cpp.Vec<double>.insert(Cpp.Iter<double>, double[])]
+cpp_vec_d_movefrom_ta	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(T[])  [as Cpp.Vec<double>.MoveFrom(double[])]
+cpp_vec_d_movefrom_vect	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(Cpp.Vec<T>)  [as Cpp.Vec<double>.MoveFrom(Cpp.Vec<double>)]
+cpp_vec_d_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<double>.Vec()]
+cpp_vec_d_new_ta	A	FUNCTION	new Cpp.Vec<T>.Vec(T[])  [as Cpp.Vec<double>.Vec(double[])]
+cpp_vec_d_new_ul	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong)  [as Cpp.Vec<double>.Vec(ulong)]
+cpp_vec_d_new_ul_t	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong, T)  [as Cpp.Vec<double>.Vec(ulong, double)]
+cpp_vec_d_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<double>.push_back(double)]
+cpp_vec_d_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<double>.reserve(ulong)]
+cpp_vec_d_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<double>.resize(ulong)]
+cpp_vec_d_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<double>.resize(ulong, double)]
+cpp_vec_d_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<double>.shrink_to_fit()]
+cpp_vec_d_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<double>.size()]
+cpp_vec_d_swap	A	SUBROUTINE	Cpp.Vec<T>.swap(Cpp.Vec<T>)  [as Cpp.Vec<double>.swap(Cpp.Vec<double>)]
+cpp_vec_f_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<float>.assign(ulong, float)]
+cpp_vec_f_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<float>.Assign(Cpp.Vec<float>)]
+cpp_vec_f_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<float>.begin()]
+cpp_vec_f_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<float>.clear()]
+cpp_vec_f_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<float>.Clone()]
+cpp_vec_f_data	A	FUNCTION	Cpp.Vec<T>.data()  [as Cpp.Vec<float>.data()]
+cpp_vec_f_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<float>.end()]
+cpp_vec_f_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<float>.Vec()]
+cpp_vec_f_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<float>.push_back(float)]
+cpp_vec_f_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<float>.resize(ulong)]
+cpp_vec_f_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<float>.size()]
+cpp_vec_i_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<int>.assign(ulong, int)]
+cpp_vec_i_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<int>.Assign(Cpp.Vec<int>)]
+cpp_vec_i_at	A	FUNCTION	Cpp.Vec<T>.at(ulong)  [as Cpp.Vec<int>.at(ulong)]
+cpp_vec_i_back	A	FUNCTION	Cpp.Vec<T>.back()  [as Cpp.Vec<int>.back()]
+cpp_vec_i_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<int>.begin()]
+cpp_vec_i_capacity	A	FUNCTION	Cpp.Vec<T>.capacity()  [as Cpp.Vec<int>.capacity()]
+cpp_vec_i_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<int>.clear()]
+cpp_vec_i_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<int>.Clone()]
+cpp_vec_i_data	A	FUNCTION	Cpp.Vec<T>.data()  [as Cpp.Vec<int>.data()]
+cpp_vec_i_empty	A	FUNCTION	Cpp.Vec<T>.empty()  [as Cpp.Vec<int>.empty()]
+cpp_vec_i_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<int>.end()]
+cpp_vec_i_eq	A	FUNCTION	Cpp.Vec<T>.Eq(Cpp.Vec<T>, Cpp.Vec<T>)  [as Cpp.Vec<int>.Eq(Cpp.Vec<int>, Cpp.Vec<int>)]
+cpp_vec_i_erase_itert	A	FUNCTION	Cpp.Vec<T>.erase(Cpp.Iter<T>)  [as Cpp.Vec<int>.erase(Cpp.Iter<int>)]
+cpp_vec_i_erase_itert_itert	A	FUNCTION	Cpp.Vec<T>.erase(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Vec<int>.erase(Cpp.Iter<int>, Cpp.Iter<int>)]
+cpp_vec_i_insert_itert_itert_itert	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Vec<int>.insert(Cpp.Iter<int>, Cpp.Iter<int>, Cpp.Iter<int>)]
+cpp_vec_i_insert_itert_t	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, T)  [as Cpp.Vec<int>.insert(Cpp.Iter<int>, int)]
+cpp_vec_i_movefrom_vect	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(Cpp.Vec<T>)  [as Cpp.Vec<int>.MoveFrom(Cpp.Vec<int>)]
+cpp_vec_i_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<int>.Vec()]
+cpp_vec_i_new_ul	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong)  [as Cpp.Vec<int>.Vec(ulong)]
+cpp_vec_i_new_ul_t	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong, T)  [as Cpp.Vec<int>.Vec(ulong, int)]
+cpp_vec_i_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<int>.push_back(int)]
+cpp_vec_i_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<int>.reserve(ulong)]
+cpp_vec_i_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<int>.resize(ulong)]
+cpp_vec_i_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<int>.resize(ulong, int)]
+cpp_vec_i_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<int>.shrink_to_fit()]
+cpp_vec_i_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<int>.size()]
+cpp_vec_i_swap	A	SUBROUTINE	Cpp.Vec<T>.swap(Cpp.Vec<T>)  [as Cpp.Vec<int>.swap(Cpp.Vec<int>)]
+cpp_vec_l_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<long>.assign(ulong, long)]
+cpp_vec_l_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<long>.Assign(Cpp.Vec<long>)]
+cpp_vec_l_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<ulong>.begin()]
+cpp_vec_l_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<long>.clear()]
+cpp_vec_l_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<long>.Clone()]
+cpp_vec_l_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<ulong>.end()]
+cpp_vec_l_movefrom_vect	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(Cpp.Vec<T>)  [as Cpp.Vec<long>.MoveFrom(Cpp.Vec<long>)]
+cpp_vec_l_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<long>.Vec()]
+cpp_vec_l_new_ul	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong)  [as Cpp.Vec<ulong>.Vec(ulong)]
+cpp_vec_l_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<long>.push_back(long)]
+cpp_vec_l_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<long>.reserve(ulong)]
+cpp_vec_l_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<long>.resize(ulong)]
+cpp_vec_l_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<long>.resize(ulong, long)]
+cpp_vec_l_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<long>.shrink_to_fit()]
+cpp_vec_l_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<long>.size()]
+cpp_vec_o_assign_itert_itert	A	SUBROUTINE	Cpp.Vec<T>.assign(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Vec<Cpp.Str>.assign(Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>)]
+cpp_vec_o_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<Cpp.Str>.assign(ulong, Cpp.Str)]
+cpp_vec_o_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<openswmm.twoD.RuntimeForcing>.Assign(Cpp.Vec<openswmm.twoD.RuntimeForcing>)]
+cpp_vec_o_at	A	FUNCTION	Cpp.Vec<T>.at(ulong)  [as Cpp.Vec<Cpp.Str>.at(ulong)]
+cpp_vec_o_back	A	FUNCTION	Cpp.Vec<T>.back()  [as Cpp.Vec<openswmm.controls.Premise>.back()]
+cpp_vec_o_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<openswmm.LidNodeConfig>.begin()]
+cpp_vec_o_capacity	A	FUNCTION	Cpp.Vec<T>.capacity()  [as Cpp.Vec<Cpp.Str>.capacity()]
+cpp_vec_o_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<openswmm.controls.ControlEngine.PendingAction>.clear()]
+cpp_vec_o_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<openswmm.twoD.RuntimeForcing>.Clone()]
+cpp_vec_o_data	A	FUNCTION	Cpp.Vec<T>.data()  [as Cpp.Vec<openswmm.XSectParams>.data()]
+cpp_vec_o_emplace_back	A	FUNCTION	Cpp.Vec<T>.emplace_back(T)  [as Cpp.Vec<Cpp.Pair<Cpp.Str, Cpp.Str>>.emplace_back(Cpp.Pair<Cpp.Str, Cpp.Str>)]
+cpp_vec_o_empty	A	FUNCTION	Cpp.Vec<T>.empty()  [as Cpp.Vec<openswmm.twoD.GwAquiferRow>.empty()]
+cpp_vec_o_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<openswmm.LidNodeConfig>.end()]
+cpp_vec_o_eq	A	FUNCTION	Cpp.Vec<T>.Eq(Cpp.Vec<T>, Cpp.Vec<T>)  [as Cpp.Vec<Cpp.Pair<int, double>>.Eq(Cpp.Vec<Cpp.Pair<int, double>>, Cpp.Vec<Cpp.Pair<int, double>>)]
+cpp_vec_o_erase_itert	A	FUNCTION	Cpp.Vec<T>.erase(Cpp.Iter<T>)  [as Cpp.Vec<Cpp.Str>.erase(Cpp.Iter<Cpp.Str>)]
+cpp_vec_o_erase_itert_itert	A	FUNCTION	Cpp.Vec<T>.erase(Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Vec<openswmm.surface.ueb.ThermalSample>.erase(Cpp.Iter<openswmm.surface.ueb.ThermalSample>, Cpp.Iter<openswmm.surface.ueb.ThermalSample>)]
+cpp_vec_o_front	A	FUNCTION	Cpp.Vec<T>.front()  [as Cpp.Vec<Cpp.Str>.front()]
+cpp_vec_o_insert_itert_itert_itert	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, Cpp.Iter<T>, Cpp.Iter<T>)  [as Cpp.Vec<Cpp.Str>.insert(Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>, Cpp.Iter<Cpp.Str>)]
+cpp_vec_o_insert_itert_t	A	FUNCTION	Cpp.Vec<T>.insert(Cpp.Iter<T>, T)  [as Cpp.Vec<Cpp.Str>.insert(Cpp.Iter<Cpp.Str>, Cpp.Str)]
+cpp_vec_o_movefrom_ta	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(T[])  [as Cpp.Vec<Cpp.Pair<Cpp.Str, double>>.MoveFrom(Cpp.Pair<Cpp.Str, double>[])]
+cpp_vec_o_movefrom_vect	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(Cpp.Vec<T>)  [as Cpp.Vec<Cpp.Str>.MoveFrom(Cpp.Vec<Cpp.Str>)]
+cpp_vec_o_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<openswmm.twoD.RuntimeForcing>.Vec()]
+cpp_vec_o_new_funct	A	FUNCTION	new Cpp.Vec<T>.Vec(System.Func<T>)  [as Cpp.Vec<int[]>.Vec(System.Func<int[]>)]
+cpp_vec_o_new_ta	A	FUNCTION	new Cpp.Vec<T>.Vec(T[])  [as Cpp.Vec<Cpp.Str>.Vec(Cpp.Str[])]
+cpp_vec_o_new_ul	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong)  [as Cpp.Vec<Cpp.Str>.Vec(ulong)]
+cpp_vec_o_new_ul_funct	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong, System.Func<T>)  [as Cpp.Vec<double[]>.Vec(ulong, System.Func<double[]>)]
+cpp_vec_o_new_ul_t	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong, T)  [as Cpp.Vec<int[]>.Vec(ulong, int[])]
+cpp_vec_o_pop_back	A	SUBROUTINE	Cpp.Vec<T>.pop_back()  [as Cpp.Vec<openswmm.transport._anon_transport_components_ReactionModule_ReactionExpression_cpp.OpEntry>.pop_back()]
+cpp_vec_o_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<openswmm.controls.ControlEngine.PendingAction>.push_back(openswmm.controls.ControlEngine.PendingAction)]
+cpp_vec_o_rbegin	A	FUNCTION	Cpp.Vec<T>.rbegin()  [as Cpp.Vec<openswmm.controls.Action>.rbegin()]
+cpp_vec_o_rend	A	FUNCTION	Cpp.Vec<T>.rend()  [as Cpp.Vec<openswmm.controls.Action>.rend()]
+cpp_vec_o_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<Cpp.Str>.reserve(ulong)]
+cpp_vec_o_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<Cpp.Str>.resize(ulong)]
+cpp_vec_o_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<Cpp.Str>.resize(ulong, Cpp.Str)]
+cpp_vec_o_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<Cpp.Vec<double>>.shrink_to_fit()]
+cpp_vec_o_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<openswmm.controls.Rule>.size()]
+cpp_vec_o_swap	A	SUBROUTINE	Cpp.Vec<T>.swap(Cpp.Vec<T>)  [as Cpp.Vec<Cpp.Ptr<double>>.swap(Cpp.Vec<Cpp.Ptr<double>>)]
+cpp_vec_s_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<openswmm.XsectShape>.assign(ulong, openswmm.XsectShape)]
+cpp_vec_s_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<openswmm.XsectShape>.Assign(Cpp.Vec<openswmm.XsectShape>)]
+cpp_vec_s_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<openswmm.XsectShape>.Clone()]
+cpp_vec_s_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<openswmm.XsectShape>.Vec()]
+cpp_vec_s_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<openswmm.XsectShape>.reserve(ulong)]
+cpp_vec_s_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<openswmm.XsectShape>.resize(ulong)]
+cpp_vec_s_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<openswmm.XsectShape>.resize(ulong, openswmm.XsectShape)]
+cpp_vec_s_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<openswmm.XsectShape>.shrink_to_fit()]
+cpp_vec_s_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<openswmm.XsectShape>.size()]
+cpp_vec_z_assign_ul_t	A	SUBROUTINE	Cpp.Vec<T>.assign(ulong, T)  [as Cpp.Vec<bool>.assign(ulong, bool)]
+cpp_vec_z_assign_vect	A	SUBROUTINE	Cpp.Vec<T>.Assign(Cpp.Vec<T>)  [as Cpp.Vec<bool>.Assign(Cpp.Vec<bool>)]
+cpp_vec_z_begin	A	FUNCTION	Cpp.Vec<T>.begin()  [as Cpp.Vec<bool>.begin()]
+cpp_vec_z_clear	A	SUBROUTINE	Cpp.Vec<T>.clear()  [as Cpp.Vec<bool>.clear()]
+cpp_vec_z_clone	A	FUNCTION	Cpp.Vec<T>.Clone()  [as Cpp.Vec<bool>.Clone()]
+cpp_vec_z_end	A	FUNCTION	Cpp.Vec<T>.end()  [as Cpp.Vec<bool>.end()]
+cpp_vec_z_movefrom_vect	A	SUBROUTINE	Cpp.Vec<T>.MoveFrom(Cpp.Vec<T>)  [as Cpp.Vec<bool>.MoveFrom(Cpp.Vec<bool>)]
+cpp_vec_z_new_0	A	FUNCTION	new Cpp.Vec<T>.Vec()  [as Cpp.Vec<bool>.Vec()]
+cpp_vec_z_new_ul_t	A	FUNCTION	new Cpp.Vec<T>.Vec(ulong, T)  [as Cpp.Vec<bool>.Vec(ulong, bool)]
+cpp_vec_z_push_back	A	SUBROUTINE	Cpp.Vec<T>.push_back(T)  [as Cpp.Vec<bool>.push_back(bool)]
+cpp_vec_z_reserve	A	SUBROUTINE	Cpp.Vec<T>.reserve(ulong)  [as Cpp.Vec<bool>.reserve(ulong)]
+cpp_vec_z_resize_ul	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong)  [as Cpp.Vec<bool>.resize(ulong)]
+cpp_vec_z_resize_ul_t	A	SUBROUTINE	Cpp.Vec<T>.resize(ulong, T)  [as Cpp.Vec<bool>.resize(ulong, bool)]
+cpp_vec_z_shrink_to_fit	A	SUBROUTINE	Cpp.Vec<T>.shrink_to_fit()  [as Cpp.Vec<bool>.shrink_to_fit()]
+cpp_vec_z_size	A	FUNCTION	Cpp.Vec<T>.size()  [as Cpp.Vec<bool>.size()]
+cpp_pair_new_0	A	FUNCTION	new Cpp.Pair<A, B>.Pair()
+cpp_tupn_new_0	C	FUNCTION	new Cpp.TupN.TupN()

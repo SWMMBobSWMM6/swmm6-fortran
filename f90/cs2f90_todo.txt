@@ -1,0 +1,3 @@
+# C# constructs the Fortran translator (tools/cs2x/Cs2F90.cs) did not translate, by kind: count, kind.
+# Written by Claude (Anthropic) for the SWMM6 ports; see AI-USE.md.
+# Total sites: 0 in 0 kinds.

@@ -1,0 +1,8 @@
+#!/bin/bash
+# runswmm6 - the gate's command for the Fortran SWMM6 engine (f90/build/swmm6, made by f90/build.sh):
+#   f90/runswmm6 model.inp r.rpt r.out
+# The engine is compiled with -frecursive (every local array on the stack) and recurses through bindings and
+# delegates, so the stack limit is raised first (unlimited, or 4 GiB where a hard limit forbids that).
+# Written by Claude (Anthropic) for the SWMM6 ports; see AI-USE.md.
+ulimit -s unlimited 2>/dev/null || ulimit -s 4194304 2>/dev/null || true
+exec "$(dirname "$(readlink -f "$0")")/build/swmm6" "$@"
